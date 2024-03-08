@@ -3,12 +3,12 @@
 
     <head>
         <title>DOST XI</title>
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
         <link rel="icon" href="\icons\DOSTLOGOsmall.png" type="image/x-icon" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
         <meta name="csrf-token" content="{{ csrf_token() }}" />
         <link href="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-1.13.6/b-2.4.2/b-html5-2.4.2/b-print-2.4.2/date-1.5.1/fc-4.3.0/fh-3.4.0/r-2.5.0/sc-2.2.0/sp-2.2.0/sl-1.7.0/datatables.min.css" rel="stylesheet">
-        <link href="{{ asset('css/all.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <style>
             .form-control {
                 color: #000000 !important;
@@ -47,10 +47,6 @@
                 color: #000000
             }
 
-            body {
-                background-color: #dddddd;
-
-            }
 
             .sidebar {}
 
@@ -61,91 +57,109 @@
         </style>
     </head>
 
-    <body data-theme="default" data-layout="fluid" data-sidebar-position="left" data-sidebar-layout="default">
-        <div class="wrapper">
+    <body>
+        @include('layouts.headernew') {{-- HEADER START --}}
+        @include('layouts.sidebarnew') {{-- SIDEBAR START --}}
 
-            {{-- SIDEBAR START --}}
-            @include('layouts.sidebar')
-
-
+        <main id="main" class="main" style="padding: 1.5rem 0.5rem 0.5rem; !important;">
             <div class="main">
-                @include('layouts.header')
+
+                @if (session('error'))
+                    <script>
+                        let errorMessage = "{{ session('error') }}";
+                        Swal.fire({
+                            icon: "error",
+                            title: "ERROR!",
+                            text: errorMessage,
+                        });
+                    </script>
+                @elseif (session('success'))
+                    <script>
+                        let successmessage = "{{ session('success') }}";
+                        Swal.fire({
+                            icon: "success",
+                            title: "",
+                            text: successmessage,
+                        });
+                    </script>
+                @endif
+
 
                 @error('excel_file')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
-                <main class="content" style="padding: 0.5rem 0.5rem 0.5rem; !important;">
-                    <div class="container-fluid p-0">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <table id="thisdatatable" class="hover table-striped table-hover compact nowrap" style="width:100%;">
 
-                                            <thead>
-                                                <tr>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body mt-2">
+                                    <table id="thisdatatable" class="hover table-striped table-hover compact nowrap" style="width:100%;">
+
+                                        <thead>
+                                            <tr>
 
 
 
-                                                    <th>Surname</th>
-                                                    <th>Firstname</th>
-                                                    <th>Middlename</th>
-                                                    <th>SPAS NO.</th>
-                                                    <th>Email</th>
+                                                <th>Surname</th>
+                                                <th>Firstname</th>
+                                                <th>Middlename</th>
+                                                <th>SPAS NO.</th>
+                                                <th>Email</th>
 
-                                                    <th style="  padding-left: 5px !important; padding-right: 5px !important;">
-                                                        <span></span>App ID
-                                                    </th>
-                                                    <th style="  padding-left: 5px !important; padding-right: 5px !important;">
-                                                        <span style="display: none">Strand </span>
-                                                    </th>
-                                                    <th style="  padding-left: 5px !important; padding-right: 5px !important;">
-                                                        <span>Program </span>
-                                                    </th>
-                                                    <th>Sex</th>
-                                                    <th>Bithdate</th>
-                                                    <th>Contact</th>
-                                                    <th>House number</th>
-                                                    <th>Street</th>
-                                                    <th>Village</th>
-                                                    <th>Barangay</th>
-                                                    <th style="  padding-left: 5px !important; padding-right: 5px !important;">
-                                                        <span> Municipality </span>
-                                                    </th>
-                                                    <th>Province</th>
-                                                    <th>Zipcode</th>
-                                                    <th>District</th>
-                                                    <th>Region</th>
-                                                    <th>HSname</th>
-                                                    <th>Lacking</th>
-                                                    <th>Remarks</th>
-                                                    <th>ID</th>
-                                                    <th>Action</th>
+                                                <th style="  padding-left: 5px !important; padding-right: 5px !important;">
+                                                    <span></span>App ID
+                                                </th>
+                                                <th style="  padding-left: 5px !important; padding-right: 5px !important;">
+                                                    <span style="display: none">Strand </span>
+                                                </th>
+                                                <th style="  padding-left: 5px !important; padding-right: 5px !important;">
+                                                    <span>Program </span>
+                                                </th>
+                                                <th>Sex</th>
+                                                <th>Bithdate</th>
+                                                <th>Contact</th>
+                                                <th>House number</th>
+                                                <th>Street</th>
+                                                <th>Village</th>
+                                                <th>Barangay</th>
+                                                <th style="  padding-left: 5px !important; padding-right: 5px !important;">
+                                                    <span> Municipality </span>
+                                                </th>
+                                                <th>Province</th>
+                                                <th>Zipcode</th>
+                                                <th>District</th>
+                                                <th>Region</th>
+                                                <th>HSname</th>
+                                                <th>Lacking</th>
+                                                <th>Remarks</th>
+                                                <th>ID</th>
+                                                <th>Action</th>
 
-                                                </tr>
-                                            </thead>
+                                            </tr>
+                                        </thead>
 
-                                            <tbody>
-                                                <tr>
-                                                </tr>
-                                            </tbody>
+                                        <tbody>
+                                            <tr>
+                                            </tr>
+                                        </tbody>
 
-                                        </table>
-                                    </div>
+                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
 
 
-                </main>
+
             </div>
 
             {{-- MODAL --}}
             <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="editModalLabel" style="font-weight: bold">Scholar Details
@@ -231,13 +245,11 @@
                         </div>
                     </div>
                 </div>
-
-
             </div>
+        </main>
 
-        </div>
         <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-        <script src="{{ asset('js/all.js') }}"></script>
+        <script src="{{ asset('js/app.js') }}"></script>
 
         <script src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-1.13.6/b-2.4.2/b-html5-2.4.2/b-print-2.4.2/date-1.5.1/fc-4.3.0/fh-3.4.0/r-2.5.0/sc-2.2.0/sp-2.2.0/sl-1.7.0/datatables.min.js"></script>
 
@@ -338,7 +350,7 @@
                             render: function(data, type, row) {
                                 var number = row.id;
                                 return '' + '<a class="table-edit" data-id="' + number +
-                                    '" ><i class="fas fa-edit"></i></a>' + ''
+                                    '" ><box-icon type="solid" name="edit"></box-icon></a>' + ''
                             }
                         },
 
@@ -482,13 +494,10 @@
                             success: function(response) {
                                 // Handle success, e.g., close the modal or show a success message
                                 console.log('Changes saved successfully:', response);
-                                notyf.success({
-                                    message: 'Record has been edited.',
-                                    duration: 6000,
-                                    position: {
-                                        x: 'right',
-                                        y: 'top',
-                                    },
+                                swal.fire({
+                                    text: 'Record has been edited.',
+                                    icon: 'success',
+                                    title: '',
                                 })
                                 // Update specific cells in DataTable with new data
                                 var dataTable = $('#thisdatatable').DataTable();

@@ -39,13 +39,13 @@
                 <section>
                     <div class="container">
                         <div class="row vh-100">
-                            <div class="col-sm-5 col-md-12 col-lg-5 col-xl-5 mx-auto d-table ">
+                            <div class="col-sm-5 col-md-12 col-lg-6 col-xl-6 mx-auto d-table ">
                                 <div class="d-table-cell align-middle">
 
                                     <div class="card">
                                         <div class="container mt-4">
                                             <div style="" class="row justify-content-center">
-                                                <img class="" src="{{ asset('icons/DOST_MAIN.png') }}" alt="" style="max-width:25rem"" height="80">
+                                                <img class="" src="{{ asset('icons/DOST_MAIN.png') }}" alt="" style="max-width:30.5rem"" height="90">
                                             </div>
                                         </div>
 

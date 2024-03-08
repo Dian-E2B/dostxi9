@@ -1,7 +1,16 @@
 <style>
     li:hover .nav-link box-icon:not(.bi-chevron-down) {
-        animation: tada 3s;
+        animation: tada 1.5s;
         animation-iteration-count: infinite;
+
+    }
+
+    .sublist {
+        margin-bottom: 0.6rem;
+    }
+
+    .sublist_name {
+        margin-left: 7px
     }
 </style>
 <aside id="sidebar" class="sidebar">
@@ -14,24 +23,57 @@
             </a>
         </li><!-- End Dashboard Nav -->
 
-        <li class="nav-item"><!-- SEI Nav -->
-            <a class="nav-link {{ request()->is('seilist') ? '' : 'collapsed' }}" data-bs-target="#sei-nav" data-bs-toggle="collapse" href="#">
+        <li class="nav-item">
+            <a class="nav-link {{ request()->is('seilist*') ? '' : 'collapsed' }}" data-bs-target="#sei-nav" data-bs-toggle="collapse" href="#">
                 <box-icon name='file' color="blue"></box-icon><span style="margin-left:7px">SEI</span>
                 <box-icon class="bi-chevron-down ms-auto" style="padding:0px; none;" name='chevron-down'></box-icon>
             </a>
-            <ul id="sei-nav" class="nav-content collapse {{ request()->is('seilist') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+            <ul id="sei-nav" class="nav-content collapse {{ request()->is('seilist*') ? 'show' : '' }} align-text-center" data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href='{{ route('seilist') }}'>
-                        <i class="bi bi-circle"></i><span>Qualifiers</span>
+                    <a href='{{ route('seilist') }}' class="{{ request()->is('seilist') ? 'active' : '' }}">
+                        <box-icon type='solid' name='right-arrow' size="xs" class="sublist" color="blue"></box-icon><span class="sublist_name">Qualifiers</span>
                     </a>
                 </li>
-                <li>
-                    <a href='{{ route('seilist2') }}'>
-                        <i class="bi bi-circle"></i><span>Potential Qualifiers</span>
+                <li class="align-text-center align-items-center">
+                    <a href='{{ route('seilist2') }}' class="{{ request()->is('seilist2') ? 'active' : '' }}">
+                        <box-icon type='solid' name='right-arrow'color="blue" class="sublist" style="" size="xs"></box-icon>
+                        <span class="sublist_name">Potential Qualifiers</span>
                     </a>
                 </li>
             </ul>
-        </li><!-- End Components Nav -->
+        </li><!-- End SEI Nav -->
+
+        <li class="nav-item text-center justify-content-md-center">
+            <a class="nav-link {{ request()->is('emails') ? '' : 'collapsed' }}" href='{{ route('emails') }}'>
+                <box-icon type='solid' name='receipt' color="blue"></box-icon><span class="sublist_name">Reply Slips</span>
+            </a>
+        </li><!-- End Replyslip Status Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link {{ request()->is('seilist*') ? '' : 'collapsed' }}" data-bs-target="#sei-nav" data-bs-toggle="collapse" href="#">
+                <box-icon name='file' color="blue"></box-icon><span style="margin-left:7px">Academic Monitoring</span>
+                <box-icon class="bi-chevron-down ms-auto" style="padding:0px; none;" name='chevron-down'></box-icon>
+            </a>
+            <ul id="sei-nav" class="nav-content collapse {{ request()->is('seilist*') ? 'show' : '' }} align-text-center" data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href='{{ route('seilist') }}' class="{{ request()->is('seilist') ? 'active' : '' }}">
+                        <box-icon type='solid' name='right-arrow' size="xs" class="sublist" color="blue"></box-icon><span class="sublist_name">Qualifiers</span>
+                    </a>
+                </li>
+                <li class="align-text-center align-items-center">
+                    <a href='{{ route('seilist2') }}' class="{{ request()->is('seilist2') ? 'active' : '' }}">
+                        <box-icon type='solid' name='right-arrow'color="blue" class="sublist" style="" size="xs"></box-icon>
+                        <span class="sublist_name">Potential Qualifiers</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End SEI Nav -->
+
+        <li class="nav-item text-center justify-content-md-center">
+            <a class="nav-link {{ request()->is('emails') ? '' : 'collapsed' }}" href='{{ route('emails') }}'>
+                <box-icon type='solid' name='receipt' color="blue"></box-icon><span class="sublist_name">Reply Slips</span>
+            </a>
+        </li><!-- End Replyslip Status Nav -->
 
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
