@@ -7,15 +7,32 @@
             <span class="d-none d-lg-block">DOST</span>
         </a>
         <box-icon name='list-ul' size="lg" class="toggle-sidebar-btn"></box-icon>
-        {{--    <i class="bi bi-list toggle-sidebar-btn"></i> --}}
     </div><!-- End Logo -->
 
-    <div class="search-bar">
-        <form class="search-form d-flex align-items-center" method="POST" action="#">
-            <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-            <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-        </form>
-    </div><!-- End Search Bar -->
+    @php
+        $currentTime = now()->format('H'); // Get the current hour in 24-hour format
+        $greeting = ''; // Initialize the greeting variable
+
+        // Determine the appropriate greeting based on the current time
+        if ($currentTime >= 5 && $currentTime < 12) {
+            $greeting = 'Good Morning';
+        } elseif ($currentTime >= 12 && $currentTime < 18) {
+            $greeting = 'Good Afternoon';
+        } else {
+            $greeting = 'Good Evening';
+        }
+    @endphp
+
+
+    <span class="col-5 d-flex align-items-center justify-content-end disable-select">
+        <h3>{{ $greeting }}!</h3>
+    </span>
+
+
+
+
+
+
 
     <nav class="header-nav ms-auto">
         <ul class="d-flex align-items-center">
@@ -170,7 +187,9 @@
             <li class="nav-item dropdown pe-3">
 
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                    <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+                    <span class="d-none d-md-block dropdown-toggle ps-2">
+                        {{ Auth::user()->username }}
+                    </span>
                 </a><!-- End Profile Iamge Icon -->
 
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">

@@ -1,6 +1,6 @@
 <style>
-    li:hover .nav-link box-icon {
-        animation: tada 1s;
+    li:hover .nav-link box-icon:not(.bi-chevron-down) {
+        animation: tada 3s;
         animation-iteration-count: infinite;
     }
 </style>
@@ -9,84 +9,25 @@
     <ul class="sidebar-nav bx-ul" id="sidebar-nav">
 
         <li class="nav-item text-center justify-content-md-center">
-            <a class="nav-link " href="index.html">
-                <box-icon name="dashboard" type="solid" color="blue"></box-icon>&nbsp;Dashboard
+            <a class="nav-link {{ request()->is('dashboard') ? '' : 'collapsed' }}" href='{{ route('dashboard') }}'>
+                <box-icon name="dashboard" type="solid" color="blue"></box-icon><span style="margin-left:7px">Dashboard</span>
             </a>
         </li><!-- End Dashboard Nav -->
 
-        <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-menu-button-wide"></i><span>Components</span><i class="bi bi-chevron-down ms-auto"></i>
+        <li class="nav-item"><!-- SEI Nav -->
+            <a class="nav-link {{ request()->is('seilist') ? '' : 'collapsed' }}" data-bs-target="#sei-nav" data-bs-toggle="collapse" href="#">
+                <box-icon name='file' color="blue"></box-icon><span style="margin-left:7px">SEI</span>
+                <box-icon class="bi-chevron-down ms-auto" style="padding:0px; none;" name='chevron-down'></box-icon>
             </a>
-            <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            <ul id="sei-nav" class="nav-content collapse {{ request()->is('seilist') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="components-alerts.html">
-                        <i class="bi bi-circle"></i><span>Alerts</span>
+                    <a href='{{ route('seilist') }}'>
+                        <i class="bi bi-circle"></i><span>Qualifiers</span>
                     </a>
                 </li>
                 <li>
-                    <a href="components-accordion.html">
-                        <i class="bi bi-circle"></i><span>Accordion</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="components-badges.html">
-                        <i class="bi bi-circle"></i><span>Badges</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="components-breadcrumbs.html">
-                        <i class="bi bi-circle"></i><span>Breadcrumbs</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="components-buttons.html">
-                        <i class="bi bi-circle"></i><span>Buttons</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="components-cards.html">
-                        <i class="bi bi-circle"></i><span>Cards</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="components-carousel.html">
-                        <i class="bi bi-circle"></i><span>Carousel</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="components-list-group.html">
-                        <i class="bi bi-circle"></i><span>List group</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="components-modal.html">
-                        <i class="bi bi-circle"></i><span>Modal</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="components-tabs.html">
-                        <i class="bi bi-circle"></i><span>Tabs</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="components-pagination.html">
-                        <i class="bi bi-circle"></i><span>Pagination</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="components-progress.html">
-                        <i class="bi bi-circle"></i><span>Progress</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="components-spinners.html">
-                        <i class="bi bi-circle"></i><span>Spinners</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="components-tooltips.html">
-                        <i class="bi bi-circle"></i><span>Tooltips</span>
+                    <a href='{{ route('seilist2') }}'>
+                        <i class="bi bi-circle"></i><span>Potential Qualifiers</span>
                     </a>
                 </li>
             </ul>

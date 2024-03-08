@@ -116,9 +116,7 @@ Route::middleware(['auth', 'role:staff'])->group(function () {
     Route::get('/requests', [\App\Http\Controllers\RequestsController::class, 'index'])->name('requests');
 
     Route::post('/upload', [WordController::class, 'upload']);
-    Route::post('/getprogramchartyearfilter', [DashboardController::class, 'getprogramchartyearfilter'])->name('getprogramchartyearfilter');
-    Route::post('/getgenderchartyearfilter', [DashboardController::class, 'getgenderchartyearfilter'])->name('getgenderchartyearfilter');
-    Route::post('/getprovincechartyearfilter', [DashboardController::class, 'getprovincechartyearfilter'])->name('getprovincechartyearfilter');
+
     Route::post('/getallyearfilter', [DashboardController::class, 'getallyearfilter'])->name('getallyearfilter');
 });
 

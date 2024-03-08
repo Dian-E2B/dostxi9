@@ -92,7 +92,7 @@ class SeiViewController extends Controller
             try {
 
                 Excel::import(new SeiImport(), $request->file(key: "excel_file"));
-                flash()->addSuccess('Records successfully Imported');
+                session()->flash('success', "Records successfully Imported");
                 return redirect()->back();
             } catch (\Exception $e) {
                 // Handle the error
@@ -180,8 +180,7 @@ class SeiViewController extends Controller
 
             $sei->save();
             $scholar->save();
-
-            flash()->addSuccess('Your changes has been saved.');
+            session()->flash('success', "Your changes has been saved.");
             // return redirect('seilist2');
             // return $this->seipotientalqualifierview();
             return redirect()->route('seilist2');

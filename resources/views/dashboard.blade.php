@@ -8,7 +8,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     </head>
     <style>
         #programportioncounter td {
@@ -59,7 +59,7 @@
     </body>
     {{-- CHART TOGGLING --}}
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.1/chart.min.js" integrity="sha512-2uu1jrAmW1A+SMwih5DAPqzFS2PI+OPw79OVLS4NJ6jGHQ/GmIVDDlWwz4KLO8DnoUmYdU8hTtFcp8je6zxbCg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
@@ -477,165 +477,8 @@
 
 
         document.addEventListener("DOMContentLoaded", function(event) {
-            /* Filter Submit Program */
-            $('#programyearform').on('submit', function(e) {
-                e.preventDefault();
-                var $this = $(this);
-                $.ajax({
-                    url: $this.prop('action'),
-                    method: 'POST',
-                    data: $this.serialize(),
-                }).done(function(response) {
-
-                    // console.log(response);
-                    //Destroy the existing chart
-                    if (window.myProgramChart) {
-                        // window.myProgramChart.destroy();
-                        ongoingPROGRAM = response.ongoingPROGRAM;
-                        startYears = [...new Set(ongoingPROGRAM.map(item => item.startyear))];
-                        scholarshipPrograms = [...new Set(ongoingPROGRAM.map(item => item
-                            .scholarshipprogram))];
 
 
-                        /* customize x label (program) */
-                        var labelsprogram = startYears.map((year, index) => {
-                            if (index < startYears.length - 1) {
-                                return year + "-" + (year + 1);
-                            } else {
-                                return year + "-" + (year + 1);
-                            }
-                        });
-                        myProgramChart.data.labels = labelsprogram;
-                        myProgramChart.data.datasets.forEach((dataset, index) => {
-                            dataset.data = startYears.map(year => {
-                                var match = ongoingPROGRAM.find(item => item
-                                    .startyear === year && item
-                                    .scholarshipprogram ===
-                                    scholarshipPrograms[
-                                        index]);
-                                return match ? match.scholarshipprogramcount :
-                                    0;
-                            });
-                        });
-                        myProgramChart.reset();
-                        myProgramChart.update(); // Update the chart to reflect the changes
-                    }
-
-                    if (window.myPieChart) {
-                        var dataPROGRAM = response.ongoingPROGRAMcounter;
-                        var labelsPROGRAM = [];
-                        var countsPROGRAM = [];
-
-                        dataPROGRAM.forEach(item => { // Use dataPROGRAM instead of data
-                            labelsPROGRAM.push(item.scholarshipprogram);
-                            countsPROGRAM.push(item.scholarshipprogramcount);
-                        });
-
-                        myPieChart.data.labels = labelsPROGRAM; // Update the labels
-                        myPieChart.data.datasets[0].data = countsPROGRAM; // Update the data
-                        myPieChart.update(); // Update the chart
-                    }
-
-
-                }).catch(error => {
-                    console.error('Error fetching or processing data:', error);
-                });
-            });
-
-            /* Filter Submit Gender */
-            $('#genderyearform').on('submit', function(e) {
-                e.preventDefault();
-                var $this = $(this);
-                $.ajax({
-                    url: $this.prop('action'),
-                    method: 'POST',
-                    data: $this.serialize(),
-                }).done(function(response) {
-                    console.log(response);
-                    //Destroy the existing chart
-                    if (window.myGenderChart) {
-
-                        var ongoingGenderResponse = response
-                            .ongoingGender; // Rename to avoid conflict
-                        var startYearsGenderResponse = [...new Set(ongoingGenderResponse.map(
-                            item =>
-                            item.startyear))]; // Rename
-                        var scholarshipGenderResponse = [...new Set(ongoingGenderResponse.map(
-                            item => item.MF))]; // Rename
-                        /* customize x label (program) */
-                        var labelsgender = startYears.map((year, index) => {
-                            if (index < startYears.length - 1) {
-                                return year + "-" + (year + 1);
-                            } else {
-                                return year + "-" + (year + 1);
-                            }
-                        });
-                        myGenderChart.data.labels = labelsgender;
-                        myGenderChart.data.datasets.forEach((dataset, index) => {
-                            dataset.data = startYearsGenderResponse.map(year => {
-                                var match = ongoingGenderResponse.find(item =>
-                                    item
-                                    .startyear === year && item.MF ===
-                                    scholarshipGenderResponse[index]);
-                                return match ? match.MFcount : 0;
-                            });
-                        });
-
-                        myGenderChart.update(); // Update the chart to reflect the changes
-                    }
-
-                    if (window.myGenderPieChart) {
-
-                        var dataGender = response
-                            .ongoingGendercounter; // Use dataGender instead of dataPROGRAM
-                        var labelsGender = [];
-                        var countsGender = [];
-
-                        dataGender.forEach(item => {
-                            labelsGender.push(item.MF);
-                            countsGender.push(item.MFcount);
-                        });
-
-                        myGenderPieChart.data.labels = labelsGender;
-                        myGenderPieChart.data.datasets[0].data = countsGender;
-                        myGenderPieChart.update();
-                    }
-
-
-                }).catch(error => {
-                    console.error('Error fetching or processing data:', error);
-                });
-            });
-
-
-
-            $('#provinceyearform').on('submit', function(e) {
-                e.preventDefault();
-                var $this = $(this);
-                $.ajax({
-                    url: $this.prop('action'),
-                    method: 'POST',
-                    data: $this.serialize(),
-                }).done(function(response) {
-                    /*  console.log(response); */
-                    //Destroy the existing chart
-                    if (window.myProvinceChart && response.dataProvinces.labelsprovince && response
-                        .dataProvinces.datasprovince) {
-                        // Update the chart data
-                        myProvinceChart.data.labels = response.dataProvinces.labelsprovince;
-                        myProvinceChart.data.datasets[0].data = response.dataProvinces
-                            .datasprovince;
-
-                        // Update the chart
-                        myProvinceChart.update();
-                    }
-
-
-
-                }).catch(error => {
-                    console.error('Error fetching or processing data:', error);
-                });
-            });
 
         });
 

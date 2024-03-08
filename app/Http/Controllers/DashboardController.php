@@ -178,7 +178,7 @@ class DashboardController extends Controller
             $courses = Ongoing::select('course', DB::raw('count(*) as courseCount'))
                 ->whereNotNull('course')
                 ->where('course', '<>', '')
-                ->where('startyear', $startYear)
+                ->whereBetween('startyear', [$startYear, $endYear])
                 ->groupBy('course')
                 ->get();
             $dataCourses = [
@@ -188,7 +188,7 @@ class DashboardController extends Controller
 
             $ongoingSchools = DB::table('ongoing')
                 ->select('school', DB::raw('count(*) as countSchool'))
-                ->where('startyear', $startYear)
+                ->whereBetween('startyear', [$startYear, $endYear])
                 ->groupBy('school')
                 ->get();
             $dataSchoool = [
@@ -200,7 +200,7 @@ class DashboardController extends Controller
             $ongoingMovements = DB::table('seis')
                 ->join('scholar_statuses', 'seis.scholar_status_id', '=', 'scholar_statuses.id')
                 ->select('scholar_statuses.status_name', DB::raw('count(*) as countMovement'))
-                ->where('year', $startYear)
+                ->whereBetween('year', [$startYear, $endYear])
                 ->groupBy('scholar_statuses.status_name')
                 ->get();
             $dataMovements  = [
@@ -222,102 +222,6 @@ class DashboardController extends Controller
                 'startYear',
                 'endYear',
             ));
-        } else {
-            // Debugbar::info($ongoingPROGRAMcounter);
-            return response()->json([]);
-        }
-    }
-
-    public function getprogramchartyearfilter(Request $request)
-    {
-        $startYear = $request->input('startyear');
-        $endYear = $request->input('endyear');
-        // Debugbar::info($startYear);
-
-        if ($startYear) {
-            $ongoingPROGRAM = DB::table('ongoing')
-                ->select('startyear', 'scholarshipprogram', DB::raw('COUNT(*) as scholarshipprogramcount'))
-                ->whereNotNull('scholarshipprogram')
-                ->whereBetween('startyear', [$startYear, $endYear])
-                ->groupBy('startyear', 'scholarshipprogram')
-                ->get();
-
-            $ongoingPROGRAMcounter = DB::table('ongoing')
-                ->select('scholarshipprogram')
-                ->selectRaw('COUNT(*) as scholarshipprogramcount')
-                ->whereIn('scholarshipprogram', ['MERIT', 'RA 10612', 'RA 7687'])
-                ->whereBetween('startyear', [$startYear, $endYear])
-                ->groupBy('scholarshipprogram')
-                ->get();
-
-            return response()->json([
-                'ongoingPROGRAM' => $ongoingPROGRAM,
-                'ongoingPROGRAMcounter' => $ongoingPROGRAMcounter,
-            ]);
-        } else {
-            // Debugbar::info($ongoingPROGRAMcounter);
-            return response()->json([]);
-        }
-    }
-
-
-    public function getgenderchartyearfilter(Request $request)
-    {
-        $startYear = $request->input('startyeargender');
-        $endYear = $request->input('endyeargender');
-
-        if ($startYear) {
-            $ongoingGender = DB::table('ongoing')
-                ->select('startyear', 'MF', DB::raw('COUNT(*) as MFcount'))
-                ->whereNotNull('MF')
-                ->whereBetween('startyear', [$startYear, $endYear])
-                ->groupBy('startyear', 'MF')
-                ->get();
-
-            $ongoingGendercounter = DB::table('ongoing')
-                ->select('MF')
-                ->selectRaw('COUNT(*) as MFcount')
-                ->whereIn('MF', ['F', 'M'])
-                ->whereBetween('startyear', [$startYear, $endYear])
-                ->groupBy('MF')
-                ->get();
-
-
-            return response()->json([
-                'ongoingGender' => $ongoingGender,
-                'ongoingGendercounter' => $ongoingGendercounter,
-            ]);
-        } else {
-            // Debugbar::info($ongoingPROGRAMcounter);
-            return response()->json([]);
-        }
-    }
-
-
-    public function getprovincechartyearfilter(Request $request)
-    {
-        $startYear = $request->input('startyearprovince');
-        $endYear = $request->input('endyearprovince');
-
-        if ($startYear) {
-
-            $ongoingProvince = DB::table('seis')
-                ->select('PROVINCE', DB::raw('COUNT(*) as countProvince'))
-                ->groupBy('PROVINCE')
-                ->where('year', $startYear)
-                ->get();
-            $dataProvinces = [
-                'labelsprovince' => $ongoingProvince->pluck('PROVINCE'),
-                'datasprovince' => $ongoingProvince->pluck('countProvince'),
-            ];
-
-
-
-
-
-            return response()->json([
-                'dataProvinces' => $dataProvinces,
-            ]);
         } else {
             // Debugbar::info($ongoingPROGRAMcounter);
             return response()->json([]);

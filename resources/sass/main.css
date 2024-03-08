@@ -12,11 +12,18 @@
     scroll-behavior: smooth;
 }
 
-body {
-    font-family: "Open Sans", sans-serif;
-    background: #f6f9ff;
-    color: #444444;
+.disable-select {
+    -webkit-user-select: none;
+    /* Safari */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* IE/Edge */
+    user-select: none;
+    /* Standard */
 }
+
+body {}
 
 a {
     color: #4154f1;
@@ -42,7 +49,7 @@ h6 {
   --------------------------------------------------------------*/
 #main {
     margin-top: 47px;
-    padding: 20px 5px;
+    padding: 20px 20px;
     transition: all 0.3s;
 }
 
