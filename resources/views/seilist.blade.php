@@ -72,7 +72,7 @@
     <body>
         @include('layouts.headernew') {{-- HEADER START --}}
         @include('layouts.sidebarnew') {{-- SIDEBAR START --}}
-        <main id="main" class="main">
+        <main id="main" class="main" style="padding: 1.5rem 0.5rem 0.5rem; !important;">
             <div class="main">
 
                 @error('excel_file')

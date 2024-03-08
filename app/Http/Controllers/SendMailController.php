@@ -71,7 +71,7 @@ class SendMailController extends Controller
                 foreach ($emailsra7687 as $email2) {
 
                     $mailData = [
-                        'title' => '<h2><span contenteditable="false">Congratulations for qualifying for the 2022 DOST-SEI S&T Undergraduate Scholarships under <strong style="color: red">RA 7687</strong>.</span></h2> ',
+                        'title' => '<h2><span contenteditable="false">Congratulations for qualifying for the ' . date('Y') . ' DOST-SEI S&T Undergraduate Scholarships under <strong style="color: red">RA 7687</strong>.</span></h2> ',
                         'message' => $content->content,
                     ];
 
@@ -119,7 +119,7 @@ class SendMailController extends Controller
                 foreach ($emailsmerit as $email) {
 
                     $mailData = [
-                        'title' => '<h2><span contenteditable="false">Congratulations for qualifying for the 2022 DOST-SEI S&T Undergraduate Scholarships under <strong style="color: red">MERIT</strong>.</span></h2> ',
+                        'title' => '<h2><span contenteditable="false">Congratulations for qualifying for the ' . date('Y') . ' DOST-SEI S&T Undergraduate Scholarships under <strong style="color: red">MERIT</strong>.</span></h2> ',
                         'message' => $content->content,
                     ];
 
@@ -162,7 +162,7 @@ class SendMailController extends Controller
                 foreach ($emailsra10612 as $email) {
 
                     $mailData = [
-                        'title' => '<h2><span contenteditable="false">Congratulations for qualifying for the 2022 DOST-SEI S&T Undergraduate Scholarships under <strong style="color: red">RA 10612</strong>.</span></h2> ',
+                        'title' => '<h2><span contenteditable="false">Congratulations for qualifying for the ' . date('Y') . ' DOST-SEI S&T Undergraduate Scholarships under <strong style="color: red">RA 10612</strong>.</span></h2> ',
                         'message' => $content->content,
                     ];
 
