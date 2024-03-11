@@ -12,6 +12,15 @@
     scroll-behavior: smooth;
 }
 
+
+.dataTables_scrollHeadInner,
+.datatable {
+    width: 100% !important
+}
+
+/*END dataTables_scrollHeadInner  MODIFIED */
+
+
 .disable-select {
     -webkit-user-select: none;
     /* Safari */
@@ -119,6 +128,8 @@ h6 {
     border: 0;
     box-shadow: 0 5px 30px 0 rgba(82, 63, 105, 0.2);
 }
+
+
 
 .dropdown-menu .dropdown-header,
 .dropdown-menu .dropdown-footer {
@@ -921,48 +932,6 @@ h6 {
     margin-left: 95px;
 }
 
-/* Recent Sales */
-.dashboard .recent-sales {
-    font-size: 14px;
-}
-
-.dashboard .recent-sales .table thead {
-    background: #f6f6fe;
-}
-
-.dashboard .recent-sales .table thead th {
-    border: 0;
-}
-
-.dashboard .recent-sales .dataTable-top {
-    padding: 0 0 10px 0;
-}
-
-.dashboard .recent-sales .dataTable-bottom {
-    padding: 10px 0 0 0;
-}
-
-/* Top Selling */
-.dashboard .top-selling {
-    font-size: 14px;
-}
-
-.dashboard .top-selling .table thead {
-    background: #f6f6fe;
-}
-
-.dashboard .top-selling .table thead th {
-    border: 0;
-}
-
-.dashboard .top-selling .table tbody td {
-    vertical-align: middle;
-}
-
-.dashboard .top-selling img {
-    border-radius: 5px;
-    max-width: 60px;
-}
 
 /*--------------------------------------------------------------
   # Icons list page

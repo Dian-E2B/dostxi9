@@ -213,23 +213,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   /**
    * Initiate Datatables
    */
-  var datatables = select('.datatable', true);
-  datatables.forEach(function (datatable) {
-    new simpleDatatables.DataTable(datatable, {
-      perPageSelect: [5, 10, 15, ["All", -1]],
-      columns: [{
-        select: 2,
-        sortSequence: ["desc", "asc"]
-      }, {
-        select: 3,
-        sortSequence: ["desc"]
-      }, {
-        select: 4,
-        cellClass: "green",
-        headerClass: "red"
-      }]
-    });
-  });
 
   /**
    * Autoresize echart charts

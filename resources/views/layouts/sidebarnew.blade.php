@@ -50,14 +50,14 @@
         </li><!-- End Replyslip Status Nav -->
 
         <li class="nav-item">
-            <a class="nav-link {{ request()->is('seilist*') ? '' : 'collapsed' }}" data-bs-target="#acad-nav" data-bs-toggle="collapse" href="#">
+            <a class="nav-link {{ request()->is('ongoinglist*') ? '' : 'collapsed' }}" data-bs-target="#acad-nav" data-bs-toggle="collapse" href="#">
                 <box-icon name='file' color="blue"></box-icon><span style="margin-left:7px">Academic Monitoring</span>
                 <box-icon class="bi-chevron-down ms-auto" style="padding:0px; none;" name='chevron-down'></box-icon>
             </a>
             <ul id="acad-nav" class="nav-content collapse {{ request()->is('seilist*') ? 'show' : '' }} align-text-center" data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href='{{ route('seilist') }}' class="{{ request()->is('seilist') ? 'active' : '' }}">
-                        <box-icon type='solid' name='right-arrow' size="xs" class="sublist" color="blue"></box-icon><span class="sublist_name">Qualifiers</span>
+                    <a href='{{ route('ongoinglist') }}' class="{{ request()->is('seilist') ? 'active' : '' }}">
+                        <box-icon type='solid' name='right-arrow' size="xs" class="sublist" color="blue"></box-icon><span class="sublist_name">Ongoing</span>
                     </a>
                 </li>
                 <li class="align-text-center align-items-center">
