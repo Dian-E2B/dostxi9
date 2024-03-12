@@ -1,9 +1,36 @@
-<nav class="navbar navbar-expand navbar-light navbar-bg">
+<!-- ======= Header ======= -->
+<header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+        <a href="index.html" class="logo d-flex align-items-center">
+            <img src="assets/img/logo.png" alt="">
+            <span class="d-none d-lg-block">DOST</span>
+        </a>
+        <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+
+    <div class="d-flex align-items-center p-2 ms-auto" style="margin-right: 1.5rem">
+        <div>
+            <button class="btn btn-light d-flex align-items-center" href="{{ route('student.logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                <box-icon name='log-out'></box-icon>
+                <span class="ms-1">Log out</span>
+            </button><!-- End Logout Button -->
+            <form id="logout-form" action="{{ route('student.logout') }}" method="POST" class="d-none">
+                @csrf
+            </form>
+        </div>
+    </div>
+
+</header><!-- End Header -->
+
+
+<!-- <nav class="navbar navbar-expand navbar-light navbar-bg">
     <a style="margin-left: 5px" class="sidebar-toggle js-sidebar-toggle">
         <i style="font-size: 25px; color: rgb(56, 55, 55)" class="fal fa-bars align-self-center"></i>
     </a>
 
-    {{-- REQUEST  DROPDOWN BUTTON --}}
+
     <ul class="navbar-nav d-lg-flex">
         <li id="requestscholar" class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="requestDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -17,7 +44,7 @@
                 <a class="dropdown-item" href="{{ route('student.viewsubmittedgrade') }}"><i class="align-middle me-1 fas fa-stamp"></i> View Grades</a>
             </div>
         </li>
-    </ul>
+    </ul>REQUEST  DROPDOWN BUTTON
 
 
     <div class="navbar-collapse collapse">
@@ -99,4 +126,4 @@
             </li>
         </ul>
     </div>
-</nav>
+</nav> -->

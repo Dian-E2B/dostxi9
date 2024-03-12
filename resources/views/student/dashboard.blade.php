@@ -3,15 +3,12 @@
 
     <head>
         <title>DOST XI</title>
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-        <link href="{{ asset('css/all.css') }}">
         <link rel="icon" href="\icons\DOSTLOGOsmall.png" type="image/x-icon" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
-        <title>Document</title>
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     </head>
 
     <body>

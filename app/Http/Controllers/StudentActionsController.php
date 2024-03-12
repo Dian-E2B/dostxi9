@@ -57,7 +57,7 @@ class StudentActionsController extends Controller
                 'updated_at' => now(),
                 'replyslip_status_id' => 4
             ]);
-            return redirect('/student/dashboard');
+            return redirect('/student/profile');
         } else if ($request->has('rejectcheckbox')) {
 
             Replyslips::where('scholar_id', $scholarid)->update([
@@ -67,10 +67,10 @@ class StudentActionsController extends Controller
                 'updated_at' => now(),
                 'replyslip_status_id' => 3
             ]);
-            return redirect('/student/dashboard');
+            return redirect('/student/profile');
         }
 
-        return redirect('/student/dashboard');
+        return redirect('/student/profile');
     }
 
 

@@ -28,69 +28,69 @@
 
     <body>
         <main>
-            <div class="container">
-                <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+            <div class="container align-items-center ">
+                <section class="section">
+                    <div class="container align-items-center">
+                        <div class="row  vh-100">
+                            <div class="col-sm-5 col-md-12 col-lg-6 col-xl-6 mx-auto d-table">
                                 <div class="d-table-cell align-middle">
-                                    <div class="card" style="margin-top: 40px">
-                                        <div class="card">
-                                            <img style="z-index:0;   max-width: 150px; max-height: 150px;" src="{{ asset('icons/DOST_scholar_logo.svg') }}">
-                                            <div class="card-body">
 
-                                                <div class="">
-                                                    <section style="color:black; background-color: white; padding: 0px 0px; text-align: center !important;">
-                                                        <h2>Welcome, Scholar!</h2>
-                                                        <p class="lead">
-                                                            Please enter your credentials.
-                                                        </p>
-                                                    </section>
-                                                    <form method="POST" action="{{ route('student.login') }}">
-                                                        @csrf
-                                                        <div class="mb-3">
+                                    <div class="card">
+                                        <img style="z-index:0;   max-width: 150px; max-height: 150px;" src="{{ asset('icons/DOST_scholar_logo.svg') }}">
+                                        <div class="card-body">
 
-                                                            <input id="email" class="form-control form-control-lg @error('email') is-invalid @enderror" name="email" type="email" value="{{ old('email') }}" placeholder="Enter your email" required autocomplete="email" autofocus />
-                                                            @error('email')
-                                                                <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $message }}</strong>
-                                                                </span>
-                                                            @enderror
+                                            <div class="">
+                                                <section style="color:black; background-color: white; padding: 0px 0px; text-align: center !important;">
+                                                    <h2>Welcome, Scholar!</h2>
+                                                    <p class="lead">
+                                                        Please enter your credentials.
+                                                    </p>
+                                                </section>
+                                                <form method="POST" action="{{ route('student.login') }}">
+                                                    @csrf
+                                                    <div class="mb-3">
+
+                                                        <input id="email" class="form-control @error('email') is-invalid @enderror" name="email" type="email" value="{{ old('email') }}" placeholder="Enter your email" required autocomplete="email" autofocus />
+                                                        @error('email')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
+                                                    </div>
+
+                                                    <div class="mb-1 mt-3">
+                                                        <div class="input-group">
+                                                            <input id="password" type="password" class="form-control" placeholder="Enter your password" name="password" aria-label="Username" aria-describedby="addon-wrapping">
+                                                            <span class="input-group-text" id="addon-wrapping" style="cursor: pointer" onclick="togglePassword()">
+                                                                <i id="eye-icon" class="far fa-eye"></i>
+                                                            </span>
                                                         </div>
-
-                                                        <div class="mb-1 mt-3">
-                                                            <div class="input-group">
-                                                                <input id="password" type="password" class="form-control form-control-lg" placeholder="Enter your password" name="password" aria-label="Username" aria-describedby="addon-wrapping">
-                                                                <span class="input-group-text" id="addon-wrapping" style="cursor: pointer" onclick="togglePassword()">
-                                                                    <i id="eye-icon" class="far fa-eye"></i>
-                                                                </span>
-                                                            </div>
-                                                            {{-- <label class="form-label">Password</label>
+                                                        {{-- <label class="form-label">Password</label>
                                                         <input class="form-control form-control-lg" type="password" name="password" placeholder="Enter your password" /> --}}
 
-                                                            {{-- @if (Route::has('password.request'))
+                                                        {{-- @if (Route::has('password.request'))
                                                         <small>
                                                             <a href="{{ route('password.request') }}">Forgot password?</a>
                                                         </small>
                                                     @endif --}}
-                                                        </div>
-                                                        <div>
+                                                    </div>
+                                                    <div>
 
-                                                            <div class="form-check align-items-center">
-                                                                <input id="customControlInline" type="checkbox" class="form-check-input" value="remember-me" name="remember-me" checked>
-                                                                <label class="form-check-label text-small" for="customControlInline">Remember me</label>
-                                                            </div>
+                                                        <div class="form-check align-items-center">
+                                                            <input id="customControlInline" type="checkbox" class="form-check-input" value="remember-me" name="remember-me" checked>
+                                                            <label class="form-check-label text-small" for="customControlInline">Remember me</label>
                                                         </div>
-                                                        <div class="d-grid gap-2 mt-3">
-                                                            <button type="submit" class='btn btn-lg btn-primary' href='/'>Sign
-                                                                in</button>
+                                                    </div>
+                                                    <div class="d-grid gap-2 mt-3">
+                                                        <button type="submit" class='btn btn-primary' href='/'>Sign
+                                                            in</button>
 
-                                                        </div>
-                                                    </form>
-                                                </div>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
+
 
                                     @if (Route::has('register'))
                                         <div style="display: none;" class="text-center mb-3">
