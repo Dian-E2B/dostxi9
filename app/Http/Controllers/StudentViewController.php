@@ -10,7 +10,9 @@ use App\Models\Scholar_requirements;
 use App\Models\Scholars;
 use App\Models\Sei;
 use App\Models\Student;
+use App\Models\Thesis;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -19,7 +21,38 @@ use Smalot\PdfParser\Parser;
 
 class StudentViewController extends Controller
 {
-    //
+    public function thesisview()
+    {
+        $scholarId = Auth::user()->scholar_id;
+        $thesis = Thesis::where('scholar_id', $scholarId)->first();
+        return view('student.thesis', ['thesis' => $thesis]);
+    }
+
+    public function thesissubmit(Request $request)   //THESIS SUBMIT SECTION
+    {
+        $scholarId = Auth::user()->scholar_id;
+
+        $customstudentsthesis = $scholarId . 'thesis' . time() . '.' . $request->file('thesispdf')->getClientOriginalExtension();
+        $storescholarshipagreement = $request->file('thesispdf')->storeAs('public/thesis', $customstudentsthesis);
+
+        if ($storescholarshipagreement) {
+            $thesis = Thesis::create([
+                'scholar_id' => $scholarId,
+                'thesis_details' => 'storage/documents/' . $customstudentsthesis,
+                'thesis_status' => 'pending',
+                'thesis_remarks' => null,
+                'updated_at' => now(),
+                'created_at' => now(),
+            ]);
+            if ($thesis) {
+                return response()->json(['message' => 'Thesis submitted successfully.'], 200);
+                /*  session()->flash('uploaded', 'Thesis Proposal Submitted'); */
+                /*  return back(); */
+            }
+        }
+    }
+
+
     public function index()
     {
 
