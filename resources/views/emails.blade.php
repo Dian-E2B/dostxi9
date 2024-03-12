@@ -26,7 +26,7 @@
                                         <li class="nav-item"><a id="thistab1" class="nav-link active d-flex align-items-center" href="#tab-1" data-bs-toggle="tab" role="tab"><box-icon name='bell-ring' type='solid' color='gray'></box-icon>&nbsp;Notified</a></li>
                                         <li class="nav-item"><a class="nav-link d-flex align-items-center" href="#tab-2" data-bs-toggle="tab" role="tab"><box-icon type='solid' name='user-check' color='gray'></box-icon>&nbsp;Availed</a></li>
                                         <li class="nav-item"><a class="nav-link d-flex align-items-center" href="#tab-3" data-bs-toggle="tab" role="tab"><box-icon name='user-x' type='solid' color='gray'></box-icon>&nbsp;Not Availed</a></li>
-                                        <li class="nav-item"><a class="nav-link d-flex align-items-center " href="#tab-4" data-bs-toggle="tab" role="tab"><box-icon type='solid' name='calendar-week' color='gray'></box-icon>&nbsp;Attendance</a></li>
+                                        <li class="nav-item"><a class="nav-link d-flex align-items-center " href="#tab-4" data-bs-toggle="tab" role="tab"><box-icon type='solid' name='calendar-week' color='gray'></box-icon>&nbsp;Deffered</a></li>
                                     </ul>
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="tab-1" role="tabpanel">

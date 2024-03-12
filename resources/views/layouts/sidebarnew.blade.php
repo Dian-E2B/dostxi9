@@ -3,12 +3,6 @@
         animation: tada 1s;
         animation-iteration-count: infinite;
 
-
-
-
-
-        /* This will change the color of the .box-icon to black on hover */
-
     }
 
     box-icon:hover {
