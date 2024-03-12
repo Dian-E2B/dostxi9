@@ -86,30 +86,64 @@ class RsmsViewController extends Controller //OR ONGOING
     }
 
 
-    public function SaveChangesOngoing(Request $request, $number)
+    public function savechangesongongoing(Request $request, $number)
     {
+        /*   $updatedData = $request->input('NAME'); */
+        // Update the record using Eloquent ORM
+        $ongoing = Ongoing::where('NUMBER', $number)->first();
+        if ($ongoing) {
+            $ongoingupdate =  $ongoing->update([
+                'NAME' => $request->input('NAME'),
+                'MF' => $request->input('MF'),
+                'SCHOLARSHIPPROGRAM' => $request->input('SCHOLARSHIPPROGRAM'),
+                'SCHOOL' => $request->input('SCHOOL'),
+                'COURSE' => $request->input('COURSE'),
+                'GRADES' => $request->input('GRADES'),
+                'SummerREG' => $request->input('SummerREG'),
+                /*   'REGFORMS' => $request->input('regFormsField'), */
+                'STATUSENDORSEMENT' => $request->input('STATUSENDORSEMENT'),
+                'STATUSENDORSEMENT2' => $request->input('STATUSENDORSEMENT2'),
+                'STATUS' => $request->input('STATUS'),
+                'NOTATIONS' => $request->input('NOTATIONS'),
+                'SUMMER' => $request->input('SUMMER'),
+                'FARELEASEDTUITION' => $request->input('FARELEASEDTUITION'),
+                'FARELEASEDTUITIONBOOKSTIPEND' => $request->input('FARELEASEDTUITIONBOOKSTIPEND'),
+                'LVDCAccount' => $request->input('LVDCAccount'),
+                'HVCNotes' => $request->input('HVCNotes'),
+            ]);
 
-        /*  $record = Ongoing::where('NUMBER', $number)->first(); */
-        DB::table('ongoing')
-            ->where('NUMBER', $number)
-            ->update($request->only([
-                'NAME', 'MF', 'SCHOLARSHIPPROGRAM', 'SCHOOL', 'COURSE', 'GRADES', 'SummerREG',
-                'REGFORMS', 'STATUSENDORSEMENT', 'STATUSENDORSEMENT2', 'STATUS', 'NOTATIONS',
-                'SUMMER', 'FARELEASEDTUITION', 'FARELEASEDTUITIONBOOKSTIPEND', 'LVDCAccount', 'HVCNotes',
-            ]));
+            if ($ongoingupdate) {
+                $ongoing = Ongoing::where('NUMBER', $number)->first();
+            }
+            /*     return response()->json(['result' =>   $updatedData]); */
+            /*  if ($ongoingupdate) {
+                return response()->json(['message' => 'Data updated successfully']);
+            } else {
+                return response()->json(['message' => 'Failed to update data'], 500);
+            } */
+            /* if ($ongoingupdate) {
 
-        DB::table('ongoingremarks')->updateOrInsert(
-            ['scholar_id' => $number], // Update based on this condition
-            $request->only(['remarksDetails', 'semester', 'startyear', 'endyear'])
-        );
+                DB::table('ongoingremarks')->updateOrInsert(
+                    ['scholar_id' => $number], // Update based on this condition
+                    $request->only(['remarksDetails', 'semester', 'startyear', 'endyear'])
+                );
 
-        DB::table('ongoingregforms')->updateOrInsert(
-            ['scholar_id' => $number], // Update based on this condition
-            $request->only(['regformsDetails', 'semester', 'startyear', 'endyear'])
-        );
+                DB::table('ongoingregforms')->updateOrInsert(
+                    ['scholar_id' => $number], // Update based on this condition
+                    $request->only(['regformsDetails', 'semester', 'startyear', 'endyear'])
+                );
 
-        return response()->json(['message' => 'Changes saved successfully']);  // You can return a response if needed
+                return response()->json(['message' => 'Changes saved successfully']);  // You can return a response if needed
+
+            } else {
+                return response()->json(['error' => 'Failed to save changes'], 500);
+            } */
+        } else {
+
+            return response()->json(['error' =>  $number]);
+        }
     }
+
 
     public function getOngoingById($number)
     {

@@ -41,7 +41,7 @@ class Student extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
+        /*  'password' => 'hashed', */ //WORKS ON LARAVEL 10
     ];
 
     public function scholars()

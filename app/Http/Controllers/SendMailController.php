@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Hash;
 use App\Models\EmailContent;
 use App\Models\Replyslips;
 use App\Models\Student;
@@ -82,11 +83,13 @@ class SendMailController extends Controller
                     $birthday = $sei->bday;
                     $username = $sei->fname;
                     $WithoutHyphensbirthday = str_replace('-', '', $birthday);
-                    $password101 = bcrypt($WithoutHyphensbirthday);
+                    $password101 = Hash::make($WithoutHyphensbirthday);
+                    /*  $password101 = bcrypt($WithoutHyphensbirthday); */
 
                     try {
                         // Send the email
                         $var = Mail::to($email2)->send(new Mailnotifyawards($mailData));
+
 
                         if ($var) {
                             // Update the scholar_status_id to 1 meaning pending
@@ -109,9 +112,10 @@ class SendMailController extends Controller
                     } catch (Exception $e) {
                         // dd($e->getMessage());
                         //do nothing
+                        session()->flash('error', 'ERROR: ' . $e->getMessage());
                     }
                 }
-                flash()->addSuccess('Your notice for All RA 7687 has been sent!');
+                session()->flash('success', 'Your notice for All RA 7687 has been sent!');
             }
 
 
@@ -128,7 +132,7 @@ class SendMailController extends Controller
                     $birthday = $sei->bday;
                     $username = $sei->fname;
                     $WithoutHyphensbirthday = str_replace('-', '', $birthday);
-                    $password101 = bcrypt($WithoutHyphensbirthday);
+                    $password101 = Hash::make($WithoutHyphensbirthday);
 
                     try {
                         // Send the email
@@ -148,11 +152,10 @@ class SendMailController extends Controller
                             ['scholar_id' => $id],
                             ['email' => $email, 'password' => $password101, 'username' => $username]
                         );
-
-                        flash()->addSuccess('Your notice for All Merit has been sent!'); //UPDATED 02/21/2024
+                        session()->flash('success', 'Your notice for All Merit has been sent!'); //UPDATED 03/11/2024
                     } catch (Exception $e) {
                         // dd($e->getMessage());
-                        flash()->addError('Sorry, an error occurred:' . $e->getMessage());
+                        session()->flash('error', 'Sorry, an error occurred:' . $e->getMessage());
                     }
                 }
             }
@@ -171,7 +174,13 @@ class SendMailController extends Controller
                     $birthday = $sei->bday;
                     $username = $sei->fname;
                     $WithoutHyphensbirthday = str_replace('-', '', $birthday);
-                    $password101 = bcrypt($WithoutHyphensbirthday);
+
+
+                    $password101 = Hash::make($WithoutHyphensbirthday, [
+                        'rounds' => 12,
+                    ]);
+
+                    dd($password101);
 
                     try {
                         // Send the email
@@ -193,14 +202,14 @@ class SendMailController extends Controller
                         );
                     } catch (Exception $e) {
                         // dd($e->getMessage());
-                        flash()->addError('Sorry, an error occurred: ' . $e->getMessage());
+                        session()->flash('error', 'Sorry, an error occurred:' . $e->getMessage());
                         //do nothing
                     }
                 }
-                flash()->addSuccess('Your notice for RA 10612 has been sent!');
+                session()->flash('success', 'Your notice for RA 10612 has been sent!');
             }
         } else {
-            flash()->addError('A duplicate email entry in your records. Please Check');
+            session()->flash('error', 'A duplicate email entry in your records. Please Check');
         }
 
         /* return response()->json($duplicateEmails); */

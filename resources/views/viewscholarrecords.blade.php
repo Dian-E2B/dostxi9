@@ -2,8 +2,22 @@
 <html lang="en">
 
     <head>
-        @include('layouts.head')
+        <title>DOST XI</title>
+        <link rel="icon" href="\icons\DOSTLOGOsmall.png" type="image/x-icon" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <meta name="csrf-token" content="{{ csrf_token() }}" />
+
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        {{-- Jquery Js --}}
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     </head>
     <style>
         .customtable,
@@ -33,213 +47,196 @@
         /* Add more styles as needed */
     </style>
 
-    <body data-theme="default" data-layout="fluid" data-sidebar-position="left" data-sidebar-layout="default">
-        <div data-bs-theme="dark" class="wrapper">
+    <body>
+        @include('layouts.headernew') {{-- HEADER START --}}
+        @include('layouts.sidebarnew') {{-- SIDEBAR START --}}
+        <main id="main" class="main" style="padding: 1.5rem 0.5rem 0.5rem; !important;">
+            <div class="wrapper">
+                <div class="">
 
+                    <div class="card-body">
+                        <div class="row">
 
+                            <div class="col-12 col-lg-12">
+                                <div class="tab">
 
-            {{-- SIDEBAR START --}}
-            @include('layouts.sidebar')
-            {{-- SIDEBAR END --}}
-
-            <div class="main">
-
-                @include('layouts.header')
-
-                <main class="content" style="padding:0.5rem 0.5rem 0.5rem">
-
-
-
-                    <div class="">
-
-                        <div class="card-body">
-                            <div class="row">
-
-                                <div class="col-12 col-lg-12">
-                                    <div class="tab">
-
-                                        <ul class="nav nav-tabs" role="tablist">
-                                            <li class="nav-item"><a class="nav-link tablinks" href="{{ url()->previous() }}"><i class="fas fa-arrow-square-left"></i></a></li>
-                                            <li class="nav-item"><a class="nav-link tablinks active" href="#tab-1" data-bs-toggle="tab" role="tab">Grading</a></li>
-                                            <li class="nav-item"><a class="nav-link tablinks" id="tab2" href="#tab-2" data-bs-toggle="tab" role="tab">COR</a></li>
-                                            <li class="nav-item"><a class="nav-link tablinks" id="tab3" href="#tab-3" data-bs-toggle="tab" role="tab">Documents</a></li>
-                                        </ul>
-                                        <div class="tab-content">
-                                            <div class="tab-pane active" id="tab-1" role="tabpanel">
-                                                @foreach ($resultArray as $year => $semesters)
-                                                    <div class="row">
-                                                        <div style="text-align: center">SCHOOL YEAR {{ $year }} - {{ $year + 1 }}</div>
-                                                        @foreach ($semesters as $semester => $data)
-                                                            <div class="col-6">
-                                                                <div style="text-align: center">
-                                                                    @if ($semester == 1)
-                                                                        1ST SEMESTER
-                                                                    @elseif ($semester == 2)
-                                                                        2ND SEMESTER
-                                                                    @else
-                                                                        SUMMER
-                                                                    @endif
-                                                                </div>
-                                                                <table id="thisdatatable" class="table display nowrap compact table-bordered" style="width:100%">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th>Subject</th>
-                                                                            <th>Grade</th>
-                                                                            <th>Unit</th>
-                                                                            <th>Verify</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        @foreach ($data as $record)
-                                                                            {{-- Check if "cogdetails" is not empty and is an array --}}
-                                                                            @if (!empty($record['cogdetails']) && is_array($record['cogdetails']))
-                                                                                {{-- If "cogdetails" is an array and not empty, loop through its items --}}
-                                                                                @foreach ($record['cogdetails'] as $cogDetail)
-                                                                                    <tr>
-                                                                                        <td>{{ $cogDetail['subjectname'] ?? 'N/A' }}</td>
-                                                                                        <td>{{ $cogDetail['grade'] ?? 'N/A' }}</td>
-                                                                                        <td>{{ $cogDetail['unit'] ?? 'N/A' }}</td>
-                                                                                        <td> <a href="#" class="edit-btn" data-number="{{ $cogDetail['id'] }}"><i class="fad fa-pencil" style="--fa-primary-color: #000000; --fa-secondary-color: #2899a7; --fa-secondary-opacity: 1;"></i></a></td>
-                                                                                    </tr>
-
-                                                                                    {{-- Add other columns from "CogDetails" as needed --}}
-                                                                                @endforeach
-                                                                            @else
-                                                                                {{-- If "cogdetails" is empty or not an array --}}
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li class="nav-item"><a class="nav-link tablinks" href="{{ url()->previous() }}"><i class="fas fa-arrow-square-left"></i></a></li>
+                                        <li class="nav-item"><a class="nav-link tablinks active" href="#tab-1" data-bs-toggle="tab" role="tab">Grading</a></li>
+                                        <li class="nav-item"><a class="nav-link tablinks" id="tab2" href="#tab-2" data-bs-toggle="tab" role="tab">COR</a></li>
+                                        <li class="nav-item"><a class="nav-link tablinks" id="tab3" href="#tab-3" data-bs-toggle="tab" role="tab">Documents</a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="tab-1" role="tabpanel">
+                                            @foreach ($resultArray as $year => $semesters)
+                                                <div class="row">
+                                                    <div style="text-align: center">SCHOOL YEAR {{ $year }} - {{ $year + 1 }}</div>
+                                                    @foreach ($semesters as $semester => $data)
+                                                        <div class="col-6">
+                                                            <div style="text-align: center">
+                                                                @if ($semester == 1)
+                                                                    1ST SEMESTER
+                                                                @elseif ($semester == 2)
+                                                                    2ND SEMESTER
+                                                                @else
+                                                                    SUMMER
+                                                                @endif
+                                                            </div>
+                                                            <table id="thisdatatable" class="datatable table display nowrap compact table-bordered" style="width:100%">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Subject</th>
+                                                                        <th>Grade</th>
+                                                                        <th>Unit</th>
+                                                                        <th>Verify</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach ($data as $record)
+                                                                        {{-- Check if "cogdetails" is not empty and is an array --}}
+                                                                        @if (!empty($record['cogdetails']) && is_array($record['cogdetails']))
+                                                                            {{-- If "cogdetails" is an array and not empty, loop through its items --}}
+                                                                            @foreach ($record['cogdetails'] as $cogDetail)
                                                                                 <tr>
-                                                                                    <td>{{ $record['cogdetails']['subjectname'] ?? 'N/A' }}</td>
-                                                                                    <td>{{ $record['cogdetails']['grade'] ?? 'N/A' }}</td>
-                                                                                    <td>{{ $record['cogdetails']['unit'] ?? 'N/A' }}</td>
-                                                                                    <td> <a href="#" class="edit-btn" data-number="{{ $record['cogdetails']['id'] ?? 'N/A' }}"><i class="fad fa-pencil" style="--fa-primary-color: #000000; --fa-secondary-color: #2899a7; --fa-secondary-opacity: 1;"></i></a></td>
+                                                                                    <td>{{ $cogDetail['subjectname'] ?? 'N/A' }}</td>
+                                                                                    <td>{{ $cogDetail['grade'] ?? 'N/A' }}</td>
+                                                                                    <td>{{ $cogDetail['unit'] ?? 'N/A' }}</td>
+                                                                                    <td> <a href="#" class="edit-btn" data-number="{{ $cogDetail['id'] }}"><i class="fad fa-pencil" style="--fa-primary-color: #000000; --fa-secondary-color: #2899a7; --fa-secondary-opacity: 1;"></i></a></td>
                                                                                 </tr>
 
                                                                                 {{-- Add other columns from "CogDetails" as needed --}}
-                                                                            @endif
+                                                                            @endforeach
+                                                                        @else
+                                                                            {{-- If "cogdetails" is empty or not an array --}}
                                                                             <tr>
-                                                                                <td>scholarshipstatus</td>
-                                                                                <td colspan="2">
-                                                                                    @if (isset($record['scholarshipstatus']))
-                                                                                        {{ $record['scholarshipstatus'] }}
-                                                                                    @endif
-                                                                                </td>
-                                                                                <td><a href="#" class="edit-scholarshipstatusbtn" data-cognumber="{{ $record['id'] }}"><i class="fad fa-pencil" style="--fa-primary-color: #000000; --fa-secondary-color: #2899a7; --fa-secondary-opacity: 1;"></i></i></a></td>
+                                                                                <td>{{ $record['cogdetails']['subjectname'] ?? 'N/A' }}</td>
+                                                                                <td>{{ $record['cogdetails']['grade'] ?? 'N/A' }}</td>
+                                                                                <td>{{ $record['cogdetails']['unit'] ?? 'N/A' }}</td>
+                                                                                <td> <a href="#" class="edit-btn" data-number="{{ $record['cogdetails']['id'] ?? 'N/A' }}"><i class="fad fa-pencil" style="--fa-primary-color: #000000; --fa-secondary-color: #2899a7; --fa-secondary-opacity: 1;"></i></a></td>
                                                                             </tr>
-                                                                        @endforeach
-                                                                        {{-- @php
+
+                                                                            {{-- Add other columns from "CogDetails" as needed --}}
+                                                                        @endif
+                                                                        <tr>
+                                                                            <td>scholarshipstatus</td>
+                                                                            <td colspan="2">
+                                                                                @if (isset($record['scholarshipstatus']))
+                                                                                    {{ $record['scholarshipstatus'] }}
+                                                                                @endif
+                                                                            </td>
+                                                                            <td><a href="#" class="edit-scholarshipstatusbtn" data-cognumber="{{ $record['id'] }}"><i class="fad fa-pencil" style="--fa-primary-color: #000000; --fa-secondary-color: #2899a7; --fa-secondary-opacity: 1;"></i></i></a></td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                    {{-- @php
                                                     @dd($record, $record['scholarshipstatus']);
                                                 @endphp --}}
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
-                                                        @endforeach
-                                                    </div>
-                                                @endforeach
-                                                <button class="print-button btn " style="background-color: rgb(240, 240, 240)"><input hidden type="text" class="print-btn" id="print-btn" value="{{ $number }}" /><i class="fad fa-print" style="--fa-primary-color: #000000; --fa-secondary-color: #2899a7; --fa-secondary-opacity: 1;"></i></button>
-
-                                                {{-- START OFFCANVAS --}}
-                                                <div class="offcanvas offcanvas-start" id="editModal" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
-                                                    <div class="offcanvas-header">
-                                                        <h5 class="offcanvas-title" id="offcanvasScrollingLabel">EDIT SCHOLAR DETAILS</h5>
-                                                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="offcanvas-body">
-                                                        <table class="  customtable" style="width:100%">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th class="customth">ID</th>
-                                                                    <td class="customtd"> <input disabled class="form-control form-control-sm" id="idField" name="idField" placeholder=""></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th class="customth">Subject Name:</th>
-                                                                    <td class="customtd"> <input class="form-control form-control-sm" id="subjectField" name="subjectField"></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th class="customth">Grade:</th>
-                                                                    <td class="customtd"> <input class="form-control form-control-sm" id="gradeField" name="gradeField"></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th class="customth">Unit:</th>
-                                                                    <td class="customtd"> <input class="form-control form-control-sm" id="unitField" name="unitField"></td>
-                                                                </tr>
-                                                        </table>
-                                                        <button type="button" class="btn btn-success mt-3" id="CompletegradeBtn">Complete</button><br>
-                                                        <button type="button" class="btn btn-primary mt-3" id="saveChangesBtn">Save Changes</button>
-                                                    </div>
-
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    @endforeach
                                                 </div>
+                                            @endforeach
+                                            <button class="print-button btn " style="background-color: rgb(240, 240, 240)"><input hidden type="text" class="print-btn" id="print-btn" value="{{ $number }}" /><i class="fad fa-print" style="--fa-primary-color: #000000; --fa-secondary-color: #2899a7; --fa-secondary-opacity: 1;"></i></button>
 
-                                                {{-- SCHOLARSHIP OFFCANVAS --}}
-                                                <div class="offcanvas offcanvas-start" id="editscholarshipModal" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" aria-labelledby="offcanvasScrollingLabel">
-                                                    <div class="offcanvas-header">
-                                                        <h5 class="offcanvas-title" id="offcanvasScrollingLabel">EDIT SCHOLAR DETAILS</h5>
-                                                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="offcanvas-body">
-                                                        <table class="customtable" style="width:100%">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th class="customth">ID</th>
-                                                                    <td class="customtd"> <input class="form-control form-control-sm" id="cogdetaildIDField" name="cogdetaildIDField" placeholder=""></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th class="customth">Scholarship Status</th>
-                                                                    <td class="customtd"> <input class="form-control form-control-sm" id="scholarshipField" name="scholarshipField" placeholder=""></td>
-                                                                </tr>
-
-                                                            <tbody>
-                                                            </tbody>
-                                                        </table>
-
-                                                        <button type="button" class="btn btn-primary mt-3" id="SaveChangesScholarshipStatusBtn">Save Changes</button>
-                                                    </div>
+                                            {{-- START OFFCANVAS --}}
+                                            <div class="offcanvas offcanvas-start" id="editModal" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+                                                <div class="offcanvas-header">
+                                                    <h5 class="offcanvas-title" id="offcanvasScrollingLabel">EDIT SCHOLAR DETAILS</h5>
+                                                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                                </div>
+                                                <div class="offcanvas-body">
+                                                    <table class="datatable customtable" style="width:100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="customth">ID</th>
+                                                                <td class="customtd"> <input disabled class="form-control form-control-sm" id="idField" name="idField" placeholder=""></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th class="customth">Subject Name:</th>
+                                                                <td class="customtd"> <input class="form-control form-control-sm" id="subjectField" name="subjectField"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th class="customth">Grade:</th>
+                                                                <td class="customtd"> <input class="form-control form-control-sm" id="gradeField" name="gradeField"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th class="customth">Unit:</th>
+                                                                <td class="customtd"> <input class="form-control form-control-sm" id="unitField" name="unitField"></td>
+                                                            </tr>
+                                                    </table>
+                                                    <button type="button" class="btn btn-success mt-3" id="CompletegradeBtn">Complete</button><br>
+                                                    <button type="button" class="btn btn-primary mt-3" id="saveChangesBtn">Save Changes</button>
                                                 </div>
 
                                             </div>
-                                            <div class="tab-pane" id="tab-2" role="tabpanel">
-                                                <table id="thisdatatable2" class="display nowrap compact table-striped" style="width:100%">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>View: </th>
-                                                            <th>COR/COG detail: </th>
-                                                            <th>Semester:</th>
-                                                            <th>Startyear:</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
 
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="tab-pane" id="tab-3" role="tabpanel">
-                                                <table id="thisdatatable3" class="display nowrap compact table-striped" style="width:100%">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>View: </th>
-                                                            <th>Document Name: </th>
-                                                            <th>Document Name: </th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
+                                            {{-- SCHOLARSHIP OFFCANVAS --}}
+                                            <div class="offcanvas offcanvas-start" id="editscholarshipModal" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" aria-labelledby="offcanvasScrollingLabel">
+                                                <div class="offcanvas-header">
+                                                    <h5 class="offcanvas-title" id="offcanvasScrollingLabel">EDIT SCHOLAR DETAILS</h5>
+                                                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                                </div>
+                                                <div class="offcanvas-body">
+                                                    <table class="customtable" style="width:100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="customth">ID</th>
+                                                                <td class="customtd"> <input class="form-control form-control-sm" id="cogdetaildIDField" name="cogdetaildIDField" placeholder=""></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th class="customth">Scholarship Status</th>
+                                                                <td class="customtd"> <input class="form-control form-control-sm" id="scholarshipField" name="scholarshipField" placeholder=""></td>
+                                                            </tr>
 
-                                                    </tbody>
-                                                </table>
+                                                        <tbody>
+                                                        </tbody>
+                                                    </table>
+
+                                                    <button type="button" class="btn btn-primary mt-3" id="SaveChangesScholarshipStatusBtn">Save Changes</button>
+                                                </div>
                                             </div>
 
                                         </div>
+                                        <div class="tab-pane" id="tab-2" role="tabpanel">
+                                            <table id="thisdatatable2" class="display nowrap compact table-striped" style="width:100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th>View: </th>
+                                                        <th>COR/COG detail: </th>
+                                                        <th>Semester:</th>
+                                                        <th>Startyear:</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="tab-pane" id="tab-3" role="tabpanel">
+                                            <table id="thisdatatable3" class="datatable display nowrap compact table-striped" style="width:100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th>View: </th>
+                                                        <th>Document Name: </th>
+                                                        <th>Document Name: </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
-                </main>
+                </div>
             </div>
-
-
-        </div>
+        </main>
     </body>
-    <script src="{{ asset('js/all.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
     <script src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-1.13.8/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/date-1.5.1/fc-4.3.0/fh-3.4.0/r-2.5.0/sc-2.3.0/sp-2.2.0/sl-1.7.0/datatables.min.js"></script>
     <script>
         jQuery(document).ready(function($) {

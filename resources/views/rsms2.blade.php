@@ -3,15 +3,22 @@
 
     <head>
         <title>DOST XI</title>
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-        <link rel="icon" href="\icons\DOSTLOGOsmall.png" type="image/x-icon" />
 
+        <link rel="icon" href="\icons\DOSTLOGOsmall.png" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
         <!-- Include DataTables CSS -->
         <link href="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-1.13.8/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/date-1.5.1/fc-4.3.0/fh-3.4.0/r-2.5.0/sc-2.3.0/sp-2.2.0/sl-1.7.0/datatables.min.css" rel="stylesheet">
 
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-        <link href="{{ asset('css/all.css') }}">
-        <meta name="csrf-token" content="{{ csrf_token() }}" />
+        <!-- Include jQuery -->
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <style>
             th {
                 padding-left: 8px;
@@ -32,16 +39,17 @@
             .action-column {}
 
 
-            body {
-                background-color: rgb(255, 255, 255);
-                background-color: #dddddd;
-            }
-
             .content {
                 background-color: white;
             }
 
+            @media print {}
+
             @media print {
+                body {
+                    zoom: 31%;
+                }
+
                 #logo {
                     display: block;
                     position: relative;
@@ -100,34 +108,19 @@
         </style>
     </head>
 
-    <body data-theme="default" data-layout="fluid" data-sidebar-position="left" data-sidebar-layout="default">
-        <div data-bs-theme="dark" class="wrapper">
-            {{-- SIDEBAR START --}}
-            @include('layouts.sidebar')
-            {{-- SIDEBAR END --}}
-            <div class="main">
-                @include('layouts.header')
+    <body>
+        @include('layouts.headernew')
+        @include('layouts.sidebarnew')
+        <div class="wrapper">
 
-                <main class="content" style="padding:0.5rem 0.5rem 0.5rem">
-                    <div class="">
+            <main id="main" class="main" style="padding: 1.5rem 0.5rem 0.5rem; !important;">
+
+                <div class="main">
+                    <div class="container-fluid">
                         <input hidden id="semester" value="{{ $semester }}">
                         <input hidden id="startyear" value="{{ $startyear }}">
                         <input hidden id="endyear" value="{{ $endyear }}">
-                        <h3>
-                            @if ($semester == 1)
-                                @php
-                                    echo $semester . 'ST SEM ' . $startyear . '-' . $startyear + 1;
-                                @endphp
-                            @elseif ($semester == 2)
-                                @php
-                                    echo $semester . 'ND SEM ' . $startyear . '-' . $startyear + 1;
-                                @endphp
-                            @else
-                                @php
-                                    echo 'SUMMER ' . $startyear . '-' . $startyear + 1;
-                                @endphp
-                            @endif
-                        </h3>
+
 
 
                         {{-- <form method="POST" action="/upload" enctype="multipart/form-data">
@@ -135,108 +128,121 @@
                             <input type="file" name="wordFile">
                             <button type="submit">Upload</button>
                         </form> --}}
+                        <div class="card">
 
-                        <div class="">
-                            <img id="logo" src="{{ asset('icons/DOSTlogoONGOING.jpg') }}" style="display: none;">
-                            <div class="">
-                                <table id="yourDataTable" class="display nowrap compact table-striped" style="width:100%">
-                                    <thead>
-                                        <tr>
-                                            <th>Action</th>
-                                            <th>Batch</th>
-                                            <th style="width:100px !important;">Number</th>
-                                            <th>Name</th>
-                                            <th style="width:100px !important;"><span style="" hidden>MF</span>
-                                            </th>
-                                            <th style="width:100px !important;"><span style="" hidden>Program</span></th>
-                                            <th style="width:150px !important;"><span style="" hidden>School</span></th>
-                                            <th style="width:150px !important;"><span style="" hidden>Course</span></th>
-                                            <th>
-                                                @if ($semester == 1)
-                                                    {{-- 1ST SEM --}}
-                                                    @php
-                                                        $semester2 = $semester + 1; //2ND
-                                                        $startyear2 = $startyear - 1;
-                                                        $endyear2 = $endyear - 1;
-                                                    @endphp
-                                                    {{ 'GRADES' . $semester2 . 'NDSEM' . $startyear2 . '' . $endyear2 }}
-                                                @elseif ($semester == 2)
-                                                    {{-- 2ND SEM --}}
-                                                    @php
-                                                        $semester2 = $semester - 1; //1ST
-                                                        $startyear2 = $startyear;
-                                                        $endyear2 = $endyear;
-                                                    @endphp
-                                                    {{ 'GRADES' . $semester2 . 'STSEM' . $startyear2 . '' . $endyear2 }}
-                                                @elseif ($semester == 3)
-                                                    {{-- SUMMER --}}
-                                                    @php
-                                                        $semester2 = $semester - 1; //2ND SEM
-                                                        $startyear2 = $startyear - 1; //CURRENT
-                                                        $endyear2 = $endyear; //
-                                                    @endphp
-                                                    {{ 'GRADES' . $semester2 . 'NDSEM' . $startyear2 . '' . $endyear2 }}
-                                                @endif
-                                            </th>
-                                            <th>SummerREG</th>
-                                            <th>
-                                                @if ($semester == 1)
-                                                    {{-- 1ST SEM --}}
-                                                    @php
-                                                        $semester2 = $semester;
-                                                        $startyear2 = $startyear;
-                                                        $endyear2 = $endyear;
-                                                    @endphp
-                                                    {{ 'REG FORMS' . $semester2 . 'STSEM' . $startyear2 . '' . $endyear2 }}
-                                                @elseif ($semester == 2)
-                                                    {{-- 2ND SEM --}}
-                                                    @php
-                                                        $semester2 = $semester;
-                                                        $startyear2 = $startyear;
-                                                        $endyear2 = $endyear;
-                                                    @endphp
-                                                    {{ 'REG FORMS' . $semester2 . 'NDSEM' . $startyear2 . '' . $endyear2 }}
-                                                @elseif ($semester == 3)
-                                                    {{-- SUMMER --}}
-                                                    @php
-                                                        $semester2 = $semester - 2; //1ST SEM
-                                                        $startyear2 = $startyear; //(SAME STARTYEAR,+1 ENDYEAR)
-                                                        $endyear2 = $endyear + 1; //
-                                                    @endphp
-                                                    {{ 'REG FORMS' . $semester2 . 'STSEM' . $startyear2 . '' . $endyear2 }}
-                                                @endif
-                                            </th>
-                                            <th>REMARKS</th>
-                                            <th>STATUSENDORSEMENT</th>
-                                            <th>STATUSENDORSEMENT2</th>
-                                            <th>STATUS</th>
-                                            <th>NOTATIONS</th>
-                                            <th>SUMMER</th>
-                                            <th>FARELEASEDTUITION</th>
-                                            <th>FARELEASEDTUITIONBOOKSTIPEND</th>
-                                            <th>LVDCAccount</th>
-                                            <th>HVCNotes</th>
-                                            <th>startyear</th>
-                                            <th>endyear</th>
-                                            {{-- <th>semester</th> --}}
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <!-- DataTable content will be dynamically added here -->
-                                    </tbody>
+                            <div class="card-body">
 
-                                </table>
+                                <h3 class="mt-3">
+                                    @if ($semester == 1)
+                                        @php
+                                            echo $semester . 'ST SEM ' . $startyear . '-' . $startyear + 1;
+                                        @endphp
+                                    @elseif ($semester == 2)
+                                        @php
+                                            echo $semester . 'ND SEM ' . $startyear . '-' . $startyear + 1;
+                                        @endphp
+                                    @else
+                                        @php
+                                            echo 'SUMMER ' . $startyear . '-' . $startyear + 1;
+                                        @endphp
+                                    @endif
+                                </h3>
+                                <div class="">
+                                    <img id="logo" src="{{ asset('icons/DOSTlogoONGOING.jpg') }}" style="display: none;">
+                                    <div class="">
+                                        <table id="yourDataTable" class="display nowrap compact table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Action</th>
+                                                    <th>Batch</th>
+                                                    <th style="width:100px !important;">Number</th>
+                                                    <th>Name</th>
+                                                    <th style="width:100px !important;"><span style="" hidden>MF</span>
+                                                    </th>
+                                                    <th style="width:100px !important;"><span style="" hidden>Program</span></th>
+                                                    <th style="width:150px !important;"><span style="" hidden>School</span></th>
+                                                    <th style="width:150px !important;"><span style="" hidden>Course</span></th>
+                                                    <th>
+                                                        @if ($semester == 1)
+                                                            {{-- 1ST SEM --}}
+                                                            @php
+                                                                $semester2 = $semester + 1; //2ND
+                                                                $startyear2 = $startyear - 1;
+                                                                $endyear2 = $endyear - 1;
+                                                            @endphp
+                                                            {{ 'GRADES' . $semester2 . 'NDSEM' . $startyear2 . '' . $endyear2 }}
+                                                        @elseif ($semester == 2)
+                                                            {{-- 2ND SEM --}}
+                                                            @php
+                                                                $semester2 = $semester - 1; //1ST
+                                                                $startyear2 = $startyear;
+                                                                $endyear2 = $endyear;
+                                                            @endphp
+                                                            {{ 'GRADES' . $semester2 . 'STSEM' . $startyear2 . '' . $endyear2 }}
+                                                        @elseif ($semester == 3)
+                                                            {{-- SUMMER --}}
+                                                            @php
+                                                                $semester2 = $semester - 1; //2ND SEM
+                                                                $startyear2 = $startyear - 1; //CURRENT
+                                                                $endyear2 = $endyear; //
+                                                            @endphp
+                                                            {{ 'GRADES' . $semester2 . 'NDSEM' . $startyear2 . '' . $endyear2 }}
+                                                        @endif
+                                                    </th>
+                                                    <th>SummerREG</th>
+                                                    <th>
+                                                        @if ($semester == 1)
+                                                            {{-- 1ST SEM --}}
+                                                            @php
+                                                                $semester2 = $semester;
+                                                                $startyear2 = $startyear;
+                                                                $endyear2 = $endyear;
+                                                            @endphp
+                                                            {{ 'REG FORMS' . $semester2 . 'STSEM' . $startyear2 . '' . $endyear2 }}
+                                                        @elseif ($semester == 2)
+                                                            {{-- 2ND SEM --}}
+                                                            @php
+                                                                $semester2 = $semester;
+                                                                $startyear2 = $startyear;
+                                                                $endyear2 = $endyear;
+                                                            @endphp
+                                                            {{ 'REG FORMS' . $semester2 . 'NDSEM' . $startyear2 . '' . $endyear2 }}
+                                                        @elseif ($semester == 3)
+                                                            {{-- SUMMER --}}
+                                                            @php
+                                                                $semester2 = $semester - 2; //1ST SEM
+                                                                $startyear2 = $startyear; //(SAME STARTYEAR,+1 ENDYEAR)
+                                                                $endyear2 = $endyear; //
+                                                            @endphp
+                                                            {{ 'REG FORMS' . $semester2 . 'STSEM' . $startyear2 . '' . $endyear2 }}
+                                                        @endif
+                                                    </th>
+                                                    <th>REMARKS</th>
+                                                    <th>STATUSENDORSEMENT</th>
+                                                    <th>STATUSENDORSEMENT2</th>
+                                                    <th>STATUS</th>
+                                                    <th>NOTATIONS</th>
+                                                    <th>SUMMER</th>
+                                                    <th>FARELEASEDTUITION</th>
+                                                    <th>FARELEASEDTUITIONBOOKSTIPEND</th>
+                                                    <th>LVDCAccount</th>
+                                                    <th>HVCNotes</th>
+                                                    <th>startyear</th>
+                                                    <th>endyear</th>
+                                                    {{-- <th>semester</th> --}}
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- DataTable content will be dynamically added here -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
 
 
-                        {{-- YEAR LOGIC --}}
-
-
-
-
-                        {{-- OFF-CANVAS --}}
                         <div class="offcanvas offcanvas-end" id="editModal" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
                             <div class="offcanvas-header">
                                 <h5 class="offcanvas-title" id="offcanvasScrollingLabel">EDIT SCHOLAR DETAILS</h5>
@@ -261,6 +267,10 @@
                                         <th class="canvasth"><strong>Gender:</strong></th>
                                         <td class="canvastable">
                                             <input class="form-control form-control-sm" id="genderField" name="genderField">
+                                            {{--  <select class="form-control" id="genderField" name="genderField">
+                                                <option value="F">F</option>
+                                                <option value="M">M</option>
+                                            </select> --}}
                                         </td>
                                     </tr>
                                     <tr>
@@ -385,26 +395,25 @@
                             </div>
 
 
-                        </div>
+                        </div> {{-- END OFF-CANVAS --}}
 
                     </div>
-                </main>
-            </div>
+
+                </div>
+            </main>
         </div>
 
 
 
-        <script src="{{ asset('js/all.js') }}"></script>
-        <!-- Include DataTables JS -->
-        <!-- Include jQuery -->
-        <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+        <script src="{{ asset('js/app.js') }}"></script>
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
         <script src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-1.13.8/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/date-1.5.1/fc-4.3.0/fh-3.4.0/r-2.5.0/sc-2.3.0/sp-2.2.0/sl-1.7.0/datatables.min.js"></script>
         <script>
-            jQuery(document).ready(function($) {
+            $(document).ready(function($) {
 
-                jQuery.noConflict();
+
                 var startyearValue = $('#startyear').val();
                 var endyearValue = $('#endyear').val();
                 var semesterValue = $('#semester').val();
@@ -444,11 +453,11 @@
                                 var number = row
                                     .NUMBER; // Assuming 'NUMBER' is the column name in your database
 
-                                return '<td >' +
+                                return '<td class="">' +
                                     '<a href="#" class="edit-btn" data-number="' + number +
-                                    '"> <i class="fad fa-pencil" style="--fa-primary-color: #000000; --fa-secondary-color: #2899a7; --fa-secondary-opacity: 1;"></i></a> <a href="#" class="view-btn" data-number="' +
+                                    '"><box-icon type="solid"  size="1.3rem" name="edit-alt" style="padding:0; margin: 0;"></box-icon></a> <a href="#" class="view-btn" data-number="' +
                                     number +
-                                    '"><i class="fad fa-eye" style="--fa-primary-color: #000000; --fa-secondary-color: #2899a7; --fa-secondary-opacity: 1;"></i></a>' +
+                                    '"><box-icon type="solid" size="1.3rem" style="padding:0; margin: 0;" name="show"></box-icon></a>' +
                                     '</td>';
                             }
                         },
@@ -689,9 +698,9 @@
                     $('#saveChangesBtn').off('click').click(function() {
                         // Gather the updated data from the modal fields
                         var updatedData = {
-                            NUMBER: $('#editModal #idField').val(),
+                            /*  NUMBER: $('#editModal #idField').val(), */
                             NAME: $('#editModal #nameField').val(),
-                            MF: $('#editModal #genderField').val(),
+                            MF: $('#genderField').val(),
                             SCHOLARSHIPPROGRAM: $('#editModal #programField').val(),
                             SCHOOL: $('#editModal #schoolField').val(),
                             COURSE: $('#editModal #courseField').val(),
@@ -708,9 +717,9 @@
                             LVDCAccount: $('#editModal #lvdCAccountField').val(),
                             HVCNotes: $('#editModal #lvdCAccountField').val(),
                             HVCNotes: $('#editModal #lvdCAccountField').val(),
-                            semester: $('#editModal #semesterField').val(),
-                            startyear: $('#editModal #startyearField').val(),
-                            endyear: $('#editModal #endyearField').val(),
+                            /*    semester: $('#editModal #semesterField').val(),
+                               startyear: $('#editModal #startyearField').val(),
+                               endyear: $('#editModal #endyearField').val(), */
                             remarksDetails: $('#editModal #remarksField').val(), //ongoingremarks table
                         };
 
@@ -718,21 +727,19 @@
                         // Send the updated data to the server using AJAX
                         $.ajax({
                             url: '{{ url('/savechangesongongoing/') }}' + '/' + number, // Replace with your server endpoint
-                            method: 'post', // You can use POST or PUT based on your server-side implementation
+                            method: 'POST', // You can use POST or PUT based on your server-side implementation
                             data: updatedData,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
                             success: function(response) {
                                 // Handle success, e.g., close the modal or show a success message
-
-                                notyf.success({
-                                    message: 'Record has been edited.',
-                                    duration: 3000,
-                                    position: {
-                                        x: 'right',
-                                        y: 'top',
-                                    },
+                                console.log(response);
+                                swal.fire({
+                                    icon: 'success',
+                                    text: 'Record has been edited',
+                                    title: 'Success!',
                                 })
-
-
 
                                 // Redraw the DataTable
                                 table.ajax.reload(null, false);
@@ -795,10 +802,11 @@
                 dom: 'flrtipB',
                 buttons: [{
                         extend: 'print',
+
                         autoPrint: true,
                         orientation: 'landscape',
                         pageSize: 'A4',
-                        text: '<i class="fas fa-print"></i>',
+                        text: '<box-icon type="solid" name="printer"></box-icon>',
                         title: 'ON-GOING SCHOLARS MONITORING CHECKLIST {{ session('semester') }} AY {{ session('startyear') }}-{{ session('endyear') }}',
                         exportOptions: {
                             columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15],

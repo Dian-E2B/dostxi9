@@ -110,7 +110,7 @@
                                 <div class="h4">
                                     Science Education Institutes' list of Qualified Scholars
                                 </div>
-                                <div class="container">
+                                <div class="">
                                     <div class="row row-cols-auto">
                                         <div class="col"> {{-- DROPDOWN FILTER --}}
                                             <button class="btn rounded-pill btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">

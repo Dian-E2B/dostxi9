@@ -92,6 +92,7 @@
 
         <main id="main" class="main" style="padding: 1.5rem 0.5rem 0.5rem; !important;">
             <div class="main">
+                
                 <div class="container-fluid">
                     <img id="logo" src="{{ asset('icons/DOSTlogoONGOING.jpg') }}" style="display: none;">
                     <div class="card">

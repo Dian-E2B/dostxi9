@@ -97,7 +97,7 @@ Route::middleware(['auth', 'role:staff'])->group(function () {
     Route::get('/rsmslistra10612', [RsmsViewController::class, 'rsmslistra10612view'])->name('rsmslistra10612');
     Route::get('/rsmslistmerit', [RsmsViewController::class, 'rsmslistmeritview'])->name('rsmsmerit');
     Route::get('/rsmslistnoncompliance', [RsmsViewController::class, 'rsmslistnoncomplianceview'])->name('rsmsnoncompliance');
-    Route::POST('/savechangesongongoing/{number}', [RsmsViewController::class, 'SaveChangesOngoing'])->name('savechangesongongoing');
+    Route::POST('/savechangesongongoing/{number}', [RsmsViewController::class, 'savechangesongongoing'])->name('savechangesongongoing');
     Route::get('/viewscholarrecords/{number}', [RsmsViewController::class, 'viewscholarrecordsview'])->name('viewscholarrecords');
     Route::get('/getscholargrades/{number}', [RsmsViewController::class, 'getscholargrades'])->name('getscholargrades');
     Route::post('/savecholargrades/{number}', [RsmsViewController::class, 'savecholargrades'])->name('savecholargrades');

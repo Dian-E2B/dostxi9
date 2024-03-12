@@ -18,7 +18,6 @@ class Ongoing extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'Name',
         'BATCH',
         'NUMBER',
         'NAME',
