@@ -80,7 +80,25 @@
             </a>
         </li><!-- End Email Edit Nav -->
 
-
+        <li class="nav-item">
+            <a class="nav-link {{ request()->is('accesscontrol*') ? '' : 'collapsed' }}" data-bs-target="#access-nav" data-bs-toggle="collapse" href="#">
+                <box-icon name='file' color="white"></box-icon><span style="margin-left:7px">Access Control</span>
+                <box-icon class="bi-chevron-down ms-auto" style="padding:0px; none;" color="white" name='chevron-down'></box-icon>
+            </a>
+            <ul id="access-nav" class="nav-content collapse {{ request()->is('accesscontrol*') ? 'show' : '' }} align-text-center" data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href='{{ route('accesscontrol') }}' class="{{ request()->is('accesscontrol') ? 'active' : '' }}">
+                        <box-icon type='solid' name='right-arrow' size="xs" class="sublist" color="white"></box-icon><span class="sublist_name">All</span>
+                    </a>
+                </li>
+                <li class="align-text-center align-items-center">
+                    <a href='{{ route('accesscontrolpending') }}' class="{{ request()->is('accesscontrolpending') ? 'active' : '' }}">
+                        <box-icon type='solid' name='right-arrow'color="white" class="sublist" style="" size="xs"></box-icon>
+                        <span class="sublist_name">Pending</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End SEI Nav -->
 
     </ul>
 

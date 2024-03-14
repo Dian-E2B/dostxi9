@@ -155,12 +155,16 @@
                         // Trigger SweetAlert when conditions are met
                         Swal.fire({
                             title: 'Decision Received.',
-                            text: 'Thank you for informing us about your decision regarding the scholarship. We understand that this choice was not made lightly and respect your decision. If you have any questions or concerns, please don\'t hesitate to reach out to us. We wish you all the best in your future endeavors.',
+                            text: 'Thank you for letting us know your decision about the scholarship. We respect your choice and wish you all the best for the future. Feel free to contact us if you have any questions.',
                             iconHtml: '<img src="/extraicons/double-check.gif" style="width: 150px; height: 150px;">',
                             showConfirmButton: true,
+                            allowOutsideClick: false,
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                document.getElementById('logout-form').submit();
+                                var url = '{{ url('/studentnoaccess/') }}';
+                                window.location.href = url;
+                                /*  document.getElementById('logout-form').submit(); */
+
                             }
                         });
                     </script>

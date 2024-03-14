@@ -130,6 +130,7 @@ require __DIR__ . '/studentauth.php';
 
 Route::middleware(['auth:student', 'verified'])->group(function () {
     Route::get('student/profile', [StudentViewController::class, 'index'])->name('student.profile');
+    Route::get('studentnoaccess', [StudentViewController::class, 'endaccess'])->name('studentnoaccess');
     Route::get('student/dashboard', [StudentViewController::class, 'dashboard'])->name('student.dashboard');
     Route::get('student/submitreqsperiodic', [StudentViewController::class, 'submitreqsperiodic'])->name('student.submitreqs');
     Route::POST('student/submitreqsperiodicsave', [StudentViewController::class, 'submitreqsperiodicsave'])->name('student.submitreqsperiodicsave');

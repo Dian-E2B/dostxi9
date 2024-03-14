@@ -3,31 +3,27 @@
 
      <head>
          <title>DOST XI</title>
-         <link href="{{ asset('css/all.css') }}">
-         @vite(['resources/css/app.css', 'resources/js/app.js'])
+         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+         <link rel="icon" href="\icons\DOSTLOGOsmall.png" type="image/x-icon" />
          <link href="https://cdn.datatables.net/v/bs5/dt-1.13.8/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/date-1.5.1/fc-4.3.0/fh-3.4.0/r-2.5.0/sc-2.3.0/sp-2.2.0/sl-1.7.0/datatables.min.css" rel="stylesheet">
+
+         {{-- Jquery Js --}}
+         <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
          <style>
-             body {
-                 background-color: #dddddd;
-
-                 /*  font-size: 12pt; */
+             box-icon {
+                 padding: 0;
+                 margin: 0;
+                 border: none;
              }
-
-             .sidebar {}
          </style>
      </head>
 
-     <body data-theme="default" data-layout="fluid" data-sidebar-position="left" data-sidebar-layout="default">
-         <div class="wrapper">
-
-             {{-- SIDEBAR START --}}
-             @include('layouts.sidebar')
-             {{-- SIDEBAR END --}}
-
-
-
+     <body>
+         @include('layouts.sidebarnew')
+         @include('layouts.headernew')
+         <main id="main" class="main" style="padding: 1.5rem 0.5rem 0.5rem; !important;">
              <div class="main">
-                 @include('layouts.header')
+
 
                  <main class="main">
                      <div class="container-fluid p-2">
@@ -93,45 +89,46 @@
 
                                                          </td>
                                                          <td class="">{{ $seisallstatus1->email }}</td>
+                                                         <td>
+                                                             @switch($seisallstatus1->scholar_status_id)
+                                                                 @case(1)
+                                                                     <span style="color: blue;"><strong>Pending</strong></span>
+                                                                 @break
 
-                                                         @if ($seisallstatus1->scholar_status_id == 1)
-                                                             {{-- Pending --}}
-                                                             <td style="color:blue">
-                                                                 <strong>Pending</strong>
-                                                             </td>
-                                                         @elseif ($seisallstatus1->scholar_status_id == 2)
-                                                             {{-- Ongoing --}}
-                                                             <td style="color:deepskyblue">
-                                                                 <strong>Ongoing</strong>
-                                                             </td>
-                                                         @elseif ($seisallstatus1->scholar_status_id == 3)
-                                                             {{-- Enrolled --}}
-                                                             <td style="color:green">
-                                                                 <strong>Enrolled</strong>
-                                                             </td>
-                                                         @elseif ($seisallstatus1->scholar_status_id == 4)
-                                                             {{-- Deferred --}}
-                                                             <td style="color:orange">
-                                                                 <strong>Deferred</strong>
-                                                             </td>
-                                                         @elseif ($seisallstatus1->scholar_status_id == 5)
-                                                             {{-- LOA --}}
-                                                             <td style="color:red">
-                                                                 <strong>LOA</strong>
-                                                             </td>
-                                                         @elseif ($seisallstatus1->scholar_status_id == 6)
-                                                             {{-- Terminate --}}
-                                                             <td style="color:black">
-                                                                 <strong>Terminate</strong>
-                                                             </td>
-                                                         @endif
+                                                                 @case(2)
+                                                                     <span style="color: deepskyblue;"><strong>Ongoing</strong></span>
+                                                                 @break
 
-                                                         <td class="table-action">
-                                                             <a href="#" style="color: black;" data-bs-toggle="tooltip" data-bs-placement="top" title="Temporary lock account	"><i class="fad fa-user-lock"></i></a>
-                                                             <a style="color: red; margin-left: 8px;" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Permanently delete account	"><i class="fas fa-trash"></i></a>
+                                                                 @case(3)
+                                                                     <span style="color: green;"><strong>Enrolled</strong></span>
+                                                                 @break
+
+                                                                 @case(4)
+                                                                     <span style="color: orange;"><strong>Deferred</strong></span>
+                                                                 @break
+
+                                                                 @case(5)
+                                                                     <span style="color: red;"><strong>LOA</strong></span>
+                                                                 @break
+
+                                                                 @case(6)
+                                                                     <span style="color: black;"><strong>Terminate</strong></span>
+                                                                 @break
+
+                                                                 @case(7)
+                                                                     <span style="color: black;"><strong>Not Availed</strong></span>
+                                                                 @break
+
+                                                                 @default
+                                                                     <!-- Default case if scholar_status_id doesn't match any case -->
+                                                             @endswitch
+                                                         <td class="table-action d-flex align-items-center">
+                                                             <a href="#" style="color: black;" data-bs-toggle="tooltip" data-bs-placement="top" title="Temporary lock account	"><box-icon type='solid' size="1.1rem" name='lock-alt'></box-icon></a>
+                                                             <a style="color: red; margin-left: 8px;" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Permanently delete account	"><box-icon size="1.1rem" type='solid' name='lock-alt'></box-icon></a>
                                                          </td>
+                                                         </td>
+                                                     </tr>
                                                  @endforeach
-                                                 </tr>
                                              @elseif(request()->is('accesscontrolpending'))
                                                  @foreach ($replyslipsandscholarjoinpending as $rasp)
                                                      @php
@@ -310,16 +307,15 @@
                          </div>
                  </main>
              </div>
-         </div>
+         </main>
+         <script src="{{ asset('js/app.js') }}"></script>
+         <script src="https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-1.13.8/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/date-1.5.1/fc-4.3.0/fh-3.4.0/r-2.5.0/sc-2.3.0/sp-2.2.0/sl-1.7.0/datatables.min.js"></script>
+         <script>
+             jQuery(document).ready(function($) {
+                 var table = $('#thisdatatable').DataTable({});
+             });
+         </script>
      </body>
-     <script src="{{ asset('js/all.js') }}"></script>
 
-     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-     <script src="https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-1.13.8/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/date-1.5.1/fc-4.3.0/fh-3.4.0/r-2.5.0/sc-2.3.0/sp-2.2.0/sl-1.7.0/datatables.min.js"></script>
-     <script>
-         jQuery(document).ready(function($) {
-             var table = $('#thisdatatable').DataTable({});
-         });
-     </script>
 
  </html>
