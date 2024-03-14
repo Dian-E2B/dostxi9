@@ -21,6 +21,8 @@ use Smalot\PdfParser\Parser;
 
 class StudentViewController extends Controller
 {
+
+
     public function thesisview()
     {
         $scholarId = Auth::user()->scholar_id;
@@ -52,6 +54,34 @@ class StudentViewController extends Controller
         }
     }
 
+
+    public function endaccess()
+    {
+        if (Auth::check()) {
+            $scholarId = Auth::user()->scholar_id;
+            $seis = Student::where('scholar_id', $scholarId)->first();
+            if ($seis) {
+                if ($seis->delete()) {
+                    Auth::logout();
+                    $seis2 = Sei::find($scholarId);
+                    if ($seis2) {
+                        $seis2->scholar_status_id = 7;
+                        $seis2->save();
+                    }
+                    return redirect()->route('student.login');
+                } else {
+                    // Deletion failed
+                    echo 'Failed to delete account.';
+                }
+            } else {
+                // User not found
+                echo 'User not found.';
+            }
+        } else {
+            // User not authenticated
+            echo 'User not authenticated.';
+        }
+    }
 
     public function index()
     {

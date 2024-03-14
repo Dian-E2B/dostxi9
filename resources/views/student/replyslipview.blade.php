@@ -112,12 +112,7 @@
                                                             I am AVAILING my scholarship award.
                                                         </span>
                                                     </label>
-                                                    <label class="form-check">
-                                                        <input name="defferedcheckbox" class="form-check-input option-checkbox" type="checkbox" value="">
-                                                        <span class="form-check-label">
-                                                            I am DEFERRING my scholarship award due to … (Please indicate reason on the field below.)
-                                                        </span>
-                                                    </label>
+
                                                     <label class="form-check">
                                                         <input name="rejectcheckbox" class="form-check-input option-checkbox" type="checkbox" value="">
                                                         <span class="form-check-label">
