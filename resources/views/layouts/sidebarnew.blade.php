@@ -97,8 +97,20 @@
                         <span class="sublist_name">Pending</span>
                     </a>
                 </li>
+                <li class="align-text-center align-items-center">
+                    <a href='{{ route('accesscontrolongoing') }}' class="{{ request()->is('accesscontrolongoing') ? 'active' : '' }}">
+                        <box-icon type='solid' name='right-arrow'color="white" class="sublist" style="" size="xs"></box-icon>
+                        <span class="sublist_name">Ongoing</span>
+                    </a>
+                </li>
+                <li class="align-text-center align-items-center">
+                    <a href='{{ route('accesscontrolenrolled') }}' class="{{ request()->is('accesscontrolenrolled') ? 'active' : '' }}">
+                        <box-icon type='solid' name='right-arrow'color="white" class="sublist" style="" size="xs"></box-icon>
+                        <span class="sublist_name">Enrolled</span>
+                    </a>
+                </li>
             </ul>
-        </li><!-- End SEI Nav -->
+        </li><!-- End ACCESSCONTROL Nav -->
 
     </ul>
 

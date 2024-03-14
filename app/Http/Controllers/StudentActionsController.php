@@ -42,12 +42,7 @@ class StudentActionsController extends Controller
                 'updated_at' => now(),
                 'replyslip_status_id' => 2
             ]);
-            notyf()
-                ->position('y', 'top')
-                ->position('x', 'right')
-                ->duration(4000) // 3 seconds
-                ->addInfo('Your applicaton has been submitted');
-            return redirect('/student/dashboard');
+            return redirect('/student/profile');
         } else if ($request->has('defferedcheckbox')) {
 
             Replyslips::where('scholar_id', $scholarid)->update([
