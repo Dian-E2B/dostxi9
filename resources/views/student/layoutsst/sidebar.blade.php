@@ -16,6 +16,23 @@
     .sublist_name {
         margin-left: 7px
     }
+
+    .sidebar {
+        background-color: #ffffff;
+    }
+
+    .sidebar-nav .nav-link {
+        color: #3c4244;
+    }
+
+    .sidebar-nav .nav-content a {
+        color: #050505;
+    }
+
+    .sidebar-nav .nav-link.collapsed {
+        color: #000000;
+        background: #b8c0c3;
+    }
 </style>
 
 <!-- ======= Sidebar ======= -->
@@ -24,7 +41,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
         <li class="nav-item">
-            <div style="color: rgb(255, 255, 255); font-weight: 900">
+            <div style="color: rgb(17, 13, 13); font-weight: 900">
                 @php
                     $scholarinfo = DB::select('SELECT fname, lname FROM seis WHERE id = ?', [auth()->user()->scholar_id]);
                 @endphp
@@ -69,24 +86,24 @@
         <br>
         <li class="nav-item text-center justify-content-md-center">
             <a class="nav-link {{ request()->is('student/profile') ? '' : 'collapsed' }}" href='{{ route('student.profile') }}'>
-                <box-icon name="dashboard" type="solid" color="white"></box-icon><span style="margin-left:7px">Main</span>
+                <box-icon name="dashboard" type="solid" color="black"></box-icon><span style="margin-left:7px">Main</span>
             </a>
         </li><!-- End Dashboard Nav -->
 
         <li class="nav-item ">
             <a class="nav-link  {{ request()->is('student/gradeinput') || request()->is('student/thesis') ? '' : 'collapsed' }}" data-bs-target="#sei-nav" data-bs-toggle="collapse" href="#">
-                <box-icon name='file' color="white"></box-icon><span style="margin-left:7px">Submit Requirements</span>
-                <box-icon class="bi-chevron-down ms-auto" style="padding:0px; none;" color="white" name='chevron-down'></box-icon>
+                <box-icon name='file' color="black"></box-icon><span style="margin-left:7px">Submit Requirements</span>
+                <box-icon class="bi-chevron-down ms-auto" style="padding:0px; none;" color="black" name='chevron-down'></box-icon>
             </a>
             <ul id="sei-nav" class="nav-content collapse {{ request()->is('student/gradeinput') || request()->is('student/thesis') ? 'show' : '' }} align-text-center" data-bs-parent="#sidebar-nav">
                 <li>
                     <a href='{{ route('student/gradeinput') }}' class="{{ request()->is('student/gradeinput') ? 'active' : '' }}">
-                        <box-icon type='solid' name='right-arrow' size="xs" class="sublist" color="white"></box-icon><span class="sublist_name">Periodic</span>
+                        <box-icon type='solid' name='right-arrow' size="xs" class="sublist" color="black"></box-icon><span class="sublist_name">Periodic</span>
                     </a>
                 </li>
                 <li class="align-text-center align-items-center">
                     <a href='{{ route('student/thesis') }}' class="{{ request()->is('student/thesis') ? 'active' : '' }}">
-                        <box-icon type='solid' name='right-arrow'color="white" class="sublist" style="" size="xs"></box-icon>
+                        <box-icon type='solid' name='right-arrow'color="black" class="sublist" style="" size="xs"></box-icon>
                         <span class="sublist_name">Thesis</span>
                     </a>
                 </li>

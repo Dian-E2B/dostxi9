@@ -79,6 +79,12 @@ Route::middleware(['auth', 'role:staff'])->group(function () {
     Route::get('/requirements_view/{id}', [\App\Http\Controllers\AccessControlViewController::class, 'requirements_view'])->name('requirements_view');
     //SCHOLAR PROCESS ENDORSE OR VERIFY
     Route::post('/scholarverifyendorse', [\App\Http\Controllers\AccessControlViewController::class, 'scholarverifyendorse'])->name('scholarverifyendorse');
+    //SCHOLAR GET COG AND COR PUT TO MODAL
+    Route::get('/scholarcog/{id}', [\App\Http\Controllers\AccessControlViewController::class, 'scholarcog'])->name('scholarcog');
+
+
+
+
     //ONGOINGLIST
     Route::get('/ongoinglist', [\App\Http\Controllers\RsmsViewController::class, 'ongoinglist'])->name('ongoinglist');
     Route::get('dashboard', [DashboardController::class, 'dashboardview'])->name('dashboard');

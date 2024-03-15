@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cog;
 use App\Models\Ongoing;
 use App\Models\Replyslips;
 use App\Models\Scholar_requirements;
@@ -206,8 +207,10 @@ class AccessControlViewController extends Controller
     {
         $seisourcerecord = Sei::find($id);
         $scholarrequirements = Scholar_requirements::where('scholar_id', $id)->first();
+        $cogpassed = Cog::where('scholar_id', $id)->get();
+        $corpassed = Cog::where('scholar_id', $id)->get();
         $replyslipstatus = Replyslips::where('scholar_id', $id)->first();
-        return view('scholar_information', compact('seisourcerecord', 'scholarrequirements'));
+        return view('scholar_information', compact('seisourcerecord', 'scholarrequirements', 'cogpassed', 'corpassed'));
     }
 
     public function scholarverifyendorse(Request $request)
@@ -227,13 +230,17 @@ class AccessControlViewController extends Controller
             }
         } else {
         }
-
-        /*  return redirect()->back(); */
     }
 
-    public function requirements_view(Request $request, $id)
+    public function requirements_view($id)
     {
         $scholarrequirements = Scholar_requirements::where('scholar_id', $id)->first();
         return response()->json($scholarrequirements);
+    }
+
+    public function scholarcog($id)
+    {
+        $scholarcog = Cog::where('id', $id)->first();
+        return response()->json($scholarcog);
     }
 }
