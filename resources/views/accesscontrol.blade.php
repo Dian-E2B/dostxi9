@@ -34,7 +34,7 @@
 
                              <div class="card">
 
-                                 <div style="margin-bottom: -10px;" class="card-header">
+                                 <div class="mb-3 card-header">
                                      <div class="row">
                                          <div class="col-8">
                                              <h5 class="card-title">Scholars</h5>
@@ -43,15 +43,11 @@
                                                  after accepting notice of awards.
                                              </h6>
                                          </div>
-
-
-
                                      </div>
-
                                  </div>
 
                                  <div class="card-body">
-                                     <table id="thisdatatable" style="margin-bottom: 1rem !important;" class="table table-striped table-sm">
+                                     <table id="thisdatatable" style="margin-bottom: 1rem !important;" class="table table-striped table-sm mt-1">
                                          <thead>
                                              <tr>
                                                  <th>ID</th>
@@ -60,7 +56,7 @@
                                                  <th>M/F</th>
                                                  <th class="d-none d-md-table-cell">Email</th>
                                                  <th class="d-none d-md-table-cell">Status</th>
-                                                 <th>Action</th>
+                                                 <th>Details</th>
                                                  @if (request()->is('accesscontrolpending'))
                                                      <th>Requirements</th>
                                                  @endif
@@ -157,7 +153,7 @@
                                                          <td class="table-action">
                                                              <a href="#" style="color: black;" data-bs-toggle="tooltip" data-bs-placement="top" title="Temporary lock account	"><i class="fad fa-user-lock"></i></a>
                                                              <a style="color: red; margin-left: 8px;" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Permanently delete account"><i class="fas fa-trash"></i></a>
-                                                             <a href="{{ route('scholar_information', ['id' => $rasp->id]) }}" style="color:  black; margin-left: 8px;" data-bs-toggle="tooltip" data-bs-placement="top" title="Scholar Details"><i class="fas fa-eye"></i></a>
+                                                             <a href="{{ route('scholar_information', ['id' => $rasp->id]) }}" style="color:  black; margin-left: 8px;" data-bs-toggle="tooltip" data-bs-placement="top" title="Scholar Details"><box-icon type='solid' size="1.3rem" name='show'></box-icon></a>
                                                          </td>
                                                          <td style="align-items: center">
                                                              @if (empty($scholarrequirements))
@@ -192,7 +188,7 @@
                                                          <td class="table-action">
                                                              <a href="#" style="color: black;" data-bs-toggle="tooltip" data-bs-placement="top" title="Temporary lock account	"><i class="fad fa-user-lock"></i></a>
                                                              <a style="color: red; margin-left: 8px;" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Permanently delete account	"><i class="fas fa-trash"></i></a>
-                                                             <a href="{{ route('scholar_information', ['id' => $replyslipsjoinscholarongoing1->id]) }}" style="color:  black; margin-left: 8px;" data-bs-toggle="tooltip" data-bs-placement="top" title="Scholar Details"><i class="fas fa-eye"></i></a>
+                                                             <a href="{{ route('scholar_information', ['id' => $replyslipsjoinscholarongoing1->id]) }}" style="color:  black; margin-left: 8px;" data-bs-toggle="tooltip" data-bs-placement="top" title="Scholar Details"><box-icon type='solid' size="1.3rem" name='show'></box-icon></a>
                                                          </td>
                                                      </tr>
                                                  @endforeach
