@@ -138,12 +138,7 @@ class StudentViewController extends Controller
 
             $replySlips = Replyslips::where('scholar_id', $scholarid1)->update(['replyslip_status_id' => 6]);
             if ($Scholar_requirements &&  $replySlips) {
-                notyf()
-                    ->position('y', 'top')
-                    ->position('x', 'right')
-                    ->duration(4000) // 4 seconds
-                    ->addSuccess('Your requirements has been uploaded.');
-                return redirect('student/dashboard');
+                return redirect('student/profile');
             } else {
                 return back();
             }

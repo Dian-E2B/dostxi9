@@ -12,6 +12,7 @@ use App\Models\Sei;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class StudentActionsController extends Controller
 {
@@ -117,7 +118,7 @@ class StudentActionsController extends Controller
 
         // Create the Cog record
         $cog = Cog::create($cogData);
-
+        //modified  march 15 2024
         if (!$isDraft) {
             foreach ($data['subjectnames'] as $index => $subject) {
                 $cog->cogdetails()->create([
@@ -126,9 +127,18 @@ class StudentActionsController extends Controller
                     'unit' => $data['units'][$index]['unit'],
                 ]);
             }
+            return redirect()->back()->with('success', 'Grades submit successfully');
+        } else {
+            foreach ($data['subjectnames'] as $index => $subject) {
+                $cog->cogdetails()->create([
+                    'subjectname' => $subject['name'],
+                    'grade' => $data['grades'][$index]['grade'],
+                    'unit' => $data['units'][$index]['unit'],
+                ]);
+            }
+
+            return redirect()->back()->with('success', 'Draft saved successfully');
         }
-        session()->flash('success');
-        return back();
     }
 
     public function saveDraft(Request $request)
@@ -138,12 +148,23 @@ class StudentActionsController extends Controller
         if ($request->is_delete == 1) {
             $cog_id = $request->input('cog_id');
             $cog = Cog::find($cog_id);
+            if ($cog) {
+                $cog->delete();
 
-            $cog->update([
-                'draft' => 2,
-            ]);
-
-            return redirect()->back()->with('success', 'Draft DELETED successfully');
+                $cogFilePath = $cog['cog_name'];
+                $corFilePath = $cog['cor_name'];
+                $storageDirectorycog = 'storage/cog/';
+                $storageDirectorycor = 'storage/cor/';
+                $cogFileName = str_replace($storageDirectorycog, '', $cogFilePath); //COG
+                $corFileName = str_replace($storageDirectorycor, '', $cogFilePath); //COR
+                if ($cogFilePath && Storage::disk('public')->exists('cog/' . $cogFileName)) {
+                    $deletecog =  Storage::disk('public')->delete('cog/' . $cogFileName);
+                    if ($deletecog)
+                        Storage::disk('public')->delete('cor/' . $corFileName);
+                    return redirect()->back()->with('success', 'Draft and Files deleted successfully');
+                } else {
+                }
+            }
         } else {
             $scholarid = $request->input('scholar_id');
             /*   $customstudentprospectusfilename = $scholarid . 'prospectus' . time() . '.' . $request->file('prospectus1')->getClientOriginalExtension();
@@ -157,11 +178,8 @@ class StudentActionsController extends Controller
                     'draft' => 0,
                     /*  'cog_name' => 'storage/prospectus/' . $customstudentprospectusfilename, */
                 ]);
+                return redirect()->back()->with('success', 'Draft submitted successfully');
             }
-            return redirect()->back()->with('success', 'Draft submitted successfully');
         }
-
-        // Redirect or return a response
-
     }
 }

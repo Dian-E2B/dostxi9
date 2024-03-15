@@ -8,7 +8,7 @@
         <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-        <script src="{{ asset('js/all.js') }}"></script>
+
         <style>
             #image-preview {
                 width: 100%;
@@ -45,9 +45,10 @@
 
                 @if (session()->has('success'))
                     <script>
+                        let successmessage = "{{ session('success') }}";
                         Swal.fire({
                             title: 'Thank You!',
-                            text: 'You submitted your requirements for this semester',
+                            text: successmessage,
                             icon: 'success',
                             confirmButtonColor: "#3085d6",
                             confirmButtonText: 'Okay',
@@ -66,7 +67,7 @@
 
 
 
-                                            <table id="thisdatatable" class="hover table table-bordered compact nowrap" style="width:100%;">
+                                            <table id="thisdatatable" class="hover table table-bordered compact nowrap align-content-center justify-content-center" style="width:100%;">
                                                 <thead>
                                                     <tr>
 
@@ -74,6 +75,7 @@
                                                         <th scope="col">Semester</th>
                                                         <th scope="col">Subject</th>
                                                         <th scope="col">Grade</th>
+                                                        <th scope="col">Action</th>
                                                         <th scope="col">Unit</th>
                                                     </tr>
                                                 </thead>
@@ -86,15 +88,18 @@
                                                             $units1 = explode(',', $cogsdraft1->Units);
                                                             $completed = explode(',', $cogsdraft1->Completed);
                                                         @endphp
-                                                        <form id="draftForm" action="{{ route('saveDraft') }}" method="POST" enctype="multipart/form-data">
-                                                            @csrf
-                                                            <input type="hidden" name="scholar_id" value="{{ $cogsdraft1->scholar_id }}">
-                                                            <input type="hidden" name="is_delete" id="is_delete" value="0">
-                                                            <input type="hidden" name="cog_id" value="{{ $cogsdraft1->id1 }}">
+                                                        <div class="mt-3">
+                                                            <form id="draftForm" action="{{ route('saveDraft') }}" method="POST" enctype="multipart/form-data" class="">
+                                                                @csrf
+                                                                <input type="hidden" name="scholar_id" value="{{ $cogsdraft1->scholar_id }}">
+                                                                <input type="hidden" name="is_delete" id="is_delete" value="0">
+                                                                <input type="hidden" name="cog_id" value="{{ $cogsdraft1->id1 }}">
 
-                                                            <button style="margin-right: 5px;" class="btn btn-pill btn-primary mb-2" type="submit">Submit as Final</button>
-                                                            <button type="button" class="btn btn-pill btn-danger mb-2" onclick="document.getElementById('is_delete').value = '1'; document.getElementById('draftForm').submit();">Delete Draft</button>
-                                                        </form>
+                                                                <button style="margin-right: 5px;" class="btn btn-pill btn-primary mb-2" type="submit">Submit as Final</button>
+                                                                <button type="button" class="btn btn-pill btn-danger mb-2" onclick="document.getElementById('is_delete').value = '1'; document.getElementById('draftForm').submit();">Delete Draft</button>
+                                                            </form>
+                                                        </div>
+
                                                         @for ($i = 0; $i < count($subjects1); $i++)
                                                             <tr>
                                                                 {{--    <td>{{ $ids[$i] }}</td> --}}
@@ -105,17 +110,16 @@
                                                                 <td>{{ $subjects1[$i] }}</td>
 
                                                                 @if ($completed[$i] == 0)
-                                                                    <td style="max-width: 200px">
-
-                                                                        <form action="{{ route('studenteditcog') }}" method="POST">
+                                                                    <form action="{{ route('studenteditcog') }}" method="POST">
+                                                                        <td style="max-width: 200px; padding:4px !important; margin:0px;">
                                                                             @csrf
                                                                             <input type="hidden" name="cog_id" value="{{ explode(',', $cogsdraft1->id)[$i] }}">
-                                                                            <input class=" form-control-sm" type="text" name="grade" placeholder="Enter Grade" value="{{ $grades1[$i] }}">
-
-
-                                                                            <button class="btn btn-pill btn-success" type="submit">Update</button>
-                                                                        </form>
-                                                                    </td>
+                                                                            <input style="border: none;" class=" form-control-sm" type="text" name="grade" placeholder="Enter Grade" value="{{ $grades1[$i] }}">
+                                                                        </td>
+                                                                        <td style="max-width: 50px;padding:4px !important;">
+                                                                            <button class="btn btn-pill btn-sm btn-success" type="submit">Update</button>
+                                                                        </td>
+                                                                    </form>
                                                                 @else
                                                                 @endif
 
