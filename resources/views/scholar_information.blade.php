@@ -12,15 +12,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
         <link href="https://cdn.datatables.net/v/bs5/dt-1.13.8/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/date-1.5.1/fc-4.3.0/fh-3.4.0/r-2.5.0/sc-2.3.0/sp-2.2.0/sl-1.7.0/datatables.min.css" rel="stylesheet">
         <style>
-            body,
-            html {
-                background-color: #dddddd;
-                width: 100%;
-                height: 100%;
-                margin: 0;
-                padding: 0;
-            }
-
             .tdviewreq {
                 text-align: center;
                 font-size: 15px
@@ -31,8 +22,7 @@
     <body>
         @include('layouts.headernew') {{-- HEADER START --}}
         @include('layouts.sidebarnew') {{-- SIDEBAR START --}}
-        <main id="main" class="main" style="padding: 1.5rem 0.5rem 0.5rem; !important;">
-
+        <main id="main" style="padding: 1.5rem 0.5rem 0.5rem; !important;">
 
             {{-- @dd($seisourcerecord) --}}
             {{-- @dd($scholarrequirements) --}}
@@ -40,14 +30,14 @@
                 $scholarStatusId = \App\Models\Sei::where('id', $seisourcerecord->id)->value('scholar_status_id');
             @endphp
 
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card mb-3">
+            <div class="card">
+                <div class="row ">
+                    <div class="col-lg-12">
+                        <div class="">
                             <div class="card-header">
-                                <h5 class="card-title mb-0" style="color: rgb(58, 58, 58)">Student Profile</h5>
+                                <h5 class="card-title" style="color: rgb(58, 58, 58)">Student Profile</h5>
                             </div>
-                            <div class="card-body text-center">
+                            <div class="text-center">
                                 <h2 class=" mb-0">{{ $seisourcerecord->lname }}, {{ $seisourcerecord->fname }}</h2>
 
                                 @switch($scholarStatusId)
@@ -78,12 +68,19 @@
                                     @default
                                         None
                                 @endswitch
-
                             </div>
-                            <hr class="my-1" />
-                            <div class="card-body">
-                                <h3 class="bold mt-2" style="color: black; font-weight: 900">Requirements Uploaded</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="">
+                            <div class="card-body mt-3">
                                 <table class="nowrap compact table table-bordered table-sm" width="100%">
+                                    <tr>
+                                        <td colspan="2" style="text-align: center; font-weight:bold; font-size: 1.5rem;">Requirements Uploaded</td>
+                                    </tr>
                                     <tr>
                                         <td>Scholarship Agreement</td>
                                         @if (empty($scholarrequirements))
@@ -133,98 +130,123 @@
                                     <input type="hidden" name="namescholar_id" value="{{ $seisourcerecord->id }}">
                                     <input type="hidden" name="nameprocess" id="scholarprocess" value="">
                                     <div class="row">
-                                        <div class="col-1">
-                                            @php
-                                                $replyslipverified = \App\Models\Replyslips::where('scholar_id', $seisourcerecord->id)->first();
-                                            @endphp
-                                            @if ($replyslipverified)
-                                                @if ($replyslipverified->replyslip_status_id == 5)
-                                                    <button disabled class="btn btn-success">Verified</button><span style="padding: 5px;"></span>
-                                                @else
-                                                    <button type="submit" class="btn btn-success" onclick="submitFormverify('verify');">Verify</button><span style="padding: 5px;"></span>
+                                        <div class="col-6">
+                                            <div class="d-flex justify-content-start align-items-center">
+                                                @php
+                                                    $replyslipverified = \App\Models\Replyslips::where('scholar_id', $seisourcerecord->id)->first();
+                                                @endphp
+                                                @if ($replyslipverified)
+                                                    @if ($replyslipverified->replyslip_status_id == 5)
+                                                        <button disabled class="btn btn-success">Verified</button><span class="px-2"></span>
+                                                    @else
+                                                        <button type="submit" class="btn btn-success" onclick="submitFormverify('verify');">Verify</button><span class="px-2"></span>
+                                                    @endif
                                                 @endif
-                                            @endif
+                                            </div>
                                         </div>
-                                        <div class="col-4">
-                                            <button type="submit" class="btn btn-primary" onclick="submitFormverify('endorse');">Endorse to other region</button>
+                                        <div class="col-6">
+                                            <div class="d-flex justify-content-start align-items-center">
+                                                <button type="submit" class="btn btn-primary" onclick="submitFormverify('endorse');">Endorse to other region</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </form>
-
-
-
-
-                            </div>
-                            <hr class="my-3" />
-
-                            <div class="card-body">
-                                <div class="row">
-                                    {{--  COR SECTION --}}
-                                    <div class="col-6">
-                                        <div class="text mb-2">
-                                            COG uploaded section
-                                        </div>
-                                        <table class="table table-bordered">
-                                            <thead>
-                                                <tr class="">
-                                                    <th class="">Date Uploaded</th>
-                                                    <th class="">Semester</th>
-                                                    <th class="">Details</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($cogpassed as $cogpassed1)
-                                                    <tr class="">
-                                                        <td class="">{{ \Carbon\Carbon::parse($cogpassed1->date_uploaded)->format('F j, Y') }}</td>
-                                                        <td class="">{{ $cogpassed1->semester }}</td>
-                                                        <td class=""><a href="#" data-cogid="{{ $cogpassed1->id }}" class="viewcog"><box-icon type='solid' name='show'></box-icon></a></td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-
-                                    </div>
-
-                                    {{--  COR SECTION --}}
-                                    <div class="col-6">
-                                        <div class="text mb-2">
-                                            COR uploaded section
-                                        </div>
-                                        <table class="table table-bordered">
-                                            <thead>
-                                                <tr class="">
-                                                    <th class="">Date Uploaded</th>
-                                                    <th class="">Semester</th>
-                                                    <th class="">Details</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($corpassed as $corpassed1)
-                                                    <tr class="">
-                                                        <td class="">{{ \Carbon\Carbon::parse($corpassed1->date_uploaded)->format('F j, Y') }}</td>
-                                                        <td class="">{{ $corpassed1->semester }}</td>
-                                                        <td class=""><a href="#" data-corid="{{ $corpassed1->id }}" class="viewcor"><box-icon type='solid' name='show'></box-icon></a></td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="text">
-                                            Thesis section
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+
+                @if (!empty($cogpassed))
+                    <div class="">
+                        <div class="card-body mt-3">
+                            <div class="row g-2">
+                                <div class="col">
+                                    <table class="table table-bordered table-sm align-text-center">
+                                        <thead>
+                                            <tr class="">
+                                                <th class="">Date Uploaded</th>
+                                                <th class="">Semester</th>
+                                                <th style="text-align: center;" class="">COG Details</th>
+                                                <th style="text-align: center;" class="">COR Details</th>
+                                                <th style="text-align: center;" class="">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($cogpassed as $cogpassed1)
+                                                <tr class="">
+                                                    <td class="">{{ \Carbon\Carbon::parse($cogpassed1->date_uploaded)->format('F j, Y') }}</td>
+                                                    <td class="">{{ $cogpassed1->semester }}</td>
+                                                    <td class="" style="text-align: center;"><a style="padding: 0 !important; margin: 0;" data-cogid="{{ $cogpassed1->id }}" class="viewcog"><box-icon style="padding: 0 !important; margin: 0;" size="18.5px" type='solid' name='show'></box-icon></a></td>
+                                                    <td class="" style="text-align: center;"><a data-corid="{{ $cogpassed1->id }}" class="viewcor"><box-icon size="18.5px" type='solid' name='show'></box-icon></a></td>
+                                                    <td class="" style="text-align: center;">
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <a href="" class="btn btn-sm btn-success d-flex  justify-content-center " style="padding:0.1rem !important;"><box-icon size="1.4rem" type='solid' color="white" name='check-square'></box-icon>&nbsp;Approve</a>
+                                                            </div>
+                                                            <div class="col">
+                                                                <a href="" class="btn btn-sm btn-danger d-flex  justify-content-center " style="padding:0.1rem !important;"><box-icon size="1.4rem" type='solid' color="white" name='check-square'></box-icon>&nbsp;Dissapprove</a>
+                                                            </div>
+                                                        </div>
+
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                @endif
+
+                @if (!empty($thesispassed))
+                    <div class="card-body">
+                        <div class="row g-2">
+                            <div class="col">
+                                <table class="table table-bordered  table-sm align-text-center">
+                                    <thead>
+                                        <tr class="">
+                                            <th colspan="4" style="text-align: center;">Theses uploaded</th>
+                                        </tr>
+                                    </thead>
+                                    <thead>
+                                        <tr class="">
+                                            <th class="">Date Uploaded</th>
+                                            <th class="">Remarks</th>
+                                            <th style="text-align: center;" class="">Details</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($thesispassed as $thesispassed1)
+                                            <tr class="">
+                                                <td class="">{{ \Carbon\Carbon::parse($thesispassed1->updated_at)->format('F j, Y') }}</td>
+                                                <td class="">{{ $thesispassed1->id }}</td>
+                                                <td class="" style="text-align: center;"><a data-thesisid="{{ $thesispassed1->id }}" class="viewthesis"><box-icon size="18.5px" type='solid' name='show'></box-icon></a></td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
+
             </div>
+
+
+
+
+
+
+
+
+
+
 
 
             <!-- Modal REQUIREMENTS -->
@@ -236,7 +258,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <embed id="ifrmreq" src="#" type="application/pdf" width="100%" height="100%">
+                            <embed class="modal-iframe" id="ifrmreq" src="#" type="application/pdf" width="100%" height="100%">
                         </div>
                     </div>
                 </div>
@@ -251,7 +273,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <embed id="ifrmcog" src="#" type="application/pdf" width="100%" height="100%">
+                            <embed class="modal-iframe" id="ifrmcog" src="#" type="application/pdf" width="100%" height="100%">
                         </div>
                     </div>
                 </div>
@@ -267,12 +289,26 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <embed id="ifrmcor" src="#" type="application/pdf" width="100%" height="100%">
+                            <embed class="modal-iframe" id="ifrmcor" src="#" type="application/pdf" width="100%" height="100%">
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- Modal  THESIS-->
+            <div class="modal fade common-modal" id="viewThesisModal" tabindex="-1" aria-labelledby="exampleModalThesis" aria-hidden="true">
+                <div class="modal-dialog modal-fullscreen">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div id="thisdivtitlecor">Thesis Details</div>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <embed class="modal-iframe" id="ifrmthesis" src="#" type="application/pdf" width="100%" height="100%">
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </main>
     </body>
@@ -290,7 +326,8 @@
             $('.common-modal').on('hidden.bs.modal', function() {
                 var modal = $(this);
                 $('#viewRequirementsModal #thisdivtitlereq').empty();
-                modal.find('#' + modal.data('src')).attr('src', '');
+                $(this).find('embed').attr('src', '');
+
             });
 
             //FOR SCHOLARSHIP ICON
@@ -351,7 +388,7 @@
                         $('#viewRequirementsModal #ifrm').attr('src', '{{ url('/') }}' + filePath2);
                     },
                     error: function(error) {
-                        console.error('Error fetching data for editing:', error);
+                        console.error('Error fetching data:', error);
                     }
                 });
             });
@@ -371,7 +408,7 @@
                         $('#viewRequirementsModal #ifrmreq').attr('src', '{{ url('/') }}' + filePath3);
                     },
                     error: function(error) {
-                        console.error('Error fetching data for editing:', error);
+                        console.error('Error fetching data:', error);
                     }
                 });
             });
@@ -391,7 +428,7 @@
                         $('#viewCogsModal #ifrmcog').attr('src', '{{ url('/') }}' + filePathcog);
                     },
                     error: function(error) {
-                        console.error('Error fetching data for editing:', error);
+                        console.error('Error fetching data:', error);
                     }
                 });
             }); //END COG MODAL
@@ -411,10 +448,30 @@
                         $('#viewCorModal #ifrmcor').attr('src', '{{ url('/') }}' + filePathcog);
                     },
                     error: function(error) {
-                        console.error('Error fetching data for editing:', error);
+                        console.error('Error fetching data:', error);
                     }
                 });
             }); //END COR MODAL
+
+            $(document).on('click', '.viewthesis', function() {
+                var number = $(this).data('thesisid');
+                let modal = new bootstrap.Modal('#viewThesisModal');
+                modal.show()
+                $.ajax({
+                    url: '{{ url('/scholarthesis/') }}' + '/' + number,
+                    method: 'GET',
+
+                    success: function(data) {
+                        var filePaththesis = '/' + data.thesis_details;
+                        console.log(filePaththesis);
+                        /*    $('#viewCogsModal #thisdivtitlereq').append('<h3 class="modal-title" id="exampleModalLabel"><strong>Prospectus</h3>'); */
+                        $('#viewThesisModal #ifrmthesis').attr('src', '{{ url('/') }}' + filePaththesis);
+                    },
+                    error: function(error) {
+                        console.error('Error fetching data:', error);
+                    }
+                });
+            }); //END THESIS MODAL
         });
     </script>
 

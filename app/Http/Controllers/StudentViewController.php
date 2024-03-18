@@ -40,7 +40,7 @@ class StudentViewController extends Controller
         if ($storescholarshipagreement) {
             $thesis = Thesis::create([
                 'scholar_id' => $scholarId,
-                'thesis_details' => 'storage/documents/' . $customstudentsthesis,
+                'thesis_details' => 'storage/thesis/' . $customstudentsthesis,
                 'thesis_status' => 'pending',
                 'thesis_remarks' => null,
                 'updated_at' => now(),

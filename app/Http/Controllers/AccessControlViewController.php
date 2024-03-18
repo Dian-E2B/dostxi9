@@ -7,6 +7,7 @@ use App\Models\Ongoing;
 use App\Models\Replyslips;
 use App\Models\Scholar_requirements;
 use App\Models\Sei;
+use App\Models\Thesis;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use function Laravel\Prompts\alert;
@@ -208,9 +209,9 @@ class AccessControlViewController extends Controller
         $seisourcerecord = Sei::find($id);
         $scholarrequirements = Scholar_requirements::where('scholar_id', $id)->first();
         $cogpassed = Cog::where('scholar_id', $id)->get();
-        $corpassed = Cog::where('scholar_id', $id)->get();
-        $replyslipstatus = Replyslips::where('scholar_id', $id)->first();
-        return view('scholar_information', compact('seisourcerecord', 'scholarrequirements', 'cogpassed', 'corpassed'));
+        $thesispassed = Thesis::where('scholar_id', $id)->get();
+
+        return view('scholar_information', compact('seisourcerecord', 'scholarrequirements', 'cogpassed', 'thesispassed'));
     }
 
     public function scholarverifyendorse(Request $request)
@@ -242,5 +243,11 @@ class AccessControlViewController extends Controller
     {
         $scholarcog = Cog::where('id', $id)->first();
         return response()->json($scholarcog);
+    }
+
+    public function scholarthesis($id)
+    {
+        $scholarthesis = Thesis::where('id', $id)->first();
+        return response()->json($scholarthesis);
     }
 }

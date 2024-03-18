@@ -81,7 +81,8 @@ Route::middleware(['auth', 'role:staff'])->group(function () {
     Route::post('/scholarverifyendorse', [\App\Http\Controllers\AccessControlViewController::class, 'scholarverifyendorse'])->name('scholarverifyendorse');
     //SCHOLAR GET COG AND COR PUT TO MODAL
     Route::get('/scholarcog/{id}', [\App\Http\Controllers\AccessControlViewController::class, 'scholarcog'])->name('scholarcog');
-
+    //SCHOLAR GET THESIS
+    Route::get('/scholarthesis/{id}', [\App\Http\Controllers\AccessControlViewController::class, 'scholarthesis'])->name('scholarthesis');
 
 
 
