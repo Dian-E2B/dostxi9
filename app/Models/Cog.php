@@ -22,7 +22,9 @@ class Cog extends Model
         'scholarshipstatus',
         'cog_name',
         'cor_name',
-        'draft'
+        'draft',
+        'cogcor_status',
+        'cogcor_remarks',
     ];
 
     public function cogdetails()

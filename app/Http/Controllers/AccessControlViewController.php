@@ -28,7 +28,7 @@ class AccessControlViewController extends Controller
         } catch (\Exception $e) {
 
             // flash()->addError('Empty Records' . $e->getMessage());
-            flash()->addError('Empty Records');
+
             return redirect()->back();
         }
     }
@@ -48,7 +48,7 @@ class AccessControlViewController extends Controller
             // dd($$$$$);
             return view('accesscontrol', compact('replyslipsandscholarjoinpending'));
         } catch (\Exception $e) {
-            flash()->addError('Empty Records');
+
             return redirect()->back();
         }
     }
@@ -66,7 +66,7 @@ class AccessControlViewController extends Controller
                 ->get();
             return view('accesscontrol', compact('replyslipsjoinscholarenrolled'));
         } catch (\Exception $e) {
-            flash()->addError('Empty Records');
+
             return redirect()->back();
         }
     }
@@ -82,7 +82,7 @@ class AccessControlViewController extends Controller
                 ->get();
             return view('accesscontrol', compact('replyslipsjoinscholardeferred'));
         } catch (\Exception $e) {
-            flash()->addError('Empty Records');
+
             return redirect()->back();
         }
     }
@@ -98,7 +98,7 @@ class AccessControlViewController extends Controller
                 ->get();
             return view('accesscontrol', compact('replyslipsjoinscholarLOA'));
         } catch (\Exception $e) {
-            flash()->addError('Empty Records');
+
             return redirect()->back();
         }
     }
@@ -249,5 +249,19 @@ class AccessControlViewController extends Controller
     {
         $scholarthesis = Thesis::where('id', $id)->first();
         return response()->json($scholarthesis);
+    }
+
+    public function approvecogcor($id)
+    {
+        $scholarCog = Cog::where('id', $id)->first();
+
+        if ($scholarCog) {
+            $scholarCog->cogcor_status = "approved";
+            $scholarCog->save();
+
+            return back()->with('approved', 'Thesis Approved!');
+        } else {
+            return response()->json("error", 404);
+        }
     }
 }

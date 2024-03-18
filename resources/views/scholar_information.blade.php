@@ -11,10 +11,15 @@
 
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
         <link href="https://cdn.datatables.net/v/bs5/dt-1.13.8/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/date-1.5.1/fc-4.3.0/fh-3.4.0/r-2.5.0/sc-2.3.0/sp-2.2.0/sl-1.7.0/datatables.min.css" rel="stylesheet">
+        <meta name="csrf-token" content="{{ csrf_token() }}" />
         <style>
             .tdviewreq {
                 text-align: center;
                 font-size: 15px
+            }
+
+            .hidden {
+                display: none;
             }
         </style>
     </head>
@@ -23,6 +28,17 @@
         @include('layouts.headernew') {{-- HEADER START --}}
         @include('layouts.sidebarnew') {{-- SIDEBAR START --}}
         <main id="main" style="padding: 1.5rem 0.5rem 0.5rem; !important;">
+
+            @if (session('approved'))
+                <script>
+                    let successmessage = "{{ session('approved') }}";
+                    Swal.fire({
+                        iconHtml: '<img src="/extraicons/approval.gif" style="width: 150px; height: 150px;">',
+                        title: successmessage,
+                        text: "",
+                    });
+                </script>
+            @endif
 
             {{-- @dd($seisourcerecord) --}}
             {{-- @dd($scholarrequirements) --}}
@@ -169,7 +185,7 @@
                                                 <th class="">Semester</th>
                                                 <th style="text-align: center;" class="">COG Details</th>
                                                 <th style="text-align: center;" class="">COR Details</th>
-                                                <th style="text-align: center;" class="">Actions</th>
+                                                <th style="text-align: center; width: 15rem !important;" class="">Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -177,18 +193,23 @@
                                                 <tr class="">
                                                     <td class="">{{ \Carbon\Carbon::parse($cogpassed1->date_uploaded)->format('F j, Y') }}</td>
                                                     <td class="">{{ $cogpassed1->semester }}</td>
-                                                    <td class="" style="text-align: center;"><a style="padding: 0 !important; margin: 0;" data-cogid="{{ $cogpassed1->id }}" class="viewcog"><box-icon style="padding: 0 !important; margin: 0;" size="18.5px" type='solid' name='show'></box-icon></a></td>
+                                                    <td class="" style="text-align: center;"><a style="padding: 0 !important; margin: 0;" class="viewcog"><box-icon style="padding: 0 !important; margin: 0;" size="18.5px" type='solid' name='show'></box-icon></a></td>
                                                     <td class="" style="text-align: center;"><a data-corid="{{ $cogpassed1->id }}" class="viewcor"><box-icon size="18.5px" type='solid' name='show'></box-icon></a></td>
-                                                    <td class="" style="text-align: center;">
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <a href="" class="btn btn-sm btn-success d-flex  justify-content-center " style="padding:0.1rem !important;"><box-icon size="1.4rem" type='solid' color="white" name='check-square'></box-icon>&nbsp;Approve</a>
-                                                            </div>
-                                                            <div class="col">
-                                                                <a href="" class="btn btn-sm btn-danger d-flex  justify-content-center " style="padding:0.1rem !important;"><box-icon size="1.4rem" type='solid' color="white" name='check-square'></box-icon>&nbsp;Dissapprove</a>
-                                                            </div>
+                                                    <td class="justify-content-center" style="text-align: center;">
+                                                        <div class="row g-1" style="">
+                                                            @if ($cogpassed1->cogcor_status == 'approved')
+                                                                <div class="col">
+                                                                    Approved
+                                                                </div>
+                                                            @else
+                                                                <div class="col">
+                                                                    <a class="btn btn-sm btn-success d-flex thisisbutton justify-content-center" id="cogcorapprove" data-cogid="{{ $cogpassed1->id }}" style="padding:0.1rem !important; max-width: 7rem; margin:0;"><box-icon size="1.4rem" type='solid' color="white" name='check-square'></box-icon>&nbsp;Approve</a>
+                                                                </div>
+                                                                <div class="col">
+                                                                    <a href="" class="btn btn-sm btn-danger d-flex  justify-content-center " style="padding:0.1rem !important; max-width: 7rem;margin:0;"><box-icon size="1.4rem" type='solid' color="white" name='x-square'></box-icon>&nbsp;Dissapprove</a>
+                                                                </div>
+                                                            @endif
                                                         </div>
-
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -312,14 +333,34 @@
 
         </main>
     </body>
+    <script src="https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-1.13.8/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/date-1.5.1/fc-4.3.0/fh-3.4.0/r-2.5.0/sc-2.3.0/sp-2.2.0/sl-1.7.0/datatables.min.js"></script>
     <script src="{{ asset('js/app.js') }}"></script>
 
-    <script src="https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-1.13.8/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/date-1.5.1/fc-4.3.0/fh-3.4.0/r-2.5.0/sc-2.3.0/sp-2.2.0/sl-1.7.0/datatables.min.js"></script>
+
     <script>
         function submitFormverify(action) {
             document.getElementById('scholarprocess').value = action;
             document.getElementById('formverify').submit();
         }
+
+        document.querySelectorAll('.thisisbutton').forEach(function(element) {
+            element.addEventListener('click', function() {
+                // Store the current scroll position in sessionStorage
+                sessionStorage.setItem('scrollPosition', window.scrollY);
+            });
+        });
+
+        // After page reload, check if there's a stored scroll position and scroll to it
+        window.addEventListener('load', function() {
+            var scrollPosition = sessionStorage.getItem('scrollPosition');
+            if (scrollPosition) {
+                // Scroll the page to the stored position
+                window.scrollTo(0, parseInt(scrollPosition));
+                // Clear the stored scroll position after using it
+                sessionStorage.removeItem('scrollPosition');
+            }
+        });
+
         document.addEventListener('DOMContentLoaded', function() {
 
 
@@ -463,7 +504,7 @@
 
                     success: function(data) {
                         var filePaththesis = '/' + data.thesis_details;
-                        console.log(filePaththesis);
+
                         /*    $('#viewCogsModal #thisdivtitlereq').append('<h3 class="modal-title" id="exampleModalLabel"><strong>Prospectus</h3>'); */
                         $('#viewThesisModal #ifrmthesis').attr('src', '{{ url('/') }}' + filePaththesis);
                     },
@@ -472,6 +513,12 @@
                     }
                 });
             }); //END THESIS MODAL
+
+            $(document).on('click', '#cogcorapprove', function() {
+                var number = $(this).data('cogid');
+                var url = '{{ url('/approvecogcor/') }}' + '/' + number;
+                window.location.href = url;
+            });
         });
     </script>
 

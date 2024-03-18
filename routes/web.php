@@ -83,7 +83,8 @@ Route::middleware(['auth', 'role:staff'])->group(function () {
     Route::get('/scholarcog/{id}', [\App\Http\Controllers\AccessControlViewController::class, 'scholarcog'])->name('scholarcog');
     //SCHOLAR GET THESIS
     Route::get('/scholarthesis/{id}', [\App\Http\Controllers\AccessControlViewController::class, 'scholarthesis'])->name('scholarthesis');
-
+    //SCHOLAR APPROVE COGCOR
+    Route::get('/approvecogcor/{id}', [\App\Http\Controllers\AccessControlViewController::class, 'approvecogcor'])->name('approvecogcor');
 
 
     //ONGOINGLIST
