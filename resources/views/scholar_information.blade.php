@@ -15,11 +15,26 @@
         <style>
             .tdviewreq {
                 text-align: center;
-                font-size: 15px
+
             }
 
             .hidden {
                 display: none;
+            }
+
+            .thisisbutton {
+                display: flex;
+                justify-content: center;
+                padding: 0px 10.5px !important;
+                margin: 0;
+            }
+
+            .thisisbutton2 {
+                display: flex !important;
+                vertical-align: middle !important;
+                justify-content: center;
+                padding: 0px 10.5px !important;
+                margin: 0;
             }
         </style>
     </head>
@@ -27,13 +42,22 @@
     <body>
         @include('layouts.headernew') {{-- HEADER START --}}
         @include('layouts.sidebarnew') {{-- SIDEBAR START --}}
-        <main id="main" style="padding: 1.5rem 0.5rem 0.5rem; !important;">
+        <main id="main" style="padding: 1.5rem 1rem 1rem; !important;">
 
             @if (session('approved'))
                 <script>
                     let successmessage = "{{ session('approved') }}";
                     Swal.fire({
                         iconHtml: '<img src="/extraicons/approval.gif" style="width: 150px; height: 150px;">',
+                        title: successmessage,
+                        text: "",
+                    });
+                </script>
+            @elseif (session('disapproved'))
+                <script>
+                    let successmessage = "{{ session('disapproved') }}";
+                    Swal.fire({
+                        iconHtml: '<img src="/extraicons/warning.gif" style="width: 150px; height: 150px;">',
                         title: successmessage,
                         text: "",
                     });
@@ -93,16 +117,16 @@
                     <div class="col-lg-12">
                         <div class="">
                             <div class="card-body mt-3">
-                                <table class="nowrap compact table table-bordered table-sm" width="100%">
+                                <table class="table table-bordered table-sm align-text-center">
                                     <tr>
-                                        <td colspan="2" style="text-align: center; font-weight:bold; font-size: 1.5rem;">Requirements Uploaded</td>
+                                        <td colspan="2" style="text-align: center; font-weight:bold;">Requirements Uploaded</td>
                                     </tr>
                                     <tr>
                                         <td>Scholarship Agreement</td>
                                         @if (empty($scholarrequirements))
                                             <td class="tdviewreq">No File Uploaded</td>
                                         @else
-                                            <td class="tdviewreq"><a style="display:block" href="#" data-id="{{ $seisourcerecord->id }}" class="viewreqsholarship"><box-icon type='solid' name='show'></box-icon></a></td>
+                                            <td class="tdviewreq " style="text-align: center;"><a class="btn btn-sm btn-light viewreqsholarship thisisbutton" href="#" data-id="{{ $seisourcerecord->id }}" class=""><box-icon size="1.4rem" type='solid' name='show'></box-icon>&nbsp;View</a></td>
                                         @endif
                                     </tr>
                                     <tr>
@@ -111,7 +135,7 @@
                                         @if (empty($scholarrequirements))
                                             <td class="tdviewreq">No File Uploaded</td>
                                         @else
-                                            <td class="tdviewreq"><a style="display:block" href="#" data-id="{{ $seisourcerecord->id }}" class="viewreqinformation"><box-icon type='solid' name='show'></box-icon></a></td>
+                                            <td class="tdviewreq"><a data-id="{{ $seisourcerecord->id }}" class="viewreqinformation btn btn-sm btn-light thisisbutton"><box-icon size="1.4rem" type='solid' name='show'></box-icon>&nbsp;View</a></td>
                                         @endif
                                     </tr>
                                     <tr>
@@ -119,7 +143,7 @@
                                         @if (empty($scholarrequirements))
                                             <td class="tdviewreq">No File Uploaded</td>
                                         @else
-                                            <td class="tdviewreq"><a style="display:block" href="#" data-id="{{ $seisourcerecord->id }}" class="viewreqoath"><box-icon type='solid' name='show'></box-icon></td>
+                                            <td class="tdviewreq"><a data-id="{{ $seisourcerecord->id }}" class="viewreqoath btn btn-sm btn-light thisisbutton"><box-icon size="1.4rem" type='solid' name='show'></box-icon>&nbsp;View</a></td>
                                         @endif
                                     </tr>
                                     <tr>
@@ -127,8 +151,38 @@
                                         @if (empty($scholarrequirements))
                                             <td class="tdviewreq">No File Uploaded</td>
                                         @else
-                                            <td class="tdviewreq"><a style="display:block" href="#" data-id="{{ $seisourcerecord->id }}" class="viewreqprospectus"><box-icon type='solid' name='show'></box-icon></td>
+                                            <td class="tdviewreq"><a data-id="{{ $seisourcerecord->id }}" class="viewreqprospectus btn btn-sm btn-light thisisbutton"><box-icon size="1.4rem" type='solid' name='show'></box-icon>&nbsp;View</a></td>
                                         @endif
+                                    </tr>
+                                    <tr class="">
+                                        <td colspan="5">
+                                            <form id="formverify" method="POST" action="{{ route('scholarverifyendorse') }}">
+                                                @csrf
+                                                <input type="hidden" name="namescholar_id" value="{{ $seisourcerecord->id }}">
+                                                <input type="hidden" name="nameprocess" id="scholarprocess" value="">
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <div class="d-flex justify-content-start align-items-center">
+                                                            @php
+                                                                $replyslipverified = \App\Models\Replyslips::where('scholar_id', $seisourcerecord->id)->first();
+                                                            @endphp
+                                                            @if ($replyslipverified)
+                                                                @if ($replyslipverified->replyslip_status_id == 5)
+                                                                    <button disabled class="btn btn-success btn-sm">Verified</button><span class="px-2"></span>
+                                                                @else
+                                                                    <button type="submit" class="btn btn-success btn-sm" onclick="submitFormverify('verify');">Verify</button><span class="px-2"></span>
+                                                                @endif
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="d-flex justify-content-start align-items-center">
+                                                            <button type="submit" class="btn btn-primary btn-sm" onclick="submitFormverify('endorse');">Endorse to other region</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </td>
                                     </tr>
                                 </table>
                                 @if (session('success'))
@@ -141,32 +195,8 @@
                                         })
                                     </script>
                                 @endif
-                                <form id="formverify" method="POST" action="{{ route('scholarverifyendorse') }}">
-                                    @csrf
-                                    <input type="hidden" name="namescholar_id" value="{{ $seisourcerecord->id }}">
-                                    <input type="hidden" name="nameprocess" id="scholarprocess" value="">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="d-flex justify-content-start align-items-center">
-                                                @php
-                                                    $replyslipverified = \App\Models\Replyslips::where('scholar_id', $seisourcerecord->id)->first();
-                                                @endphp
-                                                @if ($replyslipverified)
-                                                    @if ($replyslipverified->replyslip_status_id == 5)
-                                                        <button disabled class="btn btn-success">Verified</button><span class="px-2"></span>
-                                                    @else
-                                                        <button type="submit" class="btn btn-success" onclick="submitFormverify('verify');">Verify</button><span class="px-2"></span>
-                                                    @endif
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="d-flex justify-content-start align-items-center">
-                                                <button type="submit" class="btn btn-primary" onclick="submitFormverify('endorse');">Endorse to other region</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
+
+
                             </div>
                         </div>
                     </div>
@@ -178,45 +208,65 @@
                         <div class="card-body mt-3">
                             <div class="row g-2">
                                 <div class="col">
-                                    <table class="table table-bordered table-sm align-text-center">
-                                        <thead>
-                                            <tr class="">
-                                                <th class="">Date Uploaded</th>
-                                                <th class="">Semester</th>
-                                                <th style="text-align: center;" class="">COG Details</th>
-                                                <th style="text-align: center;" class="">COR Details</th>
-                                                <th style="text-align: center; width: 15rem !important;" class="">Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($cogpassed as $cogpassed1)
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-sm">
+                                            <thead>
                                                 <tr class="">
-                                                    <td class="">{{ \Carbon\Carbon::parse($cogpassed1->date_uploaded)->format('F j, Y') }}</td>
-                                                    <td class="">{{ $cogpassed1->semester }}</td>
-                                                    <td class="" style="text-align: center;"><a style="padding: 0 !important; margin: 0;" class="viewcog"><box-icon style="padding: 0 !important; margin: 0;" size="18.5px" type='solid' name='show'></box-icon></a></td>
-                                                    <td class="" style="text-align: center;"><a data-corid="{{ $cogpassed1->id }}" class="viewcor"><box-icon size="18.5px" type='solid' name='show'></box-icon></a></td>
-                                                    <td class="justify-content-center" style="text-align: center;">
-                                                        <div class="row g-1" style="">
-                                                            @if ($cogpassed1->cogcor_status == 'approved')
-                                                                <div class="col">
-                                                                    Approved
-                                                                </div>
-                                                            @else
-                                                                <div class="col">
-                                                                    <a class="btn btn-sm btn-success d-flex thisisbutton justify-content-center" id="cogcorapprove" data-cogid="{{ $cogpassed1->id }}" style="padding:0.1rem !important; max-width: 7rem; margin:0;"><box-icon size="1.4rem" type='solid' color="white" name='check-square'></box-icon>&nbsp;Approve</a>
-                                                                </div>
-                                                                <div class="col">
-                                                                    <a href="" class="btn btn-sm btn-danger d-flex  justify-content-center " style="padding:0.1rem !important; max-width: 7rem;margin:0;"><box-icon size="1.4rem" type='solid' color="white" name='x-square'></box-icon>&nbsp;Dissapprove</a>
-                                                                </div>
-                                                            @endif
-                                                        </div>
-                                                    </td>
+                                                    <th colspan="6" style="text-align: center !important; ">COG/COR Section</th>
+
                                                 </tr>
-                                            @endforeach
+                                                <tr class="">
+                                                    <th class="">Date Uploaded</th>
 
-                                        </tbody>
-                                    </table>
+                                                    <th class="">Semester</th>
+                                                    <th style="text-align: center;" class="">COG Details</th>
+                                                    <th style="text-align: center;" class="">COR Details</th>
+                                                    <th class="">Remarks</th>
+                                                    <th style="text-align: center; width: 15rem;" class="">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($cogpassed as $cogpassed1)
+                                                    <tr class="">
+                                                        <td class="">{{ \Carbon\Carbon::parse($cogpassed1->date_uploaded)->format('F j, Y') }}</td>
+                                                        <td class="">{{ $cogpassed1->semester }}</td>
+                                                        <td class="" style="text-align: center;"><a data-cogid="{{ $cogpassed1->id }}" class="viewcog thisisbutton btn btn-light"><box-icon size="1.4rem" type='solid' name='show'></box-icon>&nbsp;View</a></td>
+                                                        <td class="" style="text-align: center;"><a data-corid="{{ $cogpassed1->id }}" class="viewcor thisisbutton btn btn-light"><box-icon size="1.4rem" type='solid' name='show'></box-icon>&nbsp;View</a></td>
+                                                        <td class="">{{ $cogpassed1->cogcor_remarks }}</td>
+                                                        <td class=" " style="text-align: center;">
+                                                            <div class="row g-0" style="">
+                                                                @if ($cogpassed1->cogcor_status == 'approved')
+                                                                    <div class="col">
+                                                                        Approved
+                                                                    </div>
+                                                                @elseif ($cogpassed1->cogcor_status == 'disapproved')
+                                                                    <div class="col">
+                                                                        Disapproved
+                                                                    </div>
+                                                                @else
+                                                                    <div class="col">
+                                                                        <form action="{{ route('approvecogcor', ['id' => $cogpassed1->id]) }}" class="">
+                                                                            @csrf
+                                                                            <button class="btn btn-sm  btn-success thisisbutton2 "><box-icon size="1.4rem" type='solid' color="white" name='check-square'></box-icon>&nbsp;Approve</button>
+                                                                        </form>
+                                                                    </div>
+                                                                    <div class="col">
+                                                                        <form id="disapprovecogForm" action="{{ route('approvecogcor', ['id' => $cogpassed1->id]) }}" class="">
+                                                                            @csrf
+                                                                            <input type="text" hidden style="display:none" name="disapprovecor" value="0">
+                                                                            <button type="button" class="btn btn-sm btn-danger  thisisbutton2 " id="disapprovecogButton"><box-icon style="" size="1.4rem" type='solid' color="white" name='x-square'></box-icon>&nbsp;Disapprove</button>
+                                                                        </form>
 
+                                                                    </div>
+                                                                @endif
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -237,16 +287,31 @@
                                     <thead>
                                         <tr class="">
                                             <th class="">Date Uploaded</th>
-                                            <th class="">Remarks</th>
+                                            <th class="">Status</th>
                                             <th style="text-align: center;" class="">Details</th>
+                                            <th style="text-align: center; width: 15rem" class="">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($thesispassed as $thesispassed1)
                                             <tr class="">
                                                 <td class="">{{ \Carbon\Carbon::parse($thesispassed1->updated_at)->format('F j, Y') }}</td>
-                                                <td class="">{{ $thesispassed1->id }}</td>
+                                                <td class="">{{ $thesispassed1->thesis_status }}</td>
                                                 <td class="" style="text-align: center;"><a data-thesisid="{{ $thesispassed1->id }}" class="viewthesis"><box-icon size="18.5px" type='solid' name='show'></box-icon></a></td>
+                                                <td class="" style="text-align: center;">
+                                                    <div class="row g-1">
+                                                        <div class="col">
+                                                            <a class="btn btn-sm btn-success thisisbutton" id="thesisapprove" data-thesisid="{{ $thesispassed1->id }}"><box-icon size="1.4rem" type='solid' color="white" name='check-square'></box-icon>&nbsp;Approve</a>
+                                                        </div>
+                                                        <div class="col">
+                                                            <a class="btn btn-sm btn-danger thisisbutton" id="" data-thesisid="{{ $thesispassed1->id }}"><box-icon size="1.4rem" type='solid' color="white" name='check-square'></box-icon>&nbsp;Deny</a>
+                                                        </div>
+                                                        <form action="" class="">
+
+                                                        </form>
+                                                    </div>
+
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -255,20 +320,7 @@
                         </div>
                     </div>
                 @endif
-
-
             </div>
-
-
-
-
-
-
-
-
-
-
-
 
             <!-- Modal REQUIREMENTS -->
             <div class="modal fade common-modal" id="viewRequirementsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -338,6 +390,33 @@
 
 
     <script>
+        document.querySelector('#disapprovecogButton').addEventListener('click', function() {
+            // Show SweetAlert
+            Swal.fire({
+                title: 'Disapprove this thesis proposal?',
+                html: `
+
+                <textarea id="remarks" class="form-control" placeholder="Remarks"></textarea>
+            `,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, disapprove'
+            }).then((result) => {
+                // If user confirms, submit the form
+                if (result.isConfirmed) {
+                    // Get remarks from the textarea
+                    var remarks = document.getElementById('remarks').value;
+                    // Append remarks to the form data
+                    document.getElementById('disapprovecogForm').insertAdjacentHTML('beforeend', `<input type="hidden" name="cogremarks" value="${remarks}">`);
+                    // Submit the form
+                    document.getElementById('disapprovecogForm').submit();
+                }
+            });
+        });
+
+
         function submitFormverify(action) {
             document.getElementById('scholarprocess').value = action;
             document.getElementById('formverify').submit();
@@ -426,7 +505,7 @@
                         /*    console.log(data); */
                         var filePath2 = '/' + data.scholaroath;
                         $('#viewRequirementsModal #thisdivtitlereq').append('<h3 class="modal-title" id="exampleModalLabel"><strong>Scholar Oath</strong></h3>');
-                        $('#viewRequirementsModal #ifrm').attr('src', '{{ url('/') }}' + filePath2);
+                        $('#viewRequirementsModal #ifrmreq').attr('src', '{{ url('/') }}' + filePath2);
                     },
                     error: function(error) {
                         console.error('Error fetching data:', error);
@@ -514,11 +593,12 @@
                 });
             }); //END THESIS MODAL
 
-            $(document).on('click', '#cogcorapprove', function() {
-                var number = $(this).data('cogid');
-                var url = '{{ url('/approvecogcor/') }}' + '/' + number;
-                window.location.href = url;
-            });
+            /*   $(document).on('click', '#cogcorapprove', function() {
+                  var number = $(this).data('cogid');
+                  var url = '{{ url('/approvecogcor/') }}' + '/' + number;
+                  window.location.href = url;
+              }); */
+
         });
     </script>
 

@@ -251,17 +251,24 @@ class AccessControlViewController extends Controller
         return response()->json($scholarthesis);
     }
 
-    public function approvecogcor($id)
+    public function approvecogcor(Request $request, $id)
     {
-        $scholarCog = Cog::where('id', $id)->first();
 
-        if ($scholarCog) {
+        $disapprovecor = $request->input('disapprovecor');
+        $disapprovecor_remarks = $request->input('cogremarks');
+
+        if ($disapprovecor == "0") {
+            $scholarCog = Cog::where('id', $id)->first();
+            $scholarCog->cogcor_status = "disapproved";
+            $scholarCog->cogcor_remarks =  $disapprovecor_remarks;
+            $scholarCog->save();
+            return back()->with('disapproved', 'COG and COR Disapproved!');
+        } else {
+            $scholarCog = Cog::where('id', $id)->first();
             $scholarCog->cogcor_status = "approved";
             $scholarCog->save();
 
-            return back()->with('approved', 'Thesis Approved!');
-        } else {
-            return response()->json("error", 404);
+            return back()->with('approved', 'COG and COR Approved!');
         }
     }
 }
