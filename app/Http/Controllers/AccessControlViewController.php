@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cog;
+use App\Models\Notification_schols;
+use App\Models\Notification_staffs;
 use App\Models\Ongoing;
 use App\Models\Replyslips;
 use App\Models\Scholar_requirements;
 use App\Models\Sei;
 use App\Models\Thesis;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\DB;
 use function Laravel\Prompts\alert;
 
@@ -257,18 +260,36 @@ class AccessControlViewController extends Controller
         $disapprovecor = $request->input('disapprovecor');
         $disapprovecor_remarks = $request->input('cogremarks');
 
-        if ($disapprovecor == "0") {
+        if ($disapprovecor == "0") { //if disapproved,
             $scholarCog = Cog::where('id', $id)->first();
             $scholarCog->cogcor_status = "disapproved";
             $scholarCog->cogcor_remarks =  $disapprovecor_remarks;
             $scholarCog->save();
-            return back()->with('disapproved', 'COG and COR Disapproved!');
-        } else {
+
+            $scholarCogdeletenotif = Notification_staffs::where('data_id', $id)->first(); //find the notif id
+
+            /*  $scholarCogdeletenotif->delete(); //clean notif */
+
+            Notification_schols::create( //add notif to scholar
+                [
+                    'type' => 'Cog & Cor',
+                    'message' => 'Your Cog & Cor uploaded has been disapproved. Please see remarks for details.',
+                    'data_id' =>  $id,
+                    'scholar_id' =>  $scholarCog->scholar_id,
+                ]
+            );
+
+            return back()->with('disapproved', 'COG and COR has been disapproved.');
+        } else { //if approved
             $scholarCog = Cog::where('id', $id)->first();
             $scholarCog->cogcor_status = "approved";
             $scholarCog->save();
 
-            return back()->with('approved', 'COG and COR Approved!');
+            $scholarCogdeletenotif = Notification_staffs::where('data_id', $id)->first();
+            if ($scholarCogdeletenotif) {
+                $scholarCogdeletenotif->delete();
+                return back()->with('approved', 'COG and COR has been approved!');
+            }
         }
     }
 }

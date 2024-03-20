@@ -3,7 +3,7 @@
 
     <div class="d-flex align-items-center justify-content-between">
         <a href="index.html" class="logo d-flex align-items-center">
-            <img src="assets/img/logo.png" alt="">
+
             <span class="d-none d-lg-block">DOST</span>
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -13,29 +13,22 @@
     <nav class="header-nav ms-auto">
         <ul class="d-flex align-items-center">
 
-            <li class="nav-item d-block d-lg-none">
-                <a class="nav-link nav-icon search-bar-toggle " href="#">
-                    <i class="bi bi-search"></i>
-                </a>
-            </li><!-- End Search Icon-->
+
 
             <li class="nav-item dropdown">
-
-
                 <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                     <box-icon class="mt-2" type='solid' name='bell' color='black' size="27px"></box-icon>
-                    <span id="notificationCount" class="badge bg-primary badge-number"></span>
+                    <span id="notificationCount" class="mt-1 badge bg-primary badge-number"></span> {{-- COUNTER1 --}}
                 </a><!-- End Notification Icon -->
 
 
                 <ul style="user-select: none;" class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
                     <li class="dropdown-header">
-                        You have <span id="notificationCount2"></span> new notifications
+                        You have <span id="notificationCount2"></span> new notifications {{-- COUNTER2 --}}
                     </li>
                     <div style="margin: 0 ; cursor:pointer;" id="notifications-list"></div>
                 </ul><!-- End Notification Dropdown Items -->
-
-            </li><!-- End Notification Nav -->
+            </li><!-- End BELL THING -->
 
 
 
@@ -61,6 +54,57 @@
 
 
 </header><!-- End Header -->
+<script>
+    function updateNotificationCount() {
+        fetch('/notificationsscholar/count')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                document.getElementById('notificationCount').textContent = data.count;
+                document.getElementById('notificationCount2').textContent = data.count;
+            });
+    }
+    updateNotificationCount()
+
+    function getNotifications() {
+        fetch('/notificationsgetspecific')
+            .then(response => response.json())
+            .then(data => {
+
+                const notificationsList = document.getElementById('notifications-list');
+                // Clear existing notifications
+                notificationsList.innerHTML = '';
+
+                data.notificationsscholars.forEach(notificationsscholars => {
+                    const li = document.createElement('li');
+                    li.className = 'notification-item';
+                    li.innerHTML = `
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <box-icon size="1.5rem" color="orange" style="padding: 0rem 0.5rem;" type='solid' name='message-square-error'></box-icon>
+                    <div>
+                        <h4>${notificationsscholars.type}</h4>
+                        <p style="color:black">${notificationsscholars.message}</p>
+                    </div>
+                `;
+                    li.setAttribute('contenteditable', 'false');
+
+                    li.addEventListener('click', (function(scholarId) {
+                        return function() {
+                            handleNotificationClick(scholarId);
+                        };
+                    })(notificationsscholars.scholar_id));
+
+                    notificationsList.appendChild(li);
+                });
+
+            })
+            .catch(error => console.error('Error fetching notifications:', error));
+    }
+
+    getNotifications();
+</script>
 
 
 <!-- <nav class="navbar navbar-expand navbar-light navbar-bg">

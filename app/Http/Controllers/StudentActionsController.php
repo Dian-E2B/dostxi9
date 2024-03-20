@@ -71,8 +71,6 @@ class StudentActionsController extends Controller
     }
 
 
-
-
     //GRADES SAVE
     public function cogsave(Request $request)
     {
@@ -162,27 +160,24 @@ class StudentActionsController extends Controller
                 $storageDirectorycog = 'storage/cog/';
                 $storageDirectorycor = 'storage/cor/';
                 $cogFileName = str_replace($storageDirectorycog, '', $cogFilePath); //COG
-                $corFileName = str_replace($storageDirectorycor, '', $cogFilePath); //COR
+                $corFileName = str_replace($storageDirectorycor, '', $corFilePath); //COR
                 if ($cogFilePath && Storage::disk('public')->exists('cog/' . $cogFileName)) {
-                    $deletecog =  Storage::disk('public')->delete('cog/' . $cogFileName);
-                    if ($deletecog)
-                        Storage::disk('public')->delete('cor/' . $corFileName);
+                    Storage::disk('public')->delete('cog/' . $cogFileName);
+                    Storage::disk('public')->delete('cor/' . $corFileName);
                     return redirect()->back()->with('success', 'Draft and Files deleted successfully');
-                } else {
                 }
             }
         } else {
             $scholarid = $request->input('scholar_id');
-            /*   $customstudentprospectusfilename = $scholarid . 'prospectus' . time() . '.' . $request->file('prospectus1')->getClientOriginalExtension();
-            $request->file('prospectus1')->storeAs('public/prospectus', $customstudentprospectusfilename);
- */
+            /* $customstudentprospectusfilename = $scholarid . 'prospectus' . time() . '.' . $request->file('prospectus1')->getClientOriginalExtension();
+            $request->file('prospectus1')->storeAs('public/prospectus', $customstudentprospectusfilename);*/
             $cog_id = $request->input('cog_id');
             $cog = Cog::find($cog_id);
             if ($cog) {
                 // Update the draft column to 0
                 $cog->update([
                     'draft' => 0,
-                    /*  'cog_name' => 'storage/prospectus/' . $customstudentprospectusfilename, */
+                    /*'cog_name' => 'storage/prospectus/' . $customstudentprospectusfilename,*/
                 ]);
                 return redirect()->back()->with('success', 'Draft submitted successfully');
             }

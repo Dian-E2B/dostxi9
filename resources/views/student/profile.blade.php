@@ -317,15 +317,7 @@
     </body>
     <script src="{{ asset('js/app.js') }}"></script>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {
-
-                keyboard: false
-            });
-            myModal.show(); // This will show the modal immediately
-        });
-    </script>
+    <script></script>
 
 
 </html>

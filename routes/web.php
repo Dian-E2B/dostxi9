@@ -162,6 +162,9 @@ Route::middleware(['auth:student', 'verified'])->group(function () {
     Route::POST('/studenteditcog', [\App\Http\Controllers\StudentViewController::class, 'studenteditcog'])->name('studenteditcog');
     Route::POST('/saveDraft', [\App\Http\Controllers\StudentActionsController::class, 'saveDraft'])->name('saveDraft');
     Route::POST('/savefirstrequirements', [\App\Http\Controllers\StudentViewController::class, 'savefirstrequirements'])->name('savefirstrequirements');
+
+    Route::get('/notificationsgetspecific', [\App\Http\Controllers\HeaderController::class, 'notificationsgetspecific'])->name('notificationsgetspecific'); //GET NOTIFICATIONS
+    Route::get('/notificationsscholar/count', [\App\Http\Controllers\HeaderController::class, 'notificationsscholarcount'])->name('notificationsscholarcount'); //GET NOTIFICATIONS
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
