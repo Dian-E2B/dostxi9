@@ -202,8 +202,8 @@
                     </div>
                 </div>
 
-
-                @if (!empty($cogpassed))
+                {{--   @dd($cogpassed) --}}
+                @if (isset($cogpassed))
                     <div class="">
                         <div class="card-body mt-3">
                             <div class="row g-2">
@@ -256,7 +256,33 @@
                                                                             <input type="text" hidden style="display:none" name="disapprovecor" value="0">
                                                                             <button type="button" class="btn btn-sm btn-danger  thisisbutton2 " id="disapprovecogButton"><box-icon style="" size="1.4rem" type='solid' color="white" name='x-square'></box-icon>&nbsp;Disapprove</button>
                                                                         </form>
+                                                                        <script>
+                                                                            document.querySelector('#disapprovecogButton').addEventListener('click', function() {
+                                                                                // Show SweetAlert
+                                                                                Swal.fire({
+                                                                                    title: 'Disapprove this thesis proposal?',
+                                                                                    html: `
+                                                                                    <textarea id="remarks" class="form-control" placeholder="Remarks"></textarea>
+                                                                                            `,
+                                                                                    icon: 'warning',
+                                                                                    showCancelButton: true,
+                                                                                    confirmButtonColor: '#3085d6',
+                                                                                    cancelButtonColor: '#d33',
+                                                                                    confirmButtonText: 'Yes, disapprove',
 
+                                                                                }).then((result) => {
+                                                                                    // If user confirms, submit the form
+                                                                                    if (result.isConfirmed) {
+                                                                                        // Get remarks from the textarea
+                                                                                        var remarks = document.getElementById('remarks').value;
+                                                                                        // Append remarks to the form data
+                                                                                        document.getElementById('disapprovecogForm').insertAdjacentHTML('beforeend', `<input type="hidden" name="cogremarks" value="${remarks}">`);
+                                                                                        // Submit the form
+                                                                                        document.getElementById('disapprovecogForm').submit();
+                                                                                    }
+                                                                                });
+                                                                            });
+                                                                        </script>
                                                                     </div>
                                                                 @endif
                                                             </div>
@@ -270,7 +296,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 @endif
 
@@ -385,38 +410,12 @@
 
         </main>
     </body>
-    <script src="https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-1.13.8/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/date-1.5.1/fc-4.3.0/fh-3.4.0/r-2.5.0/sc-2.3.0/sp-2.2.0/sl-1.7.0/datatables.min.js"></script>
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-1.13.8/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/date-1.5.1/fc-4.3.0/fh-3.4.0/r-2.5.0/sc-2.3.0/sp-2.2.0/sl-1.7.0/datatables.min.js"></script>
+
 
 
     <script>
-        document.querySelector('#disapprovecogButton').addEventListener('click', function() {
-            // Show SweetAlert
-            Swal.fire({
-                title: 'Disapprove this thesis proposal?',
-                html: `
-
-                <textarea id="remarks" class="form-control" placeholder="Remarks"></textarea>
-            `,
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, disapprove'
-            }).then((result) => {
-                // If user confirms, submit the form
-                if (result.isConfirmed) {
-                    // Get remarks from the textarea
-                    var remarks = document.getElementById('remarks').value;
-                    // Append remarks to the form data
-                    document.getElementById('disapprovecogForm').insertAdjacentHTML('beforeend', `<input type="hidden" name="cogremarks" value="${remarks}">`);
-                    // Submit the form
-                    document.getElementById('disapprovecogForm').submit();
-                }
-            });
-        });
-
-
         function submitFormverify(action) {
             document.getElementById('scholarprocess').value = action;
             document.getElementById('formverify').submit();
@@ -441,6 +440,7 @@
         });
 
         document.addEventListener('DOMContentLoaded', function() {
+
 
 
             $('.common-modal').on('hidden.bs.modal', function() {

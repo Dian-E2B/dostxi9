@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Cog;
 use App\Models\Cogdetails;
 use App\Models\Cogsdraft;
+use App\Models\Notification_staffs;
 use App\Models\Replyslips;
 use App\Models\Scholars;
 use App\Models\Sei;
@@ -86,11 +87,6 @@ class StudentActionsController extends Controller
         $customstudentcorfilename = $scholarid . 'cor' . time() . '.' . $request->file('corname')->getClientOriginalExtension();
         $request->file('corname')->storeAs('public/cor', $customstudentcorfilename);
 
-        /*  dd($semesterinput); */
-        /* dd($data);*/
-
-        /*  $endyearinput = $request->input('endyear'); */
-        // $schoolyearinput = $request->input('schoolyear');
 
         $data = $request->validate([
             'subjectnames.*.name' => 'required',
@@ -110,14 +106,14 @@ class StudentActionsController extends Controller
             'cor_name' => 'storage/cor/' . $customstudentcorfilename,
         ];
 
-        // Determine if the cog is a draft
+
         $isDraft = $request->is_draft == 1;
 
-        // Set the draft flag in cog data
         $cogData['draft'] = $isDraft ? 1 : 0;
 
-        // Create the Cog record
         $cog = Cog::create($cogData);
+        $cogId = $cog->id;
+
         //modified  march 15 2024
         if (!$isDraft) {
             foreach ($data['subjectnames'] as $index => $subject) {
@@ -127,7 +123,18 @@ class StudentActionsController extends Controller
                     'unit' => $data['units'][$index]['unit'],
                 ]);
             }
-            return redirect()->back()->with('success', 'Grades submit successfully');
+
+            $notificationsave = Notification_staffs::create(
+                [
+                    'scholar_id' =>  $scholarid,
+                    'type' =>  'Cog & Cor',
+                    'message' => 'A new cog and cor document has been uploaded.',
+                    'data_id' =>  $cogId,
+                ]
+            );
+            if ($notificationsave) {
+                return redirect()->back()->with('success', 'Grades submit successfully');
+            }
         } else {
             foreach ($data['subjectnames'] as $index => $subject) {
                 $cog->cogdetails()->create([
@@ -136,7 +143,6 @@ class StudentActionsController extends Controller
                     'unit' => $data['units'][$index]['unit'],
                 ]);
             }
-
             return redirect()->back()->with('success', 'Draft saved successfully');
         }
     }

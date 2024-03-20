@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmailViewController;
+use App\Http\Controllers\HeaderController;
 use App\Http\Controllers\SeiViewController;
 use App\Http\Controllers\RsmsViewController;
 
@@ -14,6 +15,7 @@ use App\Http\Controllers\PDFController;
 use App\Http\Controllers\SendMailController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WordController;
+use Illuminate\Notifications\Notification;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +39,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 Route::middleware(['auth', 'role:staff'])->group(function () {
+
+    //NOTIFICATION COUNT
+    Route::get('/notifications/count', [HeaderController::class, 'notificationsstaff'])->name('notificationsstaff');
+    Route::get('/notifications', [HeaderController::class, 'notificationsgetall'])->name('notificationsgetall');
     //SEI
     Route::get('/seilist', [SeiViewController::class, 'seiqualifierview'])->name('seilist');
     Route::get('/seilistviewajax', [SeiViewController::class, 'seiqualifierviewajax'])->name('seilistviewajax');

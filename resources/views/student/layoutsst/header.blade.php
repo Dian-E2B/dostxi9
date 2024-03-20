@@ -10,17 +10,55 @@
     </div><!-- End Logo -->
 
 
-    <div class="d-flex align-items-center p-2 ms-auto" style="margin-right: 1.5rem">
-        <div>
-            <button class="btn btn-light d-flex align-items-center" href="{{ route('student.logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                <box-icon name='log-out'></box-icon>
-                <span class="ms-1">Log out</span>
-            </button><!-- End Logout Button -->
-            <form id="logout-form" action="{{ route('student.logout') }}" method="POST" class="d-none">
-                @csrf
-            </form>
-        </div>
-    </div>
+    <nav class="header-nav ms-auto">
+        <ul class="d-flex align-items-center">
+
+            <li class="nav-item d-block d-lg-none">
+                <a class="nav-link nav-icon search-bar-toggle " href="#">
+                    <i class="bi bi-search"></i>
+                </a>
+            </li><!-- End Search Icon-->
+
+            <li class="nav-item dropdown">
+
+
+                <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                    <box-icon class="mt-2" type='solid' name='bell' color='black' size="27px"></box-icon>
+                    <span id="notificationCount" class="badge bg-primary badge-number"></span>
+                </a><!-- End Notification Icon -->
+
+
+                <ul style="user-select: none;" class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+                    <li class="dropdown-header">
+                        You have <span id="notificationCount2"></span> new notifications
+                    </li>
+                    <div style="margin: 0 ; cursor:pointer;" id="notifications-list"></div>
+                </ul><!-- End Notification Dropdown Items -->
+
+            </li><!-- End Notification Nav -->
+
+
+
+            <div class="d-flex align-items-center p-2 ms-auto" style="margin-right: 1.5rem">
+                <div>
+                    <button class="btn btn-light d-flex align-items-center" href="{{ route('student.logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <box-icon name='log-out'></box-icon>
+                        <span class="ms-1">Log out</span>
+                    </button><!-- End Logout Button -->
+                    <form id="logout-form" action="{{ route('student.logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </div>
+            </div>
+
+        </ul>
+    </nav><!-- End Icons Navigation -->
+
+
+
+
+
+
 
 </header><!-- End Header -->
 
