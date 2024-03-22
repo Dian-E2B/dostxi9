@@ -6,7 +6,7 @@
 
             <span class="d-none d-lg-block">DOST</span>
         </a>
-        <i class="bi bi-list toggle-sidebar-btn"></i>
+        <span class="toggle-sidebar-btn mb-1"> <i class="fas fa-bars" style="font-size: 25px"></i></span>
     </div><!-- End Logo -->
 
 
@@ -17,14 +17,14 @@
 
             <li class="nav-item dropdown">
                 <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-                    <box-icon class="mt-2" type='solid' name='bell' color='black' size="27px"></box-icon>
-                    <span id="notificationCount" class="mt-1 badge bg-primary badge-number"></span> {{-- COUNTER1 --}}
+                    <i class="fas fa-bell"></i>
+                    <span id="notificationCount" class="mt-0 badge bg-primary badge-number"></span> {{-- COUNTER1 --}}
                 </a><!-- End Notification Icon -->
 
 
                 <ul style="user-select: none;" class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
                     <li class="dropdown-header">
-                        You have <span id="notificationCount2"></span> new notifications {{-- COUNTER2 --}}
+                        <div class="" style="padding 1rem 0rem 1rem 0rem">---- You have <span id="notificationCount2" style="padding:"></span> new notifications ----</div> {{-- COUNTER2 --}}
                     </li>
                     <div style="margin: 0 ; cursor:pointer;" id="notifications-list"></div>
                 </ul><!-- End Notification Dropdown Items -->
@@ -82,7 +82,7 @@
                     <li>
                         <hr class="dropdown-divider">
                     </li>
-                    <box-icon size="1.5rem" color="orange" style="padding: 0rem 0.5rem;" type='solid' name='message-square-error'></box-icon>
+                    <i class="fas fa-exclamation-triangle" style="font-size:20px; margin-right: 1rem;  margin-left: 1rem;" ></i>
                     <div>
                         <h4>${notificationsscholars.type}</h4>
                         <p style="color:black">${notificationsscholars.message}</p>

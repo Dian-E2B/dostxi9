@@ -1,11 +1,11 @@
 <style>
-    li:hover .nav-link box-icon:not(.bi-chevron-down) {
+    li:hover .nav-link .animate:not(.fa-chevron-down) {
         animation: tada 1s;
         animation-iteration-count: infinite;
-
     }
 
-    box-icon:hover {
+
+    .box-icon:hover {
         fill: black;
         color: black;
     }
@@ -20,44 +20,47 @@
 </style>
 <aside id="sidebar" class="sidebar">
 
-    <ul class="sidebar-nav bx-ul" id="sidebar-nav">
+    <ul class="sidebar-nav " id="sidebar-nav">
 
-        <li class="nav-item text-center justify-content-md-center">
+        <li class="nav-item text-center justify-content-center">
             <a class="nav-link {{ request()->is('dashboard') ? '' : 'collapsed' }}" href='{{ route('dashboard') }}'>
-                <box-icon name="dashboard" type="solid" color="white"></box-icon><span style="margin-left:7px">Dashboard</span>
+                <span style="padding: 0em 1em 0em 0em;"><i style="font-size:20px;" class="fas animate fa-chart-bar"></i></span>
+                <div class="">Dashboard</div>
             </a>
         </li><!-- End Dashboard Nav -->
 
         <li class="nav-item">
             <a class="nav-link {{ request()->is('seilist*') ? '' : 'collapsed' }}" data-bs-target="#sei-nav" data-bs-toggle="collapse" href="#">
-                <box-icon name='file' color="white"></box-icon><span style="margin-left:7px">SEI</span>
-                <box-icon class="bi-chevron-down ms-auto" style="padding:0px; none;" color="white" name='chevron-down'></box-icon>
+                <span style="padding: 0em 1em 0em 0em;"><i style="font-size:20px;" class="fas animate fa-list-alt"></i></span>
+                <span style="">SEI</span>
+                <i class="fas fa-chevron-down"style="margin-left: auto; padding: 0px;"></i>
             </a>
             <ul id="sei-nav" class="nav-content collapse {{ request()->is('seilist*') ? 'show' : '' }} align-text-center" data-bs-parent="#sidebar-nav">
                 <li>
                     <a href='{{ route('seilist') }}' class="{{ request()->is('seilist') ? 'active' : '' }}">
-                        <box-icon type='solid' name='right-arrow' size="xs" class="sublist" color="white"></box-icon><span class="sublist_name">Qualifiers</span>
+                        <span style="padding: 0em 0em 0em 0em;"><i style="font-size:15px;" class="fas fa-long-arrow-alt-right"></i><span>&nbsp;Qualifiers</span></span>
                     </a>
                 </li>
                 <li class="align-text-center align-items-center">
                     <a href='{{ route('seilist2') }}' class="{{ request()->is('seilist2') ? 'active' : '' }}">
-                        <box-icon type='solid' name='right-arrow'color="white" class="sublist" style="" size="xs"></box-icon>
-                        <span class="sublist_name">Potential Qualifiers</span>
+                        <span style="padding: 0em 0em 1em 0em;"><i style="font-size:15px;" class="fas  fa-long-arrow-alt-right"></i><span>&nbsp;Potential Qualifiers</span></span>
                     </a>
                 </li>
             </ul>
         </li><!-- End SEI Nav -->
 
-        <li class="nav-item text-center justify-content-md-center">
+        <li class="nav-item text-center justify-content-center">
             <a class="nav-link {{ request()->is('emails') ? '' : 'collapsed' }}" href='{{ route('emails') }}'>
-                <box-icon type='solid' name='receipt' color="white"></box-icon><span class="sublist_name">Reply Slips</span>
+                <span style="padding: 0em 1em 0em 0em;"><i style="font-size:20px;" class="fas animate fa-envelope-open-text"></i></span>
+                <span class="">Reply&nbsp;Slips</span>
             </a>
         </li><!-- End Replyslip Status Nav -->
 
         <li class="nav-item">
             <a class="nav-link {{ request()->is('ongoinglist*') || request()->is('rsms2*') ? '' : 'collapsed' }}" data-bs-target="#acad-nav" data-bs-toggle="collapse" href="#">
-                <box-icon name='file' color="white"></box-icon><span style="margin-left:7px">Academic Monitoring</span>
-                <box-icon class="bi-chevron-down ms-auto" color="white" style="padding:0px; none;" name='chevron-down'></box-icon>
+                <span style="padding: 0em 1.3em 0em 0em;"><i style="font-size:20px;" class="fas animate fa-file-invoice"></i></span>
+                <div style="">Academic&nbsp;Monitoring</div>
+                <i class="fas fa-chevron-down"style="margin-left: auto; padding: 0px;"></i>
             </a>
             <ul id="acad-nav" class="nav-content collapse {{ request()->is('ongoinglist*') || request()->is('rsms2*') ? 'show' : '' }} align-text-center" data-bs-parent="#sidebar-nav">
                 <li>
@@ -76,14 +79,16 @@
 
         <li class="nav-item text-center justify-content-md-center">
             <a class="nav-link {{ request()->is('emaileditor') ? '' : 'collapsed' }}" href='{{ route('emaileditor') }}'>
-                <box-icon name='comment-edit' color="white"></box-icon><span class="sublist_name">Email Edit</span>
+                <span style="padding: 0em 1em 0em 0em;"><i style="font-size:20px;" class="fas animate fa-pen-fancy"></i></span>
+                <span class="" style="">Email&nbsp;Edit</span>
             </a>
         </li><!-- End Email Edit Nav -->
 
         <li class="nav-item">
             <a class="nav-link {{ request()->is('accesscontrol*') ? '' : 'collapsed' }}" data-bs-target="#access-nav" data-bs-toggle="collapse" href="#">
-                <box-icon name='file' color="white"></box-icon><span style="margin-left:7px">Access Control</span>
-                <box-icon class="bi-chevron-down ms-auto" style="padding:0px; none;" color="white" name='chevron-down'></box-icon>
+                <span style="padding: 0em 0.8em 0em 0em;"><i style="font-size:18px;" class="fas animate fa-user-cog"></i></span>
+                <span style="">Access Control</span>
+                <i class="fas fa-chevron-down"style="margin-left: auto; padding: 0px;"></i>
             </a>
             <ul id="access-nav" class="nav-content collapse {{ request()->is('accesscontrol*') ? 'show' : '' }} align-text-center" data-bs-parent="#sidebar-nav">
                 <li>

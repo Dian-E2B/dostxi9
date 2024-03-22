@@ -71,6 +71,8 @@ class StudentActionsController extends Controller
     }
 
 
+   
+
     //GRADES SAVE
     public function cogsave(Request $request)
     {
@@ -125,7 +127,7 @@ class StudentActionsController extends Controller
             $notificationsave = Notification_staffs::create(
                 [
                     'scholar_id' =>  $scholarid,
-                    'type' =>  'Cog & Cor',
+                    'type' =>  'COG & COR',
                     'message' => 'A new cog and cor document has been uploaded.',
                     'data_id' =>  $cogId,
                 ]

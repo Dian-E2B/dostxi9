@@ -4,6 +4,7 @@
      <head>
          <title>DOST XI</title>
          <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+         <link href="{{ asset('css/fontaws.css') }}" rel="stylesheet">
          <link rel="icon" href="\icons\DOSTLOGOsmall.png" type="image/x-icon" />
          <link href="https://cdn.datatables.net/v/bs5/dt-1.13.8/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/date-1.5.1/fc-4.3.0/fh-3.4.0/r-2.5.0/sc-2.3.0/sp-2.2.0/sl-1.7.0/datatables.min.css" rel="stylesheet">
 
@@ -119,7 +120,7 @@
                                                                      <!-- Default case if scholar_status_id doesn't match any case -->
                                                              @endswitch
                                                          <td class="table-action d-flex align-items-center">
-                                                             <a href="#" style="color: black;" data-bs-toggle="tooltip" data-bs-placement="top" title="Temporary lock account	"><box-icon type='solid' size="1.1rem" name='lock-alt'></box-icon></a>
+                                                             <a href="#" style="color: black;" data-bs-toggle="tooltip" data-bs-placement="top" title="Temporary lock account	"><i class="fas fa-lock"></i></a>
                                                              <a style="color: red; margin-left: 8px;" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Permanently delete account	"><box-icon size="1.1rem" type='solid' name='lock-alt'></box-icon></a>
                                                          </td>
                                                          </td>
@@ -153,7 +154,7 @@
                                                          <td class="table-action">
                                                              <a href="#" style="color: black;" data-bs-toggle="tooltip" data-bs-placement="top" title="Temporary lock account	"><i class="fad fa-user-lock"></i></a>
                                                              <a style="color: red; margin-left: 8px;" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Permanently delete account"><i class="fas fa-trash"></i></a>
-                                                             <a href="{{ route('scholar_information', ['id' => $rasp->id]) }}" style="color:  black; margin-left: 8px;" data-bs-toggle="tooltip" data-bs-placement="top" title="Scholar Details"><box-icon type='solid' size="1.3rem" name='show'></box-icon></a>
+                                                             <a href="{{ route('scholar_information', ['id' => $rasp->id]) }}" style="color:  black; margin-left: 8px;" data-bs-toggle="tooltip" data-bs-placement="top" title="Scholar Details"><i class="fas fa-eye"></i></a>
                                                          </td>
                                                          <td style="align-items: center">
                                                              @if (empty($scholarrequirements))
@@ -188,7 +189,7 @@
                                                          <td class="table-action">
                                                              <a href="#" style="color: black;" data-bs-toggle="tooltip" data-bs-placement="top" title="Temporary lock account	"><i class="fad fa-user-lock"></i></a>
                                                              <a style="color: red; margin-left: 8px;" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Permanently delete account	"><i class="fas fa-trash"></i></a>
-                                                             <a href="{{ route('scholar_information', ['id' => $replyslipsjoinscholarongoing1->id]) }}" style="color:  black; margin-left: 8px;" data-bs-toggle="tooltip" data-bs-placement="top" title="Scholar Details"><box-icon type='solid' size="1.3rem" name='show'></box-icon></a>
+                                                             <a href="{{ route('scholar_information', ['id' => $replyslipsjoinscholarongoing1->id]) }}" style="color:  black; margin-left: 8px;" data-bs-toggle="tooltip" data-bs-placement="top" title="Scholar Details"><i class="fas fa-eye"></i></a>
                                                          </td>
                                                      </tr>
                                                  @endforeach
@@ -305,6 +306,7 @@
              </div>
          </main>
          <script src="{{ asset('js/app.js') }}"></script>
+         <script src="{{ asset('js/fontaws.js') }}"></script>
          <script src="https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-1.13.8/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/date-1.5.1/fc-4.3.0/fh-3.4.0/r-2.5.0/sc-2.3.0/sp-2.2.0/sl-1.7.0/datatables.min.js"></script>
          <script>
              jQuery(document).ready(function($) {

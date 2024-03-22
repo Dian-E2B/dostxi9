@@ -4,6 +4,7 @@
     <head>
         <title>DOST XI</title>
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/fontaws.css') }}" rel="stylesheet">
         <link rel="icon" href="\icons\DOSTLOGOsmall.png" type="image/x-icon" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>{{-- SWEETALERT --}}
@@ -23,17 +24,7 @@
             }
 
             .thisisbutton {
-                display: flex;
-                justify-content: center;
-                padding: 0px 10.5px !important;
-                margin: 0;
-            }
-
-            .thisisbutton2 {
-                display: flex !important;
-                vertical-align: middle !important;
-                justify-content: center;
-                padding: 0px 10.5px !important;
+                padding: 2px 8px !important;
                 margin: 0;
             }
         </style>
@@ -74,11 +65,8 @@
                 <div class="row ">
                     <div class="col-lg-12">
                         <div class="">
-                            <div class="card-header">
-                                <h5 class="card-title" style="color: rgb(58, 58, 58)">Student Profile</h5>
-                            </div>
                             <div class="text-center">
-                                <h2 class=" mb-0">{{ $seisourcerecord->lname }}, {{ $seisourcerecord->fname }}</h2>
+                                <h2 class="mt-5 mb-0">{{ $seisourcerecord->lname }}, {{ $seisourcerecord->fname }}</h2>
 
                                 @switch($scholarStatusId)
                                     @case(1)
@@ -113,8 +101,8 @@
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-lg-12">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
                         <div class="">
                             <div class="card-body mt-3">
                                 <table class="table table-bordered table-sm align-text-center">
@@ -126,7 +114,7 @@
                                         @if (empty($scholarrequirements))
                                             <td class="tdviewreq">No File Uploaded</td>
                                         @else
-                                            <td class="tdviewreq " style="text-align: center;"><a class="btn btn-sm btn-light viewreqsholarship thisisbutton" href="#" data-id="{{ $seisourcerecord->id }}" class=""><box-icon size="1.4rem" type='solid' name='show'></box-icon>&nbsp;View</a></td>
+                                            <td class="tdviewreq " style="text-align: center;"><a class=" d-block btn btn-sm btn-light viewreqsholarship thisisbutton" href="#" data-id="{{ $seisourcerecord->id }}" class=""><i class="fas fa-eye"></i>&nbsp;View</a></td>
                                         @endif
                                     </tr>
                                     <tr>
@@ -135,7 +123,7 @@
                                         @if (empty($scholarrequirements))
                                             <td class="tdviewreq">No File Uploaded</td>
                                         @else
-                                            <td class="tdviewreq"><a data-id="{{ $seisourcerecord->id }}" class="viewreqinformation btn btn-sm btn-light thisisbutton"><box-icon size="1.4rem" type='solid' name='show'></box-icon>&nbsp;View</a></td>
+                                            <td class="tdviewreq"><a data-id="{{ $seisourcerecord->id }}" class="d-block viewreqinformation btn btn-sm btn-light thisisbutton"><i class="fas fa-eye"></i>&nbsp;View</a></td>
                                         @endif
                                     </tr>
                                     <tr>
@@ -143,7 +131,7 @@
                                         @if (empty($scholarrequirements))
                                             <td class="tdviewreq">No File Uploaded</td>
                                         @else
-                                            <td class="tdviewreq"><a data-id="{{ $seisourcerecord->id }}" class="viewreqoath btn btn-sm btn-light thisisbutton"><box-icon size="1.4rem" type='solid' name='show'></box-icon>&nbsp;View</a></td>
+                                            <td class="tdviewreq"><a data-id="{{ $seisourcerecord->id }}" class="d-block viewreqoath btn btn-sm btn-light thisisbutton"><i class="fas fa-eye"></i>&nbsp;View</a></td>
                                         @endif
                                     </tr>
                                     <tr>
@@ -151,7 +139,7 @@
                                         @if (empty($scholarrequirements))
                                             <td class="tdviewreq">No File Uploaded</td>
                                         @else
-                                            <td class="tdviewreq"><a data-id="{{ $seisourcerecord->id }}" class="viewreqprospectus btn btn-sm btn-light thisisbutton"><box-icon size="1.4rem" type='solid' name='show'></box-icon>&nbsp;View</a></td>
+                                            <td class="tdviewreq"><a data-id="{{ $seisourcerecord->id }}" class="d-block viewreqprospectus btn btn-sm btn-light thisisbutton"><i class="fas fa-eye"></i>&nbsp;View</a></td>
                                         @endif
                                     </tr>
                                     <tr class="">
@@ -206,7 +194,7 @@
                 @if (isset($cogpassed))
                     <div class="">
                         <div class="card-body mt-3">
-                            <div class="row g-2">
+                            <div class="row">
                                 <div class="col">
                                     <div class="table-responsive">
                                         <table class="table table-bordered table-sm">
@@ -230,11 +218,11 @@
                                                     <tr class="">
                                                         <td class="">{{ \Carbon\Carbon::parse($cogpassed1->date_uploaded)->format('F j, Y') }}</td>
                                                         <td class="">{{ $cogpassed1->semester }}</td>
-                                                        <td class="" style="text-align: center;"><a data-cogid="{{ $cogpassed1->id }}" class="viewcog thisisbutton btn btn-light"><box-icon size="1.4rem" type='solid' name='show'></box-icon>&nbsp;View</a></td>
-                                                        <td class="" style="text-align: center;"><a data-corid="{{ $cogpassed1->id }}" class="viewcor thisisbutton btn btn-light"><box-icon size="1.4rem" type='solid' name='show'></box-icon>&nbsp;View</a></td>
+                                                        <td class="" style="text-align: center;"><a data-cogid="{{ $cogpassed1->id }}" class="d-block viewcog thisisbutton btn btn-light"><i class="fas fa-eye"></i>&nbsp;View</a></td>
+                                                        <td class="" style="text-align: center;"><a data-corid="{{ $cogpassed1->id }}" class="d-block viewcor thisisbutton btn btn-light"><i class="fas fa-eye"></i>&nbsp;View</a></td>
                                                         <td class="">{{ $cogpassed1->cogcor_remarks }}</td>
                                                         <td class=" " style="text-align: center;">
-                                                            <div class="row g-0" style="">
+                                                            <div class="row g-2" style="">
                                                                 @if ($cogpassed1->cogcor_status == 'approved')
                                                                     <div class="col">
                                                                         Approved
@@ -247,14 +235,14 @@
                                                                     <div class="col">
                                                                         <form action="{{ route('approvecogcor', ['id' => $cogpassed1->id]) }}" class="">
                                                                             @csrf
-                                                                            <button class="btn btn-sm  btn-success thisisbutton2 "><box-icon size="1.4rem" type='solid' color="white" name='check-square'></box-icon>&nbsp;Approve</button>
+                                                                            <button class="btn btn-sm btn-success thisisbutton"><i class="fas fa-check-square"></i>&nbsp;Approve</button>
                                                                         </form>
                                                                     </div>
                                                                     <div class="col">
                                                                         <form id="disapprovecogForm" action="{{ route('approvecogcor', ['id' => $cogpassed1->id]) }}" class="">
                                                                             @csrf
                                                                             <input type="text" hidden style="display:none" name="disapprovecor" value="0">
-                                                                            <button type="button" class="btn btn-sm btn-danger  thisisbutton2 " id="disapprovecogButton"><box-icon style="" size="1.4rem" type='solid' color="white" name='x-square'></box-icon>&nbsp;Disapprove</button>
+                                                                            <button type="button" class="btn btn-sm btn-danger thisisbutton " id="disapprovecogButton"><i class="fas fa-times-circle"></i>&nbsp;Disapprove</button>
                                                                         </form>
                                                                         <script>
                                                                             document.querySelector('#disapprovecogButton').addEventListener('click', function() {
@@ -324,18 +312,14 @@
                                                 <td class="">{{ $thesispassed1->thesis_status }}</td>
                                                 <td class="" style="text-align: center;"><a data-thesisid="{{ $thesispassed1->id }}" class="viewthesis"><box-icon size="18.5px" type='solid' name='show'></box-icon></a></td>
                                                 <td class="" style="text-align: center;">
-                                                    <div class="row g-1">
+                                                    <div class="row g-2">
                                                         <div class="col">
-                                                            <a class="btn btn-sm btn-success thisisbutton" id="thesisapprove" data-thesisid="{{ $thesispassed1->id }}"><box-icon size="1.4rem" type='solid' color="white" name='check-square'></box-icon>&nbsp;Approve</a>
+                                                            <button class="btn btn-sm btn-success thisisbutton" type="button" id="thesisapprove" data-thesisid="{{ $thesispassed1->id }}"><i class="fas fa-check-square"></i>&nbsp;Approve</button>
                                                         </div>
                                                         <div class="col">
-                                                            <a class="btn btn-sm btn-danger thisisbutton" id="" data-thesisid="{{ $thesispassed1->id }}"><box-icon size="1.4rem" type='solid' color="white" name='check-square'></box-icon>&nbsp;Deny</a>
+                                                            <button class="btn btn-sm btn-danger thisisbutton" type="button" id="" data-thesisid="{{ $thesispassed1->id }}"><i class="fas fa-times-circle"></i>&nbsp;Disapprove</button>
                                                         </div>
-                                                        <form action="" class="">
-
-                                                        </form>
                                                     </div>
-
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -411,6 +395,7 @@
         </main>
     </body>
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/fontaws.js') }}"></script>
     <script src="https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-1.13.8/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/date-1.5.1/fc-4.3.0/fh-3.4.0/r-2.5.0/sc-2.3.0/sp-2.2.0/sl-1.7.0/datatables.min.js"></script>
 
 

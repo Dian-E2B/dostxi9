@@ -11,6 +11,7 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         {{-- Jquery Js --}}
         <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+        <link href="{{ asset('css/fontaws.css') }}" rel="stylesheet">
     </head>
 
     <body>
@@ -55,6 +56,7 @@
 
     </body>
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/fontaws.js') }}"></script>
 
     <script>
         //let editor;

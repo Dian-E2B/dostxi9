@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cog;
 use App\Models\Cogdetails;
+use App\Models\Notification_schols;
+use App\Models\Notification_staffs;
 use App\Models\Program;
 use App\Models\Replyslips;
 use App\Models\Requestdocs;
@@ -21,7 +24,80 @@ use Smalot\PdfParser\Parser;
 
 class StudentViewController extends Controller
 {
+    public function reuploadcogcor(Request $request)
+    {
+        $cogid = $request->input('cogiddisapprove');
+        $cog = Cog::find($cogid); //KUHAA NAME COG AND COR
 
+        $customstudentscorname = Auth::user()->scholar_id . 'cor' . time() . '.' . $request->file('reuploadedcor')->getClientOriginalExtension();
+        $request->file('reuploadedcor')->storeAs('public/cor', $customstudentscorname);
+
+        $customstudentscogname = Auth::user()->scholar_id . 'cog' . time() . '.' . $request->file('reuploadedcog')->getClientOriginalExtension();
+        $request->file('reuploadedcog')->storeAs('public/cog', $customstudentscogname);
+
+        if ($cog) {
+            $cogFilePath = $cog['cog_name'];
+            $corFilePath = $cog['cor_name'];
+            $storageDirectoryCog = 'storage/cog/';
+            $storageDirectoryCor = 'storage/cor/';
+            $cogFileName = str_replace($storageDirectoryCog, '', $cogFilePath);
+            $corFileName = str_replace($storageDirectoryCor, '', $corFilePath);
+            if ($cogFilePath && Storage::disk('public')->exists('cog/' . $cogFileName)) {
+                $cogdelete = Storage::disk('public')->delete('cog/' . $cogFileName);
+                $cordelete =   Storage::disk('public')->delete('cor/' . $corFileName);
+
+                if ($cogdelete && $cordelete) {
+                    $cog->cor_name = 'storage/cor/' . $customstudentscorname;
+                    $cog->cog_name = 'storage/cog/' . $customstudentscogname;
+                    $cog->cogcor_status = null;
+                    $cog->cogcor_remarks = null;
+                    $corsave = $cog->save();
+                    if ($corsave) {
+                        Notification_schols::where('data_id', $cogid)->delete(); //DELETE THAT SHIT
+                        Notification_staffs::create([ //THEN CREATE NAPUD :(
+                            'scholar_id' => Auth::user()->scholar_id,
+                            'type' => 'COR and COG',
+                            'message' => 'An Updated COR and COG has been Uploaded',
+                            'data_id' => $cogid,
+                        ]);
+                        return redirect()->back()->with('success', 'Files reuploaded successfully. Thank you!');
+                    }
+                }
+            }
+        }
+    }
+
+    public function gradeinputview()
+    {
+        $userId = auth()->id();
+        $studentuser = Student::where('id', $userId)->first();
+        $scholarId = $studentuser->scholar_id;
+
+        $cogsdraft = DB::table('cogs')
+            ->join('cogdetails', 'cogs.id', '=', 'cogdetails.cog_id')
+            ->where('cogs.scholar_id', $scholarId)
+            ->where('cogs.draft', '=', 1)
+            ->select(
+                'cogs.scholar_id',
+                'cogs.startyear',
+                'cogs.semester',
+                'cogs.cog_name',
+                DB::raw('GROUP_CONCAT(cogs.id) AS id1'),
+                DB::raw('GROUP_CONCAT(cogdetails.id) AS id'),
+                DB::raw('GROUP_CONCAT(cogdetails.subjectname) AS Subjectname'),
+                DB::raw('GROUP_CONCAT(cogdetails.grade) AS Grade'),
+                DB::raw('GROUP_CONCAT(cogdetails.unit) AS Units'),
+                DB::raw('GROUP_CONCAT(cogdetails.completed) AS Completed'), // Include the completed column
+            )
+            ->groupBy('cogs.startyear', 'cogs.semester', 'cogs.cog_name', 'cogs.scholar_id',)
+            ->get();
+
+        $cogdisapproved = Cog::where('scholar_id', $scholarId)
+            ->where('cogcor_status', "disapproved")
+            ->get();
+
+        return view('student.gradeinput', compact('scholarId', 'cogsdraft', 'cogdisapproved'));
+    }
 
     public function thesisview()
     {
@@ -157,37 +233,11 @@ class StudentViewController extends Controller
         $scholarid = $request->input('scholaridname');
 
         $customcorname = $scholarid . 'corname' . time() . '.' . $request->file('corname')->getClientOriginalExtension(); //put custom filenamefor cor
-        $storecor = $request->file('corname')->storeAs('public/cor', $customcorname); //store file name cor
+        $request->file('corname')->storeAs('public/cor', $customcorname); //store file name cor
 
         $customcogname = $scholarid . 'cogname' . time() . '.' . $request->file('cogname')->getClientOriginalExtension(); //put custom filename cog
-        $storecog = $request->file('cogname')->storeAs('public/cog', $customcogname); //store file name for cog
+        $request->file('cogname')->storeAs('public/cog', $customcogname); //store file name for cog
 
-
-        /*    if ($storecor) {
-            $cogs_
-        } else {
-            # code...
-        } */
-
-
-        /*   $request->validate([
-            'corname' => 'required|mimes:pdf|max:2048' // Maximum file size of 2MB
-        ]);
- */
-
-        /*  if ($request->hasFile('corname')) {
-            $pdfFilePath = $request->file('corname')->path();
-            $parser = new Parser();
-            try {
-                $pdf = $parser->parseFile($pdfFilePath);
-                $text = $pdf->getText();
-                $text = str_replace('\n', PHP_EOL, $text);
-                return response()->json(['text' => $text]);
-            } catch (\Exception $e) {
-                // Handle the exception (e.g., log it, display a user-friendly error message)
-                return response()->json(['error' => 'Failed to parse the PDF file.'], 500);
-            }
-        } */
     }
 
     public function replyslipview()
@@ -201,9 +251,7 @@ class StudentViewController extends Controller
             $scholarId = $studentuser->scholar_id;
             $programid = Sei::where('id', $scholarId)->value('program_id');
             $programname = Program::where('id', $programid)->value('progname');
-            // $programstudent = $scholar->program;
 
-            // dd($scholarId,$programname);
             $replyslips = Replyslips::where('scholar_id', $scholarId)->get(); // Filter by scholar_id
 
             $replyslipstatusid =
@@ -211,9 +259,6 @@ class StudentViewController extends Controller
             $replyslipsignature = Replyslips::where('scholar_id', $scholarId)->value('signature');
             $replyslipparentsignature = Replyslips::where('scholar_id', $scholarId)->value('signatureparents');
             $reason1 = Replyslips::where('scholar_id', $scholarId)->value('reason');
-            //echo $replyslipstatusid;
-            // $replyslipparentsignature1 =   . $replyslipparentsignature;
-            // dd($replyslipparentsignature1);
             return view(
                 'student.replyslipview',
                 compact(
@@ -227,7 +272,6 @@ class StudentViewController extends Controller
                 )
             );
         } else {
-            // Handle the case where the authenticated user's ID doesn't have a matching scholar_id
             return view('student.replyslipview');
         }
     }
@@ -270,33 +314,7 @@ class StudentViewController extends Controller
         return view('student.requestclearance');
     }
 
-    public function gradeinputview()
-    {
-        $userId = auth()->id();
-        $studentuser = Student::where('id', $userId)->first();
-        $scholarId = $studentuser->scholar_id;
 
-        $cogsdraft = DB::table('cogs')
-            ->join('cogdetails', 'cogs.id', '=', 'cogdetails.cog_id')
-            ->where('cogs.scholar_id', $scholarId)
-            ->where('cogs.draft', '=', 1)
-            ->select(
-                'cogs.scholar_id',
-                'cogs.startyear',
-                'cogs.semester',
-                'cogs.cog_name',
-                DB::raw('GROUP_CONCAT(cogs.id) AS id1'),
-                DB::raw('GROUP_CONCAT(cogdetails.id) AS id'),
-                DB::raw('GROUP_CONCAT(cogdetails.subjectname) AS Subjectname'),
-                DB::raw('GROUP_CONCAT(cogdetails.grade) AS Grade'),
-                DB::raw('GROUP_CONCAT(cogdetails.unit) AS Units'),
-                DB::raw('GROUP_CONCAT(cogdetails.completed) AS Completed'), // Include the completed column
-            )
-            ->groupBy('cogs.startyear', 'cogs.semester', 'cogs.cog_name', 'cogs.scholar_id',)
-            ->get();
-
-        return view('student.gradeinput', compact('scholarId', 'cogsdraft'));
-    }
 
     public function downloadpdfclearance($filename)
     {
@@ -353,11 +371,11 @@ class StudentViewController extends Controller
                     'document_details' => 'storage/documents/' . $filename,
                     'document' => $request->input('fileuploadedname'),
                 ]);
-                notyf()
+                /*  notyf()
                     ->position('x', 'center')
                     ->position('y', 'top')
                     ->duration(2000) // 2 seconds
-                    ->addSuccess('Clearance has been uploaded');
+                    ->addSuccess('Clearance has been uploaded'); */
             } else {
                 // Insert a new record
                 Requestdocs::create(
@@ -368,11 +386,11 @@ class StudentViewController extends Controller
                     ['document' => $request->input('fileuploadedname')]
                 );
 
-                notyf()
+                /*  notyf()
                     ->position('x', 'center')
                     ->position('y', 'top')
                     ->duration(2000) // 2 seconds
-                    ->addSuccess('Clearance has been uploaded');
+                    ->addSuccess('Clearance has been uploaded'); */
             }
 
 

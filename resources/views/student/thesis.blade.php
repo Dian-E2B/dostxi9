@@ -6,8 +6,8 @@
         <link rel="icon" href="\icons\DOSTLOGOsmall.png" type="image/x-icon" />
         <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/fontaws.css') }}" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>{{-- SWEETALERT --}}
     </head>
 
@@ -88,6 +88,7 @@
         </main>
     </body>
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/fontaws.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script>
         $(document).ready(function() {

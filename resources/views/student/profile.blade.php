@@ -7,6 +7,7 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>{{-- SWEETALERT --}}
         <link rel="icon" href="\icons\DOSTLOGOsmall.png" type="image/x-icon" />
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/fontaws.css') }}" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
         <style>
@@ -173,8 +174,6 @@
                     if (result.isConfirmed) {
                         var url = '{{ url('/studentnoaccess/') }}';
                         window.location.href = url;
-                        /*  document.getElementById('logout-form').submit(); */
-
                     }
                 });
             </script>
@@ -316,7 +315,7 @@
         </main>
     </body>
     <script src="{{ asset('js/app.js') }}"></script>
-
+    <script src="{{ asset('js/fontaws.js') }}"></script>
     <script></script>
 
 

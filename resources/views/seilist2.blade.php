@@ -8,6 +8,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}" />
         <link href="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-1.13.6/b-2.4.2/b-html5-2.4.2/b-print-2.4.2/date-1.5.1/fc-4.3.0/fh-3.4.0/r-2.5.0/sc-2.2.0/sp-2.2.0/sl-1.7.0/datatables.min.css" rel="stylesheet">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/fontaws.css') }}" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <style>
             .form-control {
@@ -250,7 +251,7 @@
 
         <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
         <script src="{{ asset('js/app.js') }}"></script>
-
+        <script src="{{ asset('js/fontaws.js') }}"></script>
         <script src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-1.13.6/b-2.4.2/b-html5-2.4.2/b-print-2.4.2/date-1.5.1/fc-4.3.0/fh-3.4.0/r-2.5.0/sc-2.2.0/sp-2.2.0/sl-1.7.0/datatables.min.js"></script>
 
         <script>
@@ -350,7 +351,7 @@
                             render: function(data, type, row) {
                                 var number = row.id;
                                 return '' + '<a class="table-edit" data-id="' + number +
-                                    '" ><box-icon type="solid" name="edit"></box-icon></a>' + ''
+                                    '" ><i class="fas fa-edit"></i></a>' + ''
                             }
                         },
 

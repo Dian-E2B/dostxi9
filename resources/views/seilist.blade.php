@@ -15,6 +15,7 @@
         <link href="https://cdn.datatables.net/v/bs5/dt-1.13.8/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/date-1.5.1/fc-4.3.0/fh-3.4.0/r-2.5.0/sc-2.3.0/sp-2.2.0/sl-1.7.0/datatables.min.css" rel="stylesheet">
 
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/fontaws.css') }}" rel="stylesheet">
         <meta name="csrf-token" content="{{ csrf_token() }}" />
 
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -114,7 +115,7 @@
                                     <div class="row row-cols-auto">
                                         <div class="col"> {{-- DROPDOWN FILTER --}}
                                             <button class="btn rounded-pill btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <box-icon type='solid' name='filter-alt' size="17px" style="padding: 0px 2px;"></box-icon>
+                                                <i class="fas fa-filter"></i>
                                             </button>
                                             <div class="dropdown-menu">
                                                 <div style="">
@@ -310,7 +311,7 @@
             </div>
         </main>
         <script src="{{ asset('js/app.js') }}"></script>
-
+        <script src="{{ asset('js/fontaws.js') }}"></script>
         <script src="https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-1.13.8/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/date-1.5.1/fc-4.3.0/fh-3.4.0/r-2.5.0/sc-2.3.0/sp-2.2.0/sl-1.7.0/datatables.min.js"></script>
         <script>
             jQuery.noConflict();
@@ -408,7 +409,7 @@
                             render: function(data, type, row) {
                                 var number = row.id;
                                 return '' + '<a class="table-edit" data-id="' + number +
-                                    '" ><box-icon type="solid" name="edit"></a>' + ''
+                                    '" ><i class="fas fa-edit"></i></a>' + ''
                             }
                         },
 

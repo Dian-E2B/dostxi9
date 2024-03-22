@@ -7,33 +7,13 @@
         <link rel="icon" href="\icons\DOSTLOGOsmall.png" type="image/x-icon" />
         <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/fontaws.css') }}" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
         <style>
-            #image-preview {
-                width: 100%;
-                /* 100% width to fill the magnifier container */
-                height: auto;
-                /* To maintain the aspect ratio */
-                z-index: 999 !important;
-            }
 
 
-            .magnifier {
-                width: 100%;
-                height: 100%;
 
-                align-items: center;
-                z-index: 9999 !important;
-            }
-
-            #image-preview.magnify {
-                transition: transform 0.5s;
-                transform: scale(1.5);
-                /* Adjust the scale factor to control the zoom level */
-                margin-left: 20%;
-                z-index: 9999 !important;
-            }
         </style>
     </head>
 
@@ -61,7 +41,7 @@
                         <div class="container-fluid p-0">
                             @if (count($cogsdraft) > 0)
                                 <div class="row justify-content-center">
-                                    <div class="card col-10">
+                                    <div class="card col-12">
                                         <div class="card-body">
                                             {{-- @dd($cogsdraft); --}}
 
@@ -136,96 +116,182 @@
 
 
 
-                            <form id="input-form" method="POST" action="{{ route('submitgrades') }}" enctype="multipart/form-data">
-                                @csrf
+
+
+
+                            @if (count($cogdisapproved) > 0)
+                                <script class="">
+                                    Swal.fire({
+                                        title: 'COG/COR Disapproved!',
+                                        text: 'Please reupload your COG and COR.',
+                                        iconHtml: '<img src="/extraicons/upload-file.gif" style="width: 150px; height: 150px;">',
+                                        width: '500px', // Set the width of the dialog box
+                                        confirmButtonText: 'Okay',
+                                    })
+                                </script>
                                 <div class="row justify-content-center">
-                                    <div class="col-10">
+                                    <div class="col-12">
                                         <div class="card">
-                                            <div class="card-body">
-                                                {{-- SUBMIT PERIODIC REQUIREMENTS --}}
-                                                <div class="">
-                                                    <div style="font-size: 20px; font-weight: 900; text-align: center; margin-bottom: 5px;">SUBMIT PERIODIC REQUIREMENTS</div>
-                                                    <div class=""><span style="font-size: 15px">Certificate Of Registration: </span><input required name="corname" class="form-control" type="file" accept="application/pdf"></div> {{-- COR --}}
 
-                                                    <img class="py-md-3" id="image-preview" src="" alt="Image Preview" style="max-width: 500px; display: none; ">
-                                                    <div class="mt-2"><span style="font-size: 15px">Certificate Of Grades:</span> <input required type="file" name="imagegrade" id="imagegradeid" class="form-control" accept="image/*, application/pdf"></div>
+                                            <div class="card-body mt-3">
+                                                <div class="mb-3" style="font-weight: 700">Disapproved COR/COG. Please reupload If needed</div>
 
-                                                    <div class="mt-2" id="previewLink" style="display: none;">
-                                                        <a href="#" target="_blank" id="filePreviewLink">Review File</a>
-                                                    </div>
-                                                </div>
+                                                <table class="compact table-sm table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="">Date Uploaded</th>
+                                                            <th class="">Semester</th>
+                                                            <th class="">Remarks</th>
+                                                            <th class="">COR</th>
+                                                            <th class="">COG</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="">
+                                                        @foreach ($cogdisapproved as $cogdisapproved1)
+                                                            <tr class="">
+                                                                <td class="">
+                                                                    {{ $cogdisapproved1->date_uploaded }}
+                                                                </td>
+                                                                <td class="">
+                                                                    {{ $cogdisapproved1->semester }}
+                                                                </td>
+                                                                <td class="">
+                                                                    {{ $cogdisapproved1->cogcor_remarks }}
+                                                                </td>
+                                                                <td class="">
+                                                                    <a class="btn btn-light rounded-pill btn-sm d-flex p-1 justify-content-center" target="_blank" href="{{ asset($cogdisapproved1->cor_name) }}">
+                                                                        <box-icon name='show' type='solid' color='black'></box-icon>&nbsp;View
+                                                                    </a>
+                                                                </td>
 
-                                                {{-- PERIOD --}}
-                                                <div class="mt-2">
-                                                    <div style="font-size: 20px; font-weight: 900; text-align: left">PERIOD:</div>
+                                                                <div class="w-100"></div>
+                                                                <td class="">
+                                                                    <a href="{{ asset($cogdisapproved1->cog_name) }}" class="btn btn-light rounded-pill btn-sm d-flex justify-content-center p-1" target="_blank">
+                                                                        <box-icon name='show' type='solid' color='black'></box-icon>&nbsp;View
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+
+                                                <form action="{{ route('reuploadcogcor') }}" method="post" enctype="multipart/form-data">
+                                                    @csrf
+                                                    <input type="text" hidden name="cogiddisapprove" value="{{ $cogdisapproved[0]->id }}">
                                                     <div class="row">
-                                                        <div class="col-6"> <span>Semester:</span>
-                                                            <select id="semesterSelect" required name="semester" class="form-control mb-3">
-                                                                <option value="1">1st</option>
-                                                                <option value="2">2nd</option>
-                                                                <option value="3">3rd</option>
-                                                                <option value="0">Summer</option>
-                                                            </select>
+                                                        <div class="col">
+                                                            <div class="bold mb-1" style="font-weight: 700">Certificate of Registration</div>
+                                                            <input required type="file" name="reuploadedcor" class="form-control" accept="application/pdf">
                                                         </div>
-                                                        <div class="col-6"> <span>Academic Year: (Startyear)</span>
-                                                            <select required class="form-control" id="year" name="startyear">
-                                                                <?php
-                                                                $startYear = 2020;
-                                                                $endYear = 2100;
-                                                                for ($year = $startYear; $year <= $endYear; $year++) {
-                                                                    echo "<option value=\"$year\">$year</option>";
-                                                                }
-                                                                ?>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <input type="hidden" name="is_draft" id="is_draft" value="0">
-
-                                <div class="row d-flex justify-content-center">
-                                    <div class="col-10">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="d-flex align-items-center mt-1">
-                                                        <div class="me-2">
-                                                            <label>Subject Name:</label>
-                                                            <input name="subjectnames[0][name]" type="text" class="form-control" required>
-                                                        </div>
-                                                        <div class="me-2">
-                                                            <label>Grade:</label>
-                                                            <input id="grade1" type="number" step="0.01" required pattern="[0-9]+" name="grades[0][grade]" class="form-control numeric-input">
-                                                        </div>
-                                                        <div class="me-2">
-                                                            <label>Units:</label>
-                                                            <input id="unit1" name="units[0][unit]" required pattern="[0-9]+" type="number" class="form-control numeric-input">
+                                                        <div class="col">
+                                                            <div class="bold mb-1" style="font-weight: 700">Certificate of Grades</div>
+                                                            <input required type="file" name="reuploadedcog" class="form-control" accept="application/pdf">
                                                         </div>
                                                         <div class="">
-                                                            <br>
-                                                            <a name="add" id="add" type="button" class="btn btn-success">Add Row</a>
-
+                                                            <button class="btn btn-success rounded-pill btn-sm mt-2" type="submit">Submit</button>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <table id="table"></table> {{-- add row area --}}
-                                                <label>
-                                                    <input id="scholaridinput" name="scholarid" style="display: none;" value="{{ $scholarId }}">
-                                                </label>
+                                                </form>
 
-                                                <div class="mt-3">
-                                                    <button type="submit" class="btn btn-pill btn-primary">Submit All</button>
-                                                    <button type="button" class="btn btn-pill btn-secondary" onclick="document.getElementById('is_draft').value = '1'; document.getElementById('input-form').submit();">Submit as Draft</button>
+                                            </div>
+
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            @else
+                                <form id="input-form" method="POST" action="{{ route('submitgrades') }}" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="row justify-content-center">
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    {{-- SUBMIT PERIODIC REQUIREMENTS --}}
+                                                    <div class="">
+                                                        <div style="font-size: 20px; font-weight: 900; text-align: center; margin-bottom: 5px;">SUBMIT PERIODIC REQUIREMENTS</div>
+                                                        <div class=""><span style="font-size: 15px">Certificate Of Registration: </span><input required name="corname" class="form-control" type="file" accept="application/pdf"></div> {{-- COR --}}
+
+                                                        <img class="py-md-3" id="image-preview" src="" alt="Image Preview" style="max-width: 500px; display: none; ">
+                                                        <div class="mt-2"><span style="font-size: 15px">Certificate Of Grades:</span> <input required type="file" name="imagegrade" id="imagegradeid" class="form-control" accept="image/*, application/pdf"></div>
+
+                                                    </div>
+
+                                                    {{-- PERIOD --}}
+                                                    <div class="mt-3">
+                                                        <div style="font-size: 20px; font-weight: 900; text-align: left">PERIOD:</div>
+                                                        <div class="row">
+                                                            <div class="col-6"> <span>Semester:</span>
+                                                                <select id="semesterSelect" required name="semester" class="form-control mb-3">
+                                                                    <option value="1">1st</option>
+                                                                    <option value="2">2nd</option>
+                                                                    <option value="3">3rd</option>
+                                                                    <option value="0">Summer</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-6"> <span>Academic Year: (Startyear)</span>
+                                                                <select required class="form-control" id="year" name="startyear">
+                                                                    <?php
+                                                                    $startYear = 2020;
+                                                                    $endYear = 2100;
+                                                                    for ($year = $startYear; $year <= $endYear; $year++) {
+                                                                        echo "<option value=\"$year\">$year</option>";
+                                                                    }
+                                                                    ?>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </form>
+
+                                    <input type="hidden" name="is_draft" id="is_draft" value="0">
+
+                                    <div class="row d-flex justify-content-center">
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="d-flex align-items-center mt-1">
+                                                            <div class="me-2">
+                                                                <label>Subject Name:</label>
+                                                                <input name="subjectnames[0][name]" type="text" class="form-control" required>
+                                                            </div>
+                                                            <div class="me-2">
+                                                                <label>Grade:</label>
+                                                                <input id="grade1" type="number" step="0.01" required pattern="[0-9]+" name="grades[0][grade]" class="form-control numeric-input">
+                                                            </div>
+                                                            <div class="me-2">
+                                                                <label>Units:</label>
+                                                                <input id="unit1" name="units[0][unit]" required pattern="[0-9]+" type="number" class="form-control numeric-input">
+                                                            </div>
+                                                            <div class="">
+                                                                <br>
+                                                                <a name="add" id="add" type="button" class=" rounded-pill btn btn-success">Add Row</a>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <table id="table"></table> {{-- add row area --}}
+                                                    <label>
+                                                        <input id="scholaridinput" name="scholarid" style="display: none;" value="{{ $scholarId }}">
+                                                    </label>
+
+                                                    <div class="mt-3">
+                                                        <button type="submit" class="btn rounded-pill btn-primary">Submit All</button>
+                                                        <button type="button" class="btn rounded-pill btn-secondary" onclick="document.getElementById('is_draft').value = '1'; document.getElementById('input-form').submit();">Submit as Draft</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            @endif
+
+
 
                         </div>
                     </main>
@@ -234,30 +300,10 @@
         </main>
     </body>
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/fontaws.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-        // Get the file input element
-        var fileInput = document.getElementById('imagegradeid');
-
-        // Add an event listener for when a file is selected
-        fileInput.addEventListener('change', function() {
-            // Get the selected file
-            var selectedFile = fileInput.files[0];
-
-            // Check if a file is selected
-            if (selectedFile) {
-                // Show the preview link
-                document.getElementById('previewLink').style.display = 'block';
-
-                // Create a URL for the selected file
-                var fileURL = URL.createObjectURL(selectedFile);
-
-                // Set the href attribute of the preview link
-                document.getElementById('filePreviewLink').href = fileURL;
-            }
-        });
-
         var i = 0;
         $('#add').click(function() {
             ++i;
@@ -310,20 +356,7 @@
         });
 
 
-        function viewFile() {
-            var fileInput = document.getElementById('imagegradeid');
-            var file = fileInput.files[0];
-            var filePreviewElement = document.getElementById('filePreview');
 
-            if (file) {
-                // Display the filename or some indication
-                filePreviewElement.textContent = 'Selected File: ' + file.name;
-
-                // ... (rest of the code for preview or link based on file type)
-            } else {
-                filePreviewElement.textContent = 'No file selected.';
-            }
-        }
 
         /* $('.numeric-input').keypress(function(event) {
             var charCode = (event.which) ? event.which : event.keyCode;

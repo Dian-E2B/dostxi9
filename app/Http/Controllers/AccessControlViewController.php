@@ -213,7 +213,7 @@ class AccessControlViewController extends Controller
         $scholarrequirements = Scholar_requirements::where('scholar_id', $id)->first();
         $cogpassed = Cog::where('scholar_id', $id)->get();
         $thesispassed = Thesis::where('scholar_id', $id)->get();
-
+       
         return view('scholar_information', compact('seisourcerecord', 'scholarrequirements', 'cogpassed', 'thesispassed'));
     }
 
@@ -268,17 +268,16 @@ class AccessControlViewController extends Controller
 
             $scholarCogdeletenotif = Notification_staffs::where('data_id', $id)->first(); //find the notif id
 
-            /*  $scholarCogdeletenotif->delete(); //clean notif */
+            $scholarCogdeletenotif->delete(); //clean notif
 
             Notification_schols::create( //add notif to scholar
                 [
-                    'type' => 'Cog & Cor',
+                    'type' => 'COG & COR',
                     'message' => 'Your Cog & Cor uploaded has been disapproved. Please see remarks for details.',
                     'data_id' =>  $id,
                     'scholar_id' =>  $scholarCog->scholar_id,
                 ]
             );
-
             return back()->with('disapproved', 'COG and COR has been disapproved.');
         } else { //if approved
             $scholarCog = Cog::where('id', $id)->first();

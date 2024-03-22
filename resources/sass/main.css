@@ -498,7 +498,7 @@ h6 {
 }
 
 .header-nav .nav-profile span {
-    font-size: 14px;
+    font-size: 17px;
     font-weight: 600;
 }
 
@@ -700,9 +700,9 @@ h6 {
     align-items: center;
     font-size: 15px;
     font-weight: 600;
-    color: #ffffff;
+    color: #000000;
     transition: 0.3;
-    background: rgb(249 249 249 / 0%);
+    background: rgb(255 255 255);
     padding: 11px 19px;
     border-radius: 3px;
 }
@@ -732,12 +732,12 @@ h6 {
     color: #4154f1;
 }
 
-.sidebar-nav .nav-link .bi-chevron-down {
+.sidebar-nav .nav-link .fa-chevron-down {
     margin-right: 0;
     transition: transform 0.2s ease-in-out;
 }
 
-.sidebar-nav .nav-link:not(.collapsed) .bi-chevron-down {
+.sidebar-nav .nav-link:not(.collapsed) .fa-chevron-down {
     transform: rotate(180deg);
 }
 

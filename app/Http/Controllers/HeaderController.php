@@ -28,7 +28,6 @@ class HeaderController extends Controller
     public function notificationsgetspecific()
     {
         $notificationsscholars = Notification_schols::where('scholar_id', Auth::user()->scholar_id)->get();
-        /*    return response()->json(['notificationsscholars' => []]); // Return an empty array for testing */
         return response()->json(['notificationsscholars' => $notificationsscholars]);
     }
 

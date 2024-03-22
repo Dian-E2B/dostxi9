@@ -3,7 +3,7 @@
         <div style="max-width: 55px" class="card">
             {{-- FILTER ALL BUTTON --}}
             <a type="button" style="padding:2px" class="btn btn-white dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <box-icon name='filter' size="1.3rem"></box-icon>
+                <i class="fas fa-filter"></i>
             </a>
             <div class="dropdown-menu ">
                 <div style="display: flex; max-width: 3.9cm; margin: auto;">

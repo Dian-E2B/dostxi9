@@ -4,6 +4,7 @@
     <head>
         <title>DOST XI</title>
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/fontaws.css') }}" rel="stylesheet">
         <style>
             body {
 
@@ -349,6 +350,7 @@
     </body>
     {{-- TAB TOGGLING --}}
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/fontaws.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script></script>
 

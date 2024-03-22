@@ -4,18 +4,6 @@
         animation-iteration-count: infinite;
     }
 
-    box-icon:hover {
-        fill: black;
-        color: black;
-    }
-
-    .sublist {
-        margin-bottom: 0.6rem;
-    }
-
-    .sublist_name {
-        margin-left: 7px
-    }
 
     .sidebar {
         background-color: #ffffff;
@@ -86,25 +74,26 @@
         <br>
         <li class="nav-item text-center justify-content-md-center">
             <a class="nav-link {{ request()->is('student/profile') ? '' : 'collapsed' }}" href='{{ route('student.profile') }}'>
-                <box-icon name="dashboard" type="solid" color="black"></box-icon><span style="margin-left:7px">Main</span>
+                <span style="padding: 0em 1em 0em 0em;"><i style="font-size:20px;" class="fas animate fa-chart-bar"></i></span>
+                <div class="">Main</div>
             </a>
         </li><!-- End Dashboard Nav -->
 
         <li class="nav-item ">
             <a class="nav-link  {{ request()->is('student/gradeinput') || request()->is('student/thesis') ? '' : 'collapsed' }}" data-bs-target="#sei-nav" data-bs-toggle="collapse" href="#">
-                <box-icon name='file' color="black"></box-icon><span style="margin-left:7px">Submit Requirements</span>
-                <box-icon class="bi-chevron-down ms-auto" style="padding:0px; none;" color="black" name='chevron-down'></box-icon>
+                <span style="padding: 0em 1em 0em 0em;"><i style="font-size:20px;" class="fas animate fa-upload"></i></span>
+                <span style="">Submit Requirements</span>
+                <i class="fas fa-chevron-down"style="margin-left: auto; padding: 0px;"></i>
             </a>
             <ul id="sei-nav" class="nav-content collapse {{ request()->is('student/gradeinput') || request()->is('student/thesis') ? 'show' : '' }} align-text-center" data-bs-parent="#sidebar-nav">
-                <li>
+                <li class="align-text-center align-items-center">
                     <a href='{{ route('student/gradeinput') }}' class="{{ request()->is('student/gradeinput') ? 'active' : '' }}">
-                        <box-icon type='solid' name='right-arrow' size="xs" class="sublist" color="black"></box-icon><span class="sublist_name">Periodic</span>
+                        <span style="padding: 0em 0em 0em 0em;"><i style="font-size:15px;" class="fas fa-long-arrow-alt-right"></i><span>&nbsp;Periodic</span></span>
                     </a>
                 </li>
                 <li class="align-text-center align-items-center">
                     <a href='{{ route('student/thesis') }}' class="{{ request()->is('student/thesis') ? 'active' : '' }}">
-                        <box-icon type='solid' name='right-arrow'color="black" class="sublist" style="" size="xs"></box-icon>
-                        <span class="sublist_name">Thesis</span>
+                        <span style="padding: 0em 0em 0rem 0rem;"><i style="font-size:15px;" class="fas fa-long-arrow-alt-right"></i><span>&nbsp;Thesis</span></span>
                     </a>
                 </li>
             </ul>

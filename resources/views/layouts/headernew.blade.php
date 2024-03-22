@@ -1,4 +1,10 @@
 <!-- ======= Header ======= -->
+<style>
+    .animate__animated.animate__wobble {
+        --animate-duration: 1s;
+        animation-iteration-count: infinite !important;
+    }
+</style>
 <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
@@ -6,10 +12,10 @@
             <img src="assets/img/logo.png" alt="">
             <span class="d-none d-lg-block">DOST</span>
         </a>
-        <box-icon name='list-ul' size="lg" class="toggle-sidebar-btn"></box-icon>
+        <span class="toggle-sidebar-btn mb-1"> <i class="fas fa-bars" style="font-size: 25px"></i></span>
     </div><!-- End Logo -->
 
-    @php
+    {{-- @php
         $currentTime = now()->format('H'); // Get the current hour in 24-hour format
         $greeting = ''; // Initialize the greeting variable
 
@@ -21,17 +27,12 @@
         } else {
             $greeting = 'Good Evening';
         }
-    @endphp
+    @endphp --}}
 
 
-    <span class="col-5 d-flex align-items-center justify-content-end disable-select">
+    {{--   <span class="col-5 d-flex align-items-center justify-content-end disable-select">
         <h3>{{ $greeting }}!</h3>
-    </span>
-
-
-
-
-
+    </span> --}}
 
 
     <nav class="header-nav ms-auto">
@@ -47,7 +48,7 @@
 
 
                 <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-                    <box-icon name='bell-ring' type='solid' color='black' size="27px"></box-icon>
+                    <i id="bell1" class="fas fa-bell "></i>
                     <span id="notificationCount" class="badge bg-primary badge-number"></span>
                 </a><!-- End Notification Icon -->
 
@@ -71,11 +72,11 @@
                     </span>
                 </a><!-- End Profile Iamge Icon -->
 
-                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow mt-2">
                     <li>
                         <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             <box-icon name='log-out-circle'></box-icon>&nbsp;
-                            <span>Sign Out</span>
+                            <span style="font-size: 15px"> Sign Out</span>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
                             </form>
@@ -95,6 +96,12 @@
             .then(response => response.json())
             .then(data => {
                 document.getElementById('notificationCount').textContent = data.count;
+                const notificationCount = data.count;
+                const bellIcon = document.getElementById('bell1');
+                if (notificationCount > 0) {
+                    bellIcon.classList.add('animate__animated');
+                    bellIcon.classList.add('animate__wobble');
+                }
                 document.getElementById('notificationCount2').textContent = data.count;
             });
     }
@@ -114,15 +121,15 @@
                     const li = document.createElement('li');
                     li.className = 'notification-item';
                     li.innerHTML = `
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <box-icon size="1.5rem" color="orange" style="padding: 0rem 0.5rem;" type='solid' name='message-square-error'></box-icon>
-                    <div>
-                        <h4>${notification.type}</h4>
-                        <p>${notification.message}</p>
-                    </div>
-                `;
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <box-icon size="1.5rem" color="orange" style="padding: 0rem 0.5rem;" type='solid' name='message-square-error'></box-icon>
+                        <div>
+                            <h4>${notification.type}</h4>
+                            <p>${notification.message}</p>
+                        </div>
+                    `;
                     li.setAttribute('contenteditable', 'false');
 
                     li.addEventListener('click', (function(scholarId) {
