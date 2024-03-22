@@ -191,7 +191,7 @@
                 </div>
 
                 {{--   @dd($cogpassed) --}}
-                @if (isset($cogpassed))
+                @if (count($cogpassed) > 0)
                     <div class="">
                         <div class="card-body mt-3">
                             <div class="row">
@@ -287,7 +287,7 @@
                     </div>
                 @endif
 
-                @if (!empty($thesispassed))
+                @if (count($thesispassed) > 0)
                     <div class="card-body">
                         <div class="row g-2">
                             <div class="col">
@@ -313,12 +313,23 @@
                                                 <td class="" style="text-align: center;"><a data-thesisid="{{ $thesispassed1->id }}" class="viewthesis"><box-icon size="18.5px" type='solid' name='show'></box-icon></a></td>
                                                 <td class="" style="text-align: center;">
                                                     <div class="row g-2">
-                                                        <div class="col">
-                                                            <button class="btn btn-sm btn-success thisisbutton" type="button" id="thesisapprove" data-thesisid="{{ $thesispassed1->id }}"><i class="fas fa-check-square"></i>&nbsp;Approve</button>
-                                                        </div>
-                                                        <div class="col">
-                                                            <button class="btn btn-sm btn-danger thisisbutton" type="button" id="" data-thesisid="{{ $thesispassed1->id }}"><i class="fas fa-times-circle"></i>&nbsp;Disapprove</button>
-                                                        </div>
+                                                        @if ($thesispassed1->thesis_status == 'Approved')
+                                                            <div class="col">
+                                                                Approved
+                                                            </div>
+                                                        @else
+                                                            <div class="col">
+                                                                <form action="{{ route('approvethesis') }}" method="POST">
+                                                                    @csrf
+                                                                    <input type="text" name="thesis_id" hidden value="{{ $thesispassed1->id }}">
+                                                                    <button class="btn btn-sm btn-success thisisbutton" type="submit"><i class="fas fa-check-square"></i>&nbsp;Approve</button>
+                                                                </form>
+                                                            </div>
+                                                            <div class="col">
+                                                                <button class="btn btn-sm btn-danger thisisbutton" type="button" id="" data-thesisid="{{ $thesispassed1->id }}"><i class="fas fa-times-circle"></i>&nbsp;Disapprove</button>
+                                                            </div>
+                                                        @endif
+
                                                     </div>
                                                 </td>
                                             </tr>

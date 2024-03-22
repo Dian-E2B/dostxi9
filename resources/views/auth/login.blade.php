@@ -14,7 +14,7 @@
             }
 
             body {
-                background-color: #f0efef;
+
                 background-repeat: no-repeat;
                 background-size: 100% 60%;
                 font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";

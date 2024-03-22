@@ -48,7 +48,18 @@
                 <div class="main">
 
                     @if (!empty($thesis))
-                        @if ($thesis->thesis_status == 'approved')
+                        @if ($thesis->thesis_status == 'Approved')
+                            <div class="row justify-content-center">
+
+                                <div class="col-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            sss
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
                         @elseif ($thesis->thesis_status == 'pending')
                             <script>
                                 Swal.fire({
@@ -56,7 +67,6 @@
                                     text: 'Your thesis proposal is still pending, please wait for approval.',
                                     iconHtml: '<img src="/extraicons/filewithtime.gif" style="width: 150px; height: 150px;">',
                                     width: '500px', // Set the width of the dialog box
-                                    height: '100px', // Set the width of the dialog box
                                     showCancelButton: false, // There won't be any cancel button
                                     showConfirmButton: false, // There won't be any confirm button
                                     allowOutsideClick: false,

@@ -10,7 +10,8 @@
     }
 
     .sidebar-nav .nav-link {
-        color: #3c4244;
+        color: #000000;
+        background: #9b9898;
     }
 
     .sidebar-nav .nav-content a {
@@ -19,7 +20,7 @@
 
     .sidebar-nav .nav-link.collapsed {
         color: #000000;
-        background: #b8c0c3;
+        background: #ffffff;
     }
 </style>
 
@@ -93,7 +94,7 @@
                 </li>
                 <li class="align-text-center align-items-center">
                     <a href='{{ route('student/thesis') }}' class="{{ request()->is('student/thesis') ? 'active' : '' }}">
-                        <span style="padding: 0em 0em 0rem 0rem;"><i style="font-size:15px;" class="fas fa-long-arrow-alt-right"></i><span>&nbsp;Thesis</span></span>
+                        <span style="padding: 0em em 0rem 0rem;"><i style="font-size:15px;" class="fas fa-long-arrow-alt-right"></i><span>&nbsp;Thesis</span></span>
                     </a>
                 </li>
             </ul>

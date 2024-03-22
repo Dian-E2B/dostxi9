@@ -213,7 +213,6 @@ class AccessControlViewController extends Controller
         $scholarrequirements = Scholar_requirements::where('scholar_id', $id)->first();
         $cogpassed = Cog::where('scholar_id', $id)->get();
         $thesispassed = Thesis::where('scholar_id', $id)->get();
-       
         return view('scholar_information', compact('seisourcerecord', 'scholarrequirements', 'cogpassed', 'thesispassed'));
     }
 
@@ -289,6 +288,28 @@ class AccessControlViewController extends Controller
                 $scholarCogdeletenotif->delete();
                 return back()->with('approved', 'COG and COR has been approved!');
             }
+        }
+    }
+
+    public function approvethesis(Request $request)
+    {
+        $thesisid = $request->input('thesis_id');
+
+        $thesisidget = Thesis::find($thesisid);
+        if ($thesisidget) {
+            $thesisidget->thesis_status = 'Approved';
+            $thesisidget->save();
+            Notification_schols::create(
+                [
+                    'scholar_id' => $thesisidget->scholar_id,
+                    'data_id' => $thesisid,
+                    'type' => 'Thesis',
+                    'message' => 'Your Thesis has been approved!',
+                ]
+            );
+            return back()->with('approved', 'Thesis has been approved!');
+        } else {
+            return "Record not found.";
         }
     }
 }

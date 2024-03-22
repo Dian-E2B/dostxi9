@@ -28,9 +28,7 @@ use Illuminate\Notifications\Notification;
 |
 */
 
-Route::get('/', function () {
-    return view('auth.login');
-});
+Route::redirect('/', '/login');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -91,7 +89,7 @@ Route::middleware(['auth', 'role:staff'])->group(function () {
     Route::get('/scholarthesis/{id}', [\App\Http\Controllers\AccessControlViewController::class, 'scholarthesis'])->name('scholarthesis');
     //SCHOLAR APPROVE COGCOR
     Route::get('/approvecogcor/{id}', [\App\Http\Controllers\AccessControlViewController::class, 'approvecogcor'])->name('approvecogcor');
-
+    Route::post('/approvethesis', [\App\Http\Controllers\AccessControlViewController::class, 'approvethesis'])->name('approvethesis');
 
     //ONGOINGLIST
     Route::get('/ongoinglist', [\App\Http\Controllers\RsmsViewController::class, 'ongoinglist'])->name('ongoinglist');
@@ -166,7 +164,7 @@ Route::middleware(['auth:student', 'verified'])->group(function () {
     Route::get('/notificationsgetspecific', [\App\Http\Controllers\HeaderController::class, 'notificationsgetspecific'])->name('notificationsgetspecific'); //GET NOTIFICATIONS
     Route::get('/notificationsscholar/count', [\App\Http\Controllers\HeaderController::class, 'notificationsscholarcount'])->name('notificationsscholarcount'); //GET NOTIFICATIONS
 
-    Route::POST('reuploadcogcor', [\App\Http\Controllers\StudentViewController::class, 'reuploadcogcor'])->name('reuploadcogcor'); //GET NOTIFICATIONS
+    Route::POST('reuploadcogcor', [\App\Http\Controllers\StudentViewController::class, 'reuploadcogcor'])->name('reuploadcogcor'); //REUPLOAD COR
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {

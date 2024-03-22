@@ -123,6 +123,14 @@ class StudentViewController extends Controller
                 'created_at' => now(),
             ]);
             if ($thesis) {
+                Notification_staffs::create(
+                    [
+                        'scholar_id' => $scholarId,
+                        'type' => 'Thesis',
+                        'message' => 'A new thesis proposal has been submitted!',
+                        'data_id' => $thesis->id,
+                    ]
+                );
                 return response()->json(['message' => 'Thesis submitted successfully.'], 200);
                 /*  session()->flash('uploaded', 'Thesis Proposal Submitted'); */
                 /*  return back(); */

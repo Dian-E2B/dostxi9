@@ -10,13 +10,22 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
+
 class AuthenticatedSessionController extends Controller
 {
     /**
      * Display the login view.
      */
-    public function create(): View
+
+
+
+    public function create()
     {
+        if (Auth::check()) {
+            // Redirect to the dashboard if the user is already logged in
+            return redirect('/dashboard');
+        }
+        // Otherwise, show the login page
         return view('auth.login');
     }
 
