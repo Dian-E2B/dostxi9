@@ -131,7 +131,6 @@
                         </div>
                     `;
                     li.setAttribute('contenteditable', 'false');
-
                     li.addEventListener('click', (function(scholarId) {
                         return function() {
                             handleNotificationClick(scholarId);
@@ -152,9 +151,7 @@
     function handleNotificationClick(scholarId) {
         // Construct the URL using the named route and scholar_id
         var url = '{{ url('/scholar_information/') }}' + '/' + scholarId;
-
         // Redirect the user to the new URL
         window.location.href = url;
-
     }
 </script>

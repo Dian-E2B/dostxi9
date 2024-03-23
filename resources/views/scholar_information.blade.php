@@ -35,6 +35,16 @@
         @include('layouts.sidebarnew') {{-- SIDEBAR START --}}
         <main id="main" style="padding: 1.5rem 1rem 1rem; !important;">
 
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             @if (session('approved'))
                 <script>
                     let successmessage = "{{ session('approved') }}";
@@ -248,7 +258,7 @@
                                                                             document.querySelector('#disapprovecogButton').addEventListener('click', function() {
                                                                                 // Show SweetAlert
                                                                                 Swal.fire({
-                                                                                    title: 'Disapprove this thesis proposal?',
+                                                                                    title: 'Disapprove this thesis COR/COG?',
                                                                                     html: `
                                                                                     <textarea id="remarks" class="form-control" placeholder="Remarks"></textarea>
                                                                                             `,
@@ -294,15 +304,17 @@
                                 <table class="table table-bordered  table-sm align-text-center">
                                     <thead>
                                         <tr class="">
-                                            <th colspan="4" style="text-align: center;">Theses uploaded</th>
+                                            <th colspan="5" style="text-align: center;">Theses uploaded</th>
                                         </tr>
                                     </thead>
                                     <thead>
                                         <tr class="">
                                             <th class="">Date Uploaded</th>
+                                            <th class="">Remarks</th>
                                             <th class="">Status</th>
                                             <th style="text-align: center;" class="">Details</th>
                                             <th style="text-align: center; width: 15rem" class="">Action</th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -310,27 +322,60 @@
                                             <tr class="">
                                                 <td class="">{{ \Carbon\Carbon::parse($thesispassed1->updated_at)->format('F j, Y') }}</td>
                                                 <td class="">{{ $thesispassed1->thesis_status }}</td>
-                                                <td class="" style="text-align: center;"><a data-thesisid="{{ $thesispassed1->id }}" class="viewthesis"><box-icon size="18.5px" type='solid' name='show'></box-icon></a></td>
+                                                <td class="">{{ $thesispassed1->thesis_remarks }}</td>
+                                                <td class="" style="text-align: center;"><a data-thesisid="{{ $thesispassed1->id }}" class="viewthesis"><i class="fas fa-eye"></i></a></td>
                                                 <td class="" style="text-align: center;">
-                                                    <div class="row g-2">
-                                                        @if ($thesispassed1->thesis_status == 'Approved')
-                                                            <div class="col">
-                                                                Approved
-                                                            </div>
-                                                        @else
-                                                            <div class="col">
-                                                                <form action="{{ route('approvethesis') }}" method="POST">
+
+                                                    @if ($thesispassed1->thesis_status == 'Approved')
+                                                        <div class="col">
+                                                            Approved
+                                                        </div>
+                                                    @elseif ($thesispassed1->thesis_status == 'Disapproved')
+                                                        <div class="col">
+                                                            Disapproved
+                                                        </div>
+                                                    @else
+                                                        <form action="{{ route('approvethesis') }}" id="thesisApprovalForm" method="POST">
+                                                            <div class="row g-2">
+                                                                <div class="col">
                                                                     @csrf
                                                                     <input type="text" name="thesis_id" hidden value="{{ $thesispassed1->id }}">
-                                                                    <button class="btn btn-sm btn-success thisisbutton" type="submit"><i class="fas fa-check-square"></i>&nbsp;Approve</button>
-                                                                </form>
+                                                                    <button class="btn btn-sm btn-success thisisbutton" value="approve" type="submit"><i class="fas fa-check-square"></i>&nbsp;Approve</button>
+                                                                </div>
+                                                                <div class="col">
+                                                                    <button id="disapproveThesisButton" class="btn btn-sm btn-danger thisisbutton" value="disapprove" type="button"><i class="fas fa-times-circle"></i>&nbsp;Disapprove</button>
+                                                                </div>
                                                             </div>
-                                                            <div class="col">
-                                                                <button class="btn btn-sm btn-danger thisisbutton" type="button" id="" data-thesisid="{{ $thesispassed1->id }}"><i class="fas fa-times-circle"></i>&nbsp;Disapprove</button>
-                                                            </div>
-                                                        @endif
+                                                        </form>
+                                                        <script>
+                                                            document.querySelector('#disapproveThesisButton').addEventListener('click', function() {
+                                                                // Show SweetAlert
+                                                                Swal.fire({
+                                                                    title: 'Disapprove this thesis proposal?',
+                                                                    html: `
+                                                                    <textarea id="remarksthesis" class="form-control" placeholder="Remarks"></textarea>
+                                                                            `,
+                                                                    icon: 'warning',
+                                                                    showCancelButton: true,
+                                                                    confirmButtonColor: '#3085d6',
+                                                                    cancelButtonColor: '#d33',
+                                                                    confirmButtonText: 'Yes, disapprove',
 
-                                                    </div>
+                                                                }).then((result) => {
+
+                                                                    if (result.isConfirmed) {
+                                                                        // Get remarks from the textarea
+                                                                        var remarksthesis = document.getElementById('remarksthesis').value;
+                                                                        document.getElementById('thesisApprovalForm').insertAdjacentHTML('beforeend', `<input type="hidden" name="thesisremarks" value="${remarksthesis}">`);
+                                                                        document.getElementById('thesisApprovalForm').insertAdjacentHTML('beforeend', `<input type="hidden" name="action" value="disapprove">`);
+                                                                        document.getElementById('thesisApprovalForm').submit();
+                                                                    }
+                                                                });
+                                                            });
+                                                        </script>
+                                                    @endif
+
+
                                                 </td>
                                             </tr>
                                         @endforeach

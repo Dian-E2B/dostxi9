@@ -95,8 +95,12 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="card">
+                            <div class="">
                                 <div class="card-body mt-2">
+                                    <div class="card  col-lg-6 p-2" style="text-align: center; vertical-align: center">
+                                        <div class="" style="font-size:1.5em; font-weight: 700">Potential Qualifiers</div>
+                                    </div>
+
                                     <table id="thisdatatable" class="hover table-striped table-hover compact nowrap" style="width:100%;">
 
                                         <thead>

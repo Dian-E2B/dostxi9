@@ -153,6 +153,7 @@ Route::middleware(['auth:student', 'verified'])->group(function () {
     Route::post('student/submitgrades', [\App\Http\Controllers\StudentActionsController::class, 'cogsave'])->name('submitgrades');
     Route::get('student/gradeinput', [\App\Http\Controllers\StudentViewController::class, 'gradeinputview'])->name('student/gradeinput');
     Route::get('student/thesis', [\App\Http\Controllers\StudentViewController::class, 'thesisview'])->name('student/thesis');
+    Route::get('student/thesis/{id}', [\App\Http\Controllers\StudentViewController::class, 'thesisview2']);
     Route::post('thesissubmit', [\App\Http\Controllers\StudentViewController::class, 'thesissubmit'])->name('thesissubmit');
     Route::get('generatepdf/{number}', [\App\Http\Controllers\PrintController::class, 'generatePdf']);
     Route::get('/downloadpdfclearance/{filename}', [\App\Http\Controllers\StudentViewController::class, 'downloadpdfclearance'])->name('downloadpdfclearance');
@@ -165,6 +166,7 @@ Route::middleware(['auth:student', 'verified'])->group(function () {
     Route::get('/notificationsscholar/count', [\App\Http\Controllers\HeaderController::class, 'notificationsscholarcount'])->name('notificationsscholarcount'); //GET NOTIFICATIONS
 
     Route::POST('reuploadcogcor', [\App\Http\Controllers\StudentViewController::class, 'reuploadcogcor'])->name('reuploadcogcor'); //REUPLOAD COR
+    Route::POST('thesissubmitreupload', [\App\Http\Controllers\StudentViewController::class, 'thesissubmitreupload'])->name('thesissubmitreupload'); //REUPLOAD COR
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {

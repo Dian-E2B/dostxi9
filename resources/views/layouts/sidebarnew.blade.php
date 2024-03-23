@@ -3,20 +3,6 @@
         animation: tada 1s;
         animation-iteration-count: infinite;
     }
-
-
-    .box-icon:hover {
-        fill: black;
-        color: black;
-    }
-
-    .sublist {
-        margin-bottom: 0.6rem;
-    }
-
-    .sublist_name {
-        margin-left: 7px
-    }
 </style>
 <aside id="sidebar" class="sidebar">
 
@@ -41,9 +27,9 @@
                         <span style="padding: 0em 0em 0em 0em;"><i style="font-size:15px;" class="fas fa-long-arrow-alt-right"></i><span>&nbsp;Qualifiers</span></span>
                     </a>
                 </li>
-                <li class="align-text-center align-items-center">
+                <li class="">
                     <a href='{{ route('seilist2') }}' class="{{ request()->is('seilist2') ? 'active' : '' }}">
-                        <span style="padding: 0em 0em 1em 0em;"><i style="font-size:15px;" class="fas  fa-long-arrow-alt-right"></i><span>&nbsp;Potential Qualifiers</span></span>
+                        <span style="padding: 0em 0em 0em 0em;"><i style="font-size:15px;" class="fas  fa-long-arrow-alt-right"></i><span>&nbsp;Potential Qualifiers</span></span>
                     </a>
                 </li>
             </ul>

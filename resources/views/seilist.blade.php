@@ -67,13 +67,15 @@
                 color: rgb(6, 185, 240) !important;
 
             }
+
+            body {}
         </style>
     </head>
 
     <body>
         @include('layouts.headernew') {{-- HEADER START --}}
         @include('layouts.sidebarnew') {{-- SIDEBAR START --}}
-        <main id="main" class="main" style="padding: 1.5rem 0.5rem 0.5rem; !important;">
+        <main id="main">
             <div class="main">
 
                 @error('excel_file')
@@ -103,13 +105,13 @@
                     </script>
                 @endif
 
-                <main class="content" style="padding:0.5rem 0.5rem 0.5rem; !important;">
-                    <div style="background-color: #dddddd" class="container-fluid p-0">
+                <main class="content">
+                    <div class="container-fluid p-0">
 
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="h4">
-                                    Science Education Institutes' list of Qualified Scholars
+                        <div class="">
+                            <div class="card-body mt-3">
+                                <div class="card col-lg-6 p-2" style="text-align: center; vertical-align: center">
+                                    <div class="" style="font-size:1.5em; font-weight: 700">Qualifiers</div>
                                 </div>
                                 <div class="">
                                     <div class="row row-cols-auto">
@@ -162,17 +164,14 @@
 
                                     </div>
                                     <br>
-                                    <div class="mt-2 mb-2" style="font-size: 14px; ">
-                                        <h6 style="">Legend:</h6>
-                                        <strong style="text-align: right;"><i class="fas fa-circle" style="color: #194903;"></i><span style="color:#000000">: Qualifier Has been Notified</span></strong>
-                                    </div>
+
                                 </div>
 
 
 
                                 {{-- TABLE --}}
-                                <div class="mt-3">
-                                    <table id="thisdatatable" cellspacing="0" class="table-striped display nowrap" style="width:100%;">
+                                <div class="mt-1">
+                                    <table id="thisdatatable" class="table-striped compact table-hover nowrap">
 
                                         <thead>
                                             <tr>
@@ -317,10 +316,13 @@
             jQuery.noConflict();
             jQuery(document).ready(function($) {
                 var table = $('#thisdatatable').DataTable({
+                    scrollResize: true,
+                    pageResize: true,
                     processing: true,
                     serverSide: true,
-                    pageLength: 100,
-                    fixedHeader: true,
+                    pageLength: 25,
+                    fixedHeader: false,
+                    scrollX: true,
                     select: true,
                     ajax: '{{ route('seilistviewajax') }}',
                     type: 'GET',

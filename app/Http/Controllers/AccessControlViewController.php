@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\DB;
 use function Laravel\Prompts\alert;
+use Illuminate\Support\Facades\Validator;
 
 class AccessControlViewController extends Controller
 {
@@ -292,11 +293,19 @@ class AccessControlViewController extends Controller
     }
 
     public function approvethesis(Request $request)
+
     {
         $thesisid = $request->input('thesis_id');
-
+        $buttonValue = $request->input('action');
         $thesisidget = Thesis::find($thesisid);
-        if ($thesisidget) {
+
+        $request->validate([
+            'action' => 'required',
+            'thesis_id' => 'required',
+        ]);
+
+        if ($buttonValue == 'approve') {
+
             $thesisidget->thesis_status = 'Approved';
             $thesisidget->save();
             Notification_schols::create(
@@ -307,9 +316,30 @@ class AccessControlViewController extends Controller
                     'message' => 'Your Thesis has been approved!',
                 ]
             );
+            $Noti_staff = Notification_staffs::where('data_id', $thesisid)->first();
+            if ($Noti_staff) {
+                $Noti_staff->delete();
+            }
             return back()->with('approved', 'Thesis has been approved!');
-        } else {
-            return "Record not found.";
+        } elseif ($buttonValue == 'disapprove') {
+            $disapprovethesis_remarks = $request->input('thesisremarks');
+            $request->validate([
+                'thesisremarks' => 'required',
+            ]);
+            $thesisidget->thesis_status = 'Disapproved';
+            $thesisidget->thesis_remarks = $disapprovethesis_remarks;
+            $thesisidget->save();
+            $Noti_staff = Notification_staffs::where('data_id', $thesisid)->first();
+            $Noti_staff->delete();
+            Notification_schols::create(
+                [
+                    'scholar_id' => $thesisidget->scholar_id,
+                    'data_id' => $thesisid,
+                    'type' => 'Thesis',
+                    'message' => 'Your Thesis has been Disapproved! Please see remarks.',
+                ]
+            );
+            return back()->with('disapproved', 'Thesis has been disapproved.');
         }
     }
 }

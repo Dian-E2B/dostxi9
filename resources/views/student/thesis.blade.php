@@ -3,10 +3,12 @@
 
     <head>
         <title>DOST XI</title>
-        <link rel="icon" href="\icons\DOSTLOGOsmall.png" type="image/x-icon" />
-        <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link href="{{ asset('css/fontaws.css') }}" rel="stylesheet">
+        <link rel="icon" href="\icons\DOSTLOGOsmall.png" type="image/x-icon" />
+        <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>{{-- SWEETALERT --}}
     </head>
@@ -52,9 +54,14 @@
                             <div class="row justify-content-center">
 
                                 <div class="col-6">
+                                    <div class="card p-1" style="text-align: center; font-size:1.5em; font-weight: 700">Final Manuscript</div>
                                     <div class="card">
-                                        <div class="card-body">
-                                            sss
+                                        <div class="row p-3">
+                                            <div class="">
+                                                You can now upload your final manuscript
+                                                <input name="fin_manus" required class="form-control" type="file" id="formFile" accept=".pdf">
+                                                <button class="btn btn-success mt-2">Submit</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -74,23 +81,52 @@
                                 });
                             </script>
                         @else
+                            <div class="row justify-content-center">
+                                <div class="card col-6" style="text-align: center; font-size: 1.5em; font-weight: 700">Thesis Proposal</div>
+                            </div>
+                            <div class="row justify-content-center">
+
+                                <div class="card col-6">
+                                    <div class="card-body">
+                                        <div class="h5 mt-3">Upload Your Thesis Proposal</div>
+                                        <form id="thesisForm" action="{{ route('thesissubmitreupload') }}" method="post" enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="row row-cols-auto mt-4">
+                                                <label for="formFile" class=" col-form-label">File Upload</label>
+                                                <div class="">
+                                                    <input name="thesispdf" required class="form-control" type="file" id="formFile" accept=".pdf">
+                                                </div>
+                                            </div>
+                                            <button id="submitButton" class="btn btn-primary mt-3" type="submit" type="submit">Submit</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         @endif
                     @else
-                        <div class="card col-6">
-                            <div class="card-body">
-                                <div class="h5 mt-3">Upload Your Thesis Proposal</div>
-                                <form id="thesisForm" action="{{ route('thesissubmit') }}" method="post" enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="row row-cols-auto mt-4">
-                                        <label for="formFile" class=" col-form-label">File Upload</label>
-                                        <div class="">
-                                            <input name="thesispdf" required class="form-control" type="file" id="formFile" accept=".pdf">
+                        <div class="row justify-content-center">
+                            <div class="card col-6" style="text-align: center; font-size: 1.5em; font-weight: 700">Thesis Proposal</div>
+                        </div>
+                        <div class="row justify-content-center">
+
+                            <div class="card col-6">
+                                <div class="card-body">
+                                    <div class="h5 mt-3">Upload Your Thesis Proposal</div>
+                                    <form id="thesisForm" action="{{ route('thesissubmit') }}" method="post" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="row row-cols-auto mt-4">
+                                            <label for="formFile" class=" col-form-label">File Upload</label>
+                                            <div class="">
+                                                <input name="thesispdf" required class="form-control" type="file" id="formFile" accept=".pdf">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <button id="submitButton" class="btn btn-primary mt-3" type="submit" type="submit">Submit</button>
-                                </form>
+                                        <button id="submitButton" class="btn btn-primary mt-3" type="submit" type="submit">Submit</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
+
+
                     @endif
 
                 </div>

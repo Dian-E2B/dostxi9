@@ -94,7 +94,7 @@
                         return function() {
                             handleNotificationClick(scholarId);
                         };
-                    })(notificationsscholars.scholar_id));
+                    })(notificationsscholars.data_id));
 
                     notificationsList.appendChild(li);
                 });
@@ -104,6 +104,13 @@
     }
 
     getNotifications();
+
+    function handleNotificationClick(data_id) {
+        // Construct the URL using the named route and scholar_id
+        var url = '{{ url('student/thesis') }}' + '/' + data_id;
+        // Redirect the user to the new URL
+        window.location.href = url;
+    }
 </script>
 
 

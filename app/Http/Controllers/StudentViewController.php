@@ -24,6 +24,12 @@ use Smalot\PdfParser\Parser;
 
 class StudentViewController extends Controller
 {
+
+    public function thesissubmitreupload(Request $request)
+    {
+        
+    }
+
     public function reuploadcogcor(Request $request)
     {
         $cogid = $request->input('cogiddisapprove');
@@ -104,6 +110,16 @@ class StudentViewController extends Controller
         $scholarId = Auth::user()->scholar_id;
         $thesis = Thesis::where('scholar_id', $scholarId)->first();
         return view('student.thesis', ['thesis' => $thesis]);
+    }
+
+    public function thesisview2($data_id)
+    {
+        $thesisnotif = Notification_schols::where('data_id', $data_id)->first();
+        if ($thesisnotif->type == "Thesis") {
+            Notification_schols::where('data_id', $data_id)->delete();
+            return redirect()->route('student/thesis');
+        }
+        return redirect()->route('student/thesis');
     }
 
     public function thesissubmit(Request $request)   //THESIS SUBMIT SECTION
