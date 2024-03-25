@@ -48,19 +48,21 @@
         <main id="main" class="main" style="padding: 1.5rem 0.5rem 0.5rem; !important;">
             <div class="content">
                 <div class="main">
-
                     @if (!empty($thesis))
                         @if ($thesis->thesis_status == 'Approved')
                             <div class="row justify-content-center">
-
                                 <div class="col-6">
                                     <div class="card p-1" style="text-align: center; font-size:1.5em; font-weight: 700">Final Manuscript</div>
                                     <div class="card">
                                         <div class="row p-3">
                                             <div class="">
                                                 You can now upload your final manuscript
-                                                <input name="fin_manus" required class="form-control" type="file" id="formFile" accept=".pdf">
-                                                <button class="btn btn-success mt-2">Submit</button>
+                                                <form action="{{ route('finalmanuscriptsubmit') }}" method="POST" enctype="multipart/form-data">
+                                                    @csrf
+                                                    <input hidden name="thesis_id" hidded value="{{ $thesis->id }}">
+                                                    <input name="fin_manus" required class="form-control" type="file" accept=".pdf">
+                                                    <button class="btn btn-success mt-2 rounded-pill">Submit</button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -73,31 +75,63 @@
                                     title: 'Thesis Still Pending',
                                     text: 'Your thesis proposal is still pending, please wait for approval.',
                                     iconHtml: '<img src="/extraicons/filewithtime.gif" style="width: 150px; height: 150px;">',
-                                    width: '500px', // Set the width of the dialog box
-                                    showCancelButton: false, // There won't be any cancel button
-                                    showConfirmButton: false, // There won't be any confirm button
+                                    width: '500px',
+                                    showCancelButton: false,
+                                    showConfirmButton: false,
                                     allowOutsideClick: false,
                                     backdrop: false,
                                 });
                             </script>
                         @else
                             <div class="row justify-content-center">
-                                <div class="card col-6" style="text-align: center; font-size: 1.5em; font-weight: 700">Thesis Proposal</div>
+                                <div class="card col-6">
+                                    <table class="table nowrap table-sm table-bordered mt-2">
+                                        <thead>
+                                            <th>
+                                                Thesis Updated
+                                            </th>
+                                            <th>
+                                                Remarks
+                                            </th>
+                                            <th class="text-center">
+                                                View
+                                            </th>
+                                        </thead>
+                                        <tbody>
+                                            <td class="">
+                                                {{ $thesis->updated_at }}
+                                            </td>
+                                            <td class="">
+                                                {{ $thesis->thesis_remarks }}
+                                            </td>
+
+                                            <td class="text-center">
+                                                <a class="btn btn-primary btn-sm" target="_blank" href="{{ asset($thesis->thesis_details) }}"><i class="fas fa-eye"></i></a>
+                                            </td>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+
+                            <div class="row justify-content-center">
+                                <div class="card col-6" style="text-align: center; font-size: 1.5em; font-weight: 700">Thesis Proposal Reupload</div>
                             </div>
                             <div class="row justify-content-center">
 
                                 <div class="card col-6">
                                     <div class="card-body">
-                                        <div class="h5 mt-3">Upload Your Thesis Proposal</div>
-                                        <form id="thesisForm" action="{{ route('thesissubmitreupload') }}" method="post" enctype="multipart/form-data">
+                                        <div class="h5 mt-3"></div>
+                                        <form action="{{ route('thesissubmitreupload') }}" method="POST" enctype="multipart/form-data">
                                             @csrf
                                             <div class="row row-cols-auto mt-4">
                                                 <label for="formFile" class=" col-form-label">File Upload</label>
                                                 <div class="">
-                                                    <input name="thesispdf" required class="form-control" type="file" id="formFile" accept=".pdf">
+                                                    <input type="text" name="thesis_id" value="{{ $thesis->id }}" hidden class="">
+                                                    <input name="thesispdf_reupload" required class="form-control" type="file" accept=".pdf">
                                                 </div>
                                             </div>
-                                            <button id="submitButton" class="btn btn-primary mt-3" type="submit" type="submit">Submit</button>
+                                            <button class="btn btn-primary mt-3" type="submit">Submit</button>
                                         </form>
                                     </div>
                                 </div>
@@ -137,12 +171,24 @@
     <script src="{{ asset('js/fontaws.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script>
+        document.querySelectorAll('a, button').forEach(function(element) {
+            element.addEventListener('click', function() {
+                sessionStorage.setItem('scrollPosition', window.scrollY);
+            });
+        });
+
+        window.addEventListener('load', function() {
+            var scrollPosition = sessionStorage.getItem('scrollPosition');
+            if (scrollPosition) {
+                window.scrollTo(0, parseInt(scrollPosition));
+                sessionStorage.removeItem('scrollPosition');
+            }
+        });
+
         $(document).ready(function() {
             $('#submitButton').click(function(e) {
                 e.preventDefault(); // Prevent the default form submission
-
                 var formData = new FormData($('#thesisForm')[0]); // Get form data
-
                 // Send AJAX request
                 $.ajax({
                     url: $('#thesisForm').attr('action'),
@@ -151,8 +197,6 @@
                     processData: false,
                     contentType: false,
                     success: function(response) {
-                        // Handle successful submission
-
                         Swal.fire({
                             iconHtml: '<img src="/extraicons/upload.gif" style="width: 150px; height: 150px;">',
                             title: "Uploaded",
@@ -164,12 +208,14 @@
                                 location.reload(); // Reload the page
                             }
                         });
-                        // Optionally, you can redirect the user to another page or perform other actions
                     },
                     error: function(xhr, status, error) {
                         // Handle errors
                         console.error(xhr.responseText);
                         alert('Error submitting thesis. Please try again.');
+                    },
+                    complete: function() {
+                        $submitButton.prop('disabled', false); // Re-enable the button
                     }
                 });
             });

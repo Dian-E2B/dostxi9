@@ -75,7 +75,7 @@
         <br>
         <li class="nav-item text-center justify-content-center">
             <a class="nav-link {{ request()->is('student/profile') ? '' : 'collapsed' }}" href='{{ route('student.profile') }}'>
-                <span style="padding: 0em em 0em 0em;"><i style="font-size:20px;" class="fas animate fa-chart-bar"></i></span>
+                <span style="padding: 0em 1em 0em 0em;"><i style="font-size:20px;" class="fas animate fa-chart-bar"></i></span>
                 <div class="">Main</div>
             </a>
         </li><!-- End Dashboard Nav -->
@@ -91,7 +91,7 @@
                     <a href='{{ route('student/gradeinput') }}' class="{{ request()->is('student/gradeinput') ? 'active' : '' }}">
                         <i style="font-size:15px;" class="fas fa-long-arrow-alt-right"></i>
                         <span>&nbsp;Periodic</span>
-                        </div>
+
                     </a>
                 </li>
                 <li>

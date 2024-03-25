@@ -23,6 +23,26 @@
         @php
             $replyStatusId = \App\Models\Replyslips::where('scholar_id', auth()->user()->scholar_id)->value('replyslip_status_id');
         @endphp
+
+        @if (session('errors'))
+            <script>
+                let errorMessage = "{{ session('error') }}";
+                Swal.fire({
+                    icon: "error",
+                    title: "ERROR!",
+                    text: errorMessage,
+                });
+            </script>
+        @elseif (session('success'))
+            <script>
+                let successmessage = "{{ session('success') }}";
+                Swal.fire({
+                    icon: "success",
+                    title: "",
+                    text: successmessage,
+                });
+            </script>
+        @endif
         @if ($replyStatusId == 1 || $replyStatusId == 2 || $replyStatusId == 6)
 
             <div class="row justify-content-center mt-3" style="margin-auto; !important">
@@ -191,35 +211,11 @@
                                         <label>
                                             <input style="display: none;" value="{{ $scholarId }}">
                                         </label>
-
-
                                         @if ($scholarstatusid === 3)
-                                            {{-- IF ENROLLED --}}
                                         @endif
-                                        {{--  @dd($scholarstatusid); --}}
                                         @if (count($replyslips) > 0)
-                                            {{--  <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5 class="card-title mb-0">Reply Slip</h5>
-                                        </div>
-                                        <div class="card-body">
-                                            <p class="card-text">We are thrilled to offer you the
-                                                <strong>DOST-SEI S&T Undergraduate Scholarship</strong> for the academic year <strong>{{ now()->year }}</strong>.
-                                                As a scholarship recipient, we kindly request your prompt response by signing and returning this
-                                                reply slip to confirm your acceptance of the award.
-                                            </p>
-                                            @if ($replyslipstatus != 1)
-                                                <a href="{{ route('student.replyslipview') }}" class="btn btn-primary">View <i class="align-middle me-2" data-feather="eye"></i></a>
-                                            @else
-                                                <a href="{{ route('student.replyslipview') }}" class="btn btn-success">View <i class="align-middle me-2" data-feather="edit-3"></i></a>
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div> --}}
-
                                             <div class="col-md-6 col-lg-12">
-                                                <div class="card">
+                                                <div class="">
                                                     <div class="card-body">
                                                         <h1 style="margin: auto; text-align: center">
                                                             <p style="font-weight:900 ">{{ $scholarfullinfo->fname }} {{ $scholarfullinfo->mname }} {{ $scholarfullinfo->lname }}</p>

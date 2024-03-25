@@ -116,6 +116,36 @@
                         <div class="">
                             <div class="card-body mt-3">
                                 <table class="table table-bordered table-sm align-text-center">
+                                    <thead class="">
+                                        <th class="">Scholarship Agreement</th>
+                                        <th class="">Information Sheet</th>
+                                        <th class="">Scholar's Oath</th>
+                                        <th class="">Prospectus</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            @if (empty($scholarrequirements))
+                                                <td class="tdviewreq">No File Uploaded</td>
+                                            @else
+                                                <td class="tdviewreq " style="text-align: center;"><a class=" d-block btn btn-sm btn-light viewreqsholarship thisisbutton" href="#" data-id="{{ $seisourcerecord->id }}" class=""><i class="fas fa-eye"></i>&nbsp;View</a></td>
+                                            @endif
+                                            @if (empty($scholarrequirements))
+                                                <td class="tdviewreq">No File Uploaded</td>
+                                            @else
+                                                <td class="tdviewreq"><a data-id="{{ $seisourcerecord->id }}" class="d-block viewreqinformation btn btn-sm btn-light thisisbutton"><i class="fas fa-eye"></i>&nbsp;View</a></td>
+                                            @endif
+                                            @if (empty($scholarrequirements))
+                                                <td class="tdviewreq">No File Uploaded</td>
+                                            @else
+                                                <td class="tdviewreq"><a data-id="{{ $seisourcerecord->id }}" class="d-block viewreqoath btn btn-sm btn-light thisisbutton"><i class="fas fa-eye"></i>&nbsp;View</a></td>
+                                            @endif
+                                            @if (empty($scholarrequirements))
+                                                <td class="tdviewreq">No File Uploaded</td>
+                                            @else
+                                                <td class="tdviewreq"><a data-id="{{ $seisourcerecord->id }}" class="d-block viewreqprospectus btn btn-sm btn-light thisisbutton"><i class="fas fa-eye"></i>&nbsp;View</a></td>
+                                            @endif
+                                        </tr>
+                                    </tbody>
                                     <tr>
                                         <td colspan="2" style="text-align: center; font-weight:bold;">Requirements Uploaded</td>
                                     </tr>
@@ -340,7 +370,7 @@
                                                                 <div class="col">
                                                                     @csrf
                                                                     <input type="text" name="thesis_id" hidden value="{{ $thesispassed1->id }}">
-                                                                    <button class="btn btn-sm btn-success thisisbutton" value="approve" type="submit"><i class="fas fa-check-square"></i>&nbsp;Approve</button>
+                                                                    <button class="btn btn-sm btn-success thisisbutton" name="action" value="approve" type="submit"><i class="fas fa-check-square"></i>&nbsp;Approve</button>
                                                                 </div>
                                                                 <div class="col">
                                                                     <button id="disapproveThesisButton" class="btn btn-sm btn-danger thisisbutton" value="disapprove" type="button"><i class="fas fa-times-circle"></i>&nbsp;Disapprove</button>
@@ -468,6 +498,7 @@
                 sessionStorage.setItem('scrollPosition', window.scrollY);
             });
         });
+
 
         // After page reload, check if there's a stored scroll position and scroll to it
         window.addEventListener('load', function() {

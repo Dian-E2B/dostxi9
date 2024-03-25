@@ -17,9 +17,9 @@ use App\Models\Thesis;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-
 use Smalot\PdfParser\Parser;
 
 class StudentViewController extends Controller
@@ -27,7 +27,56 @@ class StudentViewController extends Controller
 
     public function thesissubmitreupload(Request $request)
     {
-        
+
+        $request->validate([
+            'thesispdf_reupload' => 'required|file|max:10240',
+            'thesis_id' => 'required',
+        ]);
+
+        $thesisid = $request->input('thesis_id');
+        $Thesis = Thesis::find($thesisid);
+        $thesisFilePdf = $request->file('thesispdf_reupload');
+
+        $customstudentthesis = Auth::user()->scholar_id . 'thesis' . time() . '.' . $thesisFilePdf->getClientOriginalExtension();
+        $request->file('thesispdf_reupload')->storeAs('public/thesis', $customstudentthesis);
+
+
+        if ($Thesis) {
+            $thesisFilePath = $Thesis['thesis_details'];
+            $storageDirectoryThesis = 'storage/thesis/';
+            $thesisFileName = str_replace($storageDirectoryThesis, '', $thesisFilePath);
+
+            if ($thesisFilePath && Storage::disk('public')->exists('thesis/' . $thesisFileName)) {
+                if (Storage::disk('public')->delete('thesis/' . $thesisFileName)) {  //na delete?
+                    $Thesis->thesis_details = $storageDirectoryThesis . $customstudentthesis;
+                    $Thesis->thesis_status = 'pending';
+                    $Thesis->updated_at = now();
+                    $Thesis->created_at = now();
+                    Notification_staffs::create([ //THEN CREATE NAPUD :(
+                        'scholar_id' => Auth::user()->scholar_id,
+                        'type' => 'Thesis',
+                        'message' => 'An Updated Thesis proposal has been Uploaded',
+                        'data_id' => $thesisid,
+                    ]);
+                    if (!$Thesis->save()) {
+                        echo 'Wa na save';
+                    } else {
+                        $notif_schol = Notification_schols::where('data_id', $thesisid)->first()->delete();
+                        if (!$notif_schol) {
+                            echo 'wa kita ang thesisid';
+                        } else {
+                            return redirect()->route('student/thesis');
+                        }
+                    }
+                } else {
+                    echo 'wa kita ang id';
+                }
+            } else {
+                echo 'wa na delete';
+            }
+        } else {
+            echo 'wa na kita';
+        }
     }
 
     public function reuploadcogcor(Request $request)
@@ -104,56 +153,6 @@ class StudentViewController extends Controller
 
         return view('student.gradeinput', compact('scholarId', 'cogsdraft', 'cogdisapproved'));
     }
-
-    public function thesisview()
-    {
-        $scholarId = Auth::user()->scholar_id;
-        $thesis = Thesis::where('scholar_id', $scholarId)->first();
-        return view('student.thesis', ['thesis' => $thesis]);
-    }
-
-    public function thesisview2($data_id)
-    {
-        $thesisnotif = Notification_schols::where('data_id', $data_id)->first();
-        if ($thesisnotif->type == "Thesis") {
-            Notification_schols::where('data_id', $data_id)->delete();
-            return redirect()->route('student/thesis');
-        }
-        return redirect()->route('student/thesis');
-    }
-
-    public function thesissubmit(Request $request)   //THESIS SUBMIT SECTION
-    {
-        $scholarId = Auth::user()->scholar_id;
-
-        $customstudentsthesis = $scholarId . 'thesis' . time() . '.' . $request->file('thesispdf')->getClientOriginalExtension();
-        $storescholarshipagreement = $request->file('thesispdf')->storeAs('public/thesis', $customstudentsthesis);
-
-        if ($storescholarshipagreement) {
-            $thesis = Thesis::create([
-                'scholar_id' => $scholarId,
-                'thesis_details' => 'storage/thesis/' . $customstudentsthesis,
-                'thesis_status' => 'pending',
-                'thesis_remarks' => null,
-                'updated_at' => now(),
-                'created_at' => now(),
-            ]);
-            if ($thesis) {
-                Notification_staffs::create(
-                    [
-                        'scholar_id' => $scholarId,
-                        'type' => 'Thesis',
-                        'message' => 'A new thesis proposal has been submitted!',
-                        'data_id' => $thesis->id,
-                    ]
-                );
-                return response()->json(['message' => 'Thesis submitted successfully.'], 200);
-                /*  session()->flash('uploaded', 'Thesis Proposal Submitted'); */
-                /*  return back(); */
-            }
-        }
-    }
-
 
     public function endaccess()
     {
@@ -363,11 +362,11 @@ class StudentViewController extends Controller
             if ($result) {
                 return back()->with('success', 'Grade Updated successfully');
             } else {
-                return back()->with('error', 'Update failed');
+                return back()->with('errors', 'Update failed');
             }
         } else {
             // Handle the case where the record with the given ID is not found
-            return back()->with('error', 'Cog details not found', 404);
+            return back()->with('errors', 'Cog details not found', 404);
         }
     }
 
@@ -420,7 +419,7 @@ class StudentViewController extends Controller
 
             return back();
         } else {
-            return response()->json(['error' => 'File not uploaded.']);
+            return response()->json(['errors' => 'File not uploaded.']);
         }
     }
 }

@@ -248,11 +248,7 @@ class AccessControlViewController extends Controller
         return response()->json($scholarcog);
     }
 
-    public function scholarthesis($id)
-    {
-        $scholarthesis = Thesis::where('id', $id)->first();
-        return response()->json($scholarthesis);
-    }
+   
 
     public function approvecogcor(Request $request, $id)
     {
@@ -292,54 +288,5 @@ class AccessControlViewController extends Controller
         }
     }
 
-    public function approvethesis(Request $request)
 
-    {
-        $thesisid = $request->input('thesis_id');
-        $buttonValue = $request->input('action');
-        $thesisidget = Thesis::find($thesisid);
-
-        $request->validate([
-            'action' => 'required',
-            'thesis_id' => 'required',
-        ]);
-
-        if ($buttonValue == 'approve') {
-
-            $thesisidget->thesis_status = 'Approved';
-            $thesisidget->save();
-            Notification_schols::create(
-                [
-                    'scholar_id' => $thesisidget->scholar_id,
-                    'data_id' => $thesisid,
-                    'type' => 'Thesis',
-                    'message' => 'Your Thesis has been approved!',
-                ]
-            );
-            $Noti_staff = Notification_staffs::where('data_id', $thesisid)->first();
-            if ($Noti_staff) {
-                $Noti_staff->delete();
-            }
-            return back()->with('approved', 'Thesis has been approved!');
-        } elseif ($buttonValue == 'disapprove') {
-            $disapprovethesis_remarks = $request->input('thesisremarks');
-            $request->validate([
-                'thesisremarks' => 'required',
-            ]);
-            $thesisidget->thesis_status = 'Disapproved';
-            $thesisidget->thesis_remarks = $disapprovethesis_remarks;
-            $thesisidget->save();
-            $Noti_staff = Notification_staffs::where('data_id', $thesisid)->first();
-            $Noti_staff->delete();
-            Notification_schols::create(
-                [
-                    'scholar_id' => $thesisidget->scholar_id,
-                    'data_id' => $thesisid,
-                    'type' => 'Thesis',
-                    'message' => 'Your Thesis has been Disapproved! Please see remarks.',
-                ]
-            );
-            return back()->with('disapproved', 'Thesis has been disapproved.');
-        }
-    }
 }

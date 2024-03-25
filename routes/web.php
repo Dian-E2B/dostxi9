@@ -15,6 +15,7 @@ use App\Http\Controllers\PDFController;
 use App\Http\Controllers\SendMailController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WordController;
+use App\Http\Controllers\ThesisController;
 use Illuminate\Notifications\Notification;
 
 /*
@@ -85,11 +86,13 @@ Route::middleware(['auth', 'role:staff'])->group(function () {
     Route::post('/scholarverifyendorse', [\App\Http\Controllers\AccessControlViewController::class, 'scholarverifyendorse'])->name('scholarverifyendorse');
     //SCHOLAR GET COG AND COR PUT TO MODAL
     Route::get('/scholarcog/{id}', [\App\Http\Controllers\AccessControlViewController::class, 'scholarcog'])->name('scholarcog');
-    //SCHOLAR GET THESIS
-    Route::get('/scholarthesis/{id}', [\App\Http\Controllers\AccessControlViewController::class, 'scholarthesis'])->name('scholarthesis');
+
+
     //SCHOLAR APPROVE COGCOR
     Route::get('/approvecogcor/{id}', [\App\Http\Controllers\AccessControlViewController::class, 'approvecogcor'])->name('approvecogcor');
-    Route::post('/approvethesis', [\App\Http\Controllers\AccessControlViewController::class, 'approvethesis'])->name('approvethesis');
+
+    Route::post('/approvethesis', [ThesisController::class, 'approvethesis'])->name('approvethesis'); // APPROVE THESIS
+    Route::get('/scholarthesis/{id}', [ThesisController::class, 'scholarthesis'])->name('scholarthesis'); // GET/VIEW THESIS
 
     //ONGOINGLIST
     Route::get('/ongoinglist', [\App\Http\Controllers\RsmsViewController::class, 'ongoinglist'])->name('ongoinglist');
@@ -136,10 +139,6 @@ require __DIR__ . '/auth.php';
 
 require __DIR__ . '/studentauth.php';
 
-//Route::get('/student/dashboard', function () {
-//    return view('student.dashboard');
-//})->middleware(['auth:student', 'verified'])->name('student.dashboard');
-
 Route::middleware(['auth:student', 'verified'])->group(function () {
     Route::get('student/profile', [StudentViewController::class, 'index'])->name('student.profile');
     Route::get('studentnoaccess', [StudentViewController::class, 'endaccess'])->name('studentnoaccess');
@@ -152,9 +151,13 @@ Route::middleware(['auth:student', 'verified'])->group(function () {
     Route::post('replyslipsubmit', [\App\Http\Controllers\StudentActionsController::class, 'replyslipsave'])->name('replyslipsubmit');
     Route::post('student/submitgrades', [\App\Http\Controllers\StudentActionsController::class, 'cogsave'])->name('submitgrades');
     Route::get('student/gradeinput', [\App\Http\Controllers\StudentViewController::class, 'gradeinputview'])->name('student/gradeinput');
-    Route::get('student/thesis', [\App\Http\Controllers\StudentViewController::class, 'thesisview'])->name('student/thesis');
-    Route::get('student/thesis/{id}', [\App\Http\Controllers\StudentViewController::class, 'thesisview2']);
-    Route::post('thesissubmit', [\App\Http\Controllers\StudentViewController::class, 'thesissubmit'])->name('thesissubmit');
+
+    //THESIS SECTION
+    Route::get('student/thesis', [ThesisController::class, 'thesisview'])->name('student/thesis');
+    Route::get('student/thesis/{id}', [ThesisController::class, 'thesisview2']); //erasing thesis notification?
+    Route::post('thesissubmit', [ThesisController::class, 'thesissubmit'])->name('thesissubmit');
+    Route::post('finalmanuscriptsubmit', [ThesisController::class, 'finalmanuscriptsubmit'])->name('finalmanuscriptsubmit');
+
     Route::get('generatepdf/{number}', [\App\Http\Controllers\PrintController::class, 'generatePdf']);
     Route::get('/downloadpdfclearance/{filename}', [\App\Http\Controllers\StudentViewController::class, 'downloadpdfclearance'])->name('downloadpdfclearance');
     Route::POST('/savepdfclearance', [\App\Http\Controllers\StudentViewController::class, 'savepdfclearance'])->name('savepdfclearance');
