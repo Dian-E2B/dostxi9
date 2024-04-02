@@ -17,7 +17,7 @@
         <!-- Include jQuery -->
         <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
+        <link href="{{ asset('css/fontaws.css') }}" rel="stylesheet">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <style>
             th {
@@ -94,7 +94,7 @@
             }
 
             .canvastable th {
-                width: 2in !important;
+                width: 1in !important;
                 border-top: #b7b7b7 solid 1px;
                 border-bottom: #b7b7b7 solid 1px;
                 border-left: #b7b7b7 solid 1px;
@@ -266,11 +266,11 @@
                                     <tr>
                                         <th class="canvasth"><strong>Gender:</strong></th>
                                         <td class="canvastable">
-                                            <input class="form-control form-control-sm" id="genderField" name="genderField">
-                                            {{--  <select class="form-control" id="genderField" name="genderField">
+                                            {{--   <input class="form-control form-control-sm" id="genderField" name="genderField"> --}}
+                                            <select class="form-control" id="genderField" name="genderField">
                                                 <option value="F">F</option>
                                                 <option value="M">M</option>
-                                            </select> --}}
+                                            </select>
                                         </td>
                                     </tr>
                                     <tr>
@@ -312,19 +312,26 @@
                                     <tr>
                                         <th class="canvasth"><strong>REMARKS:</strong></th>
                                         <td style="height:100px;   " class="canvastable">
-                                            <textarea style=" height: 100px;" class="form-control form-control-sm" id="remarksField" name="remarksField"></textarea>
+                                            <textarea style=" height: 100px;" class="form-control form-control-sm" id="remarksField" name="remarksField" placeholder="Type here..."></textarea>
+                                            <button class="btn btn-light btn-sm mt-1 mb-1" onclick="showSuggestionsAlertRemarks()"><i class="fas fa-question-square"></i></button>
                                         </td>
+
+
                                     </tr>
                                     <tr>
-                                        <th class="canvasth"><strong>STATUSENDORSEMENT :</strong></th>
+                                        <th class="canvasth"><strong>STATUS ENDORSEMENT :</strong></th>
                                         <td style="" class="canvastable">
                                             <input class="form-control form-control-sm" id="statusEndorsementField" name="statusEndorsementField">
+
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th class="canvasth"><strong>STATUSENDORSEMENT2 :</strong></th>
+                                        <th class="canvasth">
+                                            STATUS ENDORSEMENT2
+                                        </th>
                                         <td style="" class="canvastable">
                                             <input class="form-control form-control-sm" id="statusEndorsement2Field" name="statusEndorsement2Field">
+                                            <button class="btn btn-light btn-sm" onclick="showStatusEndorsementSuggestionsAlert()"><i class="fas fa-question-square"></i></button>
                                         </td>
                                     </tr>
                                     <tr>
@@ -406,18 +413,53 @@
 
 
         <script src="{{ asset('js/app.js') }}"></script>
-
+        <script src="{{ asset('js/fontaws.js') }}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
         <script src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-1.13.8/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/date-1.5.1/fc-4.3.0/fh-3.4.0/r-2.5.0/sc-2.3.0/sp-2.2.0/sl-1.7.0/datatables.min.js"></script>
         <script>
+            var startyearValue = $('#startyear').val();
+            var endyearValue = $('#endyear').val();
+            var semesterValue = $('#semester').val();
+
+            function showSuggestionsAlertRemarks() {
+                Swal.fire({
+                    title: 'Select Remarks',
+                    html: '<ul class="list-group">' +
+                        '<li class="list-group-item btn btn-light btn-sm" onclick="selectSuggestion(\'tuition + stipend - OK\')">tuition + stipend - OK</li>' +
+                        '<li class="list-group-item btn btn-light  btn-sm" onclick="selectSuggestion(\'stipend - OK\')">stipend - OK</li>' +
+                        '</ul>',
+                    showCloseButton: true,
+                    showConfirmButton: false,
+                });
+            }
+
+            function selectSuggestion(suggestion) {
+                var remarksInput = document.getElementById('remarksField');
+                remarksInput.value = suggestion;
+                Swal.close(); // Close the SweetAlert popup
+            }
+
+            function showStatusEndorsementSuggestionsAlert() {
+                Swal.fire({
+                    title: 'Select a status endorsement',
+                    html: '<ul class="list-group">' +
+                        '<li class="list-group-item" onclick="selectStatusEndorsement(\'endorsed: 1st sem ' + startyearValue + '-' + endyearValue + '\')">endorsed: 1st sem ' + startyearValue + '-' + endyearValue + '</li>' +
+                        '<li class="list-group-item" onclick="selectStatusEndorsement(\'NO COR\')">NO COR</li>' +
+                        '<li class="list-group-item" onclick="selectStatusEndorsement(\'LOA: PENDING APPLICATION\')">LOA: PENDING APPLICATION</li>' +
+                        '</ul>',
+                    showCloseButton: true,
+                    showConfirmButton: false,
+                });
+            }
+
+            function selectStatusEndorsement(option) {
+                var statusEndorsementInput = document.getElementById('statusEndorsement2Field');
+                statusEndorsementInput.value = option;
+                Swal.close(); // Close the SweetAlert popup
+            }
+
             $(document).ready(function($) {
-
-
-                var startyearValue = $('#startyear').val();
-                var endyearValue = $('#endyear').val();
-                var semesterValue = $('#semester').val();
-
                 var semesterValue2;
 
                 if (semesterValue == 1) {
@@ -452,12 +494,11 @@
                             render: function(data, type, row) {
                                 var number = row
                                     .NUMBER; // Assuming 'NUMBER' is the column name in your database
-
                                 return '<td class="">' +
                                     '<a href="#" class="edit-btn" data-number="' + number +
-                                    '"><box-icon type="solid"  size="1.3rem" name="edit-alt" style="padding:0; margin: 0;"></box-icon></a> <a href="#" class="view-btn" data-number="' +
+                                    '"><i name="edit-alt" class="fas fa-edit"></i></a> <a href="#" class="view-btn" data-number="' +
                                     number +
-                                    '"><box-icon type="solid" size="1.3rem" style="padding:0; margin: 0;" name="show"></box-icon></a>' +
+                                    '"><i class="fas fa-eye" name="show"></box-icon></a>' +
                                     '</td>';
                             }
                         },
@@ -806,7 +847,7 @@
                         autoPrint: true,
                         orientation: 'landscape',
                         pageSize: 'A4',
-                        text: '<box-icon type="solid" name="printer"></box-icon>',
+                        text: '<i class="fas fa-print" ></i>',
                         title: 'ON-GOING SCHOLARS MONITORING CHECKLIST {{ session('semester') }} AY {{ session('startyear') }}-{{ session('endyear') }}',
                         exportOptions: {
                             columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15],
@@ -848,8 +889,8 @@
                             //Add borders to the table
                             //$(win.document.body).find('table').css('border', '2px solid black');
                             $(win.document.body).find('table td').css({
-                                'border': '2px solid black',
-                                'margin': '0.5rem'
+                                'border': '1px solid black',
+
                             });
                             //$(win.document.body).find('table th').css({'border': '1px solid black','margin': '10px'});
 
@@ -915,8 +956,8 @@
                                 $(this).css({
                                     'font-size': '40pt',
                                     'white-space': 'pre-wrap',
-                                    'border': '2px solid black', // Add border to the header
-                                    'width': '100%', // Corrected syntax for the width property
+                                    'border': '1px solid black', // Add border to the header
+                                    /*    'width': '100%', // Corrected syntax for the width property */
                                 });
                             });
 
@@ -929,7 +970,7 @@
 
                             $(win.document.body).find('table').removeClass('table-striped');
 
-                            var style = '@page { margin: 1cm; } @media print { body { margin: 1cm; } table { width: 100%; } }';
+                            var style = 'table { width: 100%; } }';
                             var head = win.document.head || win.document.getElementsByTagName('head')[0];
                             var link = document.createElement('style');
                             link.type = 'text/css';

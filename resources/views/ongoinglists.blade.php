@@ -135,7 +135,8 @@
                                                         @endswitch
                                                     </td>
                                                     <td>{{ $result->group_year }}</td>
-                                                    <td><a class="view-btn" data-startyear="{{ $result->startyear }}" data-endyear="{{ $result->endyear }}" data-semester="{{ $result->semester }}"><box-icon type='solid' animation='fade-right-hover' color="blue" name='show'></box-icon></a></td>
+                                                    <td><a class="view-btn" data-startyear="{{ $result->startyear }}" data-endyear="{{ $result->endyear }}" data-semester="{{ $result->semester }}"><i class="fas fa-eye"></i>
+                                                    </td>
                                                     <!-- Add other columns as needed -->
                                                 </tr>
                                             @endforeach

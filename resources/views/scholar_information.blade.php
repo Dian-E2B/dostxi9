@@ -217,8 +217,7 @@
                                         <table class="table table-bordered table-sm">
                                             <thead>
                                                 <tr class="">
-                                                    <th colspan="6" style="text-align: center !important; background-color:rgb(144, 211, 228)">COG/COR Section</th>
-
+                                                    <th colspan="7" style="text-align: center !important; background-color:rgb(144, 211, 228)">COG/COR Section</th>
                                                 </tr>
                                                 <tr class="">
                                                     <th class="" style="">Date Uploaded</th>
@@ -228,6 +227,7 @@
                                                     <th style="text-align: center;" class="">COR Details</th>
                                                     <th class="">Remarks</th>
                                                     <th style="text-align: center; width: 15rem;" class="">Actions</th>
+                                                    {{--      <th style="text-align: center; width: 15rem;" class="">Append</th> --}}
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -289,6 +289,7 @@
                                                                 @endif
                                                             </div>
                                                         </td>
+                                                        {{--   <td class="">{{ $cogpassed1->cogcor_remarks }}</td> --}}
                                                     </tr>
                                                 @endforeach
 

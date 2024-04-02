@@ -5,8 +5,9 @@ use App\Http\Controllers\EmailViewController;
 use App\Http\Controllers\HeaderController;
 use App\Http\Controllers\SeiViewController;
 use App\Http\Controllers\RsmsViewController;
-
+use App\Http\Controllers\OngoingController;
 use App\Http\Controllers\StudentViewController;
+use App\Http\Controllers\AccessControlViewController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -69,41 +70,41 @@ Route::middleware(['auth', 'role:staff'])->group(function () {
     Route::post('/create', [\App\Http\Controllers\EmailSaveController::class, 'create'])->name('create');;
 
     //ACCESSCONTROL
-    Route::get('/accesscontrol', [\App\Http\Controllers\AccessControlViewController::class, 'index'])->name('accesscontrol');
-    Route::get('/accesscontrolongoing', [\App\Http\Controllers\AccessControlViewController::class, 'accesscontrolongoingview'])->name('accesscontrolongoing');
-    Route::get('/accesscontrolpending', [\App\Http\Controllers\AccessControlViewController::class, 'accesscontrolpendingview'])->name('accesscontrolpending');
-    Route::get('/accesscontrolenrolled', [\App\Http\Controllers\AccessControlViewController::class, 'accesscontrolenrolledview'])->name('accesscontrolenrolled');
-    Route::get('/accesscontroldeferred', [\App\Http\Controllers\AccessControlViewController::class, 'accesscontroldeferredview'])->name('accesscontroldeferred');
-    Route::get('/accesscontrolLOA', [\App\Http\Controllers\AccessControlViewController::class, 'accesscontrolLOAview'])->name('accesscontrolLOA');
-    Route::get('/accesscontrolterminated', [\App\Http\Controllers\AccessControlViewController::class, 'accesscontrolterminatedview'])->name('accesscontrolterminated');
-    Route::get('/enrollscholartoongoing/{id}', [\App\Http\Controllers\AccessControlViewController::class, 'enrollscholartoongoing'])->name('enrollscholartoongoing');
+    Route::get('/accesscontrol', [AccessControlViewController::class, 'index'])->name('accesscontrol');
+    Route::get('/accesscontrolongoing', [AccessControlViewController::class, 'accesscontrolongoingview'])->name('accesscontrolongoing');
+    Route::get('/accesscontrolpending', [AccessControlViewController::class, 'accesscontrolpendingview'])->name('accesscontrolpending');
+    Route::get('/accesscontrolenrolled', [AccessControlViewController::class, 'accesscontrolenrolledview'])->name('accesscontrolenrolled');
+    Route::get('/accesscontroldeferred', [AccessControlViewController::class, 'accesscontroldeferredview'])->name('accesscontroldeferred');
+    Route::get('/accesscontrolLOA', [AccessControlViewController::class, 'accesscontrolLOAview'])->name('accesscontrolLOA');
+    Route::get('/accesscontrolterminated', [AccessControlViewController::class, 'accesscontrolterminatedview'])->name('accesscontrolterminated');
+
 
     //SCHOLAR FULL INFORMATION
-    Route::get('/scholar_information/{id}', [\App\Http\Controllers\AccessControlViewController::class, 'scholar_information'])->name('scholar_information');
+    Route::get('/scholar_information/{id}', [AccessControlViewController::class, 'scholar_information'])->name('scholar_information');
     //SCHOLAR FIRST REQUIREMENTS VIEW
-    Route::get('/requirements_view/{id}', [\App\Http\Controllers\AccessControlViewController::class, 'requirements_view'])->name('requirements_view');
+    Route::get('/requirements_view/{id}', [AccessControlViewController::class, 'requirements_view'])->name('requirements_view');
     //SCHOLAR PROCESS ENDORSE OR VERIFY
-    Route::post('/scholarverifyendorse', [\App\Http\Controllers\AccessControlViewController::class, 'scholarverifyendorse'])->name('scholarverifyendorse');
+    Route::post('/scholarverifyendorse', [AccessControlViewController::class, 'scholarverifyendorse'])->name('scholarverifyendorse');
     //SCHOLAR GET COG AND COR PUT TO MODAL
-    Route::get('/scholarcog/{id}', [\App\Http\Controllers\AccessControlViewController::class, 'scholarcog'])->name('scholarcog');
+    Route::get('/scholarcog/{id}', [AccessControlViewController::class, 'scholarcog'])->name('scholarcog');
     Route::post('finalmanuscriptaction', [ThesisController::class, 'finalmanuscriptaction'])->name('finalmanuscriptaction');
 
 
     //SCHOLAR APPROVE COGCOR
-    Route::get('/approvecogcor/{id}', [\App\Http\Controllers\AccessControlViewController::class, 'approvecogcor'])->name('approvecogcor');
+    Route::get('/approvecogcor/{id}', [AccessControlViewController::class, 'approvecogcor'])->name('approvecogcor');
 
     Route::post('/approvethesis', [ThesisController::class, 'approvethesis'])->name('approvethesis'); // APPROVE THESIS
     Route::get('/scholarthesis/{id}', [ThesisController::class, 'scholarthesis'])->name('scholarthesis'); // GET/VIEW THESIS
 
     //ONGOINGLIST
-    Route::get('/ongoinglist', [\App\Http\Controllers\RsmsViewController::class, 'ongoinglist'])->name('ongoinglist');
+    Route::get('/ongoinglist', [OngoingController::class, 'ongoinglist'])->name('ongoinglist');
     Route::get('dashboard', [DashboardController::class, 'dashboardview'])->name('dashboard');
-    Route::get('datatable/data', [RsmsViewController::class, 'getOngoingData'])->name('datatable.data');
+    Route::get('datatable/data', [OngoingController::class, 'getOngoingData'])->name('datatable.data');
     Route::get('/export-to-excel', 'RsmsActionController@exportToExcel');
-    Route::get('/getongoingfiltered', [RsmsViewController::class, 'getOngoingDataFiltered'])->name('getongoingfiltered');
-    Route::get('/getongoinglistgroupsajax', [RsmsViewController::class, 'getongoinglistgroupsajax'])->name('getongoinglistgroupsajax');
-    Route::get('/getongoinglistgroupsajaxviewclicked', [RsmsViewController::class, 'getongoinglistgroupsajaxviewclicked'])->name('getongoinglistgroupsajaxviewclicked');
-
+    Route::get('/getongoingfiltered', [OngoingController::class, 'getOngoingDataFiltered'])->name('getongoingfiltered');
+    Route::get('/getongoinglistgroupsajax', [OngoingController::class, 'getongoinglistgroupsajax'])->name('getongoinglistgroupsajax');
+    Route::get('/getongoinglistgroupsajaxviewclicked', [OngoingController::class, 'getongoinglistgroupsajaxviewclicked'])->name('getongoinglistgroupsajaxviewclicked');
+    Route::get('/enrollscholartoongoing/{id}', [OngoingController::class, 'enrollscholartoongoing'])->name('enrollscholartoongoing');
 
     //RSMS
     Route::get('/rsms', [RsmsViewController::class, 'rsmsview'])->name('rsms');

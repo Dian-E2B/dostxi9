@@ -35,19 +35,8 @@ class RsmsViewController extends Controller //OR ONGOING
         return view('rsms', compact('startyears', 'endyears', 'semesters'));
     }
 
-    public function ongoinglist(Request $request)
-    {
-        $resultsongoinglist = DB::select("SELECT * FROM ongoing_monitoring ORDER BY startyear DESC, semester ASC;");
-        return view('ongoinglists', [
-            'results' => $resultsongoinglist,
-        ]);
-    }
 
-    public function getongoinglistgroupsajax(Request $request)
-    {
-        $results = DB::select("SELECT * FROM ongoing_monitoring ORDER BY startyear DESC, semester ASC;");
-        return DataTables::of($results)->make(true);
-    }
+
 
     //FILTERED OR IF VIEW IS CLICKED FROM ONGOING
     public function rsmsview2($startyear, $endyear, $semester)
@@ -62,28 +51,7 @@ class RsmsViewController extends Controller //OR ONGOING
     }
 
 
-    //RETRIEVE DATA ON RSMS2 PAGE
-    public function getongoinglistgroupsajaxviewclicked(Request $request)
 
-    {
-        $startyear = $request->input('startyear');
-        $endyear = $request->input('endyear');
-        $semester = $request->input('semester');
-
-        /*   dd($startyear, $endyear, $semester1); */
-
-        $results = DB::select(
-            "SELECT * FROM ongoing
-        LEFT JOIN ongoingremarks ON ongoing.NUMBER  = ongoingremarks.scholar_id
-        LEFT JOIN ongoingregforms ON ongoing.NUMBER = ongoingregforms.scholar_id
-        WHERE ongoing.startyear = ?
-        AND ongoing.endyear = ?
-        AND ongoing.semester = ?", // Change $semester1 to $semester
-            [$startyear, $endyear, $semester]
-        );
-
-        return DataTables::of($results)->make(true);
-    }
 
 
     public function savechangesongongoing(Request $request, $number)
@@ -163,12 +131,7 @@ class RsmsViewController extends Controller //OR ONGOING
         return response()->json($results[0]);
     }
 
-    public function getOngoingData(Request $request)
-    {
-        $currentYear = Carbon::now()->year - 1;
-        $ongoing = Ongoing::select('*')->where('startyear', $currentYear)->get();
-        return DataTables::of($ongoing)->make(true);
-    }
+
 
     public function viewscholarrecordsview($number)
     {
@@ -340,21 +303,7 @@ class RsmsViewController extends Controller //OR ONGOING
 
 
 
-    public function getOngoingDataFiltered(Request $request)
-    {
 
-        $startyear = session('startyear');
-        $endyear = session('endyear');
-        $semester = session('semester');
-        $currentYear = Carbon::now()->year - 1;
-        $ongoing = Ongoing::select('*')
-            ->where('startyear', $startyear)
-            ->where('endyear', $endyear)
-            ->where('semester', $semester)
-            ->get();
-
-        return DataTables::of($ongoing)->make(true);
-    }
 
     public function saveOngoingById($number)
     {

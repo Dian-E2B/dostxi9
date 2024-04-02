@@ -15,9 +15,16 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\DB;
 use function Laravel\Prompts\alert;
 use Illuminate\Support\Facades\Validator;
+use App\Services\MainServices;
 
 class AccessControlViewController extends Controller
 {
+    protected $MainServices;
+
+    public function __construct(MainServices $MainServices)
+    {
+        $this->MainServices = $MainServices;
+    }
 
     public function index()
     {
@@ -139,74 +146,7 @@ class AccessControlViewController extends Controller
         }
     }
 
-    public function enrollscholartoongoing(Request $request, $id)
-    {
-        $seisourcerecord = Sei::find($id);
 
-
-        // Check if the record exists
-        /* if ($seisourcerecord) {
-            // Access the value of the 'year' column
-            $yearValue = $seisourcerecord->year;
-            $genderValue = $seisourcerecord->gender_id;
-
-            if ($genderValue == 1) {
-                $genderValue = "F";
-            } else {
-                $genderValue = "M";
-            }
-
-            $currentYear = now()->year;
-            // Create a new record in the destination table
-            $destinationRecord = new Ongoing();
-            $destinationRecord->BATCH = $yearValue;
-            $destinationRecord->NUMBER = $seisourcerecord->id; // Replace with actual column names
-            $destinationRecord->NAME = $seisourcerecord->lname . ", " . $seisourcerecord->fname . " " . $seisourcerecord->mname;
-            $destinationRecord->MF =  $genderValue;
-            $destinationRecord->SCHOLARSHIPPROGRAM = null;
-            $destinationRecord->SCHOOL = null;
-            $destinationRecord->COURSE = null;
-            $destinationRecord->GRADES = null;
-            $destinationRecord->SummerREG = null;
-            $destinationRecord->REGFORMS = null;
-            $destinationRecord->REMARKS = null;
-            $destinationRecord->STATUSENDORSEMENT = NULL;
-            $destinationRecord->STATUSENDORSEMENT2 = NULL;
-            $destinationRecord->STATUSENDORSEMENT2 = NULL;
-            $destinationRecord->NOTATIONS = null;
-            $destinationRecord->SUMMER = NULL;
-            $destinationRecord->FARELEASEDTUITION = NULL;
-            $destinationRecord->FARELEASEDTUITIONBOOKSTIPEND = NULL;
-            $destinationRecord->LVDCAccount = NULL;
-            $destinationRecord->HVCNotes = NULL;
-            $destinationRecord->startyear =  $currentYear;
-            $destinationRecord->endyear = $currentYear + 1;
-            $destinationRecord->semester = 1;
-
-            try {
-                $destinationRecord->save();
-                if ($destinationRecord) {
-                    notyf()
-                        ->position('x', 'center')
-                        ->position('y', 'right')
-                        ->duration(2000) // 2 seconds
-                        ->addSuccess('Your application has been received.');
-                    Replyslips::where('scholar_id', $id)->update(['replyslip_status_id' => 5]);
-                    Sei::where('id', $id)->update(['scholar_status_id' => 3]);
-                    return redirect()->route('accesscontrolenrolled');
-                }
-            } catch (\Exception $e) {
-                // Check if it's a unique constraint violation
-                if ($e->getCode() == 23000) {
-                    Replyslips::where('scholar_id', $id)->update(['replyslip_status_id' => 5]);
-                    Sei::where('id', $id)->update(['scholar_status_id' => 3]);
-                    return redirect()->route('accesscontrolenrolled')->with('success', 'Your application has been received');
-                } else {
-                    // Handle other database-related exceptions
-                }
-            }
-        } */
-    }
 
     public function scholar_information(Request $request, $id)
     {
@@ -248,7 +188,7 @@ class AccessControlViewController extends Controller
         return response()->json($scholarcog);
     }
 
-   
+
 
     public function approvecogcor(Request $request, $id)
     {
@@ -283,10 +223,15 @@ class AccessControlViewController extends Controller
             $scholarCogdeletenotif = Notification_staffs::where('data_id', $id)->first();
             if ($scholarCogdeletenotif) {
                 $scholarCogdeletenotif->delete();
-                return back()->with('approved', 'COG and COR has been approved!');
+
+                $semester = $scholarCog->semester;
+                $startyear = $scholarCog->startyear;
+
+                $resultenroll = $this->MainServices->enrollscholartoongoing($id, $semester, $startyear);
+                if ($resultenroll) {
+                    return back()->with('approved', 'COG and COR has been approved scholar is now appended to ongoing!');
+                }
             }
         }
     }
-
-
 }
