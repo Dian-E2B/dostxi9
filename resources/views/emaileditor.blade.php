@@ -69,15 +69,10 @@
             .then(editor => {
                 const toolbarContainer = document.querySelector('#toolbar-container');
                 toolbarContainer.appendChild(editor.ui.view.toolbar.element);
-
-                // Add an event listener to the button
                 document.querySelector('#submit').addEventListener('click', () => {
                     // Get the CKEditor data
                     const editorData = editor.getData();
-
-                    // Check if 'retrieveddata' is declared and initialized elsewhere
                     if (typeof editorData !== 'undefined') {
-                        // Assign ata the CKEditor data to 'retrieveddata'
                         retrievedd = editorData;
                         /*   console.log('DATA:', editorData); */
 

@@ -106,9 +106,7 @@
     getNotifications();
 
     function handleNotificationClick(data_id) {
-        // Construct the URL using the named route and scholar_id
-        var url = '{{ url('student/thesis') }}' + '/' + data_id;
-        // Redirect the user to the new URL
+        var url = '{{ url('studentnotificationclear') }}' + '/' + data_id;
         window.location.href = url;
     }
 </script>

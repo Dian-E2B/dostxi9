@@ -61,12 +61,7 @@ class StudentViewController extends Controller
                     if (!$Thesis->save()) {
                         echo 'Wa na save';
                     } else {
-                        $notif_schol = Notification_schols::where('data_id', $thesisid)->first()->delete();
-                        if (!$notif_schol) {
-                            echo 'wa kita ang thesisid';
-                        } else {
-                            return redirect()->route('student/thesis');
-                        }
+                        return redirect()->route('student/thesis');
                     }
                 } else {
                     echo 'wa kita ang id';

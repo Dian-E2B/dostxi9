@@ -86,6 +86,7 @@ Route::middleware(['auth', 'role:staff'])->group(function () {
     Route::post('/scholarverifyendorse', [\App\Http\Controllers\AccessControlViewController::class, 'scholarverifyendorse'])->name('scholarverifyendorse');
     //SCHOLAR GET COG AND COR PUT TO MODAL
     Route::get('/scholarcog/{id}', [\App\Http\Controllers\AccessControlViewController::class, 'scholarcog'])->name('scholarcog');
+    Route::post('finalmanuscriptaction', [ThesisController::class, 'finalmanuscriptaction'])->name('finalmanuscriptaction');
 
 
     //SCHOLAR APPROVE COGCOR
@@ -154,9 +155,10 @@ Route::middleware(['auth:student', 'verified'])->group(function () {
 
     //THESIS SECTION
     Route::get('student/thesis', [ThesisController::class, 'thesisview'])->name('student/thesis');
-    Route::get('student/thesis/{id}', [ThesisController::class, 'thesisview2']); //erasing thesis notification?
+
     Route::post('thesissubmit', [ThesisController::class, 'thesissubmit'])->name('thesissubmit');
     Route::post('finalmanuscriptsubmit', [ThesisController::class, 'finalmanuscriptsubmit'])->name('finalmanuscriptsubmit');
+    Route::post('finalmanuscriptresubmit', [ThesisController::class, 'finalmanuscriptresubmit'])->name('finalmanuscriptresubmit');
 
     Route::get('generatepdf/{number}', [\App\Http\Controllers\PrintController::class, 'generatePdf']);
     Route::get('/downloadpdfclearance/{filename}', [\App\Http\Controllers\StudentViewController::class, 'downloadpdfclearance'])->name('downloadpdfclearance');
@@ -167,6 +169,7 @@ Route::middleware(['auth:student', 'verified'])->group(function () {
 
     Route::get('/notificationsgetspecific', [\App\Http\Controllers\HeaderController::class, 'notificationsgetspecific'])->name('notificationsgetspecific'); //GET NOTIFICATIONS
     Route::get('/notificationsscholar/count', [\App\Http\Controllers\HeaderController::class, 'notificationsscholarcount'])->name('notificationsscholarcount'); //GET NOTIFICATIONS
+    Route::get('studentnotificationclear/{id}', [HeaderController::class, 'studentnotificationclear']);
 
     Route::POST('reuploadcogcor', [\App\Http\Controllers\StudentViewController::class, 'reuploadcogcor'])->name('reuploadcogcor'); //REUPLOAD COR
     Route::POST('thesissubmitreupload', [\App\Http\Controllers\StudentViewController::class, 'thesissubmitreupload'])->name('thesissubmitreupload'); //REUPLOAD COR

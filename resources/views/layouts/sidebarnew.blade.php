@@ -51,13 +51,8 @@
             <ul id="acad-nav" class="nav-content collapse {{ request()->is('ongoinglist*') || request()->is('rsms2*') ? 'show' : '' }} align-text-center" data-bs-parent="#sidebar-nav">
                 <li>
                     <a href='{{ route('ongoinglist') }}' class="{{ request()->is('ongoinglist') ? 'active' : '' }}">
+                        Potential Qualifiers
                         <box-icon type='solid' name='right-arrow' size="xs" class="sublist" color="white"></box-icon><span class="sublist_name">Ongoing</span>
-                    </a>
-                </li>
-                <li class="align-text-center align-items-center">
-                    <a href='{{ route('seilist2') }}' class="{{ request()->is('seilist2') ? 'active' : '' }}">
-                        <box-icon type='solid' name='right-arrow'color="white" class="sublist" style="" size="xs"></box-icon>
-                        <span class="sublist_name">Potential Qualifiers</span>
                     </a>
                 </li>
             </ul>

@@ -51,23 +51,81 @@
                     @if (!empty($thesis))
                         @if ($thesis->thesis_status == 'Approved')
                             <div class="row justify-content-center">
-                                <div class="col-6">
-                                    <div class="card p-1" style="text-align: center; font-size:1.5em; font-weight: 700">Final Manuscript</div>
-                                    <div class="card">
-                                        <div class="row p-3">
-                                            <div class="">
-                                                You can now upload your final manuscript
-                                                <form action="{{ route('finalmanuscriptsubmit') }}" method="POST" enctype="multipart/form-data">
-                                                    @csrf
-                                                    <input hidden name="thesis_id" hidded value="{{ $thesis->id }}">
-                                                    <input name="fin_manus" required class="form-control" type="file" accept=".pdf">
-                                                    <button class="btn btn-success mt-2 rounded-pill">Submit</button>
-                                                </form>
+                                <div class="col-lg-6">
+                                    @if ($thesis->finalmanus_status == 'Disapproved')
+                                        <div class="card p-1" style="text-align: center; font-size:1.5em; font-weight: 700">Reupload Final Manuscript</div>
+                                        <div class="card">
+                                            <div class="row p-3">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-sm nowrap">
+                                                        <thead class="">
+                                                            <tr class="">
+                                                                <th class="" style="background-color:#90D3E4 !important">Remarks</th>
+                                                                <th class="text-center" style="background-color:#90D3E4 !important">View</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <td class="">{{ $thesis->finalmanus_remarks }}</td>
+                                                            <td class="text-center"><a class=" p-1 justify-content-center" target="_blank" href="{{ asset($thesis->finalmanuscript_details) }}"><i class="fas fa-eye"></i></a></td>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="">
+                                                    Reupload your final manuscript.
+                                                    <form action="{{ route('finalmanuscriptresubmit') }}" method="POST" enctype="multipart/form-data">
+                                                        @csrf
+                                                        <input hidden name="thesis_id" hidded value="{{ $thesis->id }}">
+                                                        <input name="fin_manus" required class="form-control" type="file" accept=".pdf">
+                                                        <button class="btn btn-success mt-2 rounded-pill">Submit</button>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
+                                    @elseif($thesis->finalmanus_status == 'Approved')
+                                        <div class="card">
+                                            <div class="row p-3">
+                                                <div class="text-center h4">
+                                                    <div class="mt-1" style="font-weight:700">
+                                                        Congratulations! Your final manuscript has been approved!
+                                                    </div>
+                                                    <div class="mt-1">
+                                                        <img style="max-width: 150px; max-height: 150px;" src="{{ asset('extraicons/double-check.gif') }}">
+                                                    </div>
 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @elseif($thesis->finalmanus_status == 'Pending')
+                                        <div class="card">
+                                            <div class="row p-3">
+                                                <div class="text-center h4">
+                                                    <div class="mt-1" style="font-weight:700">
+                                                        Final Manuscript is still pending.
+                                                    </div>
+                                                    <div class="mt-1">
+                                                        <img style="max-width: 150px; max-height: 150px;" src="{{ asset('extraicons/filewithtime.gif') }}">
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @else
+                                        <div class="card p-1" style="text-align: center; font-size:1.5em; font-weight: 700">Final Manuscript</div>
+                                        <div class="card">
+                                            <div class="row p-3">
+                                                <div class="">
+                                                    You can now upload your final manuscript
+                                                    <form action="{{ route('finalmanuscriptsubmit') }}" method="POST" enctype="multipart/form-data">
+                                                        @csrf
+                                                        <input hidden name="thesis_id" hidded value="{{ $thesis->id }}">
+                                                        <input name="fin_manus" required class="form-control" type="file" accept=".pdf">
+                                                        <button class="btn btn-success mt-2 rounded-pill">Submit</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+                                </div>
                             </div>
                         @elseif ($thesis->thesis_status == 'pending')
                             <script>
@@ -115,11 +173,11 @@
                             </div>
 
                             <div class="row justify-content-center">
-                                <div class="card col-6" style="text-align: center; font-size: 1.5em; font-weight: 700">Thesis Proposal Reupload</div>
+                                <div class="card col-lg-6" style="text-align: center; font-size: 1.5em; font-weight: 700">Thesis Proposal Reupload</div>
                             </div>
                             <div class="row justify-content-center">
 
-                                <div class="card col-6">
+                                <div class="card col-lg-6">
                                     <div class="card-body">
                                         <div class="h5 mt-3"></div>
                                         <form action="{{ route('thesissubmitreupload') }}" method="POST" enctype="multipart/form-data">

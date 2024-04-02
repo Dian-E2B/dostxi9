@@ -6,12 +6,105 @@ use App\Models\Notification_schols;
 use App\Models\Notification_staffs;
 use Illuminate\Http\Request;
 use App\Models\Thesis;
+use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\Console\Input\Input;
+use Illuminate\Support\Facades\Storage;
 
 class ThesisController extends Controller
 {
     //
+    public function finalmanuscriptresubmit(Request $request) //SCHOLAR
+    {
+        $thesisid = $request->input('thesis_id');
+        $finManusPDF = $request->file('fin_manus');
+        $Thesis = Thesis::find($thesisid);
+
+        $customstudentfinalmanus = Auth::user()->scholar_id . 'finalmanuscript' . time() . '.' . $finManusPDF->getClientOriginalExtension();
+        $finManusPDF->storeAs('public/finalmanus', $customstudentfinalmanus);
+
+        $thesisFilePath  = $Thesis['finalmanuscript_details'];
+        $storageDirectory = 'storage/finalmanus/';
+        $thesisFileName = str_replace($storageDirectory, '', $thesisFilePath);
+
+        if (!$thesisid) {
+            echo 'walay thesis id';
+        } elseif (!$finManusPDF) {
+            echo 'walay remarksfinal';
+        } else {
+            if (!$Thesis) {
+                echo 'wala nakita ang thesis id';
+            } else {
+                if (!Storage::disk('public')->delete('finalmanus/' . $thesisFileName)) {
+                    echo "wala na delete";
+                } else {
+                    $Thesis->finalmanus_status = "Pending";
+                    $Thesis->finalmanuscript_details = "storage/finalmanus" . $customstudentfinalmanus;
+                    $Thesis->save();
+                    Notification_staffs::create(
+                        [
+                            'scholar_id' => Auth::user()->scholar_id,
+                            'type' => 'Final Manuscript',
+                            'message' => 'An updated final manuscript has been uploaded',
+                            'data_id' => $thesisid,
+                            'updated_at' => now(),
+                        ]
+                    );
+                    return redirect()->back()->with('success', 'Final Manuscript reuploaded successfully');
+                }
+            }
+        }
+    }
+    public function finalmanuscriptaction(Request $request) //STAFF
+    {
+        $action = $request->input('action');
+        $thesisid = $request->input('thesis_id');
+        $remarksfinal = $request->input('finalremarks');
+        $Thesis = Thesis::find($thesisid);
+        if (!$action) {
+            echo "no action";
+        } elseif (!$thesisid) {
+            echo "No Thesis ID";
+        } elseif (!$Thesis) {
+            echo "Di makita ang thesis";
+        } else {
+            if ($action == "Approve") {
+                $Thesis->finalmanus_status = 'Approved';
+                $Thesis->updated_at = now();
+                $Thesis->save();
+                Notification_schols::create(
+                    [
+                        'type' => 'Final Manuscript',
+                        'message' => 'Congratulations! your final manuscript has been approved!',
+                        'scholar_id' => $Thesis->scholar_id,
+                        'data_id' => $thesisid,
+                    ]
+                );
+                Notification_staffs::where('data_id', $thesisid)->first()->delete();
+                return back()->with('approved', 'Final Manuscript Approved.');
+            } else {
+                if (!$remarksfinal) {
+                    echo "Di makita ang remarks";
+                } else {
+                    $Thesis->finalmanus_status = 'Disapproved';
+                    $Thesis->updated_at = now();
+                    $Thesis->finalmanus_remarks =  $remarksfinal;
+                    $Thesis->save();
+                    Notification_schols::create(
+                        [
+                            'type' => 'Final Manuscript',
+                            'message' => 'Your final manuscript has been disapproved! Please see remarks',
+                            'scholar_id' => $Thesis->scholar_id,
+                            'data_id' => $thesisid,
+                        ]
+                    );
+                    Notification_staffs::where('data_id', $thesisid)->first()->delete();
+                    return back()->with('disapproved', 'Final Manuscript Disapproved.');
+                }
+            }
+        }
+    }
+
     public function finalmanuscriptsubmit(Request $request) //SCHOLAR
     {
         $thesisID = $request->input('thesis_id');
@@ -51,15 +144,7 @@ class ThesisController extends Controller
         return view('student.thesis', ['thesis' => $thesis]);
     }
 
-    public function thesisview2($data_id)
-    {
-        $thesisnotif = Notification_schols::where('data_id', $data_id)->first();
-        if ($thesisnotif->type == "Thesis") {
-            Notification_schols::where('data_id', $data_id)->delete();
-            return redirect()->route('student/thesis');
-        }
-        return redirect()->route('student/thesis');
-    }
+
 
     public function thesissubmit(Request $request)   //THESIS SUBMIT SECTION
     {

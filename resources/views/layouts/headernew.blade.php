@@ -55,7 +55,7 @@
 
                 <ul style="user-select: none;" class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
                     <li class="dropdown-header">
-                        You have <span id="notificationCount2"></span> new notifications
+                        ----- You have <span id="notificationCount2"></span> new notifications -----
                     </li>
                     <div style="margin: 0 ; cursor:pointer;" id="notifications-list"></div>
                 </ul><!-- End Notification Dropdown Items -->
@@ -124,9 +124,9 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <box-icon size="1.5rem" color="orange" style="padding: 0rem 0.5rem;" type='solid' name='message-square-error'></box-icon>
+                        <i class="fas fa-exclamation-triangle" style="font-size:20px; margin-right: 1rem;  margin-left: 1rem; color: #11bfeb"  ></i>
                         <div>
-                            <h4>${notification.type}</h4>
+                            <p style="font-size:1em; font-weight: 700; color: black">${notification.type}</p>
                             <p>${notification.message}</p>
                         </div>
                     `;
