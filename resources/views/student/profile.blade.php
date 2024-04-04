@@ -176,14 +176,11 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Modal -->
         @elseif ($replyStatusId == 4 || $replyStatusId == 3)
             <form id="logout-form" action="{{ route('student.logout') }}" method="POST" class="d-none">
                 @csrf
             </form>
             <script>
-                // Trigger SweetAlert when conditions are met
                 Swal.fire({
                     title: 'Decision Received.',
                     text: 'Thank you for letting us know your decision about the scholarship. We respect your choice and wish you all the best for the future. Feel free to contact us if you have any questions.',
@@ -198,6 +195,7 @@
                 });
             </script>
         @else
+            {{-- VERIFIED/ACCEPTED REQUIREMENTS --}}
             <main id="main" class="main" style="padding: 1.5rem 0.5rem 0.5rem; !important;">
                 <div class="main">
                     <div class="wrapper">
@@ -211,9 +209,7 @@
                                         <label>
                                             <input style="display: none;" value="{{ $scholarId }}">
                                         </label>
-                                        @if ($scholarstatusid === 3)
-                                        @endif
-                                        @if (count($replyslips) > 0)
+                                        @if ($scholarstatusid == 3 || $scholarstatusid == 2)
                                             <div class="col-md-6 col-lg-12">
                                                 <div class="">
                                                     <div class="card-body">
@@ -286,10 +282,39 @@
                                                                             </span>
                                                                         </td>
                                                                     </tr>
+
                                                                 </table>
-                                                                {{--  @dd($scholarfullname) --}}
 
-
+                                                                <form action="">
+                                                                    <table class="table table-bordered table-striped">
+                                                                        <tr>
+                                                                            <th>
+                                                                                <span style="color: rgb(92, 92, 92)">School:</span>
+                                                                            </th>
+                                                                            <td>
+                                                                                <span style="color: rgb(92, 92, 92); font-weight: 900">
+                                                                                    <input type="text" name="school" class="editable-input form-control" disabled value=" {{ $scholarfullinfo->school }}">
+                                                                                </span>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th>
+                                                                                <span style="color: rgb(92, 92, 92)">Course:</span>
+                                                                            </th>
+                                                                            <td>
+                                                                                <span style="color: rgb(92, 92, 92); font-weight: 900">
+                                                                                    <input type="text" name="course" class="editable-input form-control" disabled value="{{ $scholarfullinfo->course }}">
+                                                                                </span>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th colspan="2">
+                                                                                <button id="editInfoButton" class="btn btn-light btn-sm">edit</button>
+                                                                                <button id="submitButton" class="btn btn-light btn-sm">Submit</button>
+                                                                            </th>
+                                                                        </tr>
+                                                                    </table>
+                                                                </form>
                                                             </div>
                                                             <div class="col-6">
 
@@ -300,8 +325,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        @else
                                         @endif
+
                                     </div>
                                 </div>
                             </div>
@@ -312,7 +337,14 @@
     </body>
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/fontaws.js') }}"></script>
-    <script></script>
+    <script>
+        document.getElementById('editInfoButton').addEventListener('click', function() {
+            document.querySelectorAll('.editable-input').forEach(function(input) {
+                input.removeAttribute('disabled');
+            });
+            document.getElementById('submitButton').classList.remove('d-none');
+        });
+    </script>
 
 
 </html>

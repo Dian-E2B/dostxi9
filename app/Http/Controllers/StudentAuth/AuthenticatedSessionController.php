@@ -17,6 +17,13 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): View
     {
+        if (Auth::guard('student')->check()) {
+            // Redirect to the student dashboard if the user is already logged in as a student
+            return redirect('student/profile');
+        } elseif (Auth::guard('web')->check()) {
+            return redirect('/dashboard');
+        }
+
         return view('student.auth.login');
     }
 

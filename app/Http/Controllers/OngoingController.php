@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ongoing;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
@@ -53,8 +55,6 @@ class OngoingController extends Controller
 
         $results = DB::select(
             "SELECT * FROM ongoing
-        LEFT JOIN ongoingremarks ON ongoing.NUMBER  = ongoingremarks.scholar_id
-        LEFT JOIN ongoingregforms ON ongoing.NUMBER = ongoingregforms.scholar_id
         WHERE ongoing.startyear = ?
         AND ongoing.endyear = ?
         AND ongoing.semester = ?", // Change $semester1 to $semester

@@ -18,6 +18,7 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         {{-- Jquery Js --}}
         <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+        <link href="{{ asset('css/fontaws.css') }}" rel="stylesheet">
     </head>
     <style>
         .customtable,
@@ -52,19 +53,20 @@
         @include('layouts.sidebarnew') {{-- SIDEBAR START --}}
         <main id="main" class="main" style="padding: 1.5rem 0.5rem 0.5rem; !important;">
             <div class="wrapper">
-                <div class="">
+                <div class="card">
 
                     <div class="card-body">
                         <div class="row">
 
                             <div class="col-12 col-lg-12">
-                                <div class="tab">
+                                <div class="mt-3 h5 mb-3" style="font-weight: 700">Grades Submitted</div>
+                                <div class="tab mt-2">
 
                                     <ul class="nav nav-tabs" role="tablist">
                                         <li class="nav-item"><a class="nav-link tablinks" href="{{ url()->previous() }}"><i class="fas fa-arrow-square-left"></i></a></li>
                                         <li class="nav-item"><a class="nav-link tablinks active" href="#tab-1" data-bs-toggle="tab" role="tab">Grading</a></li>
-                                        <li class="nav-item"><a class="nav-link tablinks" id="tab2" href="#tab-2" data-bs-toggle="tab" role="tab">COR</a></li>
-                                        <li class="nav-item"><a class="nav-link tablinks" id="tab3" href="#tab-3" data-bs-toggle="tab" role="tab">Documents</a></li>
+                                        {{--   <li class="nav-item"><a class="nav-link tablinks" id="tab2" href="#tab-2" data-bs-toggle="tab" role="tab">COR</a></li>
+                                        <li class="nav-item"><a class="nav-link tablinks" id="tab3" href="#tab-3" data-bs-toggle="tab" role="tab">Documents</a></li> --}}
                                     </ul>
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="tab-1" role="tabpanel">
@@ -72,7 +74,7 @@
                                                 <div class="row">
                                                     <div style="text-align: center">SCHOOL YEAR {{ $year }} - {{ $year + 1 }}</div>
                                                     @foreach ($semesters as $semester => $data)
-                                                        <div class="col-6">
+                                                        <div class="col-4">
                                                             <div style="text-align: center">
                                                                 @if ($semester == 1)
                                                                     1ST SEMESTER
@@ -197,7 +199,7 @@
                                             </div>
 
                                         </div>
-                                        <div class="tab-pane" id="tab-2" role="tabpanel">
+                                        {{--  <div class="tab-pane" id="tab-2" role="tabpanel">
                                             <table id="thisdatatable2" class="display nowrap compact table-striped" style="width:100%">
                                                 <thead>
                                                     <tr>
@@ -211,8 +213,8 @@
 
                                                 </tbody>
                                             </table>
-                                        </div>
-                                        <div class="tab-pane" id="tab-3" role="tabpanel">
+                                        </div> --}}
+                                        {{--    <div class="tab-pane" id="tab-3" role="tabpanel">
                                             <table id="thisdatatable3" class="datatable display nowrap compact table-striped" style="width:100%">
                                                 <thead>
                                                     <tr>
@@ -225,7 +227,7 @@
 
                                                 </tbody>
                                             </table>
-                                        </div>
+                                        </div> --}}
 
                                     </div>
                                 </div>
@@ -237,6 +239,7 @@
         </main>
     </body>
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/fontaws.js') }}"></script>
     <script src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-1.13.8/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/date-1.5.1/fc-4.3.0/fh-3.4.0/r-2.5.0/sc-2.3.0/sp-2.2.0/sl-1.7.0/datatables.min.js"></script>
     <script>
         jQuery(document).ready(function($) {
@@ -440,113 +443,113 @@
                 }
             });
 
-            $('#tab2').on('click', function() {
-                if (!table2) {
-                    table2 = $('#thisdatatable2').DataTable({
-                        autoWidth: true,
-                        select: true,
-                        processing: true,
-                        serverSide: true,
-                        responsive: true,
+            /*  $('#tab2').on('click', function() {
+                 if (!table2) {
+                     table2 = $('#thisdatatable2').DataTable({
+                         autoWidth: true,
+                         select: true,
+                         processing: true,
+                         serverSide: true,
+                         responsive: true,
 
-                        // pageLength: 20, // Set the default page length to 10 rows
-                        ajax: "{{ route('getprospectusdata', ['number' => $number]) }}", // Adjust this route to your actual route
-                        type: 'GET',
-                        columns: [{
-                                data: null,
-                                orderable: false,
-                                searchable: false,
-                                render: function(data, type, row) {
-                                    var number = row
-                                        .id; // Assuming 'NUMBER' is the column name in your database
+                         // pageLength: 20, // Set the default page length to 10 rows
+                         ajax: "{{ route('getprospectusdata', ['number' => $number]) }}", // Adjust this route to your actual route
+                         type: 'GET',
+                         columns: [{
+                                 data: null,
+                                 orderable: false,
+                                 searchable: false,
+                                 render: function(data, type, row) {
+                                     var number = row
+                                         .id; // Assuming 'NUMBER' is the column name in your database
 
-                                    return '<td >' +
-                                        '<a href="#" class="view-btn" data-id="' + number +
-                                        '"><i class="fa fa-eye"></i></a>' + '</td>';
-                                }
-                            },
-                            // {
-                            //     data: 'id',
-                            // },
-                            {
-                                data: 'date_uploaded',
-                            },
-                            {
-                                data: 'semester',
-                            },
-                            {
-                                data: 'startyear',
-                            },
+                                     return '<td >' +
+                                         '<a href="#" class="view-btn" data-id="' + number +
+                                         '"><i class="fa fa-eye"></i></a>' + '</td>';
+                                 }
+                             },
+                             // {
+                             //     data: 'id',
+                             // },
+                             {
+                                 data: 'date_uploaded',
+                             },
+                             {
+                                 data: 'semester',
+                             },
+                             {
+                                 data: 'startyear',
+                             },
 
-                        ],
-                        fixedHeader: {
-                            header: true,
-                            footer: true
-                        },
-                        scrollX: true,
+                         ],
+                         fixedHeader: {
+                             header: true,
+                             footer: true
+                         },
+                         scrollX: true,
 
-                    });
-                } else {
-                    table2.columns.adjust().responsive.recalc().draw();
-                }
-            });
+                     });
+                 } else {
+                     table2.columns.adjust().responsive.recalc().draw();
+                 }
+             }); */
 
-            $('#tab3').on('click', function() {
-                if (!table3) {
-                    table3 = $('#thisdatatable3').DataTable({
-                        autoWidth: true,
-                        select: true,
-                        processing: true,
-                        serverSide: true,
-                        responsive: true,
+            /*  $('#tab3').on('click', function() {
+                 if (!table3) {
+                     table3 = $('#thisdatatable3').DataTable({
+                         autoWidth: true,
+                         select: true,
+                         processing: true,
+                         serverSide: true,
+                         responsive: true,
 
-                        // pageLength: 20, // Set the default page length to 10 rows
-                        ajax: "{{ route('getdocumentsdata', ['number' => $number]) }}", // Adjust this route to your actual route
-                        type: 'GET',
-                        columns: [{
-                                data: null,
-                                orderable: false,
-                                searchable: false,
-                                render: function(data, type, row) {
-                                    var number = row
-                                        .id; // Assuming 'NUMBER' is the column name in your database
+                         // pageLength: 20, // Set the default page length to 10 rows
+                         ajax: "{{ route('getdocumentsdata', ['number' => $number]) }}", // Adjust this route to your actual route
+                         type: 'GET',
+                         columns: [{
+                                 data: null,
+                                 orderable: false,
+                                 searchable: false,
+                                 render: function(data, type, row) {
+                                     var number = row
+                                         .id; // Assuming 'NUMBER' is the column name in your database
 
-                                    return '<td >' +
-                                        '<a href="#" class="view-btndocument" data-id="' + number +
-                                        '"><i class="fad fa-eye" style="--fa-primary-color: #000000; --fa-secondary-color: #2899a7; --fa-secondary-opacity: 1;"></i></a>' + '</td>';
-                                }
-                            },
-                            {
-                                data: 'document_details',
-                            },
-                            {
-                                data: 'document',
-                            },
+                                     return '<td >' +
+                                         '<a href="#" class="view-btndocument" data-id="' + number +
+                                         '"><i class="fad fa-eye" style="--fa-primary-color: #000000; --fa-secondary-color: #2899a7; --fa-secondary-opacity: 1;"></i></a>' + '</td>';
+                                 }
+                             },
+                             {
+                                 data: 'document_details',
+                             },
+                             {
+                                 data: 'document',
+                             },
 
-                        ],
-                        fixedHeader: {
-                            header: true,
-                            footer: true
-                        },
-                        scrollX: true,
+                         ],
+                         fixedHeader: {
+                             header: true,
+                             footer: true
+                         },
+                         scrollX: true,
 
-                    });
-                } else {
-                    table3.columns.adjust().responsive.recalc().draw();
-                }
-            });
+                     });
+                 } else {
+                     table3.columns.adjust().responsive.recalc().draw();
+                 }
+             }); */
+            /*
+                        $(document).on('click', '.view-btndocument', function() {
+                            var number = $(this).data('id');
+                            var url = '{{ url('/viewdocument/') }}' + '/' + number;
+                            window.location.href = url;
+                        });
 
-            $(document).on('click', '.view-btndocument', function() {
-                var number = $(this).data('id');
-                var url = '{{ url('/viewdocument/') }}' + '/' + number;
-                window.location.href = url;
-            });
-
-            $(document).on('click', '.view-btn', function() {
-                var number = $(this).data('id');
-                var url = '{{ url('/viewscholarprospectus/') }}' + '/' + number;
-                window.location.href = url;
-            });
+                        $(document).on('click', '.view-btn', function() {
+                            var number = $(this).data('id');
+                            var url = '{{ url('/viewscholarprospectus/') }}' + '/' + number;
+                            window.location.href = url;
+                        }); */
 
 
 

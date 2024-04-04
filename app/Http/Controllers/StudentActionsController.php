@@ -71,7 +71,7 @@ class StudentActionsController extends Controller
     }
 
 
-   
+
 
     //GRADES SAVE
     public function cogsave(Request $request)
@@ -128,7 +128,7 @@ class StudentActionsController extends Controller
                 [
                     'scholar_id' =>  $scholarid,
                     'type' =>  'COG & COR',
-                    'message' => 'A new cog and cor document has been uploaded.',
+                    'message' => 'A new COG and COR document has been uploaded.',
                     'data_id' =>  $cogId,
                 ]
             );

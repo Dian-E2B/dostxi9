@@ -166,7 +166,7 @@
             // Display SweetAlert confirmation dialog
             Swal.fire({
                 title: 'Submit Reply Slip?',
-                text: 'Please note that submission is final and non-editable.',
+                text: 'Please note that this submission is final and non-editable.',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Yes, submit it!',

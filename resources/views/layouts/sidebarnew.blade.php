@@ -73,25 +73,26 @@
             <ul id="access-nav" class="nav-content collapse {{ request()->is('accesscontrol*') ? 'show' : '' }} align-text-center" data-bs-parent="#sidebar-nav">
                 <li>
                     <a href='{{ route('accesscontrol') }}' class="{{ request()->is('accesscontrol') ? 'active' : '' }}">
-                        <box-icon type='solid' name='right-arrow' size="xs" class="sublist" color="white"></box-icon><span class="sublist_name">All</span>
+                        <i style="font-size:15px;" class="fas  fa-long-arrow-alt-right"></i>
+                        <div>&nbsp;All</div>
                     </a>
                 </li>
-                <li class="align-text-center align-items-center">
+                <li>
                     <a href='{{ route('accesscontrolpending') }}' class="{{ request()->is('accesscontrolpending') ? 'active' : '' }}">
-                        <box-icon type='solid' name='right-arrow'color="white" class="sublist" style="" size="xs"></box-icon>
-                        <span class="sublist_name">Pending</span>
+                        <i style="font-size:15px;" class="fas  fa-long-arrow-alt-right"></i>
+                        <span>&nbsp;Pending</span>
                     </a>
                 </li>
                 <li class="align-text-center align-items-center">
                     <a href='{{ route('accesscontrolongoing') }}' class="{{ request()->is('accesscontrolongoing') ? 'active' : '' }}">
-                        <box-icon type='solid' name='right-arrow'color="white" class="sublist" style="" size="xs"></box-icon>
-                        <span class="sublist_name">Ongoing</span>
+                        <i style="font-size:15px;" class="fas  fa-long-arrow-alt-right"></i>
+                        <span>&nbsp;Ongoing</span>
                     </a>
                 </li>
                 <li class="align-text-center align-items-center">
                     <a href='{{ route('accesscontrolenrolled') }}' class="{{ request()->is('accesscontrolenrolled') ? 'active' : '' }}">
-                        <box-icon type='solid' name='right-arrow'color="white" class="sublist" style="" size="xs"></box-icon>
-                        <span class="sublist_name">Enrolled</span>
+                        <i style="font-size:15px;" class="fas  fa-long-arrow-alt-right"></i>
+                        <span>&nbsp;Enrolled</span>
                     </a>
                 </li>
             </ul>

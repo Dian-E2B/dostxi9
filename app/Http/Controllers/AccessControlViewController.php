@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\DB;
 use function Laravel\Prompts\alert;
 use Illuminate\Support\Facades\Validator;
 use App\Services\MainServices;
+use Illuminate\Support\Facades\Log;
 
 class AccessControlViewController extends Controller
 {
@@ -160,6 +161,7 @@ class AccessControlViewController extends Controller
     public function scholarverifyendorse(Request $request)
     {
         $scholar_id = $request->input('namescholar_id');
+        $data_id = $request->input('namedata_id');
         $ifscholar_id = Sei::find($scholar_id);
         $ifscholar_idslip = Replyslips::where('scholar_id', $scholar_id)->select('reply_status_id');
 
@@ -167,6 +169,15 @@ class AccessControlViewController extends Controller
             $ifscholarstatusupdate  =  $ifscholar_id->update(['scholar_status_id' => 2]);
             $ifscholar_idslipupdate  =  $ifscholar_idslip->update(['replyslip_status_id' => 5]);
             if ($ifscholarstatusupdate && $ifscholar_idslipupdate) {
+                Notification_schols::create( //add notif to scholar
+                    [
+                        'type' => 'First Requirements',
+                        'message' => 'Your requirements has been verified!',
+                        'data_id' =>  $data_id,
+                        'scholar_id' =>  $scholar_id,
+                    ]
+                );
+                Notification_staffs::where('data_id', $data_id)->delete();
                 session()->flash('success');
                 return redirect()->back();
             } else {
@@ -220,15 +231,15 @@ class AccessControlViewController extends Controller
             $scholarCog->cogcor_status = "approved";
             $scholarCog->save();
 
+            $semester = $scholarCog->semester;
+            $startyear = $scholarCog->startyear;
+
             $scholarCogdeletenotif = Notification_staffs::where('data_id', $id)->first();
             if ($scholarCogdeletenotif) {
                 $scholarCogdeletenotif->delete();
-
-                $semester = $scholarCog->semester;
-                $startyear = $scholarCog->startyear;
-
-                $resultenroll = $this->MainServices->enrollscholartoongoing($id, $semester, $startyear);
-                if ($resultenroll) {
+                $result = $this->MainServices->enrollscholartoongoing($scholarCog->scholar_id, $semester, $startyear);
+                if ($result) {
+                    Log::info('Session data before redirect2:', session()->all());
                     return back()->with('approved', 'COG and COR has been approved scholar is now appended to ongoing!');
                 }
             }

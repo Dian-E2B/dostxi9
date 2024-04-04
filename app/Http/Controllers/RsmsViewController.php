@@ -68,7 +68,7 @@ class RsmsViewController extends Controller //OR ONGOING
                 'COURSE' => $request->input('COURSE'),
                 'GRADES' => $request->input('GRADES'),
                 'SummerREG' => $request->input('SummerREG'),
-                /*   'REGFORMS' => $request->input('regFormsField'), */
+                'REGFORMS' => $request->input('REGFORMS'),
                 'STATUSENDORSEMENT' => $request->input('STATUSENDORSEMENT'),
                 'STATUSENDORSEMENT2' => $request->input('STATUSENDORSEMENT2'),
                 'STATUS' => $request->input('STATUS'),
@@ -78,6 +78,7 @@ class RsmsViewController extends Controller //OR ONGOING
                 'FARELEASEDTUITIONBOOKSTIPEND' => $request->input('FARELEASEDTUITIONBOOKSTIPEND'),
                 'LVDCAccount' => $request->input('LVDCAccount'),
                 'HVCNotes' => $request->input('HVCNotes'),
+                'REMARKS' => $request->input('REMARKS'),
             ]);
 
             if ($ongoingupdate) {
@@ -116,10 +117,8 @@ class RsmsViewController extends Controller //OR ONGOING
     public function getOngoingById($number)
     {
         $results = DB::select(
-            "SELECT ongoing.*, ongoingremarks.remarksDetails,ongoingregforms.regformsDetails
+            "SELECT ongoing.*
             FROM ongoing
-            LEFT JOIN ongoingremarks ON ongoing.NUMBER = ongoingremarks.scholar_id
-            LEFT JOIN ongoingregforms ON ongoing.NUMBER = ongoingregforms.scholar_id
             WHERE ongoing.NUMBER = :number",
             ['number' => $number]
         );

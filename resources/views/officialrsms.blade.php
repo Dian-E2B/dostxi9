@@ -3,9 +3,8 @@
 
     <head>
         <title>DOST XI</title>
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-        <link href="{{ asset('css/all.css') }}">
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 
 
@@ -286,7 +285,7 @@
             </div>
         </div>
     </body>
-    <script src="{{ asset('js/all.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
     <!-- Add this script to the 'officialrsms' page -->
     <!-- Add this script to the 'officialrsms' page -->
     <script>

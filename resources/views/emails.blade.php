@@ -40,7 +40,7 @@
                                                         <th style="width:20%">Email</th>
                                                         <th class="d-none d-md-table-cell" style="width:25%">Date of Birth
                                                         </th>
-                                                        <th>Actions</th>
+                                                        {{--   <th>Actions</th> --}}
                                                     </tr>
                                                 </thead>
 
@@ -48,16 +48,17 @@
                                                     <tbody>
                                                         @foreach ($replyslipsandscholarjoinpending as $replyslipsandscholarjoinpending1)
                                                             <tr>
-                                                                <td>{{ $replyslipsandscholarjoinpending1->fname }}
+                                                                <td>
+                                                                    {{ $replyslipsandscholarjoinpending1->fname }}
                                                                     {{ $replyslipsandscholarjoinpending1->mname }}
-                                                                    {{ $replyslipsandscholarjoinpending1->lname }}</td>
+                                                                   </td>
                                                                 <td>{{ $replyslipsandscholarjoinpending1->email }}</td>
                                                                 <td class="d-none d-md-table-cell">
                                                                     {{ $replyslipsandscholarjoinpending1->bday }}</td>
-                                                                <td class="table-action">
+                                                                {{--   <td class="table-action">
                                                                     <a href=""><i class="fas fa-user-edit"></i></a>
                                                                     <a href=""></a>
-                                                                </td>
+                                                                </td> --}}
 
                                                             </tr>
                                                         @endforeach
@@ -143,8 +144,7 @@
                                                                                 </div>
 
                                                                                 <div class="modal-footer">
-                                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
-                                                                                    </button>
+                                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                                                 </div>
                                                                             </div>
                                                                         </div>

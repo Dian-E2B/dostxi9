@@ -164,7 +164,9 @@
                                         <td colspan="5">
                                             <form id="formverify" method="POST" action="{{ route('scholarverifyendorse') }}">
                                                 @csrf
+
                                                 <input type="hidden" name="namescholar_id" value="{{ $seisourcerecord->id }}">
+                                                <input type="hidden" name="namedata_id" value="{{ $scholarrequirements->id }}">
                                                 <input type="hidden" name="nameprocess" id="scholarprocess" value="">
                                                 <div class="row">
                                                     <div class="col-6">
@@ -392,66 +394,67 @@
                             </div>
                         </div>
                     </div>
-                @endif
-
-                @if ($thesispassed[0]->finalmanuscript_details)
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col">
-                                <table class="table table-bordered  table-sm align-text-center">
-                                    <thead class="">
-                                        <tr class="">
-                                            <th colspan="4" style="text-align: center; background-color:rgb(144, 211, 228)">Final Manuscript</th>
-                                        </tr>
-                                        <tr class="">
-                                            <th class="text-center">Remarks</th>
-                                            <th class="text-center">Details</th>
-                                            <th class="text-center" style="width: 15rem">Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="">
-                                        <td class="">{{ $thesispassed[0]->finalmanus_remarks }}</td>
-                                        <td class=""><a class="d-flex p-1 justify-content-center" target="_blank" href="{{ asset($thesispassed[0]->finalmanuscript_details) }}"><i class="fas fa-eye"></i></a></td>
-                                        <td class="text-center">
-                                            @if ($thesispassed[0]->finalmanus_status == 'Approved' || $thesispassed[0]->finalmanus_status == 'Disapproved')
-                                                {{ $thesispassed[0]->finalmanus_status }}
-                                            @else
-                                                <form id="FinalManuscriptApprovalForm" action="{{ route('finalmanuscriptaction') }}" method="POST">
-                                                    @csrf
-                                                    <input type="text" name="thesis_id" hidden value="{{ $thesispassed[0]->id }}">
-                                                    <input type="submit" name="action" class="btn btn-success btn-sm thisisbutton" value="Approve" />
-                                                    <button id="disapproveFinalManusButton" type="button" name="action" class="btn btn-danger btn-sm thisisbutton">Disapprove</button>
-                                                </form>
-                                            @endif
-                                        </td>
-                                        <script>
-                                            document.querySelector('#disapproveFinalManusButton').addEventListener('click', function() {
-                                                Swal.fire({
-                                                    title: 'Disapprove this Final Manuscript?',
-                                                    html: `
+                    @if ($thesispassed[0]->finalmanuscript_details)
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <table class="table table-bordered  table-sm align-text-center">
+                                        <thead class="">
+                                            <tr class="">
+                                                <th colspan="4" style="text-align: center; background-color:rgb(144, 211, 228)">Final Manuscript</th>
+                                            </tr>
+                                            <tr class="">
+                                                <th class="text-center">Remarks</th>
+                                                <th class="text-center">Details</th>
+                                                <th class="text-center" style="width: 15rem">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="">
+                                            <td class="">{{ $thesispassed[0]->finalmanus_remarks }}</td>
+                                            <td class=""><a class="d-flex p-1 justify-content-center" target="_blank" href="{{ asset($thesispassed[0]->finalmanuscript_details) }}"><i class="fas fa-eye"></i></a></td>
+                                            <td class="text-center">
+                                                @if ($thesispassed[0]->finalmanus_status == 'Approved' || $thesispassed[0]->finalmanus_status == 'Disapproved')
+                                                    {{ $thesispassed[0]->finalmanus_status }}
+                                                @else
+                                                    <form id="FinalManuscriptApprovalForm" action="{{ route('finalmanuscriptaction') }}" method="POST">
+                                                        @csrf
+                                                        <input type="text" name="thesis_id" hidden value="{{ $thesispassed[0]->id }}">
+                                                        <input type="submit" name="action" class="btn btn-success btn-sm thisisbutton" value="Approve" />
+                                                        <button id="disapproveFinalManusButton" type="button" name="action" class="btn btn-danger btn-sm thisisbutton">Disapprove</button>
+                                                    </form>
+                                                @endif
+                                            </td>
+                                            <script>
+                                                document.querySelector('#disapproveFinalManusButton').addEventListener('click', function() {
+                                                    Swal.fire({
+                                                        title: 'Disapprove this Final Manuscript?',
+                                                        html: `
                                                 <textarea id="remarksFinal" class="form-control" placeholder="Remarks"></textarea>`,
-                                                    icon: 'warning',
-                                                    showCancelButton: true,
-                                                    confirmButtonColor: '#3085d6',
-                                                    cancelButtonColor: '#d33',
-                                                    confirmButtonText: 'Yes, disapprove',
+                                                        icon: 'warning',
+                                                        showCancelButton: true,
+                                                        confirmButtonColor: '#3085d6',
+                                                        cancelButtonColor: '#d33',
+                                                        confirmButtonText: 'Yes, disapprove',
 
-                                                }).then((result) => {
-                                                    if (result.isConfirmed) {
-                                                        var remarksfinalmanus = document.getElementById('remarksFinal').value; // Get remarks from the textarea
-                                                        document.getElementById('FinalManuscriptApprovalForm').insertAdjacentHTML('beforeend', `<input type="hidden" name="finalremarks" value="${remarksfinalmanus}">`);
-                                                        document.getElementById('FinalManuscriptApprovalForm').insertAdjacentHTML('beforeend', `<input type="hidden" name="action" value="Disapprove">`);
-                                                        document.getElementById('FinalManuscriptApprovalForm').submit();
-                                                    }
+                                                    }).then((result) => {
+                                                        if (result.isConfirmed) {
+                                                            var remarksfinalmanus = document.getElementById('remarksFinal').value; // Get remarks from the textarea
+                                                            document.getElementById('FinalManuscriptApprovalForm').insertAdjacentHTML('beforeend', `<input type="hidden" name="finalremarks" value="${remarksfinalmanus}">`);
+                                                            document.getElementById('FinalManuscriptApprovalForm').insertAdjacentHTML('beforeend', `<input type="hidden" name="action" value="Disapprove">`);
+                                                            document.getElementById('FinalManuscriptApprovalForm').submit();
+                                                        }
+                                                    });
                                                 });
-                                            });
-                                        </script>
-                                    </tbody>
-                                </table>
+                                            </script>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
                 @endif
+
+
             </div>
 
             <!-- Modal REQUIREMENTS -->

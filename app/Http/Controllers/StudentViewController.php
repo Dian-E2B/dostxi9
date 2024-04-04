@@ -177,21 +177,6 @@ class StudentViewController extends Controller
         }
     }
 
-    public function index()
-    {
-
-        $userId = auth()->id();
-        $studentuser = Student::where('id', $userId)->first();
-        $scholarId = $studentuser->scholar_id;
-
-        $scholarstatusid = Sei::where('id', $scholarId)->value('scholar_status_id'); //show status id
-        $scholarfullinfo = Sei::where('id', $scholarId)->select('fname', 'mname', 'lname', 'mobile', 'program_id', 'email', 'barangay', 'province', 'municipality', 'zipcode', 'gender_id')->first(); //show fullname
-
-        $replyslips = Replyslips::where('scholar_id', $scholarId)->get();
-        $replyslipstatus = Replyslips::where('scholar_id', $scholarId)->value('replyslip_status_id');
-
-        return view('student.profile', compact('scholarId', 'replyslips', 'replyslipstatus', 'scholarstatusid', 'scholarfullinfo')); //DASHBOARD VIEW
-    }
 
     public function dashboard()
     {
@@ -232,9 +217,14 @@ class StudentViewController extends Controller
 
             $replySlips = Replyslips::where('scholar_id', $scholarid1)->update(['replyslip_status_id' => 6]);
             if ($Scholar_requirements &&  $replySlips) {
+
+                Notification_staffs::create([
+                    'scholar_id' => Auth::user()->scholar_id,
+                    'type' => 'First Requirements',
+                    'message' => 'A scholar\'s initial requirement has been uploaded!',
+                    'data_id' =>  $Scholar_requirements->id,
+                ]);
                 return redirect('student/profile');
-            } else {
-                return back();
             }
         }
     }
@@ -345,12 +335,8 @@ class StudentViewController extends Controller
     {
         $cogId = $request->input('cog_id');
         $gradeinput = $request->input('grade');
-
-        // First, retrieve the record
         $record = Cogdetails::where('id', $cogId)->first();
-        // Check if the record exists
         if ($record) {
-            // Update the grade field
             $record->grade = $gradeinput;
             $result = $record->save();
 

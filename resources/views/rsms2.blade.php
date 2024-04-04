@@ -519,7 +519,7 @@
                             render: function(data, type, row) {
                                 // Apply custom styles to the email address
                                 var styledgender =
-                                    '<span style="padding-left:20px;padding-right: 20px;">' + data +
+                                    '<span style="padding-left:20px;padding-right: 10px;">' + data +
                                     '</span>';
                                 return styledgender;
                             },
@@ -529,9 +529,9 @@
                             data: 'SCHOLARSHIPPROGRAM',
                             render: function(data, type, row) {
                                 // Apply custom styles to the email address
-                                var styledgender = '<span style="padding-right: 50px;">' + data +
+                                var styledprogram = '<span style="padding-right: 50px;">' + data +
                                     '</span>';
-                                return styledgender;
+                                return styledprogram;
                             }
 
                         },
@@ -539,7 +539,7 @@
                             data: 'SCHOOL',
                             render: function(data, type, row) {
                                 // Apply custom styles to the email address
-                                var styledschool = '<span style="padding-right: 30px;">' + data +
+                                var styledschool = '<span style="padding-right: 50px;">' + data +
                                     '</span>';
                                 return styledschool;
                             }
@@ -548,7 +548,7 @@
                             data: 'COURSE',
                             render: function(data, type, row) {
                                 // Apply custom styles to the email address
-                                var stylecourse = '<span style="padding-right: 30px;">' + data +
+                                var stylecourse = '<span style="padding-right: 50px;">' + data +
                                     '</span>';
                                 return stylecourse;
                             }
@@ -563,11 +563,11 @@
 
                         },
                         {
-                            data: 'regformsDetails',
+                            data: 'REGFORMS',
 
                         },
                         {
-                            data: 'remarksDetails',
+                            data: 'REMARKS',
 
                         },
                         {
@@ -711,8 +711,8 @@
                             $('#editModal #courseField').val(data.COURSE);
                             $('#editModal #gradesField').val(data.GRADES);
                             $('#editModal #summerRegField').val(data.SummerREG);
-                            $('#editModal #regFormsField').val(data.regformsDetails); //ongoingregforms table
-                            $('#editModal #remarksField').val(data.remarksDetails); //ongoingremarks table
+                            $('#editModal #regFormsField').val(data.REGFORMS); //ongoingregforms table
+                            $('#editModal #remarksField').val(data.REMARKS); //ongoingremarks table
                             $('#editModal #statusEndorsementField').val(data.STATUSENDORSEMENT);
                             $('#editModal #statusEndorsement2Field').val(data.STATUSENDORSEMENT2);
                             $('#editModal #statusField').val(data.STATUS);
@@ -747,7 +747,7 @@
                             COURSE: $('#editModal #courseField').val(),
                             GRADES: $('#editModal #gradesField').val(),
                             SummerREG: $('#editModal #summerRegField').val(),
-                            regformsDetails: $('#editModal #regFormsField').val(), //ongoingregforms table
+                            REGFORMS: $('#editModal #regFormsField').val(), //ongoingregforms table
                             STATUSENDORSEMENT: $('#editModal #statusEndorsementField').val(),
                             STATUSENDORSEMENT2: $('#editModal #statusEndorsement2Field').val(),
                             STATUS: $('#editModal #statusField').val(),
@@ -761,7 +761,7 @@
                             /*    semester: $('#editModal #semesterField').val(),
                                startyear: $('#editModal #startyearField').val(),
                                endyear: $('#editModal #endyearField').val(), */
-                            remarksDetails: $('#editModal #remarksField').val(), //ongoingremarks table
+                            REMARKS: $('#editModal #remarksField').val(), //ongoingremarks table
                         };
 
 

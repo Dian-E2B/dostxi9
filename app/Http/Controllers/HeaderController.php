@@ -44,6 +44,9 @@ class HeaderController extends Controller
         if ($thesisnotif->type == "Thesis" || $thesisnotif->type == "Final Manuscript") {
             Notification_schols::where('data_id', $data_id)->delete();
             return redirect()->route('student/thesis');
+        } elseif ($thesisnotif->type == "First Requirements") {
+            Notification_schols::where('data_id', $data_id)->delete();
+            return redirect()->route('student/gradeinput');
         } else {
             return redirect()->route('student/gradeinput');
         }

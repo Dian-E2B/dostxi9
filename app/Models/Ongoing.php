@@ -42,6 +42,7 @@ class Ongoing extends Model
         'endyear',
         'semester',
         'year',
+        'created_at',
     ];
 
     // Specify that the primary key is not an auto-incrementing integer
