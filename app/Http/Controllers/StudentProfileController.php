@@ -6,6 +6,7 @@ use App\Models\Replyslips;
 use App\Models\Sei;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StudentProfileController extends Controller
 {
@@ -24,5 +25,27 @@ class StudentProfileController extends Controller
         $replyslipstatus = Replyslips::where('scholar_id', $scholarId)->value('replyslip_status_id');
 
         return view('student.profile', compact('scholarId', 'replyslips', 'replyslipstatus', 'scholarstatusid', 'scholarfullinfo')); //DASHBOARD VIEW
+    }
+
+    public function editschoolcourse(Request $request)
+    {
+        $scholar_id = Auth::user()->scholar_id;
+        $school = request()->input('school');
+        $course = request()->input('course');
+        $mobile = request()->input('mobile');
+        $email = request()->input('email');
+
+        $seis = Sei::find($scholar_id);
+        if ($seis) {
+            $seis->school =  $school;
+            $seis->course =  $course;
+            $seis->email =  $email;
+            $seis->mobile =  $mobile;
+            $seis->save();
+            session()->flash('success', 'Profile updated.');
+            return redirect()->route('student.profile');
+        } else {
+            echo "Record not found.";
+        }
     }
 }

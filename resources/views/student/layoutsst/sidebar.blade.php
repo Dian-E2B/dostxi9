@@ -90,14 +90,14 @@
                 <li>
                     <a href='{{ route('student/gradeinput') }}' class="{{ request()->is('student/gradeinput') ? 'active' : '' }}">
                         <i style="font-size:15px;" class="fas fa-long-arrow-alt-right"></i>
-                        <span>&nbsp;Periodic</span>
+                        <span style="margin-left:.5em">Periodic</span>
 
                     </a>
                 </li>
                 <li>
                     <a href='{{ route('student/thesis') }}' class="{{ request()->is('student/thesis') ? 'active' : '' }}">
                         <i style="font-size:15px;" class="fas fa-long-arrow-alt-right"></i>
-                        <span>&nbsp;Thesis</span>
+                        <span style="margin-left:.5em">Thesis</span>
                     </a>
                 </li>
             </ul>

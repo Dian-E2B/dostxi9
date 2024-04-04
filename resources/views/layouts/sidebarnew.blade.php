@@ -24,12 +24,12 @@
             <ul id="sei-nav" class="nav-content collapse {{ request()->is('seilist*') ? 'show' : '' }} align-text-center" data-bs-parent="#sidebar-nav">
                 <li>
                     <a href='{{ route('seilist') }}' class="{{ request()->is('seilist') ? 'active' : '' }}">
-                        <span style="padding: 0em 0em 0em 0em;"><i style="font-size:15px;" class="fas fa-long-arrow-alt-right"></i><span>&nbsp;Qualifiers</span></span>
+                        <span style="padding: 0em 0em 0em 0em;"><i style="font-size:15px;" class="fas fa-long-arrow-alt-right"></i><span style="margin-left:.5em">Qualifiers</span></span>
                     </a>
                 </li>
                 <li class="">
                     <a href='{{ route('seilist2') }}' class="{{ request()->is('seilist2') ? 'active' : '' }}">
-                        <span style="padding: 0em 0em 0em 0em;"><i style="font-size:15px;" class="fas  fa-long-arrow-alt-right"></i><span>&nbsp;Potential Qualifiers</span></span>
+                        <span style="padding: 0em 0em 0em 0em;"><i style="font-size:15px;" class="fas  fa-long-arrow-alt-right"></i><span style="margin-left:.5em">Potential Qualifiers</span></span>
                     </a>
                 </li>
             </ul>
@@ -51,7 +51,7 @@
             <ul id="acad-nav" class="nav-content collapse {{ request()->is('ongoinglist*') || request()->is('rsms2*') ? 'show' : '' }} align-text-center" data-bs-parent="#sidebar-nav">
                 <li>
                     <a href='{{ route('ongoinglist') }}' class="{{ request()->is('ongoinglist') ? 'active' : '' }}">
-                        <span style="padding: 0em 0em 0em 0em;"><i style="font-size:15px;" class="fas fa-long-arrow-alt-right"></i><span>&nbsp;Ongoing</span></span>
+                        <span style="padding: 0em 0em 0em 0em;"><i style="font-size:15px;" class="fas fa-long-arrow-alt-right"></i><span style="margin-left:.5em">Ongoing</span></span>
                     </a>
                 </li>
             </ul>
@@ -74,25 +74,25 @@
                 <li>
                     <a href='{{ route('accesscontrol') }}' class="{{ request()->is('accesscontrol') ? 'active' : '' }}">
                         <i style="font-size:15px;" class="fas  fa-long-arrow-alt-right"></i>
-                        <div>&nbsp;All</div>
+                        <div style="margin-left:.5em">All</div>
                     </a>
                 </li>
                 <li>
                     <a href='{{ route('accesscontrolpending') }}' class="{{ request()->is('accesscontrolpending') ? 'active' : '' }}">
                         <i style="font-size:15px;" class="fas  fa-long-arrow-alt-right"></i>
-                        <span>&nbsp;Pending</span>
+                        <span style="margin-left:.5em">Pending</span>
                     </a>
                 </li>
                 <li class="align-text-center align-items-center">
                     <a href='{{ route('accesscontrolongoing') }}' class="{{ request()->is('accesscontrolongoing') ? 'active' : '' }}">
                         <i style="font-size:15px;" class="fas  fa-long-arrow-alt-right"></i>
-                        <span>&nbsp;Ongoing</span>
+                        <span style="margin-left:.5em">Ongoing</span>
                     </a>
                 </li>
                 <li class="align-text-center align-items-center">
                     <a href='{{ route('accesscontrolenrolled') }}' class="{{ request()->is('accesscontrolenrolled') ? 'active' : '' }}">
                         <i style="font-size:15px;" class="fas  fa-long-arrow-alt-right"></i>
-                        <span>&nbsp;Enrolled</span>
+                        <span style="margin-left:.5em">Enrolled</span>
                     </a>
                 </li>
             </ul>

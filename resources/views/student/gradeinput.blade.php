@@ -9,7 +9,7 @@
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link href="{{ asset('css/fontaws.css') }}" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <style>
 
 
@@ -258,7 +258,7 @@
                                                         <div class="d-flex align-items-center mt-1">
                                                             <div class="me-2">
                                                                 <label>Subject Name:</label>
-                                                                <input name="subjectnames[0][name]" type="text" class="form-control" required>
+                                                                <input style="width: 30em !important" name="subjectnames[0][name]" type="text" class="form-control" required>
                                                             </div>
                                                             <div class="me-2">
                                                                 <label>Grade:</label>
@@ -282,7 +282,7 @@
 
                                                     <div class="mt-3">
                                                         <button type="submit" class="btn rounded-pill btn-primary">Submit All</button>
-                                                        <button type="button" class="btn rounded-pill btn-secondary" onclick="document.getElementById('is_draft').value = '1'; document.getElementById('input-form').submit();">Submit as Draft</button>
+                                                        <button type="button" class="btn rounded-pill btn-secondary" onclick="submitAsDraft()">Submit as Draft</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -304,6 +304,22 @@
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
+        function submitAsDraft() {
+            // Set the hidden input value to indicate it's a draft
+            document.getElementById('is_draft').value = '1';
+            // Trigger form validation
+            if (document.getElementById('input-form').checkValidity()) {
+                // Submit the form if all required fields are filled
+                document.getElementById('input-form').submit();
+            } else {
+                // If validation fails, display error messages and prevent form submission
+                event.preventDefault();
+                event.stopPropagation();
+                document.getElementById('input-form').classList.add('was-validated');
+            }
+        }
+
+
         var i = 0;
         $('#add').click(function() {
             ++i;

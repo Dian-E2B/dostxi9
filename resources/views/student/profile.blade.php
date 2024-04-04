@@ -3,6 +3,7 @@
 
     <head>
         <title>DOST XI</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>{{-- SWEETALERT --}}
         <link rel="icon" href="\icons\DOSTLOGOsmall.png" type="image/x-icon" />
@@ -15,6 +16,11 @@
                 display: flex;
                 align-items: center;
                 justify-content: flex-start;
+            }
+
+            button {
+                border: none;
+                padding: none !important;
             }
         </style>
     </head>
@@ -38,7 +44,7 @@
                 let successmessage = "{{ session('success') }}";
                 Swal.fire({
                     icon: "success",
-                    title: "",
+                    title: "Success!",
                     text: successmessage,
                 });
             </script>
@@ -220,14 +226,7 @@
 
                                                             <div class="col-12">
                                                                 <table class="table table-bordered table-striped">
-                                                                    <tr>
-                                                                        <th>
-                                                                            <span style="color: rgb(92, 92, 92)">Mobile:</span>
-                                                                        </th>
-                                                                        <td>
-                                                                            <span style="font-weight:900 ">{{ $scholarfullinfo->mobile }}</span>
-                                                                        </td>
-                                                                    </tr>
+
                                                                     <tr>
                                                                         <th>
                                                                             <span style="color: rgb(92, 92, 92)">Program:</span>
@@ -252,14 +251,7 @@
                                                                             </span>
                                                                         </td>
                                                                     </tr>
-                                                                    <tr>
-                                                                        <th>
-                                                                            <span style="color: rgb(92, 92, 92)">Email:</span>
-                                                                        </th>
-                                                                        <td>
-                                                                            <span style="font-weight:900 ">{{ $scholarfullinfo->email }}</span>
-                                                                        </td>
-                                                                    </tr>
+
                                                                     <tr>
                                                                         <th>
                                                                             <span style="color: rgb(92, 92, 92)">Address:</span>
@@ -283,12 +275,26 @@
                                                                         </td>
                                                                     </tr>
 
-                                                                </table>
-
-                                                                <form action="">
-                                                                    <table class="table table-bordered table-striped">
+                                                                    <form action="{{ route('editschoolcourse') }}" method="POST">
+                                                                        @csrf
                                                                         <tr>
                                                                             <th>
+                                                                                <span style="color: rgb(92, 92, 92)">Mobile:</span>
+                                                                            </th>
+                                                                            <td>
+                                                                                <input type="text" name="mobile" class="editable-input form-control" disabled value=" {{ $scholarfullinfo->mobile }}">
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th>
+                                                                                <span style="color: rgb(92, 92, 92)">Email:</span>
+                                                                            </th>
+                                                                            <td>
+                                                                                <input type="text" name="email" class="editable-input form-control" disabled value=" {{ $scholarfullinfo->email }}">
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th style=>
                                                                                 <span style="color: rgb(92, 92, 92)">School:</span>
                                                                             </th>
                                                                             <td>
@@ -309,12 +315,13 @@
                                                                         </tr>
                                                                         <tr>
                                                                             <th colspan="2">
-                                                                                <button id="editInfoButton" class="btn btn-light btn-sm">edit</button>
-                                                                                <button id="submitButton" class="btn btn-light btn-sm">Submit</button>
+                                                                                <button type="button" id="editscholarcourseButton" data-bs-toggle="tooltip" data-bs-title="Edit" class="btn btn-sm" style="background-color: #c0c0c0"><i class="fas fa-edit fa-lg" style="color: #2e2e2e;"></i></button>
+                                                                                <button type="button" id="canceleditscholarcourseButton" data-bs-toggle="tooltip" data-bs-title="Cancel" class=" btn btn-sm d-none" style="background-color: #ec9107"><i class="fas fa-lg fa-window-close" style="color: #2e2e2e;"></i></button>
+                                                                                <button type="submit" id="submitscholarcourseButton" data-bs-toggle="tooltip" data-bs-title="Submit" class="btn btn-sm d-none btn-success"><i class="fad fa-lg fa-save"></i></button>
                                                                             </th>
                                                                         </tr>
-                                                                    </table>
-                                                                </form>
+                                                                    </form>
+                                                                </table>
                                                             </div>
                                                             <div class="col-6">
 
@@ -338,11 +345,23 @@
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/fontaws.js') }}"></script>
     <script>
-        document.getElementById('editInfoButton').addEventListener('click', function() {
+        document.getElementById('editscholarcourseButton').addEventListener('click', function() {
+            // Enable editing for all editable inputs
             document.querySelectorAll('.editable-input').forEach(function(input) {
                 input.removeAttribute('disabled');
             });
-            document.getElementById('submitButton').classList.remove('d-none');
+            document.getElementById('canceleditscholarcourseButton').classList.remove('d-none');
+            document.getElementById('submitscholarcourseButton').classList.remove('d-none');
+        });
+
+        document.getElementById('canceleditscholarcourseButton').addEventListener('click', function() {
+            // Disable editing for all editable inputs
+            document.querySelectorAll('.editable-input').forEach(function(input) {
+                input.setAttribute('disabled', 'disabled');
+            });
+            // Hide the submit button
+            document.getElementById('canceleditscholarcourseButton').classList.add('d-none');
+            document.getElementById('submitscholarcourseButton').classList.add('d-none');
         });
     </script>
 
