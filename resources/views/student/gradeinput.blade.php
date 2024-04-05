@@ -46,69 +46,71 @@
                                             {{-- @dd($cogsdraft); --}}
 
 
+                                            <div class="table-responsive">
+                                                <table id="thisdatatable" class="hover table table-bordered compact nowrap align-content-center justify-content-center" style="width:100%;">
+                                                    <thead>
+                                                        <tr>
 
-                                            <table id="thisdatatable" class="hover table table-bordered compact nowrap align-content-center justify-content-center" style="width:100%;">
-                                                <thead>
-                                                    <tr>
+                                                            <th scope="col">Academic Year</th>
+                                                            <th scope="col">Semester</th>
+                                                            <th scope="col">Subject</th>
+                                                            <th scope="col">Grade</th>
+                                                            <th scope="col">Action</th>
+                                                            <th scope="col">Unit</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($cogsdraft as $cogsdraft1)
+                                                            @php
+                                                                $ids1 = explode(',', $cogsdraft1->id);
+                                                                $subjects1 = explode(',', $cogsdraft1->Subjectname);
+                                                                $grades1 = explode(',', $cogsdraft1->Grade);
+                                                                $units1 = explode(',', $cogsdraft1->Units);
+                                                                $completed = explode(',', $cogsdraft1->Completed);
+                                                            @endphp
+                                                            <div class="mt-3">
+                                                                <form id="draftForm" action="{{ route('saveDraft') }}" method="POST" enctype="multipart/form-data" class="">
+                                                                    @csrf
+                                                                    <input type="hidden" name="scholar_id" value="{{ $cogsdraft1->scholar_id }}">
+                                                                    <input type="hidden" name="is_delete" id="is_delete" value="0">
+                                                                    <input type="hidden" name="cog_id" value="{{ $cogsdraft1->id1 }}">
 
-                                                        <th scope="col">Academic Year</th>
-                                                        <th scope="col">Semester</th>
-                                                        <th scope="col">Subject</th>
-                                                        <th scope="col">Grade</th>
-                                                        <th scope="col">Action</th>
-                                                        <th scope="col">Unit</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach ($cogsdraft as $cogsdraft1)
-                                                        @php
-                                                            $ids1 = explode(',', $cogsdraft1->id);
-                                                            $subjects1 = explode(',', $cogsdraft1->Subjectname);
-                                                            $grades1 = explode(',', $cogsdraft1->Grade);
-                                                            $units1 = explode(',', $cogsdraft1->Units);
-                                                            $completed = explode(',', $cogsdraft1->Completed);
-                                                        @endphp
-                                                        <div class="mt-3">
-                                                            <form id="draftForm" action="{{ route('saveDraft') }}" method="POST" enctype="multipart/form-data" class="">
-                                                                @csrf
-                                                                <input type="hidden" name="scholar_id" value="{{ $cogsdraft1->scholar_id }}">
-                                                                <input type="hidden" name="is_delete" id="is_delete" value="0">
-                                                                <input type="hidden" name="cog_id" value="{{ $cogsdraft1->id1 }}">
+                                                                    <button style="margin-right: 5px;" class="btn btn-pill btn-primary mb-2" type="submit">Submit as Final</button>
+                                                                    <button type="button" class="btn btn-pill btn-danger mb-2" onclick="document.getElementById('is_delete').value = '1'; document.getElementById('draftForm').submit();">Delete Draft</button>
+                                                                </form>
+                                                            </div>
 
-                                                                <button style="margin-right: 5px;" class="btn btn-pill btn-primary mb-2" type="submit">Submit as Final</button>
-                                                                <button type="button" class="btn btn-pill btn-danger mb-2" onclick="document.getElementById('is_delete').value = '1'; document.getElementById('draftForm').submit();">Delete Draft</button>
-                                                            </form>
-                                                        </div>
+                                                            @for ($i = 0; $i < count($subjects1); $i++)
+                                                                <tr>
+                                                                    {{--    <td>{{ $ids[$i] }}</td> --}}
+                                                                    @if ($i == 0)
+                                                                        <td rowspan="{{ count($subjects1) }}">{{ $cogsdraft1->startyear }}</td>
+                                                                        <td rowspan="{{ count($subjects1) }}">{{ $cogsdraft1->semester }}</td>
+                                                                    @endif
+                                                                    <td>{{ $subjects1[$i] }}</td>
 
-                                                        @for ($i = 0; $i < count($subjects1); $i++)
-                                                            <tr>
-                                                                {{--    <td>{{ $ids[$i] }}</td> --}}
-                                                                @if ($i == 0)
-                                                                    <td rowspan="{{ count($subjects1) }}">{{ $cogsdraft1->startyear }}</td>
-                                                                    <td rowspan="{{ count($subjects1) }}">{{ $cogsdraft1->semester }}</td>
-                                                                @endif
-                                                                <td>{{ $subjects1[$i] }}</td>
+                                                                    @if ($completed[$i] == 0)
+                                                                        <form action="{{ route('studenteditcog') }}" method="POST">
+                                                                            <td style="max-width: 200px; padding:4px !important; margin:0px;">
+                                                                                @csrf
+                                                                                <input type="hidden" name="cog_id" value="{{ explode(',', $cogsdraft1->id)[$i] }}">
+                                                                                <input style="border: none;" class=" form-control-sm" type="text" name="grade" placeholder="Enter Grade" value="{{ $grades1[$i] }}">
+                                                                            </td>
+                                                                            <td style="max-width: 50px;padding:4px !important;">
+                                                                                <button class="btn btn-pill btn-sm btn-success" type="submit">Update</button>
+                                                                            </td>
+                                                                        </form>
+                                                                    @else
+                                                                    @endif
 
-                                                                @if ($completed[$i] == 0)
-                                                                    <form action="{{ route('studenteditcog') }}" method="POST">
-                                                                        <td style="max-width: 200px; padding:4px !important; margin:0px;">
-                                                                            @csrf
-                                                                            <input type="hidden" name="cog_id" value="{{ explode(',', $cogsdraft1->id)[$i] }}">
-                                                                            <input style="border: none;" class=" form-control-sm" type="text" name="grade" placeholder="Enter Grade" value="{{ $grades1[$i] }}">
-                                                                        </td>
-                                                                        <td style="max-width: 50px;padding:4px !important;">
-                                                                            <button class="btn btn-pill btn-sm btn-success" type="submit">Update</button>
-                                                                        </td>
-                                                                    </form>
-                                                                @else
-                                                                @endif
+                                                                    <td>{{ $units1[$i] }}</td>
+                                                                </tr>
+                                                            @endfor
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
 
-                                                                <td>{{ $units1[$i] }}</td>
-                                                            </tr>
-                                                        @endfor
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
                                         </div>
                                     </div>
                                 </div>
@@ -256,23 +258,29 @@
                                                 <div class="card-body">
                                                     <div class="row">
                                                         <div class="d-flex align-items-center mt-1">
-                                                            <div class="me-2">
-                                                                <label>Subject Name:</label>
-                                                                <input style="width: 30em !important" name="subjectnames[0][name]" type="text" class="form-control" required>
-                                                            </div>
-                                                            <div class="me-2">
-                                                                <label>Grade:</label>
-                                                                <input id="grade1" type="number" step="0.01" required pattern="[0-9]+" name="grades[0][grade]" class="form-control numeric-input">
-                                                            </div>
-                                                            <div class="me-2">
-                                                                <label>Units:</label>
-                                                                <input id="unit1" name="units[0][unit]" required pattern="[0-9]+" type="number" class="form-control numeric-input">
-                                                            </div>
-                                                            <div class="">
-                                                                <br>
-                                                                <a name="add" id="add" type="button" class=" rounded-pill btn btn-success">Add Row</a>
+                                                            <table class="compact table-sm table table-bordered">
+                                                                <thead>
+                                                                    <th>
+                                                                        Subject Name:
+                                                                    </th>
+                                                                    <th style="width: 40em">
+                                                                        Grade:
+                                                                    </th>
+                                                                    <th>
+                                                                        Units:
+                                                                    </th>
+                                                                    <th>
+                                                                        Action
+                                                                    </th>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <td><input name="subjectnames[0][name]" type="text" class="form-control" required></td>
+                                                                    <td> <input id="grade1" type="number" step="0.01" required pattern="[0-9]+" name="grades[0][grade]" class="form-control numeric-input"></td>
+                                                                    <td> <input id="unit1" name="units[0][unit]" required pattern="[0-9]+" type="number" class="form-control numeric-input"></td>
+                                                                    <td style="text-align: center"> <a name="add" id="add" type="button" class=" rounded-pill btn btn-success">Add Row</a></td>
+                                                                </tbody>
+                                                            </table>
 
-                                                            </div>
                                                         </div>
                                                     </div>
                                                     <table id="table"></table> {{-- add row area --}}

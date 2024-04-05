@@ -162,38 +162,34 @@
                                     @for ($i = 0; $i < 12; $i++)
                                         @if (!empty($data[$i]['cogdetails']) && is_array($data[$i]['cogdetails']))
                                             {{-- If "cogdetails" is an array and not empty, loop through its items --}}
-
                                             @foreach ($data[$i]['cogdetails'] as $cogDetail)
                                                 <tr>
                                                     <td>{{ str_replace('&nbsp;', ' ', $cogDetail['subjectname'] ?? '&nbsp;') }}</td>
                                                     <td>{{ str_replace('&nbsp;', ' ', $cogDetail['unit'] ?? '&nbsp;') }}</td>
-                                                    <td>{{ str_replace('&nbsp;', ' ', $cogDetail['grade'] ?? '&nbsp;') }}</td>
-
+                                                    <td>{{ !empty($cogDetail['grade']) ? number_format($cogDetail['grade'], 2) : '' }}</td>
                                                     <td>&nbsp;</td>
-                                                    <td> {{ $cogDetail['grade'] * $cogDetail['unit'] }}</td>
-                                                    {{-- <td>{{ $data[$i]['cogdetails']['grade'] * $data[$i]['cogdetails']['unit'] }}</td> --}}
+                                                    <td>{{ !empty($cogDetail['grade']) && !empty($cogDetail['unit']) ? number_format($cogDetail['grade'] * $cogDetail['unit'], 2) : '' }}</td>
                                                     {{-- Add more cells as needed --}}
-
                                                 </tr>
                                                 @php
-                                                    $sumOfRemarksColumn += $cogDetail['grade'] * $cogDetail['unit'];
-                                                    $sumOfUnit += $cogDetail['unit'];
-                                                    $sumOfGrades += $cogDetail['grade'];
+                                                    if (!empty($cogDetail['grade']) && !empty($cogDetail['unit'])) {
+                                                        $sumOfRemarksColumn += $cogDetail['grade'] * $cogDetail['unit'];
+                                                        $sumOfUnit += $cogDetail['unit'];
+                                                        $sumOfGrades += $cogDetail['grade'];
+                                                    }
                                                 @endphp
                                             @endforeach
                                         @else
-                                            {{-- If "cogdetails" is empty or not an array --}}
                                             <tr>
                                                 <td>{{ str_replace('&nbsp;', ' ', $data[$i]['cogdetails']['subjectname'] ?? '&nbsp;') }}</td>
                                                 <td>{{ str_replace('&nbsp;', ' ', $data[$i]['cogdetails']['unit'] ?? '&nbsp;') }}</td>
-                                                <td>{{ str_replace('&nbsp;', ' ', $data[$i]['cogdetails']['grade'] ?? '&nbsp;') }}</td>
+                                                <td>{{ !empty($data[$i]['cogdetails']['grade']) ? number_format($data[$i]['cogdetails']['grade'], 2) : '' }}</td>
                                                 <td>&nbsp;</td>
                                                 <td>
-                                                    @if (isset($data[$i]['cogdetails']['grade'], $data[$i]['cogdetails']['unit']))
-                                                        {{ $data[$i]['cogdetails']['grade'] * $data[$i]['cogdetails']['unit'] }}
+                                                    @if (!empty($data[$i]['cogdetails']['grade']) && !empty($data[$i]['cogdetails']['unit']))
+                                                        {{ number_format($data[$i]['cogdetails']['grade'] * $data[$i]['cogdetails']['unit'], 2) }} {{-- FOR REMARKS? UNIT * GRADE --}}
                                                     @endif
                                                 </td>
-                                                {{-- Add more cells as needed --}}
                                             </tr>
                                         @endif
                                     @endfor
