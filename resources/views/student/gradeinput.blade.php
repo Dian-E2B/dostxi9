@@ -263,27 +263,29 @@
                                                                     <th>
                                                                         Subject Name:
                                                                     </th>
-                                                                    <th style="width: 40em">
+                                                                    <th style="width: 10em">
                                                                         Grade:
                                                                     </th>
-                                                                    <th>
+                                                                    <th style="width: 10em">
                                                                         Units:
                                                                     </th>
                                                                     <th>
                                                                         Action
                                                                     </th>
                                                                 </thead>
-                                                                <tbody>
-                                                                    <td><input name="subjectnames[0][name]" type="text" class="form-control" required></td>
-                                                                    <td> <input id="grade1" type="number" step="0.01" required pattern="[0-9]+" name="grades[0][grade]" class="form-control numeric-input"></td>
-                                                                    <td> <input id="unit1" name="units[0][unit]" required pattern="[0-9]+" type="number" class="form-control numeric-input"></td>
-                                                                    <td style="text-align: center"> <a name="add" id="add" type="button" class=" rounded-pill btn btn-success">Add Row</a></td>
+                                                                <tbody id="table">
+                                                                    <tr>
+                                                                        <td><input name="subjectnames[0][name]" type="text" class="form-control" required></td>
+                                                                        <td> <input id="grade1" type="number" step="0.01" required pattern="[0-9]+" name="grades[0][grade]" class="form-control numeric-input"></td>
+                                                                        <td> <input id="unit1" name="units[0][unit]" required pattern="[0-9]+" type="number" class="form-control numeric-input"></td>
+                                                                        <td style="text-align: center"> <a name="add" id="add" type="button" class="form-control btn btn-success">Add Row</a></td>
+                                                                    </tr>
                                                                 </tbody>
                                                             </table>
 
                                                         </div>
                                                     </div>
-                                                    <table id="table"></table> {{-- add row area --}}
+                                                    {{--  <table id="table"></table> {{-- add row area --}}
                                                     <label>
                                                         <input id="scholaridinput" name="scholarid" style="display: none;" value="{{ $scholarId }}">
                                                     </label>
@@ -332,24 +334,12 @@
         $('#add').click(function() {
             ++i;
             $('#table').append(
-                '<div style="" class="d-flex align-items-center mt-1 row1" id="row' + i + '">' +
-                '<div class="me-2">' +
-                ' <label>Subject Name:</label>' +
-                '<input id="subjectname1" name="subjectnames[' + i + '][name]"  type="text" class="form-control" required>' +
-                ' </div>' +
-                '<div class="me-2">' +
-                ' <label>Grade:</label>' +
-                '<input id="grade1" type="number" step="0.01" required pattern="[0-9]+"  name="grades[' + i + '][grade]"  class="form-control allow_decimal" title="Please enter a valid number" >' +
-                '</div>' +
-                '<div class="me-2">' +
-                '<label>Units:</label>' +
-                '<input id="unit1" name="units[' + i + '][unit]"type="number" class="form-control allow_decimal" required pattern="[0-9]+" title="Please enter a valid number">' +
-                '</div>' +
-                '<div class="me-2">' +
-                '<br>' +
-                ' <button name="add" id="add" type="button" class="btn btn-danger remove-table-row">Delete</button>' +
-                ' </div>' +
-                '</div>'
+                '<tr class="row1"  id="row' + i + '">' +
+                '<td><input name="subjectnames[' + i + '][name]" type="text" class="form-control" required></td>' +
+                '<td><input id="grade' + i + '" type="number" step="0.01" required pattern="[0-9]+" name="grades[' + i + '][grade]" class="form-control numeric-input"></td>' +
+                '<td><input id="unit' + i + '" name="units[' + i + '][unit]" required pattern="[0-9]+" type="number" class="form-control numeric-input"></td>' +
+                '<td style="text-align: center"><button type="button" name="remove' + i + '" class="btn btn-danger form-control remove-table-row">Delete</button></td>' +
+                '</tr>'
             );
         });
 
