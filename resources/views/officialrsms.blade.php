@@ -159,45 +159,50 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @for ($i = 0; $i < 12; $i++)
+                                    @php
+                                        $rowCount = 0;
+                                    @endphp
+                                    @for ($i = 0; $i <= 12; $i++)
                                         @if (!empty($data[$i]['cogdetails']) && is_array($data[$i]['cogdetails']))
-                                            {{-- If "cogdetails" is an array and not empty, loop through its items --}}
                                             @foreach ($data[$i]['cogdetails'] as $cogDetail)
-                                                <tr>
-                                                    <td>{{ str_replace('&nbsp;', ' ', $cogDetail['subjectname'] ?? '&nbsp;') }}</td>
-                                                    <td>{{ str_replace('&nbsp;', ' ', $cogDetail['unit'] ?? '&nbsp;') }}</td>
-                                                    <td>{{ !empty($cogDetail['grade']) ? number_format($cogDetail['grade'], 2) : '' }}</td>
-                                                    <td>&nbsp;</td>
-                                                    <td>{{ !empty($cogDetail['grade']) && !empty($cogDetail['unit']) ? number_format($cogDetail['grade'] * $cogDetail['unit'], 2) : '' }}</td>
-                                                    {{-- Add more cells as needed --}}
-                                                </tr>
-                                                @php
-                                                    if (!empty($cogDetail['grade']) && !empty($cogDetail['unit'])) {
-                                                        $sumOfRemarksColumn += $cogDetail['grade'] * $cogDetail['unit'];
-                                                        $sumOfUnit += $cogDetail['unit'];
-                                                        $sumOfGrades += $cogDetail['grade'];
-                                                    }
-                                                @endphp
+                                                @if ($rowCount < 12)
+                                                    <tr>
+                                                        <td>{{ str_replace('&nbsp;', ' ', $cogDetail['subjectname'] ?? '&nbsp;') }}</td>
+                                                        <td>{{ str_replace('&nbsp;', ' ', $cogDetail['unit'] ?? '&nbsp;') }}</td>
+                                                        <td>{{ !empty($cogDetail['grade']) ? number_format($cogDetail['grade'], 2) : '' }}</td>
+                                                        <td>&nbsp;</td>
+                                                        <td>{{ !empty($cogDetail['grade']) && !empty($cogDetail['unit']) ? number_format($cogDetail['grade'] * $cogDetail['unit'], 2) : '' }}</td>
+                                                        {{-- Add more cells as needed --}}
+                                                    </tr>
+                                                    @php
+                                                        if (!empty($cogDetail['grade']) && !empty($cogDetail['unit'])) {
+                                                            $sumOfRemarksColumn += $cogDetail['grade'] * $cogDetail['unit'];
+                                                            $sumOfUnit += $cogDetail['unit'];
+                                                            $sumOfGrades += $cogDetail['grade'];
+                                                        }
+                                                        $rowCount++;
+                                                    @endphp
+                                                @endif
                                             @endforeach
                                         @else
-                                            <tr>
-                                                <td>{{ str_replace('&nbsp;', ' ', $data[$i]['cogdetails']['subjectname'] ?? '&nbsp;') }}</td>
-                                                <td>{{ str_replace('&nbsp;', ' ', $data[$i]['cogdetails']['unit'] ?? '&nbsp;') }}</td>
-                                                <td>{{ !empty($data[$i]['cogdetails']['grade']) ? number_format($data[$i]['cogdetails']['grade'], 2) : '' }}</td>
-                                                <td>&nbsp;</td>
-                                                <td>
-                                                    @if (!empty($data[$i]['cogdetails']['grade']) && !empty($data[$i]['cogdetails']['unit']))
-                                                        {{ number_format($data[$i]['cogdetails']['grade'] * $data[$i]['cogdetails']['unit'], 2) }} {{-- FOR REMARKS? UNIT * GRADE --}}
-                                                    @endif
-                                                </td>
-                                            </tr>
+                                            @if ($rowCount < 12)
+                                                <tr>
+                                                    <td>{{ str_replace('&nbsp;', ' ', $data[$i]['cogdetails']['subjectname'] ?? '&nbsp;') }}</td>
+                                                    <td>{{ str_replace('&nbsp;', ' ', $data[$i]['cogdetails']['unit'] ?? '&nbsp;') }}</td>
+                                                    <td>{{ !empty($data[$i]['cogdetails']['grade']) ? number_format($data[$i]['cogdetails']['grade'], 2) : '' }}</td>
+                                                    <td>&nbsp;</td>
+                                                    <td>
+                                                        @if (!empty($data[$i]['cogdetails']['grade']) && !empty($data[$i]['cogdetails']['unit']))
+                                                            {{ number_format($data[$i]['cogdetails']['grade'] * $data[$i]['cogdetails']['unit'], 2) }} {{-- FOR REMARKS? UNIT * GRADE --}}
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                                @php
+                                                    $rowCount++;
+                                                @endphp
+                                            @endif
                                         @endif
                                     @endfor
-
-                                    {{-- @php
-                                        @dd($data);
-                                    @endphp --}}
-
                                     <tr>
                                         <td style="width: 80px">total</td>
                                         <td style="width: 40px">{{ $sumOfUnit }}</td>

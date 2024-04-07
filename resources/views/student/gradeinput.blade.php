@@ -257,16 +257,16 @@
                                             <div class="card">
                                                 <div class="card-body">
                                                     <div class="row">
-                                                        <div class="d-flex align-items-center mt-1">
-                                                            <table class="compact table-sm table table-bordered">
+                                                        <div class="d-flex align-items-center mt-3">
+                                                            <table class="compact  table table-bordered">
                                                                 <thead>
                                                                     <th>
                                                                         Subject Name:
                                                                     </th>
-                                                                    <th style="width: 10em">
+                                                                    <th>
                                                                         Grade:
                                                                     </th>
-                                                                    <th style="width: 10em">
+                                                                    <th>
                                                                         Units:
                                                                     </th>
                                                                     <th>
@@ -276,9 +276,9 @@
                                                                 <tbody id="table">
                                                                     <tr>
                                                                         <td><input name="subjectnames[0][name]" type="text" class="form-control" required></td>
-                                                                        <td> <input id="grade1" type="number" step="0.01" required pattern="[0-9]+" name="grades[0][grade]" class="form-control numeric-input"></td>
-                                                                        <td> <input id="unit1" name="units[0][unit]" required pattern="[0-9]+" type="number" class="form-control numeric-input"></td>
-                                                                        <td style="text-align: center"> <a name="add" id="add" type="button" class="form-control btn btn-success">Add Row</a></td>
+                                                                        <td style="width: 10em"> <input id="grade1" type="number" step="0.01" required pattern="[0-9]+" name="grades[0][grade]" class="form-control numeric-input"></td>
+                                                                        <td style="width: 10em"> <input id="unit1" name="units[0][unit]" required pattern="[0-9]+" type="number" class="form-control numeric-input"></td>
+                                                                        <td style="text-align: center"> <a name="add" id="add" type="button" class="form-control btn btn-success"><i class="fas fa-plus"></i></a></td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
@@ -335,10 +335,10 @@
             ++i;
             $('#table').append(
                 '<tr class="row1"  id="row' + i + '">' +
-                '<td><input name="subjectnames[' + i + '][name]" type="text" class="form-control" required></td>' +
-                '<td><input id="grade' + i + '" type="number" step="0.01" required pattern="[0-9]+" name="grades[' + i + '][grade]" class="form-control numeric-input"></td>' +
-                '<td><input id="unit' + i + '" name="units[' + i + '][unit]" required pattern="[0-9]+" type="number" class="form-control numeric-input"></td>' +
-                '<td style="text-align: center"><button type="button" name="remove' + i + '" class="btn btn-danger form-control remove-table-row">Delete</button></td>' +
+                '<td ><input name="subjectnames[' + i + '][name]" type="text" class="form-control" required></td>' +
+                '<td style="width: 10em"><input id="grade' + i + '" type="number" step="0.01" required pattern="[0-9]+" name="grades[' + i + '][grade]" class="form-control numeric-input"></td>' +
+                '<td style="width: 10em"><input id="unit' + i + '" name="units[' + i + '][unit]" required pattern="[0-9]+" type="number" class="form-control numeric-input"></td>' +
+                '<td style="text-align: center"><button type="button" name="remove' + i + '" class="btn btn-danger form-control remove-table-row"><i class="fas fa-minus"></i></button></td>' +
                 '</tr>'
             );
         });
