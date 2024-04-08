@@ -43,12 +43,10 @@
                 background-color: white;
             }
 
-            @media print {}
+
 
             @media print {
-                body {
-                    zoom: 31%;
-                }
+
 
                 #logo {
                     display: block;
@@ -62,6 +60,7 @@
                 table,
                 table tr,
                 table td {
+
                     border-top: #000 solid 1px;
                     border-bottom: #000 solid 1px;
                     border-left: #000 solid 1px;
@@ -69,6 +68,11 @@
                 }
             }
 
+
+            th {
+                vertical-align: bottom !important;
+                text-align: center !important;
+            }
 
             table.dataTable>thead .sorting::before,
             table.dataTable>thead .sorting::after {
@@ -153,16 +157,16 @@
                                         <table id="yourDataTable" class="display nowrap compact table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th>Action</th>
+                                                    <th style="vertical-align: bottom;">Action</th>
                                                     <th>Batch</th>
-                                                    <th style="width:100px !important;">Number</th>
+                                                    <th style="width:20px !important;">No.</th>
                                                     <th>Name</th>
-                                                    <th style="width:100px !important;"><span style="" hidden>MF</span>
+                                                    <th style="width:30px !important;"><span style="" hidden>MF</span>
                                                     </th>
                                                     <th style="width:100px !important;"><span style="" hidden>Program</span></th>
                                                     <th style="width:150px !important;"><span style="" hidden>School</span></th>
                                                     <th style="width:150px !important;"><span style="" hidden>Course</span></th>
-                                                    <th>
+                                                    <th style="vertical-align: bottom;">
                                                         @if ($semester == 1)
                                                             {{-- 1ST SEM --}}
                                                             @php
@@ -170,7 +174,7 @@
                                                                 $startyear2 = $startyear - 1;
                                                                 $endyear2 = $endyear - 1;
                                                             @endphp
-                                                            {{ 'GRADES' . $semester2 . 'NDSEM' . $startyear2 . '' . $endyear2 }}
+                                                            {{ 'GRADES' }} <br> {{ $semester2 . 'ND-SEM' }} <br> {{ $startyear2 . '-' . $endyear2 }}
                                                         @elseif ($semester == 2)
                                                             {{-- 2ND SEM --}}
                                                             @php
@@ -178,15 +182,15 @@
                                                                 $startyear2 = $startyear;
                                                                 $endyear2 = $endyear;
                                                             @endphp
-                                                            {{ 'GRADES' . $semester2 . 'STSEM' . $startyear2 . '' . $endyear2 }}
-                                                        @elseif ($semester == 3)
+                                                            {{ 'GRADES' }} <br> {{ $semester2 . 'ST-SEM' }} <br> {{ $startyear2 . '-' . $endyear2 }}
+                                                        @elseif ($semester == 0)
                                                             {{-- SUMMER --}}
                                                             @php
-                                                                $semester2 = $semester - 1; //2ND SEM
+                                                                $semester2 = $semester + 2; //2ND SEM
                                                                 $startyear2 = $startyear - 1; //CURRENT
-                                                                $endyear2 = $endyear; //
+                                                                $endyear2 = $startyear; //
                                                             @endphp
-                                                            {{ 'GRADES' . $semester2 . 'NDSEM' . $startyear2 . '' . $endyear2 }}
+                                                            {{ 'GRADES' }} <br> {{ $semester2 . 'ND-SEM' . $startyear2 . '-' . $endyear2 }}
                                                         @endif
                                                     </th>
                                                     <th>SummerREG</th>
@@ -198,7 +202,7 @@
                                                                 $startyear2 = $startyear;
                                                                 $endyear2 = $endyear;
                                                             @endphp
-                                                            {{ 'REG FORMS' . $semester2 . 'STSEM' . $startyear2 . '' . $endyear2 }}
+                                                            {{ 'REG FORMS' }} <br> {{ $semester2 . 'ST-SEM' }} <br> {{ $startyear2 . '-' . $endyear2 }}
                                                         @elseif ($semester == 2)
                                                             {{-- 2ND SEM --}}
                                                             @php
@@ -206,25 +210,25 @@
                                                                 $startyear2 = $startyear;
                                                                 $endyear2 = $endyear;
                                                             @endphp
-                                                            {{ 'REG FORMS' . $semester2 . 'NDSEM' . $startyear2 . '' . $endyear2 }}
-                                                        @elseif ($semester == 3)
+                                                            {{ 'REG FORMS' }} <br> {{ $semester2 . 'ND-SEM' }} <br> {{ $startyear2 . '-' . $endyear2 }}
+                                                        @elseif ($semester == 0)
                                                             {{-- SUMMER --}}
                                                             @php
                                                                 $semester2 = $semester - 2; //1ST SEM
                                                                 $startyear2 = $startyear; //(SAME STARTYEAR,+1 ENDYEAR)
                                                                 $endyear2 = $endyear; //
                                                             @endphp
-                                                            {{ 'REG FORMS' . $semester2 . 'STSEM' . $startyear2 . '' . $endyear2 }}
+                                                            {{ 'REG FORMS' }} <br>{{ $semester2 . 'ST-SEM' }} <br> {{ $startyear2 . '-' . $endyear2 }}
                                                         @endif
                                                     </th>
                                                     <th>REMARKS</th>
-                                                    <th>STATUSENDORSEMENT</th>
-                                                    <th>STATUSENDORSEMENT2</th>
-                                                    <th>STATUS</th>
+                                                    <th>STATUS<br>ENDORSEMENT</th>
+                                                    <th>STATUS<br>ENDORSEMENT2</th>
+                                                    <th style="width:80px !important;"><span style="" hidden>STATUS</span></th>
                                                     <th>NOTATIONS</th>
                                                     <th>SUMMER</th>
-                                                    <th>FARELEASEDTUITION</th>
-                                                    <th>FARELEASEDTUITIONBOOKSTIPEND</th>
+                                                    <th>FARELEASED<br>TUITION</th>
+                                                    <th>FARELEASED<br>TUITION<br>BOOK<br>STIPEND</th>
                                                     <th>LVDCAccount</th>
                                                     <th>HVCNotes</th>
                                                     <th>startyear</th>
@@ -444,7 +448,6 @@
                 Swal.fire({
                     title: 'Select a status endorsement',
                     html: '<ul class="list-group">' +
-                        '<li class="list-group-item" onclick="selectStatusEndorsement(\'endorsed: 1st sem ' + startyearValue + '-' + endyearValue + '\')">endorsed: 1st sem ' + startyearValue + '-' + endyearValue + '</li>' +
                         '<li class="list-group-item" onclick="selectStatusEndorsement(\'NO COR\')">NO COR</li>' +
                         '<li class="list-group-item" onclick="selectStatusEndorsement(\'LOA: PENDING APPLICATION\')">LOA: PENDING APPLICATION</li>' +
                         '</ul>',
@@ -519,7 +522,7 @@
                             render: function(data, type, row) {
                                 // Apply custom styles to the email address
                                 var styledgender =
-                                    '<span style="padding-left:20px;padding-right: 10px;">' + data +
+                                    '<span style="padding-left:20px;padding-right: 20px;">' + data +
                                     '</span>';
                                 return styledgender;
                             },
@@ -556,7 +559,9 @@
                         },
                         {
                             data: 'GRADES',
-                            name: 'GRADES' + semesterValue2 + 'SEM' + startyearValue - 1 + endyearValue - 1
+                            name: 'GRADES' + semesterValue2 + 'SEM' + startyearValue - 1 + endyearValue - 1,
+
+
                         },
                         {
                             data: 'SummerREG',
@@ -580,7 +585,15 @@
                         },
                         {
                             data: 'STATUS',
+                            render: function(data, type, row) {
 
+                                if (data === null) {
+                                    return "";
+                                }
+
+                                var stylestatus = '<span style="padding-right: 60px;">' + data + '</span>';
+                                return stylestatus;
+                            }
                         },
                         {
                             data: 'NOTATIONS',
@@ -614,12 +627,6 @@
                             data: 'endyear',
 
                         },
-                        // {
-                        //     data: 'semester',
-
-                        // }
-
-
 
                     ],
                     columnDefs: [{
@@ -627,15 +634,14 @@
                             className: 'text-center',
                         },
                         {
-                            targets: [0, 2], // Index of the "No" column
+                            targets: [0, 2], // Index of the "No" column, now correctly targeting the first column (0)
                             orderable: false,
                             searchable: false,
                         },
                         {
-                            targets: [0, 3, 5, 6, 7, 19, 4],
+                            targets: [1, 2, 3, 5, 6, 7, 8, 9, 19, 4, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20], // Adjusted to correctly target the intended columns
                             orderable: false,
                         },
-
                     ],
                     fixedHeader: {
                         header: true,
@@ -643,10 +649,10 @@
                     },
                     scrollX: true,
                     order: [
-                        [1, 'asc'] //set batch sort from lowest
+                        /*   [1, 'asc'] //set batch sort from lowest */
                     ],
                     fixedColumns: {
-                        leftColumns: 4,
+                        /*  leftColumns: 4, */
                     },
                     createdRow: function(row, data, dataIndex) {
                         $(row).find('.action-column').addClass('text-center');
@@ -654,10 +660,10 @@
 
 
                     initComplete: function() {
-                        this.api().columns([5, 4, 6, 7]).every(function(d) {
+                        this.api().columns([5, 4, 6, 7, 14]).every(function(d) {
                             var column = this;
                             var select = $(
-                                    "<select style=\"padding-top:1px !important; padding-bottom:1px !important;\" class=\"form-control\"><option value=\"\">" +
+                                    "<select style=\"padding-top:1px !important; padding-bottom:1px !important;\" ><option value=\"\">" +
                                     column.header().textContent + "</option></select>"
                                 )
                                 .appendTo($(column.header()))
@@ -861,6 +867,9 @@
                                 'white-space': 'normal',
                                 'word-wrap': 'break-word'
                             });
+
+                            //ADDED APRIL 8 2024
+                            $(win.document.body).find('div.DTTT_container').remove(); // This removes the DataTables title and buttons
 
                             // Remove wrapping style from the 3rd column
                             $(win.document.body).find('table td:nth-child(3)').css({

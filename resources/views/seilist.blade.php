@@ -92,6 +92,8 @@
                             icon: "error",
                             title: "ERROR!",
                             text: errorMessage,
+                            showConfirmButton: true, // Add a confirm button
+                            confirmButtonText: "OK" // Customize the text of the confirm button
                         });
                     </script>
                 @elseif (session('success'))
@@ -99,8 +101,10 @@
                         let successmessage = "{{ session('success') }}";
                         Swal.fire({
                             icon: "success",
-                            title: "",
+                            title: "SUCCESS!",
                             text: successmessage,
+                            showConfirmButton: true, // Add a confirm button
+                            confirmButtonText: "OK" // Customize the text of the confirm button
                         });
                     </script>
                 @endif

@@ -112,7 +112,8 @@ class SendMailController extends Controller
                     } catch (Exception $e) {
                         // dd($e->getMessage());
                         //do nothing
-                        session()->flash('error', 'ERROR: ' . $e->getMessage());
+                        session()->flash('errors', 'ERROR: ' . $e->getMessage());
+                        /*   session()->flash('errors', 'No Proper Internet Connection!'); */
                     }
                 }
                 session()->flash('success', 'Your notice for All RA 7687 has been sent!');

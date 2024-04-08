@@ -126,12 +126,12 @@
                                                                 2nd Semester
                                                             @break
 
-                                                            @case(3)
+                                                            @case(0)
                                                                 Summer
                                                             @break
 
                                                             @default
-                                                                Unknown
+                                                                3rd
                                                         @endswitch
                                                     </td>
                                                     <td>{{ $result->group_year }}</td>

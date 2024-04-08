@@ -239,7 +239,6 @@ class AccessControlViewController extends Controller
                 $scholarCogdeletenotif->delete();
                 $result = $this->MainServices->enrollscholartoongoing($scholarCog->scholar_id, $semester, $startyear);
                 if ($result) {
-                    Log::info('Session data before redirect2:', session()->all());
                     return back()->with('approved', 'COG and COR has been approved scholar is now appended to ongoing!');
                 }
             }

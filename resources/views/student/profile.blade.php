@@ -37,6 +37,8 @@
                     icon: "error",
                     title: "ERROR!",
                     text: errorMessage,
+                    showConfirmButton: true,
+                    confirmButtonText: "OK"
                 });
             </script>
         @elseif (session('success'))
@@ -44,8 +46,10 @@
                 let successmessage = "{{ session('success') }}";
                 Swal.fire({
                     icon: "success",
-                    title: "Success!",
+                    title: "SUCCESS!",
                     text: successmessage,
+                    showConfirmButton: true,
+                    confirmButtonText: "OK"
                 });
             </script>
         @endif
@@ -84,7 +88,7 @@
                                         title: 'Hello Scholar!',
                                         text: 'Please submit your requirements to continue to your portal',
                                         icon: 'info',
-                                        width: '500px', // Set the width of the dialog box
+                                        width: '500px'
                                         confirmButtonText: 'Okay',
                                     })
                                 </script>
