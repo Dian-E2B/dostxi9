@@ -114,19 +114,19 @@ class RsmsViewController extends Controller //OR ONGOING
     }
 
 
-    public function getOngoingById($number)
+    public function getOngoingById($number, $semester, $startyear)
     {
         $results = DB::select(
             "SELECT ongoing.*
-            FROM ongoing
-            WHERE ongoing.NUMBER = :number",
-            ['number' => $number]
+        FROM ongoing
+        WHERE ongoing.NUMBER = :number
+        AND ongoing.semester = :semester
+        AND ongoing.startyear = :startyear",
+            ['number' => $number, 'semester' => $semester, 'startyear' => $startyear]
         );
         if (empty($results)) {
             return response()->json(['error' => 'Record not found'], 404);
         }
-
-        // return response()->json($ongoing);
         return response()->json($results[0]);
     }
 

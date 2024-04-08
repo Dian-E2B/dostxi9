@@ -109,7 +109,7 @@ Route::middleware(['auth', 'role:staff'])->group(function () {
 
     //RSMS
     Route::get('/rsms', [RsmsViewController::class, 'rsmsview'])->name('rsms');
-    Route::GET('/get-ongoing/{number}', [RsmsViewController::class, 'getOngoingById']);
+    Route::GET('/get-ongoing/{number}/{semesterValue}/{startyearValue}', [RsmsViewController::class, 'getOngoingById']);
     Route::get('/rsms2/{startyear}/{endyear}/{semester}', [RsmsViewController::class, 'rsmsview2'])->name('rsms2');
     Route::get('/rsmslistra7687', [RsmsViewController::class, 'rsmslistra7687view'])->name('rsmslistra7687');
     Route::get('/rsmslistra10612', [RsmsViewController::class, 'rsmslistra10612view'])->name('rsmslistra10612');

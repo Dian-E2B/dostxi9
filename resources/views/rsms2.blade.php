@@ -706,7 +706,7 @@
                 $(document).on('click', '.edit-btn', function() {
                     var number = $(this).data('number');
                     $.ajax({
-                        url: '{{ url('/get-ongoing/') }}' + '/' + number,
+                        url: '{{ url('/get-ongoing/') }}' + '/' + number + '/' + semesterValue + '/' + startyearValue,
                         method: 'GET',
                         success: function(data) {
                             $('#editModal #idField').val(data.NUMBER);

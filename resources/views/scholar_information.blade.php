@@ -89,11 +89,11 @@
 
                                 @switch($scholarStatusId)
                                     @case(1)
-                                        <div class="mb-2 badge bg-secondary  my-2"> Pending</div>
+                                        <div class="mb-2 badge bg-secondary  my-2">Pending</div>
                                     @break
 
                                     @case(2)
-                                        <div class="mb-2 badge bg-primary  my-2"> Ongoing</div>
+                                        <div class="mb-2 badge bg-primary  my-2">Ongoing</div>
                                     @break
 
                                     @case(3)
@@ -101,15 +101,15 @@
                                     @break
 
                                     @case(4)
-                                        <div class="mb-2 badge bg-warning  my-2"> Deffered</div>
+                                        <div class="mb-2 badge bg-warning  my-2">Deffered</div>
                                     @break
 
                                     @case(5)
-                                        <div class="mb-2 badge bg-warning  my-2"> LOA</div>
+                                        <div class="mb-2 badge bg-warning  my-2">LOA</div>
                                     @break
 
                                     @case(6)
-                                        <div class="mb-2 badge bg-danger  my-2"> Terminated</div>
+                                        <div class="mb-2 badge bg-danger  my-2">Terminated</div>
                                     @break
 
                                     @default
@@ -223,7 +223,7 @@
                                                 </tr>
                                                 <tr class="">
                                                     <th class="" style="">Date Uploaded</th>
-
+                                                    <th class="">Year</th>
                                                     <th class="">Semester</th>
                                                     <th style="text-align: center;" class="">COG Details</th>
                                                     <th style="text-align: center;" class="">COR Details</th>
@@ -236,6 +236,7 @@
                                                 @foreach ($cogpassed as $cogpassed1)
                                                     <tr class="">
                                                         <td class="">{{ \Carbon\Carbon::parse($cogpassed1->date_uploaded)->format('F j, Y') }}</td>
+                                                        <td class="">{{ $cogpassed1->startyear }}</td>
                                                         <td class="">{{ $cogpassed1->semester }}</td>
                                                         <td class="" style="text-align: center;"><a data-cogid="{{ $cogpassed1->id }}" class="d-block viewcog thisisbutton btn btn-light"><i class="fas fa-eye"></i>&nbsp;View</a></td>
                                                         <td class="" style="text-align: center;"><a data-corid="{{ $cogpassed1->id }}" class="d-block viewcor thisisbutton btn btn-light"><i class="fas fa-eye"></i>&nbsp;View</a></td>
