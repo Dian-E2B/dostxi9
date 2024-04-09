@@ -69,7 +69,7 @@
             }
 
 
-            th {
+            .ongoinglisttable th {
                 vertical-align: bottom !important;
                 text-align: center !important;
             }
@@ -85,25 +85,16 @@
                 width: 500px !important;
             }
 
-            .canvastable td {
-                border-top: #b7b7b7 solid 1px;
-                border-bottom: #b7b7b7 solid 1px;
-                border-left: #b7b7b7 solid 1px;
-                border-right: #b7b7b7 solid 1px;
-            }
+
 
             .canvastable input,
             .canvastable textarea {
                 border: none;
             }
 
-            .canvastable th {
-                width: 1in !important;
-                border-top: #b7b7b7 solid 1px;
-                border-bottom: #b7b7b7 solid 1px;
-                border-left: #b7b7b7 solid 1px;
-                border-right: #b7b7b7 solid 1px;
-                /* Adjust the minimum width as needed */
+
+            canvasth {
+                vertical-align: center;
             }
 
             .view-btn {
@@ -154,7 +145,7 @@
                                 <div class="">
                                     <img id="logo" src="{{ asset('icons/DOSTlogoONGOING.jpg') }}" style="display: none;">
                                     <div class="">
-                                        <table id="yourDataTable" class="display nowrap compact table-striped">
+                                        <table id="yourDataTable" class="ongoinglisttable display nowrap compact table-striped">
                                             <thead>
                                                 <tr>
                                                     <th style="vertical-align: bottom;">Action</th>
@@ -247,28 +238,28 @@
 
 
 
-                        <div class="offcanvas offcanvas-end" id="editModal" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+                        <div class="offcanvas offcanvas-end " id="editModal" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
                             <div class="offcanvas-header">
                                 <h5 class="offcanvas-title" id="offcanvasScrollingLabel">EDIT SCHOLAR DETAILS</h5>
                                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                             </div>
                             <div class="offcanvas-body">
-                                <table class="canvastable" style="width: 100%">
+                                <table class="canvastable table-bordered table-sm" style="width: 100%">
 
                                     <tr>
-                                        <th class="canvasth"><strong>ID:</strong></th>
+                                        <th class="canvasth">ID:</th>
                                         <td class="canvastable">
                                             <input disabled class="form-control form-control-sm" id="idField" name="idField" placeholder="">
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th class="canvasth"><strong>Name:</strong></th>
+                                        <th class="canvasth">Name:</th>
                                         <td class="canvastable">
                                             <input class="form-control form-control-sm" id="nameField" name="nameField">
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th class="canvasth"><strong>Gender:</strong></th>
+                                        <th class="canvasth">Gender:</th>
                                         <td class="canvastable">
                                             {{--   <input class="form-control form-control-sm" id="genderField" name="genderField"> --}}
                                             <select class="form-control" id="genderField" name="genderField">
@@ -278,43 +269,43 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th class="canvasth"><strong>Program:</strong></th>
+                                        <th class="canvasth">Program:</th>
                                         <td class="canvastable">
                                             <input class="form-control form-control-sm" id="programField" name="programField">
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th class="canvasth"><strong>School:</strong></th>
+                                        <th class="canvasth">School:</th>
                                         <td class="canvastable">
                                             <input class="form-control form-control-sm" id="schoolField" name="schoolField">
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th class="canvasth"><strong>Course:</strong></th>
+                                        <th class="canvasth">Course:</th>
                                         <td class="canvastable">
                                             <input class="form-control form-control-sm" id="courseField" name="courseField">
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th class="canvasth"><strong>GRADES:</strong></th>
+                                        <th class="canvasth">Grades:</th>
                                         <td class="canvastable">
                                             <input class="form-control form-control-sm" id="gradesField" name="gradesField">
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th class="canvasth"><strong>SummerREG:</strong></th>
+                                        <th class="canvasth">SummerREG:</th>
                                         <td class="canvastable">
                                             <input class="form-control form-control-sm" id="summerRegField" name="summerRegField">
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th class="canvasth"><strong>REGFORMS:</strong></th>
+                                        <th class="canvasth">REGForms:</th>
                                         <td class="canvastable">
                                             <input class="form-control form-control-sm" id="regFormsField" name="regFormsField">
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th class="canvasth"><strong>REMARKS:</strong></th>
+                                        <th style="vertical-align:center" class="canvasth">Remarks:</th>
                                         <td style="height:100px;   " class="canvastable">
                                             <textarea style=" height: 100px;" class="form-control form-control-sm" id="remarksField" name="remarksField" placeholder="Type here..."></textarea>
                                             <button class="btn btn-light btn-sm mt-1 mb-1" onclick="showSuggestionsAlertRemarks()"><i class="fas fa-question-square"></i></button>
@@ -323,77 +314,75 @@
 
                                     </tr>
                                     <tr>
-                                        <th class="canvasth"><strong>STATUS ENDORSEMENT :</strong></th>
+                                        <th class="canvasth">Status Endorsement:</th>
                                         <td style="" class="canvastable">
                                             <input class="form-control form-control-sm" id="statusEndorsementField" name="statusEndorsementField">
 
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th class="canvasth">
-                                            STATUS ENDORSEMENT2
-                                        </th>
+                                        <th class="canvasth">Status Endorsement2s:</th>
                                         <td style="" class="canvastable">
                                             <input class="form-control form-control-sm" id="statusEndorsement2Field" name="statusEndorsement2Field">
-                                            <button class="btn btn-light btn-sm" onclick="showStatusEndorsementSuggestionsAlert()"><i class="fas fa-question-square"></i></button>
+                                            <button class="btn btn-light btn-sm mt-1" onclick="showStatusEndorsementSuggestionsAlert()"><i class="fas fa-question-square"></i></button>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th class="canvasth"><strong>STATUS :</strong></th>
+                                        <th class="canvasth">Status:</th>
                                         <td style="" class="canvastable">
                                             <input class="form-control form-control-sm" id="statusField" name="statusField">
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th class="canvasth"><strong>NOTATIONS :</strong></th>
+                                        <th class="canvasth">Notations:</th>
                                         <td style="" class="canvastable">
                                             <textarea style=" height: 100px;" class="form-control form-control-sm" id="notationsField" name="notationsField"></textarea>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th class="canvasth"><strong>SUMMER :</strong></th>
+                                        <th class="canvasth">Summer:</th>
                                         <td class="canvastable">
                                             <input class="form-control form-control-sm" id="summerField" name="summerField">
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th class="canvasth"><strong>FARELEASEDTUITION :</strong></th>
+                                        <th class="canvasth">FA Released Tuition:</th>
                                         <td class="canvastable">
                                             <input class="form-control form-control-sm" id="faReleaseTuitionField" name="faReleaseTuitionField">
                                         </td>
                                     </tr>
                                     <tr style="">
-                                        <th class="canvasth"> <strong>FARELEASEDTUITION BOOKSTIPEND:</strong></th>
+                                        <th class="canvasth"> FA ReleasedTuition BookStipend:</th>
                                         <td class="canvastable">
                                             <input class="form-control form-control-sm" id="faReleaseTuitionBookStipendField" name="faReleaseTuitionBookStipendField">
                                         </td>
                                     </tr>
                                     <tr style="">
-                                        <th class="canvasth"> <strong>LVDCAccount :</strong></th>
+                                        <th class="canvasth"> LVDCAccount:</th>
                                         <td class="canvastable">
                                             <input class="form-control form-control-sm" id="lvdCAccountField" name="lvdCAccountField">
                                         </td>
                                     </tr>
-                                    <tr style="">
-                                        <th class="canvasth"> <strong>HVCNotes :</strong></th>
+                                    <tr>
+                                        <th class="canvasth">HVCNotes:</th>
                                         <td class="canvastable">
                                             <input class="form-control form-control-sm" id="hvcNotesField" name="hvcNotesField">
                                         </td>
                                     </tr>
-                                    <tr style="">
-                                        <th class="canvasth"> <strong>SEMESTER :</strong></th>
+                                    <tr class="d-none" style="">
+                                        <th class="canvasth"> <strong>Semester:</strong></th>
                                         <td class="canvastable">
-                                            <input class="form-control form-control-sm" id="semesterField" name="semesterField">
+                                            <input disabled class="form-control form-control-sm" id="semesterField" name="semesterField">
                                         </td>
                                     </tr>
                                     <tr style="display:none">
-                                        <th class="canvasth"> <strong>STARTYEAR :</strong></th>
+                                        <th class="canvasth">Startyear:</th>
                                         <td class="canvastable">
                                             <input class="form-control form-control-sm" id="startyearField" name="startyearField">
                                         </td>
                                     </tr>
                                     <tr style="display:none">
-                                        <th class="canvasth"> <strong>ENDYEAR :</strong></th>
+                                        <th class="canvasth">Endyear:</th>
                                         <td class="canvastable">
                                             <input class="form-control form-control-sm" id="endyearField" name="endyearField">
                                         </td>
@@ -401,8 +390,7 @@
 
 
                                 </table>
-                                <button type="button" class="btn btn-primary mt-1" id="saveChangesBtn">Save
-                                    Changes</button>
+                                <button type="button" class="btn btn-primary mt-1" id="saveChangesBtn">SaveChanges</button>
                             </div>
 
 
@@ -652,7 +640,7 @@
                         /*   [1, 'asc'] //set batch sort from lowest */
                     ],
                     fixedColumns: {
-                        /*  leftColumns: 4, */
+                        leftColumns: 4,
                     },
                     createdRow: function(row, data, dataIndex) {
                         $(row).find('.action-column').addClass('text-center');
@@ -909,8 +897,6 @@
                                 'padding-right': '0.5rem'
                             });
 
-
-                            // Customize the header names
                             $(win.document.body).find('table thead th').each(function(index) {
                                 var customHeaderName;
                                 switch (index) {
@@ -969,16 +955,11 @@
                                     /*    'width': '100%', // Corrected syntax for the width property */
                                 });
                             });
-
-                            // Customize the data in the second column (index 1)
                             $(win.document.body).find('table tbody td:nth-child(2)').each(function(index) {
                                 // Set the content of each cell in the second column to be the index + 1
                                 $(this).text(index + 1); //modified dec 18 2023
                             });
-
-
                             $(win.document.body).find('table').removeClass('table-striped');
-
                             var style = 'table { width: 100%; } }';
                             var head = win.document.head || win.document.getElementsByTagName('head')[0];
                             var link = document.createElement('style');

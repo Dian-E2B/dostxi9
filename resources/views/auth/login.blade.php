@@ -45,12 +45,12 @@
                                     <div class="card">
                                         <div class="container mt-4">
                                             <div style="" class="row justify-content-center">
-                                                <img class="" src="{{ asset('icons/DOST_MAIN.png') }}" alt="" style="max-width:30.5rem"" height="90">
+                                                <img class="img-fluid" src="{{ asset('icons/SIMS_transparent.png') }}" alt="" style="max-width:25.5rem; height:8rem;">
                                             </div>
                                         </div>
 
                                         <div class="card-body">
-                                            <div class="m-sm-3">
+                                            <div class="">
                                                 <form method="POST" class="row g-1" action="{{ route('login') }}">
                                                     @csrf
                                                     <div class="mb-2 opacitytext" style="font-size: 20px">Log in</div>
