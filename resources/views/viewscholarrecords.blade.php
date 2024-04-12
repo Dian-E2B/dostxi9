@@ -71,9 +71,14 @@
                                         </ul>
                                         <div class="tab-content">
                                             <div class="tab-pane active" id="tab-1" role="tabpanel">
+                                                @php
+                                                    $years = 0; // Initialize $years with an initial value
+                                                @endphp
                                                 @foreach ($resultArray as $year => $semesters)
+                                                    @php
+                                                        $years++; // Increment $years by 1 for each year
+                                                    @endphp
                                                     <div style="text-align: center">SCHOOL YEAR {{ $year }} - {{ $year + 1 }}</div>
-
                                                     <div class="row">
                                                         @foreach ($semesters as $semester => $data)
                                                             <div class="col-lg-3">
@@ -139,8 +144,33 @@
                                                                 </div>
                                                             </div>
                                                         @endforeach
+
                                                         <div class="col-lg-3">
-                                                            <div style="text-align: center">SCHOOL YEAR {{ $year }} - {{ $year + 1 }}</div>
+                                                            <div style="text-align: center">
+                                                                <table class="table">
+                                                                    <thead class="">
+                                                                        <th class="">
+                                                                            @if ($years == 1)
+                                                                                1st year
+                                                                            @elseif ($years == 2)
+                                                                                2nd year
+                                                                            @elseif ($years == 3)
+                                                                                3rd year
+                                                                            @else
+                                                                                {{ $years }}th year
+                                                                            @endif
+                                                                        </th>
+
+                                                                    </thead>
+                                                                    <tbody class="">
+                                                                        @php
+
+                                                                        @endphp
+                                                                        <td class="">GWA</td>
+                                                                    </tbody>
+                                                                </table>
+
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 @endforeach
@@ -285,20 +315,20 @@
                 var newWindow = window.open(url, '_blank');
 
                 // Once the new window is open, initiate the print action
-                newWindow.onload = function() {
-                    newWindow.print();
+                /*  newWindow.onload = function() {
+                     newWindow.print();
 
-                    // Check every second if the new window is closed or canceled
-                    var intervalId = setInterval(function() {
-                        if (newWindow.closed || !newWindow.printing) {
-                            clearInterval(intervalId);
-                            // Close the new window if it's not already closed
-                            if (!newWindow.closed) {
-                                newWindow.close();
-                            }
-                        }
-                    }, 1000);
-                };
+                     // Check every second if the new window is closed or canceled
+                     var intervalId = setInterval(function() {
+                         if (newWindow.closed || !newWindow.printing) {
+                             clearInterval(intervalId);
+                             // Close the new window if it's not already closed
+                             if (!newWindow.closed) {
+                                 newWindow.close();
+                             }
+                         }
+                     }, 1000);
+                 }; */
 
             });
 

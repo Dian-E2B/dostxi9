@@ -76,6 +76,11 @@
                     border-left: #000 solid 1px;
                     border-right: #000 solid 1px;
                 }
+
+                /* Scale content to 10% */
+                body {
+                    zoom: 0.2;
+                }
             }
 
 
@@ -510,49 +515,58 @@
 
                         },
                         {
+                            className: 'action-column',
                             data: 'SCHOLARSHIPPROGRAM',
                             render: function(data, type, row) {
                                 // Apply custom styles to the email address
-                                var styledprogram = '<span style="padding-right: 50px;">' + data +
+                                var styledprogram = '<span style="text-align:center !important">' + data +
                                     '</span>';
                                 return styledprogram;
                             }
 
                         },
                         {
+                            className: 'action-column',
                             data: 'SCHOOL',
                             render: function(data, type, row) {
                                 // Apply custom styles to the email address
-                                var styledschool = '<span style="padding-right: 50px;">' + data +
+                                var styledschool = '<span >' + data +
                                     '</span>';
                                 return styledschool;
                             }
                         },
                         {
+                            className: 'action-column',
                             data: 'COURSE',
+
                             render: function(data, type, row) {
                                 // Apply custom styles to the email address
                                 var stylecourse = '<span style="padding-right: 50px;">' + data +
                                     '</span>';
-                                return stylecourse;
+                                return '<td class="" style="color: blue;">' + stylecourse + '</td>';
                             }
 
                         },
                         {
+
+                            className: 'action-column',
                             data: 'GRADES',
                             name: 'GRADES' + semesterValue2 + 'SEM' + startyearValue - 1 + endyearValue - 1,
 
 
                         },
                         {
+                            className: 'action-column',
                             data: 'SummerREG',
 
                         },
                         {
+                            className: 'action-column',
                             data: 'REGFORMS',
 
                         },
                         {
+                            className: 'action-column',
                             data: 'REMARKS',
 
                         },
