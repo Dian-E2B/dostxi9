@@ -24,27 +24,26 @@
                 padding-left: 8px;
                 padding-right: 8px;
                 border-bottom-width: thin;
-                border-collapse: separate;
                 border-top: none;
-                border-left: none !important;
+                border-left: none;
                 border-right: none;
                 /* vertical-align: bottom; */
             }
 
-            .ongoinglisttable table td {
+            .ongoinglisttable td {
                 padding-left: 8px;
                 padding-right: 8px;
-
+                border: 1px solid black !important;
                 color: black;
             }
 
-            .ongoinglisttable td {
-
+            /*   .ongoinglisttable td {
+                border-width: thin;
                 border-top: #000 solid 0.5px;
-                border-bottom: #000 solid 1px;
-                border-left: #000 solid 1px;
-                border-right: #000 solid 1px;
-            }
+                border-bottom: #000 solid 0.5px;
+                border-left: #000 solid 0.5px;
+                border-right: #000 solid 0.5px;
+            } */
 
             .action-column {}
 
@@ -54,6 +53,10 @@
             }
 
 
+            div.dataTables_scrollFootInner table.table-bordered tr th:first-child,
+            div.dataTables_scrollHeadInner table.table-bordered tr th:first-child {
+                border-left: none !important;
+            }
 
             @media print {
 
@@ -67,14 +70,13 @@
                 }
 
 
-                .ongoinglisttable,
-                .ongoinglisttable tr,
-                .ongoinglisttable td {
-                    text-align: center !important;
-                    border-top: #000 solid 1px;
-                    border-bottom: #000 solid 1px;
-                    border-left: #000 solid 1px;
-                    border-right: #000 solid 1px;
+                th {
+                    border: 1px solid !important;
+                }
+
+                /* Scale content to 10% */
+                body {
+                    zoom: 0.2;
                 }
             }
 
@@ -510,49 +512,58 @@
 
                         },
                         {
+                            className: 'action-column',
                             data: 'SCHOLARSHIPPROGRAM',
                             render: function(data, type, row) {
                                 // Apply custom styles to the email address
-                                var styledprogram = '<span style="padding-right: 50px;">' + data +
+                                var styledprogram = '<span style="text-align:center !important">' + data +
                                     '</span>';
                                 return styledprogram;
                             }
 
                         },
                         {
+                            className: 'action-column',
                             data: 'SCHOOL',
                             render: function(data, type, row) {
                                 // Apply custom styles to the email address
-                                var styledschool = '<span style="padding-right: 50px;">' + data +
+                                var styledschool = '<span >' + data +
                                     '</span>';
                                 return styledschool;
                             }
                         },
                         {
+                            className: 'action-column',
                             data: 'COURSE',
+
                             render: function(data, type, row) {
                                 // Apply custom styles to the email address
-                                var stylecourse = '<span style="padding-right: 50px;">' + data +
+                                var stylecourse = '<span>' + data +
                                     '</span>';
-                                return stylecourse;
+                                return '<td class="" style="color: blue;">' + stylecourse + '</td>';
                             }
 
                         },
                         {
+
+                            className: 'action-column',
                             data: 'GRADES',
                             name: 'GRADES' + semesterValue2 + 'SEM' + startyearValue - 1 + endyearValue - 1,
 
 
                         },
                         {
+                            className: 'action-column',
                             data: 'SummerREG',
 
                         },
                         {
+                            className: 'action-column',
                             data: 'REGFORMS',
 
                         },
                         {
+                            className: 'action-column',
                             data: 'REMARKS',
 
                         },
@@ -880,9 +891,14 @@
                             //$(win.document.body).find('table').css('border', '2px solid black');
                             $(win.document.body).find('table td').css({
                                 'border': '1px solid black',
+                                'border': 'none !important',
+
+
 
                             });
-                            //$(win.document.body).find('table th').css({'border': '1px solid black','margin': '10px'});
+                            $(win.document.body).find('table th').css({
+                                'border': 'none !important',
+                            });
 
 
                             $(win.document.body).find('table td, table th').css({
