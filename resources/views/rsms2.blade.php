@@ -78,6 +78,11 @@
                 body {
                     zoom: 0.2;
                 }
+
+                /* Scale content to 10% */
+                body {
+                    zoom: 0.2;
+                }
             }
 
 
