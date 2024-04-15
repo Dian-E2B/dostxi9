@@ -124,10 +124,10 @@
                     <div class="row">
                         <div class="table-responsive">
                             <div class="col">
-                                <table class="table table-bordered table-sm align-text-center" style="width: 100">
+                                <table class="table table-bordered table-sm align-text-center" style="width: 100; table-layout:fixed;">
                                     <thead class="">
                                         <tr>
-                                            <th colspan="5" class="" style="text-align: center !important; background-color:rgb(144, 211, 228)">Requirements Uploaded</th>
+                                            <th colspan="4" class="" style="text-align: center !important; background-color:rgb(144, 211, 228)">Requirements Uploaded</th>
                                         </tr>
                                         <tr>
                                             <th class="" style="">Scholarship Agreement</th>
@@ -161,7 +161,7 @@
                                         </tr>
                                     </tbody>
                                     <tr class="">
-                                        <td colspan="5">
+                                        <td colspan="4">
                                             <form id="formverify" method="POST" action="{{ route('scholarverifyendorse') }}">
                                                 @csrf
 
