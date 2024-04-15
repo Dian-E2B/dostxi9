@@ -2,7 +2,7 @@
 <html lang="en">
 
     <head>
-        <title>DOST XI</title>
+        <title>DOST XI - SIMS</title>
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link href="{{ asset('css/fontaws.css') }}" rel="stylesheet">
         <style>
@@ -51,7 +51,7 @@
                                                                 <td>
                                                                     {{ $replyslipsandscholarjoinpending1->fname }}
                                                                     {{ $replyslipsandscholarjoinpending1->mname }}
-                                                                   </td>
+                                                                </td>
                                                                 <td>{{ $replyslipsandscholarjoinpending1->email }}</td>
                                                                 <td class="d-none d-md-table-cell">
                                                                     {{ $replyslipsandscholarjoinpending1->bday }}</td>

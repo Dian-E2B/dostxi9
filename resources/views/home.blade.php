@@ -2,7 +2,7 @@
 <html lang="en">
 
     <head>
-        <title>DOST XI</title>
+        <title>DOST XI - SIMS</title>
     </head>
     <body data-theme="light" data-layout="fluid" data-sidebar-position="left" data-sidebar-layout="default">
         <div class="wrapper">

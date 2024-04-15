@@ -2,7 +2,7 @@
 <html lang="en">
 
     <head>
-        <title>DOST XI</title>
+        <title>DOST XI - SIMS</title>
         <link rel="icon" href="\icons\DOSTLOGOsmall.png" type="image/x-icon" />
         <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">

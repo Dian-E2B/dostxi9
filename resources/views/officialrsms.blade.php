@@ -2,7 +2,7 @@
 <html lang="en">
 
     <head>
-        <title>DOST XI</title>
+        <title>DOST XI - SIMS</title>
 
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
