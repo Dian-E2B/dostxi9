@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Ongoing;
+use App\Models\Ongoinglist_endorsed;
 use App\Models\Replyslips;
 use App\Models\Sei;
 use Illuminate\Support\Facades\DB;
@@ -102,6 +103,14 @@ class MainServices
                 $destinationRecord->semester = $semester;
                 $destinationRecord->created_at = now();
                 $destinationRecord->save();
+
+
+                $endorsedRecord = new Ongoinglist_endorsed();
+                $endorsedRecord->scholar_id =  $seisourcerecord->id;
+                $endorsedRecord->name =  $seisourcerecord->lname . ", " . $seisourcerecord->fname . " " . $seisourcerecord->mname;
+                $endorsedRecord->school = $seisourcerecord->school;
+                $endorsedRecord->course = $seisourcerecord->course;
+                $endorsedRecord->save();
             } else {
                 $destinationRecord = new Ongoing();
                 $destinationRecord->BATCH = $yearValue;
@@ -128,6 +137,13 @@ class MainServices
                 $destinationRecord->semester = $semester;
                 $destinationRecord->created_at = now();
                 $destinationRecord->save();
+
+                $endorsedRecord = new Ongoinglist_endorsed();
+                $endorsedRecord->scholar_id =  $seisourcerecord->id;
+                $endorsedRecord->name =  $seisourcerecord->lname . ", " . $seisourcerecord->fname . " " . $seisourcerecord->mname;
+                $endorsedRecord->school = $seisourcerecord->school;
+                $endorsedRecord->course = $seisourcerecord->course;
+                $endorsedRecord->save();
             }
 
             try {

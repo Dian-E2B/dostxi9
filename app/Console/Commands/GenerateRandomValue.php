@@ -20,7 +20,7 @@ class GenerateRandomValue extends Command
      *
      * @var string
      */
-    protected $description = 'Generate and insert a random value';
+    protected $description = 'Generate and insert a random value on ongoing';
 
     /**
      * Execute the console command.
