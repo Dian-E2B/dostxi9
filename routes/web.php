@@ -8,6 +8,7 @@ use App\Http\Controllers\RsmsViewController;
 use App\Http\Controllers\OngoingController;
 use App\Http\Controllers\StudentViewController;
 use App\Http\Controllers\AccessControlViewController;
+use App\Http\Controllers\Endorsements;
 use Illuminate\Support\Facades\Route;
 
 
@@ -56,7 +57,6 @@ Route::middleware(['auth', 'role:staff'])->group(function () {
     Route::post('/seilist2_save', [SeiViewController::class, 'saveedit'])->name('sei.saveedit');
     Route::get('/get-seilistrecord/{number}', [SeiViewController::class, 'getOngoingSeilistById']);
     Route::post('/savechangesseilist/{number}', [SeiViewController::class, 'SaveChangesSeilist']);
-
 
     //EMAILS
     //EMAILS
@@ -134,8 +134,10 @@ Route::middleware(['auth', 'role:staff'])->group(function () {
     Route::get('/requests', [\App\Http\Controllers\RequestsController::class, 'index'])->name('requests');
 
     Route::post('/upload', [WordController::class, 'upload']);
-
     Route::post('/getallyearfilter', [DashboardController::class, 'getallyearfilter'])->name('getallyearfilter');
+
+    //ENDORSEMENT
+    Route::get('/endorsedongoing', [Endorsements::class, 'endorsedongoing'])->name('endorsedongoing');
 });
 
 require __DIR__ . '/auth.php';

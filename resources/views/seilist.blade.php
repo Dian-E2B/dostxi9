@@ -2,7 +2,7 @@
 <html lang="en">
 
     <head>
-        <title>DOST XI</title>
+        <title>DOST XI - SIMS</title>
         <link rel="icon" href="\icons\DOSTLOGOsmall.png" type="image/x-icon" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
@@ -164,7 +164,13 @@
                                                 <a style="{{ request()->is('seilist') || request()->is('emaileditor') ? '' : 'display:none' }}" href="{{ route('sendmail') }}" class="btn btn-primary "> Email Notice to All</a>
                                             </div>
                                         </div>
-
+                                        <div class=" col">
+                                            <div class="d-flex justify-content-end"> {{-- EMAIL NOTICE BUTTON --}}
+                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#endorsedmodal">
+                                                    Endorsed from other region
+                                                </button>
+                                            </div>
+                                        </div>
 
                                     </div>
                                     <br>
@@ -308,6 +314,37 @@
                                 <button type="button" id="saveChangesBtn" class="btn btn-primary">Save
                                     changes</button>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            {{-- ENDORSED MODAL --}}
+            <div class="modal fade" id="endorsedmodal" tabindex="-1" aria-labelledby="endorsedmodalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="endorsedmodalLabel">Endorsed from other region</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">Firstname:</span>
+                                <input type="text" class="form-control" placeholder="Firstname" aria-label="Firstname" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">Middlename:</span>
+                                <input type="text" class="form-control" placeholder="Middlename" aria-label="Middlename" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">Surname:</span>
+                                <input type="text" class="form-control" placeholder="Surname" aria-label="Surname" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
                         </div>
                     </div>
                 </div>

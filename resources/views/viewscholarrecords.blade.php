@@ -315,20 +315,20 @@
                 var newWindow = window.open(url, '_blank');
 
                 // Once the new window is open, initiate the print action
-                /*  newWindow.onload = function() {
-                     newWindow.print();
+                newWindow.onload = function() {
+                    newWindow.print();
 
-                     // Check every second if the new window is closed or canceled
-                     var intervalId = setInterval(function() {
-                         if (newWindow.closed || !newWindow.printing) {
-                             clearInterval(intervalId);
-                             // Close the new window if it's not already closed
-                             if (!newWindow.closed) {
-                                 newWindow.close();
-                             }
-                         }
-                     }, 1000);
-                 }; */
+                    // Check every second if the new window is closed or canceled
+                    var intervalId = setInterval(function() {
+                        if (newWindow.closed || !newWindow.printing) {
+                            clearInterval(intervalId);
+                            // Close the new window if it's not already closed
+                            if (!newWindow.closed) {
+                                newWindow.close();
+                            }
+                        }
+                    }, 1000);
+                };
 
             });
 

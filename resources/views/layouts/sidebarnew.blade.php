@@ -32,6 +32,11 @@
                         <span style="padding: 0em 0em 0em 0em;"><i style="font-size:15px;" class="fas  fa-long-arrow-alt-right"></i><span style="margin-left:.5em">Potential Qualifiers</span></span>
                     </a>
                 </li>
+                <li class="">
+                    <a href='{{ route('endorsedongoing') }}' class="{{ request()->is('endorsedongoing') ? 'active' : '' }}">
+                        <span style="padding: 0em 0em 0em 0em;"><i style="font-size:15px;" class="fas  fa-long-arrow-alt-right"></i><span style="margin-left:.5em">Endorsed</span></span>
+                    </a>
+                </li>
             </ul>
         </li><!-- End SEI Nav -->
 

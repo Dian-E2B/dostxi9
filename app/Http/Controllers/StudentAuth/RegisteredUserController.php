@@ -4,7 +4,6 @@ namespace App\Http\Controllers\StudentAuth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Student;
-use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -33,7 +32,7 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.Student::class],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . Student::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
