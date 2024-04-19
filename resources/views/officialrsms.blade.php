@@ -69,6 +69,7 @@
 
             @page {
 
+
                 size: A4;
                 margin: 0px !important;
                 /* margin: 12.7mm !important; */

@@ -13,6 +13,8 @@ class Ongoinglist_endorsed extends Model
         'scholar_id',
         'name',
         'school',
-        'course'
+        'course',
+        'semester',
+        'year',
     ];
 }

@@ -138,6 +138,7 @@ Route::middleware(['auth', 'role:staff'])->group(function () {
 
     //ENDORSEMENT
     Route::get('/endorsedongoing', [Endorsements::class, 'endorsedongoing'])->name('endorsedongoing');
+    Route::get('/endorsedongoingprint/{year?}/{semester?}', [Endorsements::class, 'endorsedongoingprint'])->name('endorsedongoingprint');
 });
 
 require __DIR__ . '/auth.php';
