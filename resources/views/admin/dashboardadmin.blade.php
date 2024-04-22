@@ -19,69 +19,6 @@
             <div class="container-fluid ">
                 <div class="justify-content-center">
 
-                    {{-- ADD USER SECTION --}}
-                    <div style="display:none;" class="card mt-2">
-                        <div class="card-body">
-                            <form method="POST" action="{{ route('register') }}">
-                                <!-- Name -->
-                                <div class="row mt-2">
-                                    <div class="col">
-                                        <div>
-                                            <label for="name" :value="__('Name')">Name: </label>
-                                            <input id="name" class="form-control form-control-sm" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-                                            @error('name')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div>
-                                            <label for="email" :value="__('Name')">Email: </label>
-                                            <input id="email" class="form-control form-control-sm" type="email" name="email" :value="old('name')" required autofocus autocomplete="name" />
-                                            @error('email')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row mt-2">
-                                    <div class="col">
-                                        <div>
-                                            <label for="password" :value="__('Password')">Password: </label>
-                                            <input id="password" class="block mt-1 w-full form-control form-control-sm" type="password" name="password" required autocomplete="new-password" />
-                                            @error('password')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div>
-                                            <label for="password_confirmation" :value="__('Confirm Password')">Confirm Password: </label>
-                                            <input id="password_confirmation" class="block mt-1 w-full form-control form-control-sm" type="password" name="password_confirmation" required autocomplete="new-password" />
-                                            @error('password_confirmation')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="flex items-center justify-end mt-4">
-                                    <button class="btn btn-sm btn-primary ml-4">
-                                        {{ __('Register') }}
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
 
                     <div class="card">
 
@@ -113,9 +50,7 @@
 
                                         </tbody>
                                     </table>
-                                    <div class="mt-2">
-                                        <button class="btn btn-success btn-sm">Add User</button>
-                                    </div>
+
                                 </div>
                                 <div class="tab-pane fade" id="bordered-profile" role="tabpanel" aria-labelledby="profile-tab">
                                     Nesciunt totam et. Consequuntur magnam aliquid eos nulla dolor iure eos quia. Accusantium distinctio omnis et atque fugiat. Itaque doloremque aliquid sint quasi quia distinctio similique. Voluptate nihil recusandae mollitia dolores. Ut laboriosam voluptatum dicta.
@@ -126,7 +61,9 @@
 
                             </div><!-- End Bordered Tabs -->
 
-
+                            <div class="mt-2">
+                                <a href="{{ route('register') }}" class="btn btn-success btn-sm">Add User</a>
+                            </div>
                         </div>
                     </div>
 
