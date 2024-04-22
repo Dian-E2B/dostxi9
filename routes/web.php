@@ -184,4 +184,5 @@ Route::middleware(['auth:student', 'verified'])->group(function () {
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboardadmin', [\App\Http\Controllers\AdminController::class, 'index'])->name('dashboardadmin');
     Route::get('/admin/approval', [\App\Http\Controllers\AdminController::class, 'indexadminapproval'])->name('adminapproval');
+    Route::get('/admin/viewstaffs', [\App\Http\Controllers\AdminController::class, 'viewstaffs'])->name('viewstaffs');
 });

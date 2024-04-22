@@ -37,6 +37,16 @@ Route::middleware('guest:student')->group(function () {
         ->name('student.password.store');
 });
 
+
+Route::middleware('auth', 'role:admin')->group(function () {
+
+
+    Route::get('student/register', [RegisteredUserController::class, 'create'])
+        ->name('student.register');
+
+    Route::post('student/register', [RegisteredUserController::class, 'store']);
+});
+
 Route::middleware('auth:student')->group(function () {
     Route::get('student/verify-email', EmailVerificationPromptController::class)
         ->name('student.verification.notice');

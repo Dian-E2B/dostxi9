@@ -181,7 +181,6 @@ class SendMailController extends Controller
                         'rounds' => 12,
                     ]);
 
-                    dd($password101);
 
                     try {
                         // Send the email
