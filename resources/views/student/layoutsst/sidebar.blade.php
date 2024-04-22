@@ -103,6 +103,57 @@
             </ul>
         </li><!-- End SEI Nav -->
 
+        <li class="nav-item text-center justify-content-md-center">
+            <a class="nav-link" data-bs-target="#req-nav" data-bs-toggle="collapse" href="#">
+                <span style="padding: 0em 1em 0em 0em;"><i style="font-size:20px;" class="fas fa-folder-open"></i></span>
+                <span style="">Request</span>
+                <i class="fas fa-chevron-down"style="margin-left: auto; padding: 0px;"></i>
+            </a>
+            <ul id="req-nav" class="nav-content collapse align-text-center" data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href='{{ route('student/gradeinput') }}' class="">
+                        <i style="font-size:15px;" class="fas fa-long-arrow-alt-right"></i>
+                        <span style="margin-left:.5em">Shift</span>
+                    </a>
+                </li>
+                <li>
+                    <a href='{{ route('student/thesis') }}' class="">
+                        <i style="font-size:15px;" class="fas fa-long-arrow-alt-right"></i>
+                        <span style="margin-left:.5em">Transfer</span>
+                    </a>
+                </li>
+                <li>
+                    <a href='{{ route('student/thesis') }}' class="">
+                        <i style="font-size:15px;" class="fas fa-long-arrow-alt-right"></i>
+                        <span style="margin-left:.5em">LOA</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="collapsed" data-bs-toggle="collapse" data-bs-target="#certificate-nav">
+                        <i style="font-size:15px;" class="fas fa-chevron-down"></i>
+                        <span style="margin-left:.5em">Clearance</span>
+                    </a>
+                    <ul id="certificate-nav" class="nav-content collapse" data-bs-parent="#req-nav" style="margin-left:0.6cm">
+                        <!-- Add options for Certificate submenu -->
+                        <li>
+                            <a href='#' class="">
+                                <i style="font-size:15px;" class="fas fa-long-arrow-alt-right"></i>
+                                <span style="margin-left:.5em">Local</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href='#' class="">
+                                <i style="font-size:15px;" class="fas fa-long-arrow-alt-right"></i>
+                                <span style="margin-left:.5em">Final</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+
+        </li><!-- End Request Nav -->
+
 
     </ul>
 

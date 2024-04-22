@@ -18,10 +18,10 @@ class Endorsements extends Controller
         if ($request->ajax()) {
             $endorsements = Ongoinglist_endorsed::select('*');
             return DataTables::of($endorsements)
-                ->addColumn('action', function ($endorsement) {
+                /* ->addColumn('action', function ($endorsement) {
                     return '<button href="#" class="btn btn-sm btn-primary edit">Edit</button>';
                 })
-                ->rawColumns(['action']) // Make sure to specify that the 'action' column contains HTML
+                ->rawColumns(['action']) // Make sure to specify that the 'action' column contains HTML */
                 ->make(true);
         }
         return view('endorsedongoing');
@@ -33,10 +33,10 @@ class Endorsements extends Controller
 
         // Use provided $year and $semester in the query
         $endorsements = DB::table('ongoinglist_endorseds')
-            ->select('name', 'school', 'semester')
+            ->select('name', 'school', 'semester', 'year')
             ->where('year', $year)
             ->where('semester', $semester)
-            ->groupBy('name', 'school', 'semester')
+            ->groupBy('name', 'school', 'semester', 'year')
             ->orderBy('school')
             ->get();
 

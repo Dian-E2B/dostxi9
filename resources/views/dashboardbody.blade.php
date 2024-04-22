@@ -104,7 +104,11 @@
 <div class="row gy-0">
     <div class="col-lg-12">
         <div class="card" style="margin-top: 0px !important;">
-            <canvas style="" id="myCoursesChart" width="" height="350"></canvas>
+            <h4> <strong>
+                    Courses
+                </strong></h4>
+            <p>This chart displays the number of scholars availing by courses.</p>
+            <canvas id="myCoursesChart" style="height: 250px !important;"></canvas>
         </div>
     </div>
 </div>

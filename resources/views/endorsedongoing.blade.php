@@ -2,7 +2,7 @@
 <html lang="en">
 
     <head>
-        </title>
+        <title>DOST XI - SIMS</title>
         <link rel="icon" href="\icons\DOSTLOGOsmall.png" type="image/x-icon" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
@@ -33,48 +33,74 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row mt-3 ">
-                            <div class="h4 mb-3" style="">Ongoing Endorsed List</div>
-                            <table id="endorsementsTable" class="table-striped table-compact table-sm" style="table-layout: fixed; width:100%">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>School</th>
-                                        <th>Course</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="h4 mb-1" style="">Ongoing Endorsed List</div>
+                                </div>
+                                <div class="col">
+                                    <div class="card">
+
+                                        <div class="card-body">
+
+                                            <div class="row g-3 mt-1">
+
+                                                <div class="col-sm">
+                                                    <select class="form-control form-control-sm" name="year" id="year" class="" style="width: 100%;">
+                                                        <option value="">--Year--</option>
+                                                        <!-- Generate options for the current year to the next 10 years -->
+                                                        @php
+                                                            $currentYear = date('Y');
+                                                            $endYear = $currentYear + 10;
+                                                        @endphp
+                                                        @for ($year = $currentYear; $year <= $endYear; $year++)
+                                                            <option value="{{ $year }}">{{ $year }}</option>
+                                                        @endfor
+                                                    </select>
+                                                </div>
+
+                                                <div class="col-sm">
+                                                    <select class="form-control form-control-sm" style="margin:none;" name="semester" id="semester" style="width: 100%;">
+                                                        <option value="">--Semester--</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="0">Summer</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm" style="">
+                                                    <button class="btn btn-light print-button btn-sm" style="padding: 2px 12px; width: 100%;"><i style="color: black" class="fas fa-print"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="table-responsive">
+                                        <table id="endorsementsTable" class="table-striped table-compact table-sm" style="table-layout: fixed; width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>School</th>
+                                                    <th>Course</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+
 
                         </div>
-                        <div class="row g-2 mt-2">
-                            <div class="col-1">
-                                <select name="year" id="year" class="" style="width: 100%;">
-                                    <option value="">--Year--</option>
-                                    <!-- Generate options for the current year to the next 10 years -->
-                                    @php
-                                        $currentYear = date('Y');
-                                        $endYear = $currentYear + 10;
-                                    @endphp
-                                    @for ($year = $currentYear; $year <= $endYear; $year++)
-                                        <option value="{{ $year }}">{{ $year }}</option>
-                                    @endfor
-                                </select>
-                            </div>
 
-                            <div class="col-1">
-                                <select name="semester" id="semester" style="width: 100%;">
-                                    <option value="">--Semester--</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="0">Summer</option>
-                                </select>
-                            </div>
-                            <div class="col-1" style="">
-                                <button class="btn btn-primary print-button btn-sm" style="padding: 2px 12px; width: 100%;">Print</button>
-                            </div>
-                        </div>
 
                     </div>
 
@@ -111,12 +137,7 @@
                         name: 'course',
                         orderable: false,
                     },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false
-                    }
+
                 ],
                 initComplete: function() {
                     var api = this.api();
@@ -180,7 +201,7 @@
                     // Handle the case where either year or semester is empty
                     Swal.fire({
                         icon: "error",
-                        title: "Please select year and semester!!",
+                        title: "Please select year and semester!",
                     });
 
                 }

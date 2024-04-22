@@ -2,7 +2,7 @@
 <html lang="en">
 
     <head>
-        <title>DOST XI</title>
+        <title>DOST XI - SIMS</title>
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link href="{{ asset('css/fontaws.css') }}" rel="stylesheet">
         <link rel="icon" href="\icons\DOSTLOGOsmall.png" type="image/x-icon" />

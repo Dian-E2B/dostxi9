@@ -4,6 +4,7 @@
     <head>
         <title>DOST XI</title>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>{{-- SWEETALERT --}}
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <link rel="icon" href="\icons\DOSTLOGOsmall.png" type="image/x-icon" />
         <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -207,9 +208,10 @@
                                 <form id="input-form" method="POST" action="{{ route('submitgrades') }}" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row justify-content-center">
-                                        <div class="col-12">
-                                            <div class="card">
-                                                <div class="card-body">
+
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="col-lg-12">
                                                     {{-- SUBMIT PERIODIC REQUIREMENTS --}}
                                                     <div class="">
                                                         <div style="font-size: 20px; font-weight: 900; text-align: center; margin-bottom: 5px;">SUBMIT PERIODIC REQUIREMENTS</div>
@@ -219,7 +221,8 @@
                                                         <div class="mt-2"><span style="font-size: 15px">Certificate Of Grades:</span> <input required type="file" name="imagegrade" id="imagegradeid" class="form-control" accept="image/*, application/pdf"></div>
 
                                                     </div>
-
+                                                </div>
+                                                <div class="col-md-12">
                                                     {{-- PERIOD --}}
                                                     <div class="mt-3">
                                                         <div style="font-size: 20px; font-weight: 900; text-align: left">PERIOD:</div>

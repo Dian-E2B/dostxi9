@@ -9,7 +9,6 @@
 
     <div class="d-flex align-items-center justify-content-between">
         <a class="logo d-flex align-items-center">
-            <img src="assets/img/logo.png" alt="">
             <span class="d-none d-lg-block">DOST</span>
         </a>
         <span class="toggle-sidebar-btn mb-1"> <i class="fas fa-bars" style="font-size: 25px"></i></span>
@@ -67,22 +66,21 @@
             <li class="nav-item dropdown pe-3">
 
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                    <span class="d-none d-md-block dropdown-toggle ps-2">
+                    <span class="d-md-block dropdown-toggle ps-2">
                         {{ Auth::user()->username }}
                     </span>
                 </a><!-- End Profile Iamge Icon -->
 
-                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow mt-2">
-                    <li>
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow mt-2 align-items-center">
+                    <li class="align-items-center">
                         <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            <box-icon name='log-out-circle'></box-icon>&nbsp;
-                            <span style="font-size: 15px"> Sign Out</span>
+                            <i style="font-size: 20px" class="fas fa-sign-out-alt"></i>
+                            <div class="d-flex " style="font-size: 15px; font-weight: 600; margin-left: 5px; margin-bottom: 1px; display: inline-block;">Log Out</div>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
                             </form>
                         </a>
                     </li>
-
                 </ul><!-- End Profile Dropdown Items -->
             </li><!-- End Profile Nav -->
 

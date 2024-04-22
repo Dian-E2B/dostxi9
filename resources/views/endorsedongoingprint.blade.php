@@ -24,10 +24,10 @@
             @page {}
 
             header {
-                top: 10px;
+                top: 0px;
                 position: fixed;
                 background-color: black;
-                height: 150px;
+                height: 0px;
             }
 
             .footer {
@@ -48,28 +48,25 @@
                 /* Adjust the margin-top value for the first page */
             }
 
-            @page :not(:first) {
-                margin-top: 60px;
-                /* Adjust the margin-top value for all subsequent pages */
-            }
 
             @media print {
                 @page {
-
-                    margin-left: 0.8in;
-                    margin-right: 0.8in;
+                    margin-top: 0.2in;
+                    margin-left: 1in;
+                    margin-right: 1in;
                     padding: 1000px 1000px !important;
                     size: landscape !important;
                     size: A4;
                 }
 
-                header {
-                    margin-top: -100px !important;
+                body {
+                    opacity: 100 !important;
                 }
+
             }
 
             body {
-
+                opacity: 0;
                 overflow: auto;
 
             }
@@ -98,21 +95,21 @@
                     <table class="">
                         <thead class="">
                             <tr>
-                                <th colspan="3" style="text-align: center !important;" class="TEXT-CENTER">
-                                    <img style="z-index:0; width: 25cm; height: 2.8cm;" src="{{ asset('icons/DOST_endorsedscholar.png') }}" alt="" class="">
+                                <th colspan="3" style="text-align: center !important; padding:0px !important; margin:0px !important;" class="TEXT-CENTER">
+                                    <img style=" width: 97% !important; height: 2.8cm;" src="{{ asset('icons/DOST_endorsedscholar.png') }}" alt="" class="">
                                 </th>
                             </tr>
                             <tr>
-                                <th colspan="3" style="text-align: center !important;" class="TEXT-CENTER">LIST OF SCHOLARS ENDORSED TO UNIVERSITIES/COLLEGES</th>
+                                <th colspan="3" style="text-align: center !important; padding: 0px; margin:0px;" class="TEXT-CENTER">LIST OF SCHOLARS ENDORSED TO UNIVERSITIES/COLLEGES</th>
                             </tr>
                             <tr>
-                                <th colspan="3" style="text-align: center !important;" class="TEXT-CENTER">
+                                <th colspan="3" style="text-align: center !important; padding-bottom: 15px;margin:0px;" class="TEXT-CENTER">
                                     @if ($endorsements->first()->semester == 1)
-                                        1<sup>st</sup> SEMESTER
+                                        1<sup>st</sup> SEMESTER {{ $endorsements->first()->year }}-{{ $endorsements->first()->year + 1 }}
                                     @elseif ($endorsements->first()->semester == 2)
-                                        2<sup>nd</sup> SEMESTER
+                                        2<sup>nd</sup> SEMESTER {{ $endorsements->first()->year }}-{{ $endorsements->first()->year + 1 }}
                                     @else
-                                        Summer
+                                        Summer {{ $endorsements->first()->year }}-{{ $endorsements->first()->year + 1 }}
                                     @endif
                                 </th>
                             </tr>
@@ -140,7 +137,7 @@
 
                                     <tr style="padding-bottom: 100px">
                                         <th colspan="3" style="padding-bottom:10px !important; padding-top:10px !important;">
-                                            <div style="background-color: skyblue; padding: 0px;">
+                                            <div style="background-color: rgba(135, 207, 235, 0.859); padding: 0px;">
                                                 <span style=" margin-left:8px; ">{{ $endorsement->school }}</span>
                                             </div>
                                         </th>
@@ -179,6 +176,29 @@
     </body>
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/fontaws.js') }}"></script>
-    <script></script>
+    <script>
+        $(document).ready(function() {
+            // Function to be called after printing
+            function afterPrint() {
+                console.log('Printing completed...');
+                window.open('', '_self', '');
+            }
+
+            // Open the print dialog
+            window.print();
+
+            // Check if the print dialog is closed after a short delay
+            setTimeout(function() {
+                if (!document.hidden) {
+                    // If the document is still visible, it means the print dialog is still open
+                    console.log('Printing canceled...');
+                    window.close(2000);
+                } else {
+                    // If the document is hidden, assume printing is completed
+                    afterPrint();
+                }
+            }, 2000); // Adjust the delay as needed
+        });
+    </script>
 
 </html>
