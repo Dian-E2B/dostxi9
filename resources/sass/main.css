@@ -12,7 +12,9 @@
     scroll-behavior: smooth;
 }
 
-
+body {
+    background-color: #162932e7;
+}
 .dataTables_scrollHeadInner,
 .datatable {
     width: 100% !important

@@ -37,8 +37,7 @@
 
             th {
                 border-collapse: separate;
-                padding-left: 8px;
-                padding-right: 8px;
+                text-align: center !important;
             }
 
 
@@ -95,32 +94,30 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="">
+                            <div class="card">
                                 <div class="card-body mt-2">
                                     <div class="card  col-lg-6 p-2" style="text-align: center; vertical-align: center">
                                         <div class="" style="font-size:1.5em; font-weight: 700">Potential Qualifiers</div>
                                     </div>
 
-                                    <table id="thisdatatable" class="hover table-striped table-hover compact nowrap" style="width:100%;">
+                                    <table id="thisdatatable" class="hover table-striped table-hover compact nowrap" style="width:100%; table-layout:auto">
 
                                         <thead>
                                             <tr>
-
-
-
+                                                <th>Action</th>
                                                 <th>Surname</th>
                                                 <th>Firstname</th>
                                                 <th>Middlename</th>
                                                 <th>SPAS NO.</th>
                                                 <th>Email</th>
 
-                                                <th style="  padding-left: 5px !important; padding-right: 5px !important;">
+                                                <th style="">
                                                     <span></span>App ID
                                                 </th>
-                                                <th style="  padding-left: 5px !important; padding-right: 5px !important;">
+                                                <th style="">
                                                     <span style="display: none">Strand </span>
                                                 </th>
-                                                <th style="  padding-left: 5px !important; padding-right: 5px !important;">
+                                                <th style="">
                                                     <span>Program </span>
                                                 </th>
                                                 <th>Sex</th>
@@ -141,7 +138,7 @@
                                                 <th>Lacking</th>
                                                 <th>Remarks</th>
                                                 <th>ID</th>
-                                                <th>Action</th>
+
 
                                             </tr>
                                         </thead>
@@ -269,85 +266,6 @@
                     ajax: '{{ route('seilistviewajaxpotential') }}',
                     type: 'GET',
                     columns: [{
-                            data: 'lname',
-                        },
-                        {
-                            data: 'fname',
-                        },
-                        {
-                            data: 'mname',
-                        },
-                        {
-                            data: 'spasno',
-                        },
-                        {
-                            data: 'email',
-                        },
-                        {
-                            data: 'app_id',
-                        },
-                        {
-                            data: 'strand',
-                        },
-                        {
-                            data: 'progname',
-                        },
-                        {
-                            data: 'gendername',
-                            render: function(data, type, row) {
-                                // Apply custom styles to the email address
-                                var styledgender = '<span style="padding-right: 10px;">' + data +
-                                    '</span>';
-                                return styledgender;
-                            },
-                        },
-                        {
-                            data: 'bday',
-                        },
-                        {
-                            data: 'mobile',
-                        },
-                        {
-                            data: 'houseno',
-                        },
-                        {
-                            data: 'street',
-                        },
-                        {
-                            data: 'village',
-                        },
-                        {
-                            data: 'barangay',
-                        },
-                        {
-                            data: 'municipality',
-                        },
-                        {
-                            data: 'province',
-                        },
-                        {
-                            data: 'zipcode',
-                        },
-                        {
-                            data: 'district',
-                        },
-                        {
-                            data: 'region',
-                        },
-                        {
-                            data: 'hsname',
-                        },
-                        {
-                            data: 'lacking',
-                        },
-                        {
-                            data: 'remarks',
-                        },
-                        {
-                            data: 'id',
-                        },
-
-                        {
                             data: null,
                             orderable: false,
                             searchable: false,
@@ -358,6 +276,119 @@
                                     '" ><i class="fas fa-edit"></i></a>' + ''
                             }
                         },
+                        {
+                            data: 'lname',
+                            orderable: false,
+                        },
+                        {
+                            data: 'fname',
+                            orderable: false,
+                        },
+                        {
+                            data: 'mname',
+                            orderable: false,
+                        },
+                        {
+                            data: 'spasno',
+                            orderable: false,
+                        },
+                        {
+                            data: 'email',
+                            orderable: false,
+                        },
+                        {
+                            data: 'app_id',
+                            orderable: false,
+                        },
+                        {
+                            data: 'strand',
+                            render: function(data, type, row) {
+                                // Apply custom styles to the email address
+                                var styledstrand = '<span style="padding: 10px;">' + data +
+                                    '</span>';
+                                return styledstrand;
+                            },
+                        },
+                        {
+                            data: 'progname',
+                            name: 'Program',
+                            render: function(data, type, row) {
+                                // Apply custom styles to the email address
+                                var styledprogname = '<span style="padding: 10px;">' + data +
+                                    '</span>';
+                                return styledprogname;
+                            },
+                        },
+                        {
+                            data: 'gendername',
+                            render: function(data, type, row) {
+                                // Apply custom styles to the email address
+                                var styledgender = '<span style="padding: 10px;">' + data +
+                                    '</span>';
+                                return styledgender;
+                            },
+                        },
+                        {
+                            data: 'bday',
+                            orderable: false,
+                        },
+                        {
+                            data: 'mobile',
+                            orderable: false,
+                        },
+                        {
+                            data: 'houseno',
+                            orderable: false,
+                        },
+                        {
+                            data: 'street',
+                            orderable: false,
+                        },
+                        {
+                            data: 'village',
+                            orderable: false,
+                        },
+                        {
+                            data: 'barangay',
+                            orderable: false,
+                        },
+                        {
+                            data: 'municipality',
+                            orderable: false,
+                        },
+                        {
+                            data: 'province',
+                            orderable: false,
+                        },
+                        {
+                            data: 'zipcode',
+                            orderable: false,
+                        },
+                        {
+                            data: 'district',
+                            orderable: false,
+                        },
+                        {
+                            data: 'region',
+                            orderable: false,
+                        },
+                        {
+                            data: 'hsname',
+                            orderable: false,
+                        },
+                        {
+                            data: 'lacking',
+                            orderable: false,
+                        },
+                        {
+                            data: 'remarks',
+                            orderable: false,
+                        },
+                        {
+                            data: 'id',
+                        },
+
+
 
 
 
@@ -367,8 +398,8 @@
                         [1, 'asc'] //set batch sort from lowest
                     ],
                     fixedColumns: {
-                        right: 1,
-                        left: 3,
+
+                        left: 2,
                     },
                     columnDefs: [{
                             targets: 'action-column', // Use a class to target the specific column
@@ -386,7 +417,7 @@
                     initComplete: function() {
                         var api = this.api();
 
-                        api.columns([6, 7, 8, 15, 16]).every(function(d) {
+                        api.columns([7, 8, 15, 16]).every(function(d) {
                             var column = this;
                             // Get the column header name
                             var theadname = $(api.column(d).header()).text();

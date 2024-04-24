@@ -112,10 +112,12 @@
                 <main class="content">
                     <div class="container-fluid p-0">
 
-                        <div class="">
+                        <div class="card">
                             <div class="card-body mt-3">
                                 <div class="card col-lg-6 p-2" style="text-align: center; vertical-align: center">
-                                    <div class="" style="font-size:1.5em; font-weight: 700">Qualifiers</div>
+                                    <div class="" style="font-size:1.5em; font-weight: 700">Qualifiers (<span id="currentYearContainer"></span>)
+                                    </div>
+
                                 </div>
                                 <div class="">
                                     <div class="row row-cols-auto">
@@ -133,9 +135,10 @@
                                                                     <option style="" value=" {{ $year }}"> {{ $year }} &nbsp;- &nbsp;{{ $year + 1 }}</option>
                                                                 @endforeach
                                                             </select>
+                                                            <button class="btn btn-light btn-sm" type="submit">Submit</button>
                                                         </div>
                                                 </div>
-                                                <button class="btn" type="submit">Submit</button>
+
                                                 </form>
                                             </div>
                                         </div>
@@ -166,8 +169,8 @@
                                         </div>
                                         <div class=" col">
                                             <div class="d-flex justify-content-end"> {{-- EMAIL NOTICE BUTTON --}}
-                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#endorsedmodal">
-                                                    Endorsed from other region
+                                                <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#endorsedmodal">
+                                                    Endorsed
                                                 </button>
                                             </div>
                                         </div>
@@ -329,18 +332,48 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon1">Firstname:</span>
-                                <input type="text" class="form-control" placeholder="Firstname" aria-label="Firstname" aria-describedby="basic-addon1">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">Firstname:</span>
+                                        <input type="text" class="form-control" placeholder="Firstname" name="Firstname" aria-label="Firstname" aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">Middlename:</span>
+                                        <input type="text" class="form-control" placeholder="Middlename" name="Middlename" aria-label="Middlename" aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">Surname:</span>
+                                        <input type="text" class="form-control" placeholder="Surname" name="Surname" aria-label="Surname" aria-describedby="basic-addon1">
+                                    </div>
+
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">Birthdate:</span>
+                                        <input type="text" class="form-control" placeholder="Birthdate" name="Birthdate" aria-label="Birthdate" aria-describedby="basic-addon1">
+                                    </div>
+                                </div>
+
+                                <div class="col">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">Firstname:</span>
+                                        <input type="text" class="form-control" placeholder="Firstname" name="Firstname" aria-label="Firstname" aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">Middlename:</span>
+                                        <input type="text" class="form-control" placeholder="Middlename" name="Middlename" aria-label="Middlename" aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">Surname:</span>
+                                        <input type="text" class="form-control" placeholder="Surname" name="Surname" aria-label="Surname" aria-describedby="basic-addon1">
+                                    </div>
+
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">Birthdate:</span>
+                                        <input type="text" class="form-control" placeholder="Birthdate" name="Birthdate" aria-label="Birthdate" aria-describedby="basic-addon1">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon1">Middlename:</span>
-                                <input type="text" class="form-control" placeholder="Middlename" aria-label="Middlename" aria-describedby="basic-addon1">
-                            </div>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon1">Surname:</span>
-                                <input type="text" class="form-control" placeholder="Surname" aria-label="Surname" aria-describedby="basic-addon1">
-                            </div>
+
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -356,6 +389,24 @@
         <script>
             jQuery.noConflict();
             jQuery(document).ready(function($) {
+
+                var currentYear = '<?php echo date('Y'); ?>';
+                $('#currentYearContainer').text("The current year is: " + currentYear);
+
+                $.ajax({
+                    url: '{{ route('get-current-year') }}',
+                    type: 'GET',
+                    success: function(response) {
+                        var currentYear = response.currentYear;
+                        console.log('Current Year:', currentYear);
+                        // Do something with the current year, like passing it to another function
+                        // Example: getYear(currentYear);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+
                 var table = $('#thisdatatable').DataTable({
                     scrollResize: true,
                     pageResize: true,

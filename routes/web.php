@@ -35,16 +35,13 @@ use Illuminate\Notifications\Notification;
 Route::redirect('/', '/login');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-//LOGOUT EXTRA PAUSE
-// Route::get('/logged-out', [App\Http\Controllers\HomeController::class, 'index'])->name('logged-out');
-
+Route::get('/notifications/count', [HeaderController::class, 'notificationsstaff'])->name('notificationsstaff');
+Route::get('/notifications', [HeaderController::class, 'notificationsgetall'])->name('notificationsgetall');
 
 Route::middleware(['auth', 'role:staff'])->group(function () {
 
     //NOTIFICATION COUNT
-    Route::get('/notifications/count', [HeaderController::class, 'notificationsstaff'])->name('notificationsstaff');
-    Route::get('/notifications', [HeaderController::class, 'notificationsgetall'])->name('notificationsgetall');
+
     //SEI
     Route::get('/seilist', [SeiViewController::class, 'seiqualifierview'])->name('seilist');
     Route::get('/seilistviewajax', [SeiViewController::class, 'seiqualifierviewajax'])->name('seilistviewajax');
@@ -58,7 +55,6 @@ Route::middleware(['auth', 'role:staff'])->group(function () {
     Route::get('/get-seilistrecord/{number}', [SeiViewController::class, 'getOngoingSeilistById']);
     Route::post('/savechangesseilist/{number}', [SeiViewController::class, 'SaveChangesSeilist']);
 
-    //EMAILS
     //EMAILS
     Route::get('/emails', [EmailViewController::class, 'emailstatusview'])->name('emails');
     Route::get('/emails2', [EmailViewController::class, 'emailstatusview2'])->name('emails2');
@@ -126,13 +122,10 @@ Route::middleware(['auth', 'role:staff'])->group(function () {
     Route::get('/getscholarshipstatus/{number}', [RsmsViewController::class, 'getscholarshipstatus'])->name('getscholarshipstatus');
     Route::post('/savescholarshipstatus/{number}', [RsmsViewController::class, 'savescholarshipstatus'])->name('savescholarshipstatus');
     Route::get('/getdocumentsdata/{number}', [RsmsViewController::class, 'getdocumentsdata'])->name('getdocumentsdata');
-
     Route::get('/getprogramchartyearfilter/{year}', 'YourController@getProgramChartData');
     //ANONUNCEMENT
     Route::get('/announcement', [\App\Http\Controllers\AnnouncementController::class, 'index'])->name('announcement');
-
     Route::get('/requests', [\App\Http\Controllers\RequestsController::class, 'index'])->name('requests');
-
     Route::post('/upload', [WordController::class, 'upload']);
     Route::post('/getallyearfilter', [DashboardController::class, 'getallyearfilter'])->name('getallyearfilter');
 

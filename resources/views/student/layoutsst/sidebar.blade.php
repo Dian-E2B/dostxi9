@@ -104,26 +104,26 @@
         </li><!-- End SEI Nav -->
 
         <li class="nav-item text-center justify-content-md-center">
-            <a class="nav-link" data-bs-target="#req-nav" data-bs-toggle="collapse" href="#">
+            <a class="nav-link {{ request()->is('student/[]') ? '' : 'collapsed' }}" data-bs-target="#req-nav" data-bs-toggle="collapse" href="#">
                 <span style="padding: 0em 1em 0em 0em;"><i style="font-size:20px;" class="fas fa-folder-open"></i></span>
                 <span style="">Request</span>
                 <i class="fas fa-chevron-down"style="margin-left: auto; padding: 0px;"></i>
             </a>
-            <ul id="req-nav" class="nav-content collapse align-text-center" data-bs-parent="#sidebar-nav">
+            <ul id="req-nav" class="nav-content collapse {{ request()->is('student/[]') || request()->is('student/[]') ? 'show' : '' }} align-text-center" data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href='{{ route('student/gradeinput') }}' class="">
+                    <a href='{{ route('student/gradeinput') }}' class="{{ request()->is('student/[]') ? 'active' : '' }}">
                         <i style="font-size:15px;" class="fas fa-long-arrow-alt-right"></i>
                         <span style="margin-left:.5em">Shift</span>
                     </a>
                 </li>
                 <li>
-                    <a href='{{ route('student/thesis') }}' class="">
+                    <a href='{{ route('student/thesis') }}' class="{{ request()->is('student/[]') ? 'active' : '' }}">
                         <i style="font-size:15px;" class="fas fa-long-arrow-alt-right"></i>
                         <span style="margin-left:.5em">Transfer</span>
                     </a>
                 </li>
                 <li>
-                    <a href='{{ route('student/thesis') }}' class="">
+                    <a href='{{ route('student/thesis') }}' class="{{ request()->is('student/[]') ? 'active' : '' }}">
                         <i style="font-size:15px;" class="fas fa-long-arrow-alt-right"></i>
                         <span style="margin-left:.5em">LOA</span>
                     </a>

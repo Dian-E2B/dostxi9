@@ -16051,6 +16051,10 @@ textarea.form-control-lg {
   scroll-behavior: smooth;
 }
 
+body {
+  background-color: rgba(22, 41, 50, 0.9058823529);
+}
+
 .dataTables_scrollHeadInner,
 .datatable {
   width: 100% !important;

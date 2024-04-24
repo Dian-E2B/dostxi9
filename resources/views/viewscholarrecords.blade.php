@@ -289,6 +289,11 @@
                                                 </td>
                                             </tr>
                                         </tbody>
+                                        <tfoot style="border: none;">
+                                            <tr class="" style="border: none; ">
+                                                <th class="" style="text-align: start; border: none; "><button class="btn btn-success">Update</button></th>
+                                            </tr>
+                                        </tfoot>
                                     </table>
                                 </div>
                             </div>

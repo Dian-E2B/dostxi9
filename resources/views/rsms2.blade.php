@@ -232,7 +232,7 @@
                                                     <th>NOTATIONS</th>
                                                     <th>SUMMER</th>
                                                     <th>FARELEASED<br>TUITION</th>
-                                                    <th>FARELEASED<br>TUITION<br>BOOK<br>STIPEND</th>
+                                                    <th>FARELEASED<br>BOOK<br>STIPEND</th>
                                                     <th>LVDCAccount</th>
                                                     <th>HVCNotes</th>
                                                     <th>startyear</th>
@@ -878,11 +878,9 @@
                                 'word-wrap': 'normal'
                             });
 
-                            // Apply wrapping style to all columns except the 3rd column
 
-                            $(win.document.body).find('h1').css('font-size',
-                                '50pt'); // Change the font size of the title
-                            $(win.document.body).find('h1').css('font-weight', 'bold'); // Make the title bold
+                            $(win.document.body).find('h1').css('font-size', '50pt');
+                            $(win.document.body).find('h1').css('font-weight', 'bold');
                             if (win.document.body.innerHTML.indexOf('<img id="logo"') === -1) {
                                 $(win.document.body).prepend(
                                     '<img id="logo" src="{{ asset('icons/DOSTlogoONGOING.jpg') }}">');

@@ -27,6 +27,7 @@ class SeiViewController extends Controller
 
     public function seiqualifierviewajax(Request $request)
     {
+        $currentYear = date('Y');
         $startYear = $request->input('startYear');
         if (empty($startYear)) {
             $seis = Sei::join('programs', 'seis.program_id', '=', 'programs.id')
@@ -35,11 +36,12 @@ class SeiViewController extends Controller
                     $query->whereNull('lacking')
                         ->orWhere('lacking', '=', '');
                 })
+                ->where('year',  $currentYear) // Add this line to filter by the current year
                 ->select('seis.*', 'programs.progname', 'genders.gendername')
                 ->get();
-            // Debugbar::info($seis);
+
+            $this->getyear($startYear);
             return DataTables::of($seis)->make(true);
-            // return response()->json(['seis' => $seis]);
         } else {
             $seis = Sei::join('programs', 'seis.program_id', '=', 'programs.id')
                 ->join('genders', 'seis.gender_id', '=', 'genders.id')
@@ -50,9 +52,13 @@ class SeiViewController extends Controller
                 })
                 ->select('seis.*', 'programs.progname', 'genders.gendername')
                 ->get();
-            // Debugbar::info($seis);
             return DataTables::of($seis)->make(true);
         }
+    }
+
+    public function getyear($year)
+    {
+        return response()->json(['currentYear' => $year]);
     }
 
 

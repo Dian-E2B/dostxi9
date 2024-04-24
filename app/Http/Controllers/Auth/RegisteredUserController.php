@@ -37,13 +37,14 @@ class RegisteredUserController extends Controller
         ]);
 
         $user = User::create([
-            'role' => $request->name,
+            'role' => $request->role,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
         if ($user) {
-            return redirect('admin.dashboardadmin');
+            session()->flash('success', 'New user account added!');
+            return redirect()->route('dashboardadmin');
         }
         /*  event(new Registered($user));
 

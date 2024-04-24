@@ -11,6 +11,11 @@
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <title>Document</title>
     </head>
+    <style>
+        body {
+            background-color: rgb(241, 241, 241);
+        }
+    </style>
 
     <body class="toggle-sidebar">
         <main id="main">
@@ -34,8 +39,11 @@
 
                                         <!-- Role -->
                                         <div class="mt-4">
-                                            <label for="role" :value="__('Email')">Role:</label>
-                                            <input id="role" class="block mt-1 w-full form-control form-control-sm" type="text" name="role" :value="old('role')" required autocomplete="username" />
+                                            <label for="role" :value="__('Role')">Role:</label>
+                                            <select id="role" class="block mt-1 w-full form-control form-control-sm" name="role" required autocomplete="role">
+                                                <option value="admin" @if (old('role') == 'admin') selected @endif>Admin</option>
+                                                <option value="staff" @if (old('role') == 'staff') selected @endif>Staff</option>
+                                            </select>
                                         </div>
 
                                         <!-- Email Address -->
@@ -59,9 +67,9 @@
                                         </div>
 
                                         <div class="flex items-center justify-end mt-4">
-                                            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
+                                            {{-- <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
                                                 {{ __('Already registered?') }}
-                                            </a>
+                                            </a> --}}
 
                                             <button type="submit" class="btn btn-primary ml-4">
                                                 {{ __('Register') }}

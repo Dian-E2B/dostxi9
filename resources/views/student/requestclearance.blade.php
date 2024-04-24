@@ -3,8 +3,7 @@
 
     <head>
         <title>DOST XI</title>
-        <link href="{{ asset('css/all.css') }}">
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <link href="{{ asset('css/app.css') }}">
         <style>
             .noborder-bottom {
                 border-bottom: none !important;

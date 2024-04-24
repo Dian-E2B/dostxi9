@@ -103,8 +103,8 @@
                                     <table id="yourDataTable" cellspacing="0" class="table-striped compact datatable" style="width:100%;">
                                         <thead>
                                             <tr>
-                                                <th>Startyear</th>
-                                                <th>Endyear</th>
+                                                <th>Acadyear</th>
+                                                <th></th>
                                                 <th>Semester</th>
                                                 <th>Total Records</th>
                                                 <th>View</th>
