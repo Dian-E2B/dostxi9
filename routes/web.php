@@ -46,7 +46,7 @@ Route::middleware(['auth', 'role:staff'])->group(function () {
     Route::get('/seilist2', [SeiViewController::class, 'seipotientalqualifierview'])->name('seilist2');
     Route::get('/sei/create', [SeiViewController::class, 'create'])->name('sei.create');
     Route::post('/sei', [SeiViewController::class, 'store'])->name('sei.store');
-    Route::get('/getyeartoseilist/{year}', [SeiViewController::class, 'getyeartoseilist'])->name('getyeartoseilist');
+    Route::get('/getyearsei', [SeiViewController::class, 'getyearsei'])->name('getyearsei');
 
 
     // Route::post('/seilist2_edit', [SeiViewController::class, 'editinfo'])->name('seilist2.edit');

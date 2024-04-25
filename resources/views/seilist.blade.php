@@ -112,10 +112,10 @@
                 <main class="content">
                     <div class="container-fluid p-0">
 
-                        <div class="card">
+                        <div class="card" style="user-select: none !important;">
                             <div class="card-body mt-3">
                                 <div class="card col-lg-6 p-2" style="text-align: center; vertical-align: center">
-                                    <div class="" style="font-size:1.5em; font-weight: 700">Qualifiers (<span id="currentYearContainer"></span>)
+                                    <div class="" style="font-size:1.5em; font-weight: 700">Qualifiers (<span id="divToUpdate">{{ $maxyear }}-{{ $maxyear + 1 }}</span>)
                                     </div>
 
                                 </div>
@@ -130,23 +130,22 @@
                                                     <form id="yearForm" method="POST" action="{{ route('seilistviewajax') }}">
                                                         @csrf
                                                         <div class="px-2" style="max-width: 4.9cm; margin: auto;">
-                                                            <select style="" name="startYear" id="" class="form-select">
+                                                            <select style="" name="startYear" id="startYear" class="form-select">
                                                                 @foreach ($years as $year)
                                                                     <option style="" value=" {{ $year }}"> {{ $year }} &nbsp;- &nbsp;{{ $year + 1 }}</option>
                                                                 @endforeach
                                                             </select>
-                                                            <button class="btn btn-light btn-sm" type="submit">Submit</button>
+                                                            <button id="submitButton" style="background-color: #e3f2fd" class="btn btn-sm mt-2" type="submit"><i class="fas fa-check"></i></button>
                                                         </div>
+                                                    </form>
                                                 </div>
-
-                                                </form>
                                             </div>
                                         </div>
                                         <div class="col"> {{-- UPDATE SEI BUTTON --}}
 
                                             <div>
-                                                <button c style="background-color: darkgreen; color:snow; {{ request()->is('seilist') ? '' : 'display:none' }}" id="uploadlist" type="button" class="btn dropdown-toggle rounded-pill" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    Update SEI
+                                                <button style="background-color: #1e88e5; color:rgb(255, 255, 255); {{ request()->is('seilist') ? '' : 'display:none' }}" id="uploadlist" type="button" class="btn dropdown-toggle rounded-pill" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Import SEI List
                                                 </button>
 
                                                 <form method="POST" enctype="multipart/form-data" action="{{ route('sei.store') }}">
@@ -164,12 +163,12 @@
                                         </div>
                                         <div class=" col">
                                             <div class="d-flex justify-content-end"> {{-- EMAIL NOTICE BUTTON --}}
-                                                <a style="{{ request()->is('seilist') || request()->is('emaileditor') ? '' : 'display:none' }}" href="{{ route('sendmail') }}" class="btn btn-primary "> Email Notice to All</a>
+                                                <a style="{{ request()->is('seilist') || request()->is('emaileditor') ? '' : 'display:none' }}; background-color: #2979FF; color: snow;" href="{{ route('sendmail') }} " class="btn rounded-pill"> Email Notice to All</a>
                                             </div>
                                         </div>
                                         <div class=" col">
                                             <div class="d-flex justify-content-end"> {{-- EMAIL NOTICE BUTTON --}}
-                                                <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#endorsedmodal">
+                                                <button type="button" class="btn rounded-pill" data-bs-toggle="modal" style="background-color: #0D47A1; color: snow;" data-bs-target="#endorsedmodal">
                                                     Endorsed
                                                 </button>
                                             </div>
@@ -240,7 +239,7 @@
 
             {{-- MODAL --}}
             <div class="modal fade " id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="editModalLabel" style="font-weight: bold">Scholar Details
@@ -282,8 +281,8 @@
 
                                 </div>
                                 <div class="row align-items-center mb-1">
-                                    <div class="col-2 customlabel"> <label>Firstname: </label></div>
-                                    <div class="col-4"><input class=" form-control  form-control-sm" id="FirstnameField" name="FirstnameField"></div>
+                                    <div class="col-2 customlabel"> <label>Email: </label></div>
+                                    <div class="col-4"><input class=" form-control  form-control-sm" id="EmailField" name="EmailField"></div>
 
                                     <div class="col-2 customlabel"> <label>Contact: </label></div>
                                     <div class="col-4">
@@ -314,8 +313,7 @@
                             {{-- FOOTER --}}
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" id="saveChangesBtn" class="btn btn-primary">Save
-                                    changes</button>
+                                <button type="button" id="saveChangesBtn" class="btn btn-primary">Save changes</button>
                             </div>
                         </div>
                     </div>
@@ -325,7 +323,7 @@
 
             {{-- ENDORSED MODAL --}}
             <div class="modal fade" id="endorsedmodal" tabindex="-1" aria-labelledby="endorsedmodalLabel" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="endorsedmodalLabel">Endorsed from other region</h1>
@@ -388,207 +386,210 @@
         <script src="https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-1.13.8/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/date-1.5.1/fc-4.3.0/fh-3.4.0/r-2.5.0/sc-2.3.0/sp-2.2.0/sl-1.7.0/datatables.min.js"></script>
         <script>
             jQuery.noConflict();
+
             jQuery(document).ready(function($) {
 
-                var currentYear = '<?php echo date('Y'); ?>';
-                $('#currentYearContainer').text("The current year is: " + currentYear);
-
-                $.ajax({
-                    url: '{{ route('get-current-year') }}',
-                    type: 'GET',
-                    success: function(response) {
-                        var currentYear = response.currentYear;
-                        console.log('Current Year:', currentYear);
-                        // Do something with the current year, like passing it to another function
-                        // Example: getYear(currentYear);
-                    },
-                    error: function(xhr, status, error) {
-                        console.error(error);
-                    }
+                $('#submitButton').click(function() {
+                    var selectedYear = $('#startYear').val();
+                    var nextYear = parseInt(selectedYear) + 1;
+                    var yearRange = selectedYear + ' - ' + nextYear;
+                    $('#divToUpdate').text(yearRange);
                 });
 
                 var table = $('#thisdatatable').DataTable({
-                    scrollResize: true,
-                    pageResize: true,
-                    processing: true,
-                    serverSide: true,
-                    pageLength: 25,
-                    fixedHeader: false,
-                    scrollX: true,
-                    select: true,
-                    ajax: '{{ route('seilistviewajax') }}',
-                    type: 'GET',
-                    columns: [{
-                            data: 'lname',
-                        },
-                        {
-                            data: 'fname',
-                        },
-                        {
-                            data: 'mname',
-                        },
-                        {
-                            data: 'spasno',
-                        },
-                        {
-                            data: 'email',
+                        scrollResize: true,
+                        pageResize: true,
+                        processing: true,
+                        serverSide: true,
+                        pageLength: 25,
+                        fixedHeader: false,
+                        scrollX: true,
+                        select: false,
+                        ajax: {
+                            url: '{{ route('seilistviewajax') }}',
+                            type: 'GET',
 
                         },
-                        {
-                            data: 'app_id',
-                        },
-                        {
-                            data: 'strand',
-                        },
-                        {
-                            data: 'progname',
-                        },
-                        {
-                            data: 'gendername',
-                            render: function(data, type, row) {
-                                // Apply custom styles to the email address
-                                var styledgender = '<span style="padding-right: 10px;">' + data +
-                                    '</span>';
-                                return styledgender;
+                        columns: [{
+                                data: 'lname',
                             },
-                        },
-                        {
-                            data: 'bday',
-                        },
-                        {
-                            data: 'mobile',
-                        },
-                        {
-                            data: 'houseno',
-                        },
-                        {
-                            data: 'street',
-                        },
-                        {
-                            data: 'village',
-                        },
-                        {
-                            data: 'barangay',
-                        },
-                        {
-                            data: 'municipality',
-                        },
-                        {
-                            data: 'province',
-                        },
-                        {
-                            data: 'zipcode',
-                        },
-                        {
-                            data: 'district',
-                        },
-                        {
-                            data: 'region',
-                        },
-                        {
-                            data: 'hsname',
-                        },
-                        {
-                            data: 'remarks',
-                        },
-                        {
-                            data: 'scholar_status_id',
+                            {
+                                data: 'fname',
+                            },
+                            {
+                                data: 'mname',
+                            },
+                            {
+                                data: 'spasno',
+                            },
+                            {
+                                data: 'email',
 
+                            },
+                            {
+                                data: 'app_id',
+                            },
+                            {
+                                data: 'strand',
+                            },
+                            {
+                                data: 'progname',
+                            },
+                            {
+                                data: 'gendername',
+                                render: function(data, type, row) {
+                                    // Apply custom styles to the email address
+                                    var styledgender = '<span style="padding-right: 10px;">' + data +
+                                        '</span>';
+                                    return styledgender;
+                                },
+                            },
+                            {
+                                data: 'bday',
+                            },
+                            {
+                                data: 'mobile',
+                            },
+                            {
+                                data: 'houseno',
+                            },
+                            {
+                                data: 'street',
+                            },
+                            {
+                                data: 'village',
+                            },
+                            {
+                                data: 'barangay',
+                            },
+                            {
+                                data: 'municipality',
+                            },
+                            {
+                                data: 'province',
+                            },
+                            {
+                                data: 'zipcode',
+                            },
+                            {
+                                data: 'district',
+                            },
+                            {
+                                data: 'region',
+                            },
+                            {
+                                data: 'hsname',
+                            },
+                            {
+                                data: 'remarks',
+                            },
+                            {
+                                data: 'scholar_status_id',
+
+                            },
+                            {
+                                data: null,
+                                orderable: false,
+                                searchable: false,
+                                className: 'action-column',
+                                render: function(data, type, row) {
+                                    var number = row.id;
+                                    return '' + '<a class="table-edit" data-id="' + number +
+                                        '" ><i class="fas fa-edit"></i></a>' + ''
+                                }
+                            },
+
+
+
+                        ],
+                        scrollX: true,
+                        order: [
+                            [1, 'asc'] //set batch sort from lowest
+                        ],
+                        fixedColumns: {
+                            right: 1,
+                            left: 1,
                         },
-                        {
-                            data: null,
-                            orderable: false,
-                            searchable: false,
-                            className: 'action-column',
-                            render: function(data, type, row) {
-                                var number = row.id;
-                                return '' + '<a class="table-edit" data-id="' + number +
-                                    '" ><i class="fas fa-edit"></i></a>' + ''
+                        columnDefs: [{
+                                targets: 'action-column', // Use a class to target the specific column
+                                className: 'text-center',
+                            },
+                            {
+
+                                targets: [0, 1, 2, 3, 4, 5, 6, 7, 8, , 9, , 10, 11, 12, 13, 14, 15, 16],
+                                orderable: false,
+                            }, {
+                                visible: false,
+                                searchable: true,
+                                targets: 22,
+
+
                             }
+
+                        ],
+                        "createdRow": function(row, data, dataIndex) {
+                            if (data.scholar_status_id != '0') {
+                                $(row).find('td:first-child')
+                                    .css('color', 'green')
+                                    .css('font-weight', 'bold');
+                                // console.log("Row with value '0' found.");
+                            }
+                            // alert();
                         },
+                        drawCallback: function(settings) {
+                            var api = this.api();
 
+                            api.columns([6, 7, 8, 15, 16]).every(function(d) {
+                                var column = this;
+                                // Get the column header name
+                                var theadname = $(api.column(d).header()).text();
+                                // Check if the select element already exists for this column
+                                var select = column.header().querySelector('select');
 
+                                // If the select element doesn't exist or is empty, create it
+                                if (!select || select.options.length === 0) {
+                                    select = document.createElement('select');
+                                    // Add styles to the select element
+                                    select.style.padding = '1px'; // Example padding
+                                    // Add the default option
+                                    select.add(new Option(' ' + theadname, ''));
+                                    // Replace the header with the select element
+                                    column.header().replaceChildren(select);
 
-                    ],
-                    scrollX: true,
-                    order: [
-                        [1, 'asc'] //set batch sort from lowest
-                    ],
-                    fixedColumns: {
-                        right: 1,
-                        left: 1,
-                    },
-                    columnDefs: [{
-                            targets: 'action-column', // Use a class to target the specific column
-                            className: 'text-center',
-                        },
-                        {
+                                    // Apply listener for user change in value
+                                    select.addEventListener('change', function() {
+                                        var val = DataTable.util.escapeRegex(select.value);
 
-                            targets: [6, 7, 8, 15, 16],
-                            orderable: false,
-                        }, {
-                            visible: false,
-                            searchable: true,
-                            targets: 22,
+                                        column
+                                            .search(val ? '^' + val + '$' : '', true, false)
+                                            .draw();
+                                    });
 
-
-                        }
-
-                    ],
-                    "createdRow": function(row, data, dataIndex) {
-                        if (data.scholar_status_id != '0') {
-                            $(row).find('td:first-child')
-                                .css('color', 'green')
-                                .css('font-weight', 'bold');
-                            // console.log("Row with value '0' found.");
-                        }
-                        // alert();
-                    },
-
-
-
-
-                    initComplete: function() {
-                        var api = this.api();
-
-                        api.columns([6, 7, 8, 15, 16]).every(function(d) {
-                            var column = this;
-                            // Get the column header name
-                            var theadname = $(api.column(d).header()).text();
-                            // Create select element
-                            var select = document.createElement('select');
-                            select.add(new Option(' ' + theadname, ''));
-
-                            // Add styles to the select element
-                            select.style.padding = '1px'; // Example padding
-                            // Replace the header with the select element
-                            column.header().replaceChildren(select);
-
-                            // Apply listener for user change in value
-                            select.addEventListener('change', function() {
-                                var val = DataTable.util.escapeRegex(select.value);
-
-                                column
-                                    .search(val ? '^' + val + '$' : '', true, false)
-                                    .draw();
+                                    // Add list of options excluding theadname
+                                    column
+                                        .data()
+                                        .unique()
+                                        .sort()
+                                        .each(function(d, j) {
+                                            // Skip theadname from the dropdown options
+                                            if (d !== theadname) {
+                                                select.add(new Option(d));
+                                            }
+                                        });
+                                }
                             });
+                        },
 
-                            // Add list of options excluding theadname
-                            column
-                                .data()
-                                .unique()
-                                .sort()
-                                .each(function(d, j) {
-                                    // Skip theadname from the dropdown options
-                                    if (d !== theadname) {
-                                        select.add(new Option(d));
-                                    }
-                                });
-                        });
-                    },
-                });
 
-                // table.column(22).visible(false); // Column index starts from 0
+
+
+                    }
+
+                );
+
+
+
+
 
                 $(document).on('click', '.table-edit', function() {
                     var number = $(this).data('id');
@@ -681,7 +682,7 @@
                 });
 
 
-                $('#yearForm').on('submit', function(e) {
+                $('#yearForm').on('submit', function(e) { //DONT DELETE
                     e.preventDefault();
                     var startYear = $(this).find('select[name="startYear"]').val();
                     table.ajax.url("seilistviewajax?startYear=" + startYear).load();

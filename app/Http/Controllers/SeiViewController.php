@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Log;
+use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\DataTables;
 use App\Imports\SeiImport;
 use App\Models\Gender;
@@ -18,29 +18,43 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class SeiViewController extends Controller
 {
+
     //SEILIST1
     public function seiqualifierview()
     {
         $years = Sei::groupBy('year')->pluck('year');
-        return view('seilist', compact('years'));
+        $maxyear = Sei::max('year');
+        return view('seilist', compact('years', 'maxyear'));
     }
+
 
     public function seiqualifierviewajax(Request $request)
     {
         $currentYear = date('Y');
         $startYear = $request->input('startYear');
+
         if (empty($startYear)) {
             $seis = Sei::join('programs', 'seis.program_id', '=', 'programs.id')
                 ->join('genders', 'seis.gender_id', '=', 'genders.id')
-                ->where(function ($query) {
+                ->where(function ($query) use ($currentYear) {
                     $query->whereNull('lacking')
                         ->orWhere('lacking', '=', '');
                 })
-                ->where('year',  $currentYear) // Add this line to filter by the current year
+                ->where('year', $currentYear)
                 ->select('seis.*', 'programs.progname', 'genders.gendername')
                 ->get();
 
-            $this->getyear($startYear);
+            if ($seis->isEmpty()) {
+                $latestYearWithData = Sei::whereNotNull('lacking')
+                    ->where('year', '<=', $currentYear)
+                    ->max('year');
+
+                $seis = Sei::join('programs', 'seis.program_id', '=', 'programs.id')
+                    ->join('genders', 'seis.gender_id', '=', 'genders.id')
+                    ->where('year', $latestYearWithData)
+                    ->select('seis.*', 'programs.progname', 'genders.gendername')
+                    ->get();
+            }
             return DataTables::of($seis)->make(true);
         } else {
             $seis = Sei::join('programs', 'seis.program_id', '=', 'programs.id')
@@ -56,10 +70,7 @@ class SeiViewController extends Controller
         }
     }
 
-    public function getyear($year)
-    {
-        return response()->json(['currentYear' => $year]);
-    }
+
 
 
     public function getOngoingSeilistById($number)
@@ -78,8 +89,8 @@ class SeiViewController extends Controller
         if (!$record) {
             return response()->json(['error' => 'Record not found'], 404);
         }
-        $record->update($request->all()); // Update the record with the new data
-        return response()->json(['message' => 'Changes saved successfully']); // You can return a response if needed
+        $record->update($request->all());
+        return response()->json(['message' => 'Changes saved successfully']);
     }
 
     public function create(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
@@ -91,7 +102,7 @@ class SeiViewController extends Controller
     {
         $firstRow = Excel::toArray(new SeiImport(), $request->file('excel_file')->getRealPath(), null, \Maatwebsite\Excel\Excel::XLSX)[0][0];
         if ($firstRow !== ['SPAS NO.', 'AppID', 'STRAND', 'program', 'last name', 'first name', 'middle name', 'suffix', 'sex', 'birthday', 'email address', 'contact number', 'house number', 'street', 'village', 'barangay', 'municipality', 'province', 'zipcode', 'district', 'region', 'hsname', 'lacking', 'remarks']) {
-            // Redirect back with an error message
+
             session()->flash('error', "The file is not correct; a column has been deleted. Please check the file.");
             return redirect()->back();
         } else {
@@ -101,8 +112,6 @@ class SeiViewController extends Controller
                 session()->flash('success', "Records successfully Imported");
                 return redirect()->back();
             } catch (\Exception $e) {
-                // Handle the error
-                // You can log the error, display a user-friendly message, or take other actions
                 $errorMessage = $e->getMessage();
                 // flash()->addError('There is a problem during upload ');
                 echo 'An error occurred: ' . $errorMessage;
