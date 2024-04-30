@@ -17,8 +17,6 @@ window.bootstrap = __webpack_require__(/*! bootstrap/dist/js/bootstrap.bundle.js
 
 
 
-/* import './fontaws'; */
-
 /***/ }),
 
 /***/ "./resources/js/main.js":

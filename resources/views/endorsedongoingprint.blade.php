@@ -61,6 +61,7 @@
 
                 body {
                     opacity: 100 !important;
+                    background-color: white !important;
                 }
 
             }

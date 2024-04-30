@@ -717,12 +717,10 @@ h6 {
 
 .sidebar-nav .nav-link.collapsed {
     color: #ffffff;
-    background: #3c4244;
+    background: #162932;
 }
 
-.sidebar-nav .nav-link.collapsed i {
-    color: #899bbd;
-}
+
 
 /* MODIFIED */
 /* .sidebar-nav .nav-link:hover {

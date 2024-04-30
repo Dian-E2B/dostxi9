@@ -10,7 +10,7 @@
 
         <li class="nav-item text-center justify-content-center">
             <a class="nav-link {{ request()->is('dashboard') ? '' : 'collapsed' }}" href='{{ route('dashboard') }}'>
-                <span style="padding: 0em 1em 0em 0em;"><i style="font-size:20px;" class="fas animate fa-chart-bar"></i></span>
+                <span style="padding: 0em 1em 0em 0em;"> <i class="bi alarm-fille"></i></span>
                 <div class="">Dashboard</div>
             </a>
         </li><!-- End Dashboard Nav -->

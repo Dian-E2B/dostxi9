@@ -353,21 +353,21 @@
 
                                 <div class="col">
                                     <div class="input-group mb-3">
-                                        <span class="input-group-text" id="basic-addon1">Firstname:</span>
-                                        <input type="text" class="form-control" placeholder="Firstname" name="Firstname" aria-label="Firstname" aria-describedby="basic-addon1">
+                                        <span class="input-group-text" id="basic-addon1">Email:</span>
+                                        <input type="text" class="form-control" placeholder="" name="Firstname" aria-label="Firstname" aria-describedby="basic-addon1">
                                     </div>
                                     <div class="input-group mb-3">
-                                        <span class="input-group-text" id="basic-addon1">Middlename:</span>
-                                        <input type="text" class="form-control" placeholder="Middlename" name="Middlename" aria-label="Middlename" aria-describedby="basic-addon1">
+                                        <span class="input-group-text" id="basic-addon1">Birthdate:</span>
+                                        <input type="text" class="form-control" placeholder="" name="Middlename" aria-label="Middlename" aria-describedby="basic-addon1">
                                     </div>
                                     <div class="input-group mb-3">
-                                        <span class="input-group-text" id="basic-addon1">Surname:</span>
-                                        <input type="text" class="form-control" placeholder="Surname" name="Surname" aria-label="Surname" aria-describedby="basic-addon1">
+                                        <span class="input-group-text" id="basic-addon1">LDVaccount:</span>
+                                        <input type="text" class="form-control" placeholder="" name="Surname" aria-label="Surname" aria-describedby="basic-addon1">
                                     </div>
 
                                     <div class="input-group mb-3">
-                                        <span class="input-group-text" id="basic-addon1">Birthdate:</span>
-                                        <input type="text" class="form-control" placeholder="Birthdate" name="Birthdate" aria-label="Birthdate" aria-describedby="basic-addon1">
+                                        <span class="input-group-text" id="basic-addon1">AppID:</span>
+                                        <input type="text" class="form-control" placeholder="" name="Birthdate" aria-label="Birthdate" aria-describedby="basic-addon1">
                                     </div>
                                 </div>
                             </div>
