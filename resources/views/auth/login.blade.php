@@ -6,43 +6,21 @@
         <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <link rel="icon" href="\icons\DOSTLOGOsmall.png" type="image/x-icon" />
+        <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        <style>
-            .opacitytext {
-                opacity: 9 !important;
-            }
-
-            body {
-
-                background-repeat: no-repeat;
-                background-size: 100% 60%;
-                font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-                font-weight: 500;
-            }
-
-            .card {
-                box-shadow: 1px 20px 30px 5px rgba(0, 0, 0, 0.6) !important;
-            }
-
-            .dostbrand {
-                position: ;
-                font-weight: bold;
-                font-size: 1.5rem;
-            }
-        </style>
     </head>
 
-    <body>
+    <body style="background-color: rgb(231, 231, 231);">
         <main>
             <div class="container">
                 <section>
                     <div class="container">
                         <div class="row vh-100">
-                            <div class="col-sm-5 col-md-12 col-lg-6 col-xl-6 mx-auto d-table ">
+                            <div class="col-sm-5 col-lg-5 col-xl-5 mx-auto d-table ">
                                 <div class="d-table-cell align-middle">
 
-                                    <div class="card">
+                                    <div class="card ">
                                         <div class="container mt-4">
                                             <div style="" class="row justify-content-center">
                                                 <img class="img-fluid" src="{{ asset('icons/SIMS_transparent.png') }}" alt="" style="max-width:25.5rem; height:8.5rem;">
@@ -53,9 +31,10 @@
                                             <div class="">
                                                 <form method="POST" class="row g-1" action="{{ route('login') }}">
                                                     @csrf
-                                                    <div class="mb-2 opacitytext" style="font-size: 20px">Log in</div>
+
                                                     <div class="mb-3">
-                                                        <input id="email" class="form-control  @error('email') is-invalid @enderror" name="email" type="email" value="{{ old('email') }}" placeholder="Enter your email" required autocomplete="email" autofocus />
+                                                        <label for="email">Email</label>
+                                                        <input id="email" class="mt-1 form-control  @error('email') is-invalid @enderror" name="email" type="email" value="{{ old('email') }}" required autocomplete="email" autofocus />
                                                         @error('email')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
@@ -64,8 +43,9 @@
                                                     </div>
 
                                                     <div class="mb-3">
-                                                        <div class="input-group">
-                                                            <input id="password" type="password" class="form-control" placeholder="Enter your password" name="password" aria-label="Username" aria-describedby="addon-wrapping">
+                                                        <label for="password">Password</label>
+                                                        <div class="input-group mt-1">
+                                                            <input id="password" type="password" class="form-control" name="password" aria-label="Username" aria-describedby="addon-wrapping">
                                                             <span class="input-group-text" id="addon-wrapping" style="cursor: pointer" onclick="togglePassword()">
                                                                 <i id="eye-icon" class="far fa-eye"></i>
                                                             </span>
