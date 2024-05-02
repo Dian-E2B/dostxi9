@@ -10,16 +10,16 @@
 
         <li class="nav-item text-center justify-content-center">
             <a class="nav-link {{ request()->is('dashboard') ? '' : 'collapsed' }}" href='{{ route('dashboard') }}'>
-                <span style="padding: 0em 1em 0em 0em;"> <i class="bi alarm-fille"></i></span>
+                <i class="bi bi-bar-chart-fill"></i>
                 <div class="">Dashboard</div>
             </a>
         </li><!-- End Dashboard Nav -->
 
         <li class="nav-item">
             <a class="nav-link {{ request()->is('seilist*') ? '' : 'collapsed' }}" data-bs-target="#sei-nav" data-bs-toggle="collapse" href="#">
-                <span style="padding: 0em 1em 0em 0em;"><i style="font-size:20px;" class="fas animate fa-list-alt"></i></span>
+                <i class="bi bi-person-lines-fill"></i>
                 <span style="">SEI</span>
-                <i class="fas fa-chevron-down"style="margin-left: auto; padding: 0px;"></i>
+                <i class="bi bi-chevron-down fa-chevron-down"style="margin-left: auto; padding: 0px;"></i>
             </a>
             <ul id="sei-nav" class="nav-content collapse {{ request()->is('seilist*') ? 'show' : '' }} align-text-center" data-bs-parent="#sidebar-nav">
                 <li>
@@ -42,16 +42,16 @@
 
         <li class="nav-item text-center justify-content-center">
             <a class="nav-link {{ request()->is('emails') ? '' : 'collapsed' }}" href='{{ route('emails') }}'>
-                <span style="padding: 0em 1em 0em 0em;"><i style="font-size:20px;" class="fas animate fa-envelope-open-text"></i></span>
+                <i class="bi bi-archive-fill"></i>
                 <span class="">Reply&nbsp;Slips</span>
             </a>
         </li><!-- End Replyslip Status Nav -->
 
         <li class="nav-item">
             <a class="nav-link {{ request()->is('ongoinglist*') || request()->is('rsms2*') ? '' : 'collapsed' }}" data-bs-target="#acad-nav" data-bs-toggle="collapse" href="#">
-                <span style="padding: 0em 1.3em 0em 0em;"><i style="font-size:20px;" class="fas animate fa-file-invoice"></i></span>
+                <i class="bi bi-display-fill"></i>
                 <div style="">Academic&nbsp;Monitoring</div>
-                <i class="fas fa-chevron-down"style="margin-left: auto; padding: 0px;"></i>
+                <i class="bi bi-chevron-down fa-chevron-down"style="margin-left: auto; padding: 0px;"></i>
             </a>
             <ul id="acad-nav" class="nav-content collapse {{ request()->is('ongoinglist*') || request()->is('rsms2*') ? 'show' : '' }} align-text-center" data-bs-parent="#sidebar-nav">
                 <li>
@@ -64,16 +64,16 @@
 
         <li class="nav-item text-center justify-content-md-center">
             <a class="nav-link {{ request()->is('emaileditor') ? '' : 'collapsed' }}" href='{{ route('emaileditor') }}'>
-                <span style="padding: 0em 1em 0em 0em;"><i style="font-size:20px;" class="fas animate fa-pen-fancy"></i></span>
+                <i class="bi bi-envelope-arrow-down-fill animate"></i>
                 <span class="" style="">Email&nbsp;Edit</span>
             </a>
         </li><!-- End Email Edit Nav -->
 
         <li class="nav-item">
             <a class="nav-link {{ request()->is('accesscontrol*') ? '' : 'collapsed' }}" data-bs-target="#access-nav" data-bs-toggle="collapse" href="#">
-                <span style="padding: 0em 0.8em 0em 0em;"><i style="font-size:18px;" class="fas animate fa-user-cog"></i></span>
+                <i class="bi bi-universal-access"></i>
                 <span style="">Access Control</span>
-                <i class="fas fa-chevron-down"style="margin-left: auto; padding: 0px;"></i>
+                <i class="bi bi-chevron-down fa-chevron-down"style="margin-left: auto; padding: 0px;"></i>
             </a>
             <ul id="access-nav" class="nav-content collapse {{ request()->is('accesscontrol*') ? 'show' : '' }} align-text-center" data-bs-parent="#sidebar-nav">
                 <li>

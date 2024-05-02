@@ -11,7 +11,7 @@
         <a class="logo d-flex align-items-center">
             <span class="d-none d-lg-block">DOST</span>
         </a>
-        <span class="toggle-sidebar-btn mb-1"> <i class="fas fa-bars" style="font-size: 25px"></i></span>
+        <div id="sidebarbutton" class="toggle-sidebar-btn mb-1"> <i class="bi bi-layout-sidebar-inset" style="font-size: 30px"></i></div>
     </div><!-- End Logo -->
 
     {{-- @php
@@ -88,6 +88,7 @@
     </nav><!-- End Icons Navigation -->
 
 </header><!-- End Header -->
+
 <script>
     function updateNotificationCount() {
         fetch('/notifications/count')

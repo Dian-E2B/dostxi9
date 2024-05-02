@@ -83,7 +83,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       select('body').classList.toggle('toggle-sidebar');
     });
   }
-
   /**
    * Search bar toggle
    */

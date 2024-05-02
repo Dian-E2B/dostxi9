@@ -10,20 +10,25 @@
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/fontaws.css') }}" rel="stylesheet">
-
-
+        {{--  <link href="{{ asset('css/fontaws.min.css') }}" rel="stylesheet"> --}}
         @yield('styles')
     </head>
 
     <body>
         <div id="app">
-            @yield('mainoptions')
+            @if (Auth::check())
+                @include('layouts.headernew') {{-- HEADER START --}}
+                @include('layouts.sidebarnew') {{-- SIDEBAR START --}}
+            @endif
             <main id="main" class="main">
                 @yield('content')
             </main>
         </div>
         @yield('scripts')
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+        <script src="{{ asset('js/app.js') }}"></script>
+        {{--   <scri<pt src="{{ asset('js/fontaws.min.js') }}"></script> --}}
+
     </body>
 
 </html>

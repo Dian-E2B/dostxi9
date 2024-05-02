@@ -6,20 +6,14 @@ use App\Http\Controllers\HeaderController;
 use App\Http\Controllers\SeiViewController;
 use App\Http\Controllers\RsmsViewController;
 use App\Http\Controllers\OngoingController;
-use App\Http\Controllers\StudentViewController;
 use App\Http\Controllers\AccessControlViewController;
+use App\Http\Controllers\DashboardControllerView;
 use App\Http\Controllers\Endorsements;
 use Illuminate\Support\Facades\Route;
-
-
-use App\Http\Controllers\SeiQualifierviewController;
-use App\Http\Controllers\PDFController;
 use App\Http\Controllers\SendMailController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\StudentProfileController;
 use App\Http\Controllers\WordController;
 use App\Http\Controllers\ThesisController;
-use Illuminate\Notifications\Notification;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -95,7 +89,9 @@ Route::middleware(['auth', 'role:staff'])->group(function () {
 
     //ONGOINGLIST
     Route::get('/ongoinglist', [OngoingController::class, 'ongoinglist'])->name('ongoinglist');
-    Route::get('dashboard', [DashboardController::class, 'dashboardview'])->name('dashboard');
+    /*  Route::get('dashboard', [DashboardController::class, 'dashboardview'])->name('dashboard'); */
+    Route::get('dashboard', [DashboardControllerView::class, 'dashboardview'])->name('dashboard');
+    Route::get('dashboardgraph', [DashboardControllerView::class, 'dashboardgraph'])->name('dashboardgraph');
     Route::get('datatable/data', [OngoingController::class, 'getOngoingData'])->name('datatable.data');
     Route::get('/export-to-excel', 'RsmsActionController@exportToExcel');
     Route::get('/getongoingfiltered', [OngoingController::class, 'getOngoingDataFiltered'])->name('getongoingfiltered');
