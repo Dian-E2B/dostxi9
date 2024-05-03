@@ -1,18 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-    <head>
-        <title>DOST XI - SIMS</title>
-        <link rel="icon" href="\icons\DOSTLOGOsmall.png" type="image/x-icon" />
-        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-        <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/fontaws.css') }}" rel="stylesheet">
-
-    </head>
+@extends('layouts.app')
+@section('styles')
     <style>
         #programportioncounter td {
             vertical-align: middle !important;
@@ -48,564 +35,177 @@
         .genderportioncard {
             box-shadow: 1px 2px 5px 4px rgb(214, 214, 214);
         }
-
-       
     </style>
+@endsection
 
-    <body>
-        @include('layouts.headernew') {{-- HEADER START --}}
-        @include('layouts.sidebarnew') {{-- SIDEBAR START --}}
-        <main id="main" class="main">
 
-            @include('dashboardbody')
+@section('mainoptions')
+@endsection
 
-        </main>
+@section('content')
+    <div class="row gx-2">
+        <div class="col-1">
+            <div style="max-width: 55px" class="card">
+                {{-- FILTER ALL BUTTON --}}
+                <a type="button" style="padding:2px" class="btn btn-white dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="bi bi-funnel-fill"></i>
+                </a>
+                {{--  <div class="dropdown-menu ">
+                    <div style="display: flex; max-width: 3.9cm; margin: auto;">
+                        <form id="allfilterform" method="post" action="{{ route('getallyearfilter') }}">
+                            @csrf
+                            <div class="row g-2 selectportion">
+                                <div class="col">
+                                    <select name="startyear" class="form-select">
+                                        @foreach (range(2020, date('Y')) as $uyear)
+                                            <option value="{{ $uyear }}">
+                                                {{ $uyear }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="w-100"></div>
+                                <div class="col">
+                                    <select name="endyear" class="form-select">
+                                        @foreach (range(2020, date('Y')) as $uyear)
+                                            <option value="{{ $uyear }}">
+                                                {{ $uyear }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
 
-    </body>
-    {{-- CHART TOGGLING --}}
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-    <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/fontaws.js') }}"></script>
+                            <span style="padding: 10px;">
+                                <button class="btn" type="submit">Filter</button>
+                            </span>
+                        </form>
+                    </div>
+
+                </div> --}}
+
+            </div>
+
+        </div>
+        {{--  <div class="col-6">
+            @if ($startYear)
+                <h5 class="card" style="max-width: 200px; padding:7px;">{{ $startYear }} to {{ $endYear }}</h5>
+            @endif
+        </div> --}}
+    </div>
+
+    {{-- PROGRAM CHART SECTION --}}
+    <div class="row gx-2">
+        <div class="col-sm-6 programcard">
+            <div class="card">
+
+                <div class="mt-2" style="margin-left: 10px;"> {{-- DESCRIPTION --}}
+                    <h4><strong>
+                            Ongoing
+                        </strong></h4>
+                    <p>This chart illustrates the number of ongoing scholars each program recorded over a five-year period.</p>
+                </div>
+
+                {{-- PROGRAM CHART CANVAS --}}
+                <div>
+                    <canvas style="margin-left: 10px;" id="1" width="" height="150"></canvas>
+                </div>
+            </div>
+        </div>
+
+        {{-- GENDER CHART SECTION --}}
+        <div class="col-sm-6 gendercard">
+            <div class="card gendercard">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="" style="margin-left: 10px;"> {{-- DESCRIPTION --}}
+                            <h4 class="mt-2"><strong> Gender</strong> </h4>
+                            <p>This chart displays the number of scholarships awarded each year for different
+                                genders.</p>
+                        </div>
+                    </div>
+                    <div class="col-6">{{-- Gender Portion --}}
+                        <div class="card genderportioncard w-100 p-1" style="">
+                            <canvas id="myGenderPie" width=""style="height: 90px;"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <canvas style="margin-left: 10px;" id="myGenderChart" width="" height="150"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row gy-0">
+        <div class="col-lg-12">
+            <div class="card" style="margin-top: 0px !important;">
+                <h4> <strong>
+                        Courses
+                    </strong></h4>
+                <p>This chart illustrates the number of ongoing scholars each program recorded over a five-year period.</p>
+                <canvas id="programschartline" style="height: 250px !important;"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="col">
+                    <div class="" style="margin-left: 10px;"> {{-- DESCRIPTION --}}
+                        <h4> <strong>
+                                Provinces
+                            </strong></h4>
+                        <p>This chart displays the number of scholarships availing for each provinces.</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <canvas style="" id="myProvincesChart" width="" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card">
+                <div class="col">
+                    <div class="" style="margin-left: 10px;"> {{-- DESCRIPTION --}}
+                        <h4> <strong>
+                                Enrollees
+                            </strong></h4>
+                        <p>This chart displays the number of students status for each availing scholars.</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <canvas style="" id="myMovementChart" width="500" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="col">
+                    <div class=""> {{-- DESCRIPTION --}}
+                        <h4><strong>
+                                Schools
+                            </strong></h4>
+                        <p>This chart displays the number of students availing for each schools.</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <canvas style="" id="mySchoolChart" width="500" height="600"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+
+@section('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.1/chart.min.js" integrity="sha512-2uu1jrAmW1A+SMwih5DAPqzFS2PI+OPw79OVLS4NJ6jGHQ/GmIVDDlWwz4KLO8DnoUmYdU8hTtFcp8je6zxbCg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
 
-    <script>
-        Chart.register(ChartDataLabels);
-        var ongoingPROGRAM;
-        var startYears;
-        var scholarshipPrograms;
-        var datasets;
-
-        /* Start ProgramChart */
-        ongoingPROGRAM = @json($ongoingPROGRAM);
-        startYears = [...new Set(ongoingPROGRAM.map(item => item.startyear))];
-        scholarshipPrograms = [...new Set(ongoingPROGRAM.map(item => item.scholarshipprogram))];
-
-        datasets = scholarshipPrograms.map(function(program, index) {
-            return {
-                label: program,
-                data: startYears.map(year => {
-                    var match = ongoingPROGRAM.find(item => item.startyear === year && item
-                        .scholarshipprogram === program);
-                    return match ? match.scholarshipprogramcount : 0;
-                }),
-                borderColor: getPredefinedColor(index),
-                borderWidth: 3,
-                fill: false,
-                backgroundColor: getPredefinedColor(index), // Solid color for the area under the line
-            };
-        });
-
-        /* customize x label (program) */
-        var labelsprogram = startYears.map((year, index) => {
-            if (index < startYears.length - 1) {
-                return year + "-" + (year + 1);
-            } else {
-                return year + "-" + (year + 1);
-            }
-        });
-
-
-        /* ProgramChart Setup */
-        var myProgramChart = document.getElementById('myProgramChart').getContext('2d');
-        window.myProgramChart = new Chart(myProgramChart, {
-            type: 'line',
-            data: {
-                labels: labelsprogram,
-                datasets: datasets,
-            },
-            options: {
-                animation: {
-                    tension: {
-                        duration: 2000,
-                        easing: 'linear',
-                        from: 0.4,
-                        to: 0,
-                        loop: true
-                    }
-                },
-                responsive: true,
-
-                scales: {
-                    x: {
-                        type: 'category',
-                        labels: labelsprogram,
-                    },
-                    y: {
-                        beginAtZero: !0,
-                    },
-                },
-
-                plugins: {
-                    legend: {
-                        labels: {
-
-                            color: 'black', // Set the legend label color here
-
-                        },
-                    },
-                    datalabels: {
-                        color: 'black', // change this to your preferred color
-                        font: {
-                            weight: 'bold',
-                            size: 11.5 // change this to your preferred font size
-                        },
-                    },
-                    tooltip: {
-                        mode: 'index',
-                        intersect: !1,
-                    },
-                    zoom: {
-                        zoom: {
-                            wheel: {
-                                enabled: true,
-                            },
-                            pinch: {
-                                enabled: true
-                            },
-                            mode: 'x',
-                        }
-                    },
-                },
-            },
-        });
-
-        /* ProgramChart Part */
-        function getPredefinedColor(index) {
-            var predefinedColors = ['#ff3333', '#cccc00', '#ff00cc'];
-            return predefinedColors[index % predefinedColors.length];
-        }
-
-        /* Start ProgamChartPortion*/
-        var ctxPROGRAMPIE = document.getElementById('myPieChart').getContext('2d');
-        var dataPROGRAM = @json($ongoingPROGRAMcounter);
-        var labelsPROGRAM = [];
-        var countsPROGRAM = [];
-
-        dataPROGRAM.forEach(item => { // Use dataPROGRAM instead of data
-            labelsPROGRAM.push(item.scholarshipprogram);
-            countsPROGRAM.push(item.scholarshipprogramcount);
-        });
-
-        var myPieChart = new Chart(ctxPROGRAMPIE, {
-            type: 'pie',
-            data: {
-                labels: labelsPROGRAM, // Use labelsPROGRAM
-                datasets: [{
-                    data: countsPROGRAM, // Use countsPROGRAM
-                    backgroundColor: [
-                        '#ff3333',
-                        '#cccc00',
-                        '#ff00cc',
-                    ],
-                }]
-            },
-            options: {
-                maintainAspectRatio: false,
-                animation: {
-                    duration: 1500,
-                    easing: 'linear',
-
-                },
-
-                plugins: {
-                    legend: {
-                        labels: {
-                            color: 'black' // Set the legend label color here
-                        },
-                        position: 'left',
-                    },
-                    datalabels: {
-                        formatter: (value, ctxPROGRAMPIE) => {
-                            let sum = 0;
-                            let dataArr = ctxPROGRAMPIE.chart.data.datasets[0].data;
-                            dataArr.map(data => {
-                                sum += data;
-                            });
-                            let percentage = (value * 100 / sum).toFixed(1) + "%";
-                            return percentage;
-                        },
-                        color: 'black', // change this to your preferred color
-                        font: {
-                            weight: 'bold',
-                            size: 12.5 // change this to your preferred font size
-                        },
-                    }
-                },
-
-            },
-        });
-
-
-        /* Start GenderChart */
-        ongoingGender = @json($ongoingGender);
-        startYearsGender = [...new Set(ongoingGender.map(item => item.startyear))];
-        scholarshipGender = [...new Set(ongoingGender.map(item => item.MF))];
-        datasetsGender = scholarshipGender.map(function(gender, index) {
-            return {
-                label: gender,
-                data: startYearsGender.map(year => {
-                    var match = ongoingGender.find(item => item.startyear === year && item.MF === gender);
-                    return match ? match.MFcount : 0;
-                }),
-                borderColor: getPredefinedColorGender(index),
-                borderWidth: 3,
-                fill: false,
-                backgroundColor: getPredefinedColorGender(index), // Solid color for the area under the line
-            };
-        });
-
-        /* customize x label (gender) */
-        var labelsprogram = startYearsGender.map((year, index) => {
-            if (index < startYearsGender.length - 1) {
-                return year + "-" + (year + 1);
-            } else {
-                return year + "-" + (year + 1);
-            }
-        });
-
-        /* Gender Chart Setup */
-        var myGenderChart = document.getElementById('myGenderChart').getContext('2d');
-        window.myGenderChart = new Chart(myGenderChart, {
-            type: 'line',
-            data: {
-                labels: labelsprogram,
-                datasets: datasetsGender,
-            },
-            options: {
-                animation: {
-                    tension: {
-                        duration: 2000,
-                        easing: 'linear',
-                        from: 0.4,
-                        to: 0,
-                        loop: true
-                    }
-                },
-
-                scales: {
-                    x: {
-                        type: 'category',
-                        labels: labelsprogram,
-                    },
-                    y: {
-                        beginAtZero: !0,
-                    },
-                },
-                plugins: {
-                    datalabels: {
-                        color: 'black', // change this to your preferred color
-                        font: {
-                            weight: 'bold',
-                            size: 12.5 // change this to your preferred font size
-                        },
-                    },
-                    tooltip: {
-                        mode: 'index',
-                        intersect: !1,
-                    },
-                    zoom: {
-                        pan: {
-                            enabled: true,
-                            mode: 'x',
-                        },
-                        zoom: {
-                            enabled: true,
-                            mode: 'x',
-                        },
-                    },
-                    legend: {
-                        display: !0,
-                        labels: {
-                            boxWidth: 20,
-                            usePointStyle: !0,
-
-                            color: 'black',
-
-                        },
-                    },
-                },
-            },
-        });
-
-        /* Gender Chart Colors */
-        function getPredefinedColorGender(index) {
-            var predefinedColors = ['#FFC0CB', '#33ff33'];
-            return predefinedColors[index % predefinedColors.length];
-        }
-
-        /* Gender Chart Proportion */
-        var ctxgenderproportion = document.getElementById('myGenderPie').getContext('2d');
-        var datagender = @json($ongoingGendercounter);
-        var labelsgender = [];
-        var countsgender = [];
-
-        datagender.forEach(item => {
-            labelsgender.push(item.MF);
-            countsgender.push(item.MFcount);
-        });
-
-        var myGenderPieChart = new Chart(ctxgenderproportion, {
-            type: 'pie',
-            data: {
-                labels: labelsgender,
-                datasets: [{
-                    data: countsgender,
-                    backgroundColor: ['#FFC0CB', '#33ff33', ],
-                }]
-            },
-            options: {
-
-
-                maintainAspectRatio: false,
-                animation: {
-                    duration: 1500, // duration of the animation in milliseconds
-                    easing: 'linear', // easing function to use
-
-                },
-                responsive: true,
-
-                plugins: {
-                    legend: {
-                        position: 'left',
-                        labels: {
-                            color: 'black' // Set the legend label color here
-                        }
-
-                    },
-                    datalabels: {
-
-                        formatter: (value, ctxgenderproportion) => {
-                            let sum = 0;
-                            let dataArr = ctxgenderproportion.chart.data.datasets[0].data;
-                            dataArr.map(data => {
-                                sum += data;
-                            });
-                            let percentage = (value * 100 / sum).toFixed(1) + "%";
-                            return percentage;
-                        },
-                        color: 'black', // change this to your preferred color
-                        font: {
-                            weight: 'bold'
-                        },
-                    },
-                },
-            },
-        });
-
-        /* Start Of Course Chart */
-        var ctxcourse = document.getElementById('myCoursesChart').getContext('2d');
-        var myCoursesChart = new Chart(ctxcourse, {
-            type: 'bar',
-            data: {
-                labels: @json($dataCourses['labelscourses']),
-                datasets: [{
-                    label: 'Scholarship Courses Currently Availed ',
-                    data: @json($dataCourses['datascourses']),
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 2
-                }]
-            },
-            options: {
-                onClick: function(event, elements) {
-                    // Check if a bar was clicked
-                    if (elements.length > 0) {
-                        // Access the clicked bar's data
-                        var clickedLabel = myCoursesChart.data.labels[elements[0].index];
-                        var clickedValue = myCoursesChart.data.datasets[0].data[elements[0].index];
-
-                        // Your custom logic when a bar is clicked
-                        console.log('Clicked:', clickedLabel, 'with value:', clickedValue);
-                    }
-                },
-                animation: {
-                    duration: 5000,
-                    easing: 'easeOutQuart',
-                },
-                plugins: {
-                    legend: {
-                        labels: {
-                            color: 'black',
-
-                        }
-                    },
-                }
-
-            },
-        });
-
-        /* ongoingProvinces chart */
-        var ctxprovinces = document.getElementById('myProvincesChart').getContext('2d');
-        var provincesColors = ['rgba(75, 192, 192, 0.2)', 'rgba(255, 99, 132, 0.2)', 'rgba(255, 205, 86, 0.2)',
-            'rgba(54, 162, 235, 0.2)', 'rgba(153, 102, 255, 0.2)'
-        ]; // Add more colors as needed
-        window.myProvinceChart = new Chart(ctxprovinces, {
-            type: 'doughnut',
-            data: {
-                labels: @json($dataProvinces['labelsprovince']),
-                datasets: [{
-                    label: @json($dataProvinces['labelsprovince']),
-                    data: @json($dataProvinces['datasprovince']),
-                    backgroundColor: provincesColors,
-
-                    borderWidth: 2
-                }]
-            },
-            options: {
-
-                plugins: {
-                    datalabels: {
-                        font: {
-                            weight: 'bold',
-                            size: 14,
-                        },
-                        color: 'black',
-                        formatter: (value) => {
-                            return value + '%';
-                        },
-                    },
-                    legend: {
-                        position: 'left',
-                        labels: {
-                            color: "black",
-                        },
-                    },
-                },
-                maintainAspectRatio: false,
-                animation: {
-                    duration: 5000,
-                    easing: 'easeOutQuart',
-                },
-
-            },
-        });
-
-
-        document.addEventListener("DOMContentLoaded", function(event) {
-
-
-
-        });
-
-
-
-        /* ongoingSchools */
-        var ctxschools = document.getElementById('mySchoolChart').getContext('2d');
-
-        // Function to generate a random color in hexadecimal format
-        function getRandomColor() {
-            var letters = '0123456789ABCDEF';
-            var color = '#';
-            for (var i = 0; i < 6; i++) {
-                color += letters[Math.floor(Math.random() * 16)];
-            }
-            return color;
-        }
-
-        // Get the data from your PHP variables
-        var labelsSchool = @json($dataSchoool['labelsschool']);
-        var dataSchool = @json($dataSchoool['datasschool']);
-
-        // Generate random colors for each data point
-        var backgroundColorsSchool = dataSchool.map(() => getRandomColor());
-
-        var mySchoolChart = new Chart(ctxschools, {
-            type: 'doughnut',
-            data: {
-                labels: labelsSchool,
-                datasets: [{
-                    label: labelsSchool,
-                    data: dataSchool,
-                    borderWidth: 2,
-                    backgroundColor: backgroundColorsSchool, // Set random colors here
-                }]
-            },
-            options: {
-                plugins: {
-                    datalabels: {
-                        font: {
-                            weight: 'bold',
-                            size: 14,
-                        },
-                        color: 'black',
-                        formatter: (value) => {
-                            return value + '%';
-                        },
-                    },
-                    legend: {
-                        position: 'left',
-                        labels: {
-                            color: "black",
-
-                        },
-                    },
-                },
-                maintainAspectRatio: false,
-                animation: {
-                    duration: 5000,
-                    easing: 'easeOutQuart',
-                },
-            },
-        });
-
-        /* ongoingMovement */
-        var ctxmovement = document.getElementById('myMovementChart').getContext('2d');
-
-        // Function to generate a random color in hexadecimal format
-        function getRandomColor() {
-            var letters = '0123456789ABCDEF';
-            var color = '#';
-            for (var i = 0; i < 6; i++) {
-                color += letters[Math.floor(Math.random() * 16)];
-            }
-            return color;
-        }
-
-        // Get the data from your PHP variables
-        var labels = @json($dataMovements['labelsmovements']);
-        var data = @json($dataMovements['datasmovements']);
-
-        // Generate random colors for each data point
-        var backgroundColors = data.map(() => getRandomColor());
-
-        var myMovementChart = new Chart(ctxmovement, {
-            type: 'doughnut',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: labels,
-                    data: data,
-                    borderWidth: 2,
-                    backgroundColor: backgroundColors, // Set random colors here
-                }]
-            },
-            options: {
-                plugins: {
-                    datalabels: {
-                        font: {
-                            weight: 'bold',
-                            size: 14,
-                        },
-                        color: 'black',
-                        formatter: (value) => {
-                            return value + '%';
-                        },
-                    },
-                    legend: {
-                        position: 'left',
-                    },
-                },
-                maintainAspectRatio: false,
-                animation: {
-                    duration: 5000,
-                    easing: 'easeOutQuart',
-                },
-            },
-        });
-    </script>
-
-
-
-</html>
+    <script type="text/javascript" src="{{ asset('js/dashboard.js') }}"></script>
+@endsection

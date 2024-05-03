@@ -103,66 +103,34 @@
 
                                 <hr>
                                 <div class="row ">
-                                    Please Upload your requirements and wait for confirmation to access the portal.
-                                    <form method="POST" id="submit-form" action="{{ route('savefirstrequirements') }}" enctype="multipart/form-data">
-                                        @csrf
-                                        <input hidden name="scholarid" value="{{ auth()->user()->scholar_id }}">
-                                        <div class="mt-5">
-                                            <span style="font-size: 1.3rem">
-                                                <div class="row g-1">
-                                                    <div class="col-4">
-                                                        <div class="mb-1">
-                                                            <label class="form-label"> Scholarship Agreement</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <div class="mb-1">
-                                                            <input class="form-control form-control-lg" accept="application/pdf" type="file" name="scholarshipagreement" required>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row g-1">
-                                                    <div class="col-4">
-                                                        <div class="mb-1">
-                                                            <label class="form-label"> Information Sheet</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <div class="mb-1">
-                                                            <input class="form-control form-control-lg " accept="application/pdf" type="file" name="informationsheet" required>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row g-1">
-                                                    <div class="col-4">
-                                                        <div class="mb-1">
-                                                            <label for="formFile" class="form-label">Scholar's Oath</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <div class="mb-1">
-                                                            <input class="form-control form-control-lg" accept="application/pdf" type="file" id="formFile" name="scholaroath" required>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row g-1">
-                                                    <div class="col-4">
-                                                        <div class="mb-1">
-                                                            <label for="formFile" class="form-label">Prospectus</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <div class="mb-1">
-                                                            <input class="form-control form-control-lg" accept="application/pdf" type="file" id="formFile" name="prospectus" required>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                    Please Upload your requirements and wait for confirmation to access your dashboard.
+                                    <table class="mt-4">
+                                        <form method="POST" id="submit-form" action="{{ route('savefirstrequirements') }}" enctype="multipart/form-data">
+                                            @csrf
+                                            <input hidden name="scholarid" value="{{ auth()->user()->scholar_id }}">
+                                            <tr class="">
+                                                <th class="">Scholarship Agreement</th>
+                                                <td class=""><input class="form-control form-control-lg" accept="application/pdf" type="file" name="scholarshipagreement" required></td>
+                                            </tr>
+                                            <tr class="">
+                                                <th class="">Information Sheet</th>
+                                                <td class=""> <input class="form-control form-control-lg " accept="application/pdf" type="file" name="informationsheet" required></td>
+                                            </tr>
+                                            <tr class="">
+                                                <th class="">Scholar's Oath</th>
+                                                <td class=""> <input class="form-control form-control-lg" accept="application/pdf" type="file" id="formFile" name="scholaroath" required></td>
+                                            </tr>
+                                            <tr class="">
+                                                <th class="">Prospectus</th>
+                                                <td class=""> <input class="form-control form-control-lg" accept="application/pdf" type="file" id="formFile" name="prospectus" required></td>
+                                            </tr>
+                                            <tr class="">
+                                                <th class=""> <button id="submitBtn" type="submit" class="btn btn-primary"><span style="">Submit </span></button></th>
+                                                <th class=""></th>
+                                            </tr>
+                                        </form>
+                                    </table>
 
-                                            </span>
-                                        </div>
-                                        <hr>
-                                        <button id="submitBtn" type="submit" class="btn btn-primary"><span style="">Submit </span></button>
-                                    </form>
                                 </div>
 
 
@@ -171,7 +139,7 @@
                                 </form>
                             @elseif($replyStatusId == 6)
                                 <div class="mt-3">
-                                    Please wait for confirmation to access the portal.
+                                    Please wait for confirmation to your dashboard.
                                 </div>
                                 <br>
                                 <div class="d-flex">

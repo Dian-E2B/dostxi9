@@ -85,7 +85,6 @@
                     <i class="align-middle" data-feather="lock"></i><span class="align-middle">Access Control</span>
                 </a>
                 <ul id="accesscont1" class="sidebar-dropdown list-unstyled collapse {{ request()->is('accesscontrol') || request()->is('accesscontrolongoing') || request()->is('accesscontrolpending') || request()->is('accesscontrolenrolled') || request()->is('accesscontroldeferred') || request()->is('accesscontrolLOA') || request()->is('accesscontrolterminated') ? 'show' : ' ' }}" data-bs-parent="#sidebar">
-
                     <li class="sidebar-item {{ request()->is('accesscontrol') ? 'active' : ' ' }}"><a class='sidebar-link' href='{{ route('accesscontrol') }}'>Show All</a></li>
                     <li class="sidebar-item {{ request()->is('accesscontrolpending') ? 'active' : ' ' }}"><a class='sidebar-link' href='{{ route('accesscontrolpending') }}'>Pending </a></li>
                     <li class="sidebar-item {{ request()->is('accesscontrolongoing') ? 'active' : ' ' }}"><a class='sidebar-link' href='{{ route('accesscontrolongoing') }}'>Ongoing </a></li>

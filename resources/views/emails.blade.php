@@ -94,16 +94,16 @@
                                                 </thead>
                                                 <tbody>
 
-                                                    @if ($replyslipsandscholarjoinaccepted->isNotEmpty())
-                                                        @foreach ($replyslipsandscholarjoinaccepted as $replyslipsandscholarjoinaccepted1)
+                                                    @if ($replyslipsandscholarjoinattended->isNotEmpty())
+                                                        @foreach ($replyslipsandscholarjoinattended as $replyslipsandscholarjoinattended1)
                                                             <tr>
-                                                                <td>{{ $replyslipsandscholarjoinaccepted1->id }}
-                                                                <td>{{ $replyslipsandscholarjoinaccepted1->fname }}
-                                                                    {{ $replyslipsandscholarjoinaccepted1->mname }}
-                                                                    {{ $replyslipsandscholarjoinaccepted1->lname }}</td>
-                                                                <td>{{ $replyslipsandscholarjoinaccepted1->email }}</td>
+                                                                <td>{{ $replyslipsandscholarjoinattended1->id }}
+                                                                <td>{{ $replyslipsandscholarjoinattended1->fname }}
+                                                                    {{ $replyslipsandscholarjoinattended1->mname }}
+                                                                    {{ $replyslipsandscholarjoinattended1->lname }}</td>
+                                                                <td>{{ $replyslipsandscholarjoinattended1->email }}</td>
                                                                 <td class="d-none d-md-table-cell">
-                                                                    {{ $replyslipsandscholarjoinaccepted1->bday }}</td>
+                                                                    {{ $replyslipsandscholarjoinattended1->bday }}</td>
                                                                 <td class="table-action">
                                                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#acceptedmodal">
                                                                         View
@@ -113,9 +113,9 @@
                                                                             <div class="modal-content">
                                                                                 <div class="modal-header">
                                                                                     <h5 class="modal-title">
-                                                                                        {{ $replyslipsandscholarjoinaccepted1->fname }}
-                                                                                        {{ $replyslipsandscholarjoinaccepted1->mname }}
-                                                                                        {{ $replyslipsandscholarjoinaccepted1->lname }}
+                                                                                        {{ $replyslipsandscholarjoinattended1->fname }}
+                                                                                        {{ $replyslipsandscholarjoinattended1->mname }}
+                                                                                        {{ $replyslipsandscholarjoinattended1->lname }}
                                                                                     </h5>
                                                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                                 </div>
@@ -130,14 +130,14 @@
                                                                                             <p class="mb-0">Qualifier's
                                                                                                 Name
                                                                                                 and Signature</p>
-                                                                                            <img style="max-height: 350px; max-width:350px; " src="{{ $replyslipsandscholarjoinaccepted1->signature }}" alt="blank">
+                                                                                            <img style="max-height: 350px; max-width:350px; " src="{{ $replyslipsandscholarjoinattended1->signature }}" alt="blank">
 
                                                                                         </div>
                                                                                         <div class="col-md-6" style="margin-top: 15px;">
                                                                                             <p class="mb-0">
                                                                                                 Parent's/Guardian's Name and
                                                                                                 Signature</p>
-                                                                                            <img style="max-height: 350px; max-width:350px; " src="{{ $replyslipsandscholarjoinaccepted1->signatureparents }}" alt="blank">
+                                                                                            <img style="max-height: 350px; max-width:350px; " src="{{ $replyslipsandscholarjoinattended1->signatureparents }}" alt="blank">
                                                                                         </div>
                                                                                     </div>
 

@@ -103,8 +103,9 @@
                                     <table id="yourDataTable" cellspacing="0" class="table-striped compact datatable" style="width:100%;">
                                         <thead>
                                             <tr>
-                                                <th>Acadyear</th>
+                                                <th style="width: 10px;">Acadyear</th>
                                                 <th></th>
+                                                <th style="">-</th>
                                                 <th>Semester</th>
                                                 <th>Total Records</th>
                                                 <th>View</th>
@@ -114,9 +115,10 @@
 
                                             @foreach ($results as $result)
                                                 <tr>
-                                                    <td>{{ $result->startyear }}</td>
-                                                    <td>{{ $result->endyear }}</td>
-                                                    <td>
+                                                    <td style="width: 10px;">{{ $result->startyear }} </td>
+                                                    <td style=" text-align: start">-</td>
+                                                    <td style="width: 20px; text-align: start">{{ $result->endyear }}</td>
+                                                    <td style="width: px;">
                                                         @switch($result->semester)
                                                             @case(1)
                                                                 1st Semester
@@ -137,7 +139,7 @@
                                                     <td>{{ $result->group_year }}</td>
                                                     <td><a class="view-btn" data-startyear="{{ $result->startyear }}" data-endyear="{{ $result->endyear }}" data-semester="{{ $result->semester }}"><i class="fas fa-eye"></i>
                                                     </td>
-                                                    <!-- Add other columns as needed -->
+
                                                 </tr>
                                             @endforeach
 
@@ -163,8 +165,8 @@
                     scrollX: true,
                     "order": [],
                     "columnDefs": [{
-                        "targets": 4, // Index of the 5th column (zero-based index)
-                        "orderable": false // Disable sorting for this column
+                        "targets": [0, 1, 4],
+                        "orderable": false
                     }]
 
 

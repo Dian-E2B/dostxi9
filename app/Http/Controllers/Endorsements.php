@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Ongoinglist_endorsed;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB; // Import the DB facade
 use Yajra\DataTables\Facades\DataTables;
@@ -12,20 +11,39 @@ use Dompdf\Options;
 class Endorsements extends Controller
 {
     //
-
-    public function endorsedongoing(Request $request)
+    public function endorsedongoing()
     {
-        if ($request->ajax()) {
-            $endorsements = Ongoinglist_endorsed::select('*');
-            return DataTables::of($endorsements)
-                /* ->addColumn('action', function ($endorsement) {
-                    return '<button href="#" class="btn btn-sm btn-primary edit">Edit</button>';
-                })
-                ->rawColumns(['action']) // Make sure to specify that the 'action' column contains HTML */
-                ->make(true);
-        }
         return view('endorsedongoing');
     }
+
+
+    public function endorsedprogram(Request $request)
+    {
+        $year = $request->input('startyear');
+        $semester = $request->input('semester');
+
+        if (empty($year) && empty($semester)) {
+            $endorsements = DB::table('ongoing_endorsed_view_reportings')
+                ->select('*')
+                ->where('startyear', 2024)
+                ->take(50) // Limit to 50 records
+                ->get();
+        } elseif (isset($year) && isset($semester)) {
+            $endorsements = DB::table('ongoing_endorsed')
+                ->select('*')
+                ->where('startyear', $year)
+                ->where('semester', $semester)
+                ->take(50) // Limit to 50 records
+                ->get();
+        } else {
+            return response()->json(['error' => 'Both year and semester parameters are required.'], 400);
+        }
+
+
+        return DataTables::of($endorsements)->make(true);
+    }
+
+
 
     public function endorsedongoingprint(Request $request, $year = null, $semester = null)
     {

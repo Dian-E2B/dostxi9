@@ -126,6 +126,7 @@ Route::middleware(['auth', 'role:staff'])->group(function () {
     Route::post('/getallyearfilter', [DashboardController::class, 'getallyearfilter'])->name('getallyearfilter');
 
     //ENDORSEMENT
+    Route::get('/endorsedprogram', [Endorsements::class, 'endorsedprogram'])->name('endorsedprogram');
     Route::get('/endorsedongoing', [Endorsements::class, 'endorsedongoing'])->name('endorsedongoing');
     Route::get('/endorsedongoingprint/{year?}/{semester?}', [Endorsements::class, 'endorsedongoingprint'])->name('endorsedongoingprint');
 });
