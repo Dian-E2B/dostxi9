@@ -23,7 +23,11 @@ class StudentProfileController extends Controller
 
         $replyslips = Replyslips::where('scholar_id', $scholarId)->get();
         $replyslipstatus = Replyslips::where('scholar_id', $scholarId)->value('replyslip_status_id');
-
+        /*  if ($replyslipstatus != 6) {
+            return view('student.new', compact('scholarId', 'replyslips', 'replyslipstatus', 'scholarstatusid', 'scholarfullinfo')); //DASHBOARD VIEW
+        } else {
+            return view('student.profile', compact('scholarId', 'replyslips', 'replyslipstatus', 'scholarstatusid', 'scholarfullinfo')); //DASHBOARD VIEW
+        } */
         return view('student.profile', compact('scholarId', 'replyslips', 'replyslipstatus', 'scholarstatusid', 'scholarfullinfo')); //DASHBOARD VIEW
     }
 

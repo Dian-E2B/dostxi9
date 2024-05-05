@@ -215,9 +215,7 @@ class StudentViewController extends Controller
                 'scholarid' => $scholarid1,
             ]);
 
-            $replySlips = Replyslips::where('scholar_id', $scholarid1)->update(['replyslip_status_id' => 6]);
-            if ($Scholar_requirements &&  $replySlips) {
-
+            if ($Scholar_requirements) {
                 Notification_staffs::create([
                     'scholar_id' => Auth::user()->scholar_id,
                     'type' => 'First Requirements',

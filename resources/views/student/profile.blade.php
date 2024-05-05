@@ -311,8 +311,10 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </main>
         @endif
-        </main>
+
     </body>
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/fontaws.js') }}"></script>

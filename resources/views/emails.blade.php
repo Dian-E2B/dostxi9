@@ -75,16 +75,16 @@
                                 </thead>
                                 <tbody>
 
-                                    @if ($replyslipsandscholarjoinattended->isNotEmpty())
-                                        @foreach ($replyslipsandscholarjoinattended as $replyslipsandscholarjoinattended1)
+                                    @if ($replyslipsandscholarjoinaccepted->isNotEmpty())
+                                        @foreach ($replyslipsandscholarjoinaccepted as $rsa1)
                                             <tr>
-                                                <td>{{ $replyslipsandscholarjoinattended1->id }}
-                                                <td>{{ $replyslipsandscholarjoinattended1->fname }}
-                                                    {{ $replyslipsandscholarjoinattended1->mname }}
-                                                    {{ $replyslipsandscholarjoinattended1->lname }}</td>
-                                                <td>{{ $replyslipsandscholarjoinattended1->email }}</td>
+                                                <td>{{ $rsa1->id }}
+                                                <td>{{ $rsa1->fname }}
+                                                    {{ $rsa1->mname }}
+                                                    {{ $rsa1->lname }}</td>
+                                                <td>{{ $rsa1->email }}</td>
                                                 <td class="d-none d-md-table-cell">
-                                                    {{ $replyslipsandscholarjoinattended1->bday }}</td>
+                                                    {{ $rsa1->bday }}</td>
                                                 <td class="table-action">
                                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#acceptedmodal">
                                                         View
@@ -94,9 +94,9 @@
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h5 class="modal-title">
-                                                                        {{ $replyslipsandscholarjoinattended1->fname }}
-                                                                        {{ $replyslipsandscholarjoinattended1->mname }}
-                                                                        {{ $replyslipsandscholarjoinattended1->lname }}
+                                                                        {{ $rsa1->fname }}
+                                                                        {{ $rsa1->mname }}
+                                                                        {{ $rsa1->lname }}
                                                                     </h5>
                                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                 </div>
@@ -111,14 +111,14 @@
                                                                             <p class="mb-0">Qualifier's
                                                                                 Name
                                                                                 and Signature</p>
-                                                                            <img style="max-height: 350px; max-width:350px; " src="{{ $replyslipsandscholarjoinattended1->signature }}" alt="blank">
+                                                                            <img style="max-height: 350px; max-width:350px; " src="{{ $rsa1->signature }}" alt="blank">
 
                                                                         </div>
                                                                         <div class="col-md-6" style="margin-top: 15px;">
                                                                             <p class="mb-0">
                                                                                 Parent's/Guardian's Name and
                                                                                 Signature</p>
-                                                                            <img style="max-height: 350px; max-width:350px; " src="{{ $replyslipsandscholarjoinattended1->signatureparents }}" alt="blank">
+                                                                            <img style="max-height: 350px; max-width:350px; " src="{{ $rsa1->signatureparents }}" alt="blank">
                                                                         </div>
                                                                     </div>
 

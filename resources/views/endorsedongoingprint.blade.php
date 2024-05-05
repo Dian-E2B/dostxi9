@@ -8,7 +8,6 @@
         <style>
             .col-lg-4 {
                 width: 33.33%;
-                /* Adjust as needed */
                 float: left;
                 padding: 0;
 
@@ -17,11 +16,6 @@
             main {
                 page-break-after: always;
             }
-
-
-            body {}
-
-            @page {}
 
             header {
                 top: 0px;
@@ -39,13 +33,6 @@
                 overflow: hidden;
                 white-space: nowrap;
                 text-overflow: ellipsis;
-            }
-
-            @page {
-                size: landscape !important;
-                size: A4;
-
-                /* Adjust the margin-top value for the first page */
             }
 
 
@@ -69,7 +56,6 @@
             body {
                 opacity: 0;
                 overflow: auto;
-
             }
 
             thead {
@@ -82,14 +68,9 @@
                 white-space: nowrap;
                 text-overflow: ellipsis;
             }
-
-            /** Define the footer rules **/
         </style>
 
     <body>
-
-
-
         <main class="main-content">
             <div class="row">
                 <div class="">
@@ -101,16 +82,22 @@
                                 </th>
                             </tr>
                             <tr>
-                                <th colspan="3" style="text-align: center !important; padding: 0px; margin:0px;" class="TEXT-CENTER">LIST OF SCHOLARS ENDORSED TO UNIVERSITIES/COLLEGES</th>
+                                <th colspan="3" style="text-align: center !important; padding: 0px; margin:0px;" class="TEXT-CENTER">
+                                    LIST OF SCHOLARS ENDORSED TO UNIVERSITIES/COLLEGES
+                                </th>
                             </tr>
                             <tr>
                                 <th colspan="3" style="text-align: center !important; padding-bottom: 15px;margin:0px;" class="TEXT-CENTER">
-                                    @if ($endorsements->first()->semester == 1)
-                                        1<sup>st</sup> SEMESTER {{ $endorsements->first()->year }}-{{ $endorsements->first()->year + 1 }}
-                                    @elseif ($endorsements->first()->semester == 2)
-                                        2<sup>nd</sup> SEMESTER {{ $endorsements->first()->year }}-{{ $endorsements->first()->year + 1 }}
-                                    @else
-                                        Summer {{ $endorsements->first()->year }}-{{ $endorsements->first()->year + 1 }}
+                                    @if ($endorsements)
+                                        @if ($endorsements->first())
+                                            @if ($endorsements->first()->semester == 1)
+                                                1<sup>st</sup> SEMESTER {{ $endorsements->first()->year }}-{{ $endorsements->first()->year + 1 }}
+                                            @elseif ($endorsements->first()->semester == 2)
+                                                2<sup>nd</sup> SEMESTER {{ $endorsements->first()->year }}-{{ $endorsements->first()->year + 1 }}
+                                            @else
+                                                Summer {{ $endorsements->first()->year }}-{{ $endorsements->first()->year + 1 }}
+                                            @endif
+                                        @endif
                                     @endif
                                 </th>
                             </tr>
@@ -120,7 +107,6 @@
                                 $currentSchool = '';
                                 $columnCount = 0;
                             @endphp
-
 
                             @if ($columnCount != 0)
                                 @for ($i = $columnCount; $i < 3; $i++)
@@ -178,28 +164,24 @@
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/fontaws.js') }}"></script>
     <script>
-        $(document).ready(function() {
-            // Function to be called after printing
-            function afterPrint() {
-                console.log('Printing completed...');
-                window.open('', '_self', '');
-            }
+        /*   $(document).ready(function() {
+                                function afterPrint() {
+                                    console.log('Printing completed...');
+                                    window.open('', '_self', '');
+                                }
+                                window.print();
 
-            // Open the print dialog
-            window.print();
+                                setTimeout(function() {
+                                    if (!document.hidden) {
 
-            // Check if the print dialog is closed after a short delay
-            setTimeout(function() {
-                if (!document.hidden) {
-                    // If the document is still visible, it means the print dialog is still open
-                    console.log('Printing canceled...');
-                    window.close(2000);
-                } else {
-                    // If the document is hidden, assume printing is completed
-                    afterPrint();
-                }
-            }, 2000); // Adjust the delay as needed
-        });
+                                        console.log('Printing canceled...');
+                                        window.close(2000);
+                                    } else {
+
+                                        afterPrint();
+                                    }
+                                }, 2000);
+                            }); */
     </script>
 
 </html>

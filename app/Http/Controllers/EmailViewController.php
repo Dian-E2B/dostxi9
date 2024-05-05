@@ -36,7 +36,7 @@ class EmailViewController extends Controller
 
         $replyslipsandscholarjoinaccepted = Replyslips::join('seis', 'replyslips.scholar_id', '=', 'seis.id')
             ->select('replyslips.*', 'seis.*')
-            ->where('replyslips.replyslip_status_id', 2)
+            ->where('replyslips.replyslip_status_id', 6)
             ->get();
 
         // dd($replyslipsandscholarjoinaccepted);

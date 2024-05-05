@@ -138,7 +138,7 @@ class AccessControlViewController extends Controller
             $seisterminated = DB::table('seis')
                 ->join('scholar_statuses', 'seis.scholar_status_id', '=', 'scholar_statuses.id')
                 ->select('seis.id', 'seis.year', 'seis.lname', 'seis.fname', 'seis.mname', 'seis.email', 'seis.gender_id',  'scholar_statuses.status_name')
-                ->where('seis.scholar_status_id', '=', 6)
+                ->where('seis.scholar_status_id', '=', 6) //VERIFIED
                 ->get();
             return view('accesscontrol', compact('seisterminated'));
         } catch (\Exception $e) {
@@ -163,7 +163,7 @@ class AccessControlViewController extends Controller
         $scholar_id = $request->input('namescholar_id');
         $data_id = $request->input('namedata_id');
         $ifscholar_id = Sei::find($scholar_id);
-        $ifscholar_idslip = Replyslips::where('scholar_id', $scholar_id)->select('reply_status_id');
+        $ifscholar_idslip = Replyslips::where('scholar_id', $scholar_id)->select('replyslip_status_id');
 
         if ($request->input("nameprocess") == "verify") {
             $ifscholarstatusupdate  =  $ifscholar_id->update(['scholar_status_id' => 2]);

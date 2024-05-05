@@ -35,7 +35,7 @@
                                         </select>
                                     </div>
                                     <div class="col-sm" style="">
-                                        <button class="btn btn-light print-button btn-sm" style="padding: 2px 12px; width: 100%;"><i style="color: black" class="fas fa-print"></i></button>
+                                        <button class="btn btn-light print-button btn-sm" style="padding: 2px 12px; width: 100%;"><i class="bi bi-printer-fill"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -51,7 +51,7 @@
                             <i class="bi bi-funnel-fill"></i>
                         </button>
                         <ul class="dropdown-menu" style="padding: 10px">
-                            <form method="POST" action="{{ route('endorsedongoing') }}" id="endorseyearform">
+                            <form id="endorseyearform">
                                 <div class="mb-2">
                                     <select id="selectyear" name="selectyear" class="form-control form-control-sm">
                                         <option value="">Year</option>
@@ -183,24 +183,15 @@
             });
 
             $(document).on('click', '.print-button', function() {
-                // Get the value of the input fields with the IDs 'year' and 'semester'
                 var year = $('#year').val();
                 var semester = $('#semester').val();
-
-                // Check if both year and semester have values
                 if (year && semester) {
-                    // Construct the URL
                     var url = '{{ url('/endorsedongoingprint/') }}' + '/' + year + '/' + semester;
-
-                    // Redirect to the constructed URL
                     var newWindow = window.open(url, '_blank');
-
-                    // Once the new window is open, initiate the print action
                     newWindow.onload = function() {
                         newWindow.print();
                     };
                 } else {
-                    // Handle the case where either year or semester is empty
                     Swal.fire({
                         icon: "error",
                         title: "Please select year and semester!",
