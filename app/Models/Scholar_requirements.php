@@ -14,6 +14,9 @@ class Scholar_requirements extends Model
         "informationsheet",
         "scholaroath",
         "prospectus",
+        "prospectus",
+        "cor_first",
+        "accnumber",
         "scholar_id",
 
     ];

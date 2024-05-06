@@ -38,6 +38,7 @@ class Sei extends Model
         'email',
         'mobile',
         'scholar_status_id',
+        'endorsed_status',
         'course',
         'school',
     ];

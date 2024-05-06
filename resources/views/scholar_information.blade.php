@@ -121,7 +121,7 @@
 
 
 
-<!-- Modal REQUIREMENTS -->
+{{-- <!-- Modal REQUIREMENTS -->
 <div class="modal fade common-modal" id="viewRequirementsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen">
         <div class="modal-content">
@@ -180,7 +180,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
 </main>
 </body>
@@ -198,7 +198,6 @@
 
     document.querySelectorAll('.thisisbutton').forEach(function(element) {
         element.addEventListener('click', function() {
-            // Store the current scroll position in sessionStorage
             sessionStorage.setItem('scrollPosition', window.scrollY);
         });
     });
@@ -208,9 +207,7 @@
     window.addEventListener('load', function() {
         var scrollPosition = sessionStorage.getItem('scrollPosition');
         if (scrollPosition) {
-            // Scroll the page to the stored position
             window.scrollTo(0, parseInt(scrollPosition));
-            // Clear the stored scroll position after using it
             sessionStorage.removeItem('scrollPosition');
         }
     });

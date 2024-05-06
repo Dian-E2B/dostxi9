@@ -17,9 +17,9 @@ class MainServices
     public function enrollscholartoongoing($id, $semester, $startyear)
     {
         $seisourcerecord = Sei::find($id);
-        // Check if the record exists
+
         if ($seisourcerecord) {
-            // Access the value of the 'year' column
+
             $yearValue = $seisourcerecord->year;
             $genderValue = $seisourcerecord->gender_id;
             $program_id = $seisourcerecord->program_id;
@@ -105,12 +105,12 @@ class MainServices
                 $destinationRecord->save();
 
 
-                $endorsedRecord = new Ongoinglist_endorsed();
+                /*  $endorsedRecord = new Ongoinglist_endorsed();
                 $endorsedRecord->scholar_id =  $seisourcerecord->id;
                 $endorsedRecord->name =  $seisourcerecord->lname . ", " . $seisourcerecord->fname . " " . $seisourcerecord->mname;
                 $endorsedRecord->school = $seisourcerecord->school;
                 $endorsedRecord->course = $seisourcerecord->course;
-                $endorsedRecord->save();
+                $endorsedRecord->save(); */
             } else {
                 $destinationRecord = new Ongoing();
                 $destinationRecord->BATCH = $yearValue;
@@ -138,12 +138,12 @@ class MainServices
                 $destinationRecord->created_at = now();
                 $destinationRecord->save();
 
-                $endorsedRecord = new Ongoinglist_endorsed();
+                /*  $endorsedRecord = new Ongoinglist_endorsed();
                 $endorsedRecord->scholar_id =  $seisourcerecord->id;
                 $endorsedRecord->name =  $seisourcerecord->lname . ", " . $seisourcerecord->fname . " " . $seisourcerecord->mname;
                 $endorsedRecord->school = $seisourcerecord->school;
                 $endorsedRecord->course = $seisourcerecord->course;
-                $endorsedRecord->save();
+                $endorsedRecord->save(); */
             }
 
             try {

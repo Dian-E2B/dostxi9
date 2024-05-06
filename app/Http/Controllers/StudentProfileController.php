@@ -19,16 +19,16 @@ class StudentProfileController extends Controller
         $scholarId = $studentuser->scholar_id;
 
         $scholarstatusid = Sei::where('id', $scholarId)->value('scholar_status_id'); //show status id
+        $scholar_endorsed_status_id = Sei::where('id', $scholarId)->value('endorsed_status');
         $scholarfullinfo = Sei::where('id', $scholarId)->select('fname', 'mname', 'lname', 'mobile', 'program_id', 'email', 'barangay', 'province', 'municipality', 'zipcode', 'gender_id', 'course', 'school')->first(); //show fullname
 
         $replyslips = Replyslips::where('scholar_id', $scholarId)->get();
         $replyslipstatus = Replyslips::where('scholar_id', $scholarId)->value('replyslip_status_id');
-        /*  if ($replyslipstatus != 6) {
-            return view('student.new', compact('scholarId', 'replyslips', 'replyslipstatus', 'scholarstatusid', 'scholarfullinfo')); //DASHBOARD VIEW
+        if ($replyslipstatus != 5) {
+            return view('student.requirements', compact('scholarId', 'replyslips', 'replyslipstatus', 'scholarstatusid', 'scholarfullinfo', 'scholar_endorsed_status_id')); //DASHBOARD VIEW
         } else {
             return view('student.profile', compact('scholarId', 'replyslips', 'replyslipstatus', 'scholarstatusid', 'scholarfullinfo')); //DASHBOARD VIEW
-        } */
-        return view('student.profile', compact('scholarId', 'replyslips', 'replyslipstatus', 'scholarstatusid', 'scholarfullinfo')); //DASHBOARD VIEW
+        }
     }
 
     public function editschoolcourse(Request $request)

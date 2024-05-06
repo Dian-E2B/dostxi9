@@ -8,9 +8,9 @@
                 <th class="" style="">Scholarship Agreement</th>
                 <td class="tdviewreq">
                     @if (!empty($scholarrequirements))
-                    <a class=" d-block btn btn-sm btn-light viewreqsholarship thisisbutton" href="#" data-id="{{ $seisourcerecord->id }}" class=""><i class="fas fa-eye"></i>&nbsp;View</a>
+                        <a href="{{ asset($scholarrequirements->scholarshipagreement) }}" target="_blank" class="d-block viewreqinformation btn btn-sm btn-light thisisbutton"><i class="fas fa-eye"></i></a>
                     @else
-                    No File Uploaded
+                        No File Uploaded
                     @endif
                 </td>
                 <td class="tdviewreq"><button class="btn btn-light btn-sm">t</button> </td>
@@ -20,9 +20,9 @@
                 <th class="">Information Sheet</th>
                 <td class="tdviewreq"><span class="">
                         @if (!empty($scholarrequirements))
-                        <a data-id="{{ $seisourcerecord->id }}" class="d-block viewreqinformation btn btn-sm btn-light thisisbutton"><i class="fas fa-eye"></i>&nbsp;View</a>
+                            <a href="{{ asset($scholarrequirements->informationsheet) }}" target="_blank" class="d-block viewreqinformation btn btn-sm btn-light thisisbutton"><i class="fas fa-eye"></i></a>
                         @else
-                        No File Uploaded
+                            No File Uploaded
                         @endif
                     </span>
 
@@ -33,9 +33,9 @@
                 <th class="">Scholar's Oath</th>
                 <td class="tdviewreq">
                     @if (!empty($scholarrequirements))
-                    <a data-id="{{ $seisourcerecord->id }}" class="d-block viewreqoath btn btn-sm btn-light thisisbutton"><i class="fas fa-eye"></i>&nbsp;View</a>
+                        <a href="{{ asset($scholarrequirements->scholaroath) }}" target="_blank" class="d-block viewreqinformation btn btn-sm btn-light thisisbutton"><i class="fas fa-eye"></i></a>
                     @else
-                    No File Uploaded
+                        No File Uploaded
                     @endif
                 </td>
             </tr>
@@ -43,9 +43,19 @@
                 <th class="">Prospectus</th>
                 <td class="tdviewreq">
                     @if (!empty($scholarrequirements))
-                    <a data-id="{{ $seisourcerecord->id }}" class="d-block viewreqprospectus btn btn-sm btn-light thisisbutton"><i class="fas fa-eye"></i>&nbsp;View</a>
+                        <a href="{{ asset($scholarrequirements->propectus) }}" class="d-block viewreqprospectus btn btn-sm btn-light thisisbutton"><i class="fas fa-eye"></i></a>
                     @else
-                    No File Uploaded
+                        No File Uploaded
+                    @endif
+                </td>
+            </tr>
+            <tr class="">
+                <th class="">COR</th>
+                <td class="tdviewreq">
+                    @if (!empty($scholarrequirements))
+                        <a href="{{ asset($scholarrequirements->cor_first) }}" class="d-block viewreqprospectus btn btn-sm btn-light thisisbutton"><i class="fas fa-eye"></i></a>
+                    @else
+                        No File Uploaded
                     @endif
                 </td>
             </tr>
@@ -60,14 +70,14 @@
                             <div class="col-6">
                                 <div class="d-flex justify-content-start align-items-center">
                                     @php
-                                    $replyslipverified = \App\Models\Replyslips::where('scholar_id', $seisourcerecord->id)->first();
+                                        $replyslipverified = \App\Models\Replyslips::where('scholar_id', $seisourcerecord->id)->first();
                                     @endphp
                                     @if ($replyslipverified)
-                                    @if ($replyslipverified->replyslip_status_id == 5)
-                                    <button disabled class="btn btn-success btn-sm">Verified</button><span class="px-2"></span>
-                                    @else
-                                    <button type="submit" class="btn btn-success btn-sm" onclick="submitFormverify('verify');">Verify</button><span class="px-2"></span>
-                                    @endif
+                                        @if ($replyslipverified->replyslip_status_id == 5)
+                                            <button disabled class="btn btn-success btn-sm">Verified</button><span class="px-2"></span>
+                                        @else
+                                            <button type="submit" class="btn btn-success btn-sm" onclick="submitFormverify('verify');">Verify</button><span class="px-2"></span>
+                                        @endif
                                     @endif
                                 </div>
                             </div>

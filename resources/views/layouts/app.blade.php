@@ -4,7 +4,6 @@
     <head>
         <title>DOST XI - SIMS</title>
         <link rel="icon" href="\icons\DOSTLOGOsmall.png" type="image/x-icon" />
-        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta name="csrf-token" content="{{ csrf_token() }}" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">
@@ -17,6 +16,7 @@
 
         {{-- Sweetalert cdn - --}}
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
         {{--  <link href="{{ asset('css/fontaws.min.css') }}" rel="stylesheet"> --}}
         @yield('styles')
     </head>
@@ -31,11 +31,16 @@
                 @yield('content')
             </main>
         </div>
-        <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-        <script src="{{ asset('js/app.js') }}"></script>
-        @yield('scripts')
+
+
+
         {{--   <scri<pt src="{{ asset('js/fontaws.min.js') }}"></script> --}}
 
+        <script src="{{ asset('js/app.js') }}"></script>
+        @yield('scripts')
+
     </body>
+
+
 
 </html>

@@ -4404,7 +4404,6 @@
     animation-name: slideOutUp;
 }
 
-@charset "UTF-8";
 
 /*!
  * Bootstrap  v5.3.3 (https://getbootstrap.com/)
@@ -18887,7 +18886,7 @@ h6,
 
     #main,
     #footer {
-        margin-left: 240px;
+        margin-left: 250px;
     }
 }
 

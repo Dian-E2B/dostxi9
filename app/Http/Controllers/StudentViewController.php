@@ -203,8 +203,14 @@ class StudentViewController extends Controller
         $customstudentprospectusfilename = $scholarid1 . 'prospectus' . time() . '.' . $request->file('prospectus')->getClientOriginalExtension();
         $storeprospectus = $request->file('prospectus')->storeAs('public/documents', $customstudentprospectusfilename);
 
+        $customstudentcorfirstfilename = $scholarid1 . 'corfirst' . time() . '.' . $request->file('corfirst')->getClientOriginalExtension();
+        $storecorfirst = $request->file('corfirst')->storeAs('public/cor', $customstudentcorfirstfilename);
 
-        if ($storeprospectus && $storescholarshipagreement && $storescholaroath && $storeinformationsheet) {
+        $customstudentaccnumberfilename = $scholarid1 . 'accnumber' . time() . '.' . $request->file('accnumber')->getClientOriginalExtension();
+        $storeaccnumber = $request->file('accnumber')->storeAs('public/accnumber', $customstudentaccnumberfilename);
+
+        $replyslipsupdate = Replyslips::where('scholar_id', $scholarid1)->update(['replyslip_status_id' => 7]);
+        if ($storeprospectus && $storescholarshipagreement && $storescholaroath && $storeinformationsheet &&  $storecorfirst && $storeaccnumber &&  $replyslipsupdate) {
             $Scholar_requirements = Scholar_requirements::create([
                 'scholar_id' => $scholarid1,
                 'date_uploaded' => now(),
@@ -212,6 +218,8 @@ class StudentViewController extends Controller
                 'informationsheet' => 'storage/documents/' . $customstudentsinformationsheet,
                 'scholaroath' => 'storage/documents/' . $customstudentscholaroath,
                 'prospectus' => 'storage/documents/' . $customstudentprospectusfilename,
+                'cor_first' => 'storage/cor/' . $customstudentcorfirstfilename,
+                'accnumber' => 'storage/accnumber/' . $customstudentaccnumberfilename,
                 'scholarid' => $scholarid1,
             ]);
 
@@ -222,7 +230,7 @@ class StudentViewController extends Controller
                     'message' => 'A scholar\'s initial requirement has been uploaded!',
                     'data_id' =>  $Scholar_requirements->id,
                 ]);
-                return redirect('student/profile');
+                return redirect('student/requirements');
             }
         }
     }

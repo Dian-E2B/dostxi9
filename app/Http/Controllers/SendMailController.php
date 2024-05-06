@@ -6,16 +6,10 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\EmailContent;
 use App\Models\Replyslips;
 use App\Models\Student;
-use App\Models\User;
 use Exception;
-use Illuminate\Support\Facades\DB; // For the DB facade
-use App\Models\Scholars;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Mailnotifyawards;
-use App\Models\email_merit;
-use App\Models\email_ra10612;
-use App\Models\email_ra7687;
 use App\Models\Sei;
 
 class SendMailController extends Controller
