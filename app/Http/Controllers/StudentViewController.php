@@ -192,16 +192,16 @@ class StudentViewController extends Controller
         $scholarid1 = $request->input('scholarid');
 
         $customstudentscholarshipagreement = $scholarid1 . 'scholarshipagreement' . time() . '.' . $request->file('scholarshipagreement')->getClientOriginalExtension();
-        $storescholarshipagreement = $request->file('scholarshipagreement')->storeAs('public/documents', $customstudentscholarshipagreement);
+        $storescholarshipagreement = $request->file('scholarshipagreement')->storeAs('public/scholagreement', $customstudentscholarshipagreement);
 
         $customstudentsinformationsheet = $scholarid1 . 'informationsheet' . time() . '.' . $request->file('informationsheet')->getClientOriginalExtension();
-        $storeinformationsheet = $request->file('informationsheet')->storeAs('public/documents', $customstudentsinformationsheet);
+        $storeinformationsheet = $request->file('informationsheet')->storeAs('public/infosheet', $customstudentsinformationsheet);
 
         $customstudentscholaroath = $scholarid1 . 'scholaroath' . time() . '.' . $request->file('scholaroath')->getClientOriginalExtension();
-        $storescholaroath = $request->file('scholaroath')->storeAs('public/documents', $customstudentscholaroath);
+        $storescholaroath = $request->file('scholaroath')->storeAs('public/scholaroath', $customstudentscholaroath);
 
         $customstudentprospectusfilename = $scholarid1 . 'prospectus' . time() . '.' . $request->file('prospectus')->getClientOriginalExtension();
-        $storeprospectus = $request->file('prospectus')->storeAs('public/documents', $customstudentprospectusfilename);
+        $storeprospectus = $request->file('prospectus')->storeAs('public/prospectus', $customstudentprospectusfilename);
 
         $customstudentcorfirstfilename = $scholarid1 . 'corfirst' . time() . '.' . $request->file('corfirst')->getClientOriginalExtension();
         $storecorfirst = $request->file('corfirst')->storeAs('public/cor', $customstudentcorfirstfilename);
@@ -211,26 +211,65 @@ class StudentViewController extends Controller
 
         $replyslipsupdate = Replyslips::where('scholar_id', $scholarid1)->update(['replyslip_status_id' => 7]);
         if ($storeprospectus && $storescholarshipagreement && $storescholaroath && $storeinformationsheet &&  $storecorfirst && $storeaccnumber &&  $replyslipsupdate) {
-            $Scholar_requirements = Scholar_requirements::create([
+            // $Scholar_requirements = Scholar_requirements::create([
+            //     'scholar_id' => $scholarid1,
+            //     'date_uploaded' => now(),
+            //     'scholarshipagreement' => 'storage/documents/' . $customstudentscholarshipagreement,
+            //     'informationsheet' => 'storage/documents/' . $customstudentsinformationsheet,
+            //     'scholaroath' => 'storage/documents/' . $customstudentscholaroath,
+            //     'prospectus' => 'storage/documents/' . $customstudentprospectusfilename,
+            //     'cor_first' => 'storage/cor/' . $customstudentcorfirstfilename,
+            //     'accnumber' => 'storage/accnumber/' . $customstudentaccnumberfilename,
+            //     'scholarid' => $scholarid1,
+            // ]);
+
+            $insertSA = DB::table('scholarshipagreement')->insert([
                 'scholar_id' => $scholarid1,
-                'date_uploaded' => now(),
-                'scholarshipagreement' => 'storage/documents/' . $customstudentscholarshipagreement,
-                'informationsheet' => 'storage/documents/' . $customstudentsinformationsheet,
-                'scholaroath' => 'storage/documents/' . $customstudentscholaroath,
-                'prospectus' => 'storage/documents/' . $customstudentprospectusfilename,
-                'cor_first' => 'storage/cor/' . $customstudentcorfirstfilename,
-                'accnumber' => 'storage/accnumber/' . $customstudentaccnumberfilename,
-                'scholarid' => $scholarid1,
+                'scholarshipagreement_name' => 'storage/scholagreement/' . $customstudentscholarshipagreement,
+                'created_at' => now(),
             ]);
 
-            if ($Scholar_requirements) {
+            $insertP =  DB::table('prospectus')->insert([
+                'scholar_id' => $scholarid1,
+                'prospectus_name' => 'storage/prospectus/' . $customstudentprospectusfilename,
+                'created_at' => now(),
+            ]);
+
+
+            $insertSO = DB::table('scholaroath')->insert([
+                'scholar_id' => $scholarid1,
+                'scholaroath_name' => 'storage/scholaroath/' . $customstudentscholaroath,
+                'created_at' => now(),
+            ]);
+
+            $insertAC = DB::table('accnumber')->insert([
+                'scholar_id' => $scholarid1,
+                'accnumber_name' => 'storage/accnumber/' . $customstudentaccnumberfilename,
+                'created_at' => now(),
+            ]);
+
+            $insertIS = DB::table('informationsheet')->insert([
+                'scholar_id' => $scholarid1,
+                'infosheet_name' => 'storage/infosheet/' . $customstudentsinformationsheet,
+                'created_at' => now(),
+            ]);
+
+
+            $insertC = DB::table('cor_firstreq')->insert([
+                'scholar_id' => $scholarid1,
+                'cor_name' => 'storage/cor/' . $customstudentcorfirstfilename,
+                'created_at' => now(),
+            ]);
+
+            if ($insertSA &&  $insertP && $insertSO && $insertAC  && $insertIS &&  $insertC) {
                 Notification_staffs::create([
                     'scholar_id' => Auth::user()->scholar_id,
                     'type' => 'First Requirements',
                     'message' => 'A scholar\'s initial requirement has been uploaded!',
-                    'data_id' =>  $Scholar_requirements->id,
                 ]);
                 return redirect('student/requirements');
+            } else {
+                echo "naay mali";
             }
         }
     }

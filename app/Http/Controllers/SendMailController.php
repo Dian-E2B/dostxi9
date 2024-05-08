@@ -6,10 +6,16 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\EmailContent;
 use App\Models\Replyslips;
 use App\Models\Student;
+use App\Models\User;
 use Exception;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB; // For the DB facade
+use App\Models\Scholars;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Mailnotifyawards;
+use App\Models\email_merit;
+use App\Models\email_ra10612;
+use App\Models\email_ra7687;
 use App\Models\Sei;
 
 class SendMailController extends Controller
@@ -104,9 +110,10 @@ class SendMailController extends Controller
                             ['email' => $email2, 'password' => $password101, 'username' => $username]
                         );
                     } catch (Exception $e) {
-                        // dd($e->getMessage());
+                        /*  dd($e->getMessage()); */
                         //do nothing
-                        session()->flash('errors', 'ERROR: ' . $e->getMessage());
+                        flash()->error('Sorry, an error occurred:' . $e->getMessage());
+                        /* session()->flash('errors', 'ERROR: ' . $e->getMessage()); */
                         /*   session()->flash('errors', 'No Proper Internet Connection!'); */
                     }
                 }
@@ -149,8 +156,8 @@ class SendMailController extends Controller
                         );
                         session()->flash('success', 'Your notice for All Merit has been sent!'); //UPDATED 03/11/2024
                     } catch (Exception $e) {
-                        // dd($e->getMessage());
-                        session()->flash('error', 'Sorry, an error occurred:' . $e->getMessage());
+                        // dd($e->getMessage());\
+                        flash()->error('Sorry, an error occurred:' . $e->getMessage());
                     }
                 }
             }
@@ -196,11 +203,11 @@ class SendMailController extends Controller
                         );
                     } catch (Exception $e) {
                         // dd($e->getMessage());
-                        session()->flash('error', 'Sorry, an error occurred:' . $e->getMessage());
+                        flash()->error('Your notice for RA 10612 has been sent!' . $e->getMessage());
                         //do nothing
                     }
                 }
-                session()->flash('success', 'Your notice for RA 10612 has been sent!');
+                flash()->success('Your notice for RA 10612 has been sent!');
             }
         } else {
             session()->flash('error', 'A duplicate email entry in your records. Please Check');

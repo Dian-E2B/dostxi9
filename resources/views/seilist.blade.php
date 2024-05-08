@@ -52,11 +52,7 @@
     </style>
 @endsection
 @section('content')
-    @error('excel_file')
-        <span class="invalid-feedback" role="alert">
-            <strong>{{ $message }}</strong>
-        </span>
-    @enderror
+   
 
 
     @if (session('error'))

@@ -8,8 +8,9 @@
         <link rel="icon" href="\icons\DOSTLOGOsmall.png" type="image/x-icon" />
         <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     </head>
 
     <body style="background-color: rgb(235, 235, 235) !important">

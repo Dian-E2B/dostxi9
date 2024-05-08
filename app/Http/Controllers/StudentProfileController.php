@@ -7,6 +7,7 @@ use App\Models\Sei;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class StudentProfileController extends Controller
 {
@@ -50,6 +51,35 @@ class StudentProfileController extends Controller
             return redirect()->route('student.profile');
         } else {
             echo "Record not found.";
+        }
+    }
+
+
+    public function verifyaccnumber(Request $request)
+    {
+        $decision = $request->input('decisionacc');
+        $scholarId = $request->input('scholar_id');
+        $remarks = $request->input('remarks');
+
+        $accnumber = DB::table('accnumber')->where('scholar_id', $scholarId)->first();
+        if ($decision === 'no') {
+            if ($accnumber) {
+                DB::table('accnumber')
+                    ->where('scholar_id', $scholarId)
+                    ->update([
+                        'remarks' => $remarks,
+                        'status' => 0
+                    ]);
+                return response()->json(['message' => 'Accnumber processed successfully']);
+            } else {
+            }
+        } else {
+            DB::table('accnumber')
+                ->where('scholar_id', $scholarId)
+                ->update([
+                    'status' => 1
+                ]);
+            return response()->json(['message' => 'Accnumber processed successfully']);
         }
     }
 }

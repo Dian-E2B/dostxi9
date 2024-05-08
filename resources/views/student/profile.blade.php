@@ -61,18 +61,17 @@
             <br>
             <div class="d-flex">
                 <div class=" ms-auto ">
-                    <a class="btn btn-light d-flex align-items-center" href="{{ route('student.logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        <box-icon name='log-out'></box-icon>
-                        <span style="margin-left: 8px;">Log out</span>
-                    </a>
+                    <form id="logout-form" action="{{ route('student.logout') }}" method="POST">
+                        @csrf
+                        <button class="btn btn-light d-flex align-items-center" type="submit">
+                            <span style="margin-left: 8px;">Log out</span>
+                        </button>
+                    </form>
                 </div>
             </div>
         @endif
         </div>
         @if ($replyStatusId == 4 || $replyStatusId == 3)
-            <form id="logout-form" action="{{ route('student.logout') }}" method="POST" class="d-none">
-                @csrf
-            </form>
             <script>
                 Swal.fire({
                     title: 'Decision Received.',
@@ -88,7 +87,6 @@
                 });
             </script>
         @endif
-
         {{-- VERIFIED/ACCEPTED REQUIREMENTS --}}
         <main id="main" class="main" style="padding: 1.5rem 0.5rem 0.5rem; !important;">
             <div class="main">

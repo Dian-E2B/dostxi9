@@ -11,6 +11,7 @@ use App\Http\Controllers\DashboardControllerView;
 use App\Http\Controllers\Endorsements;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SendMailController;
+use App\Http\Controllers\StudentProfileController;
 use App\Http\Controllers\WordController;
 use App\Http\Controllers\ThesisController;
 
@@ -72,6 +73,7 @@ Route::middleware(['auth', 'role:staff'])->group(function () {
 
     //SCHOLAR FULL INFORMATION
     Route::get('/scholar_information/{id}', [AccessControlViewController::class, 'scholar_information'])->name('scholar_information');
+    Route::post('/verifyaccnumber', [StudentProfileController::class, 'verifyaccnumber'])->name('verifyaccnumber');
     //SCHOLAR FIRST REQUIREMENTS VIEW
     Route::get('/requirements_view/{id}', [AccessControlViewController::class, 'requirements_view'])->name('requirements_view');
     //SCHOLAR PROCESS ENDORSE OR VERIFY

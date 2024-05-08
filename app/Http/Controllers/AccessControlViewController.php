@@ -152,7 +152,10 @@ class AccessControlViewController extends Controller
     public function scholar_information(Request $request, $id)
     {
         $seisourcerecord = Sei::find($id);
-        $scholarrequirements = Scholar_requirements::where('scholar_id', $id)->first();
+        $scholarrequirements = DB::table('scholar_requirement_view')
+            ->where('scholar_id', $id)
+            ->first();
+
         $cogpassed = Cog::where('scholar_id', $id)->get();
         $thesispassed = Thesis::where('scholar_id', $id)->get();
         return view('scholar_information', compact('seisourcerecord', 'scholarrequirements', 'cogpassed', 'thesispassed'));

@@ -14,7 +14,9 @@
         "laravel/sanctum": "^2.14",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.5",
+        "livewire/livewire": "^2.12",
         "maatwebsite/excel": "^3.1",
+        "php-flasher/flasher-laravel": "^1.15",
         "phpmailer/phpmailer": "^6.9",
         "yajra/laravel-datatables-oracle": "^10.11"
     },

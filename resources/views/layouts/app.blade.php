@@ -18,6 +18,7 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
         {{--  <link href="{{ asset('css/fontaws.min.css') }}" rel="stylesheet"> --}}
+        @livewireStyles
         @yield('styles')
     </head>
 
@@ -35,10 +36,9 @@
 
 
         {{--   <scri<pt src="{{ asset('js/fontaws.min.js') }}"></script> --}}
-
+        @livewireScripts
         <script src="{{ asset('js/app.js') }}"></script>
         @yield('scripts')
-
     </body>
 
 

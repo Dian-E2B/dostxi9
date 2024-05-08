@@ -4,8 +4,9 @@
     <head>
         <title>DOST XI</title>
         <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="width=device-width, initial-scale=1" name="viewport">
         <link rel="icon" href="\icons\DOSTLOGOsmall.png" type="image/x-icon" />
+        <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
@@ -27,127 +28,129 @@
 
     <body class="toggle-sidebar">
         @include('student.layoutsst.header')
-        <main id="main" class="main" style="padding: 1.5rem 0.5rem 0.5rem; !important;">
+        <main id="main" class="main">
             <div class="main">
                 <div class="">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-body mt-1">
-
-                                        @if ($replyslipstatusid != 1)
-                                            @foreach ($replyslips as $replyslip)
-                                                <p>As one of those who qualified for the {{ now()->year }} DOST-SEI S&T Undergraduate Scholarships under {{ $programname }}, I wish to inform you that:</p>
-                                                @if ($replyslipstatusid == 2 || $replyslipstatusid == 5)
-                                                    <div>
-                                                        <strong> I am AVAILING my scholarship award.</strong>
-                                                    </div>
-                                                    <div style="margin-top: 10px">
-                                                        <div>
-                                                            Qualifier's Signature:
-                                                        </div>
-                                                        <img style="max-height: 300px; max-width: 300px" src="{{ asset($replyslipsignature) }}" alt="none">
-
-                                                    </div>
-                                                    <div style="margin-top: 10px">
-                                                        <div>
-                                                            Parents/Guardian's Signature:
-                                                        </div>
-
-                                                        <img style="max-height: 300px; max-width: 300px" src="{{ asset($replyslipparentsignature) }}" alt="none ">
-                                                    </div>
-                                                @endif
-                                                @if ($replyslipstatusid == 3)
-                                                    <div>
-                                                        I am NOT AVAILING the scholarship due to… (Please indicate reason on the field below.)
-                                                        <p>{{ $reason1 }}</p>
-                                                    </div>
-                                                    <div style="margin-top: 10px">
-                                                        <div>
-                                                            Qualifier's Signature:
-                                                        </div>
-                                                        <img style="max-height: 300px; max-width: 300px" src="{{ asset('public/' . $replyslipsignature) }}" alt="none">
-
-                                                    </div>
-                                                    <div style="margin-top: 10px">
-                                                        <div>
-                                                            Parents/Guardian's Signature:
-                                                        </div>
-                                                        <img style="max-height: 300px; max-width: 300px" src="{{ asset($replyslipparentsignature) }}" alt="none ">
-                                                    </div>
-                                                @endif
-
-                                                @if ($replyslipstatusid == 4)
-                                                    <div>
-                                                        I am DEFERRING my scholarship award due to … (Please indicate reason on the field below.)
-                                                        <p>{{ $reason1 }}</p>
-                                                    </div>
-                                                    <div style="margin-top: 10px">
-                                                        <div>
-                                                            Qualifier's Signature:
-                                                        </div>
-                                                        <img style="max-height: 300px; max-width: 300px" src="{{ asset($replyslipsignature) }}" alt="none ">
-                                                    </div>
-                                                    <div style="margin-top: 10px">
-                                                        <div>
-                                                            Parents/Guardian's Signature:
-                                                        </div>
-                                                        <img style="max-height: 300px; max-width: 300px" src="{{ asset($replyslipparentsignature) }}" alt="none ">
-                                                    </div>
-                                                @endif
-                                                <label>
-                                                    <input name="scholarid" style="display: none;" value="{{ $replyslip->scholar_id }}">
-                                                </label>
-                                            @endforeach
-                                        @else
-                                            <form id="replyslipform" action="{{ route('replyslipsubmit') }}" method="POST" enctype="multipart/form-data">
-
-                                                @csrf <!-- Include CSRF token for form security -->
+                    <div class="container-fluid ">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-5 col-md-4">
+                                <div class="card" style="top: 1cm">
+                                    <div class="card-body mt-1" style="">
+                                        <div class="" style="margin-top: 0.5cm;">
+                                            @if ($replyslipstatusid != 1)
                                                 @foreach ($replyslips as $replyslip)
-                                                    <p>As one of those who qualified for the {{ now()->year }} DOST-SEI S&T Undergraduate Scholarships under {{ $programname }}, I wish to inform you that: (Please check)</p>
-                                                    <label class="form-check">
-                                                        <input id="checkbox1" name="acceptcheckbox" class="form-check-input option-checkbox" type="checkbox" value="">
-                                                        <span class="form-check-label">
-                                                            I am AVAILING my scholarship award.
-                                                        </span>
-                                                    </label>
+                                                    <strong>As one of those who qualified for the {{ now()->year }} DOST-SEI S&T Undergraduate Scholarships under {{ $programname }}, I wish to inform you that: </strong>
+                                                    @if ($replyslipstatusid == 2 || $replyslipstatusid == 5)
+                                                        <div>
+                                                            <strong> I am AVAILING my scholarship award.</strong>
+                                                        </div>
+                                                        <div style="margin-top: 10px">
+                                                            <div>
+                                                                Qualifier's Signature:
+                                                            </div>
+                                                            <img style="max-height: 300px; max-width: 300px" src="{{ asset($replyslipsignature) }}" alt="none">
 
-                                                    <label class="form-check">
-                                                        <input name="rejectcheckbox" class="form-check-input option-checkbox" type="checkbox" value="">
-                                                        <span class="form-check-label">
+                                                        </div>
+                                                        <div style="margin-top: 10px">
+                                                            <div>
+                                                                Parents/Guardian's Signature:
+                                                            </div>
+
+                                                            <img style="max-height: 300px; max-width: 300px" src="{{ asset($replyslipparentsignature) }}" alt="none ">
+                                                        </div>
+                                                    @endif
+                                                    @if ($replyslipstatusid == 3)
+                                                        <div>
                                                             I am NOT AVAILING the scholarship due to… (Please indicate reason on the field below.)
-                                                        </span>
-                                                    </label>
+                                                            <p>{{ $reason1 }}</p>
+                                                        </div>
+                                                        <div style="margin-top: 10px">
+                                                            <div>
+                                                                Qualifier's Signature:
+                                                            </div>
+                                                            <img style="max-height: 300px; max-width: 300px" src="{{ asset('public/' . $replyslipsignature) }}" alt="none">
+
+                                                        </div>
+                                                        <div style="margin-top: 10px">
+                                                            <div>
+                                                                Parents/Guardian's Signature:
+                                                            </div>
+                                                            <img style="max-height: 300px; max-width: 300px" src="{{ asset($replyslipparentsignature) }}" alt="none ">
+                                                        </div>
+                                                    @endif
+
+                                                    @if ($replyslipstatusid == 4)
+                                                        <div>
+                                                            I am DEFERRING my scholarship award due to … (Please indicate reason on the field below.)
+                                                            <p>{{ $reason1 }}</p>
+                                                        </div>
+                                                        <div style="margin-top: 10px">
+                                                            <div>
+                                                                Qualifier's Signature:
+                                                            </div>
+                                                            <img style="max-height: 300px; max-width: 300px" src="{{ asset($replyslipsignature) }}" alt="none ">
+                                                        </div>
+                                                        <div style="margin-top: 10px">
+                                                            <div>
+                                                                Parents/Guardian's Signature:
+                                                            </div>
+                                                            <img style="max-height: 300px; max-width: 300px" src="{{ asset($replyslipparentsignature) }}" alt="none ">
+                                                        </div>
+                                                    @endif
                                                     <label>
                                                         <input name="scholarid" style="display: none;" value="{{ $replyslip->scholar_id }}">
                                                     </label>
-
-
-                                                    <textarea style="width: 100% !important;" id="textarea1" class="form-control" rows="2" placeholder="Reasons:" name="reason" required></textarea>
-
-
-                                                    <strong><label>Qualifier Printed Name with Signature:</label></strong>
-                                                    <input style="margin-top: 10px;" required type="file" name="signaturestudent" id="signature" accept="image/png, image/jpeg">
-                                                    <div id="previewLink" style="display: none;">
-                                                        <a href="#" target="_blank" id="filePreviewLinkImage">Review Signature</a>
-                                                    </div>
-
-                                                    <strong><label style="">Parent/Legal Guardian Name with Signature:</label></strong>
-                                                    <input style="margin-top: 15px;" class="form-group" required type="file" name="signatureparent" id="signatures" accept="image/*">
-                                                    <div id="previewLink2" style="display: none;">
-                                                        <a href="#" target="_blank" id="filePreviewLink2">Review Signature</a>
-                                                    </div>
-
-
-                                                    <!-- Button trigger modal -->
-                                                    <br>
-                                                    <button type="button" class="btn btn-primary" id="submitBtn">
-                                                        Submit
-                                                    </button>
                                                 @endforeach
-                                            </form>
-                                        @endif
+                                            @else
+                                                <form id="replyslipform" action="{{ route('replyslipsubmit') }}" method="POST" enctype="multipart/form-data">
+
+                                                    @csrf <!-- Include CSRF token for form security -->
+                                                    @foreach ($replyslips as $replyslip)
+                                                        <p>As one of those who qualified for the {{ now()->year }} DOST-SEI S&T Undergraduate Scholarships under {{ $programname }}, I wish to inform you that: (Please check)</p>
+                                                        <label class="form-check">
+                                                            <input id="checkbox1" name="acceptcheckbox" class="form-check-input option-checkbox" type="checkbox" value="">
+                                                            <span class="form-check-label">
+                                                                I am AVAILING my scholarship award.
+                                                            </span>
+                                                        </label>
+
+                                                        <label class="form-check">
+                                                            <input name="rejectcheckbox" class="form-check-input option-checkbox" type="checkbox" value="">
+                                                            <span class="form-check-label">
+                                                                I am NOT AVAILING the scholarship due to… (Please indicate reason on the field below.)
+                                                            </span>
+                                                        </label>
+                                                        <label>
+                                                            <input name="scholarid" style="display: none;" value="{{ $replyslip->scholar_id }}">
+                                                        </label>
+
+
+                                                        <textarea style="width: 100% !important;" id="textarea1" class="form-control" rows="2" placeholder="Reasons:" name="reason" required></textarea>
+
+
+                                                        <strong><label>Qualifier Printed Name with Signature:</label></strong>
+                                                        <input style="margin-top: 10px;" required type="file" name="signaturestudent" id="signature" accept="image/png, image/jpeg">
+                                                        <div id="previewLink" style="display: none;">
+                                                            <a href="#" target="_blank" id="filePreviewLinkImage">Review Signature</a>
+                                                        </div>
+
+                                                        <strong><label style="">Parent/Legal Guardian Name with Signature:</label></strong>
+                                                        <input style="margin-top: 15px;" class="form-group" required type="file" name="signatureparent" id="signatures" accept="image/*">
+                                                        <div id="previewLink2" style="display: none;">
+                                                            <a href="#" target="_blank" id="filePreviewLink2">Review Signature</a>
+                                                        </div>
+
+
+                                                        <!-- Button trigger modal -->
+                                                        <br>
+                                                        <button type="button" class="btn btn-primary mt-2" id="submitBtn">
+                                                            Submit
+                                                        </button>
+                                                    @endforeach
+                                                </form>
+                                            @endif
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>

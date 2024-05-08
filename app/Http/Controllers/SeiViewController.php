@@ -36,21 +36,22 @@ class SeiViewController extends Controller
         if (empty($startYear)) {
             $seis = Sei::join('programs', 'seis.program_id', '=', 'programs.id')
                 ->join('genders', 'seis.gender_id', '=', 'genders.id')
-                ->where(function ($query) use ($currentYear) {
-                    $query->whereNull('lacking')
-                        ->orWhere('lacking', '=', '');
-                })
                 ->where('year', $currentYear)
+                ->whereNull('lacking')
+                ->orWhere('lacking', '=', '')
                 ->select('seis.*', 'programs.progname', 'genders.gendername')
                 ->get();
 
             if ($seis->isEmpty()) {
-                $latestYearWithData = Sei::whereNotNull('lacking')
+                $latestYearWithData = Sei::whereNull('lacking')
+                    ->orWhere('lacking', '=', '')
                     ->where('year', '<=', $currentYear)
                     ->max('year');
 
                 $seis = Sei::join('programs', 'seis.program_id', '=', 'programs.id')
                     ->join('genders', 'seis.gender_id', '=', 'genders.id')
+                    ->whereNull('lacking')
+                    ->orWhere('lacking', '=', '')
                     ->where('year', $latestYearWithData)
                     ->select('seis.*', 'programs.progname', 'genders.gendername')
                     ->get();
@@ -69,7 +70,6 @@ class SeiViewController extends Controller
             return DataTables::of($seis)->make(true);
         }
     }
-
 
 
 
@@ -113,8 +113,8 @@ class SeiViewController extends Controller
                 return redirect()->back();
             } catch (\Exception $e) {
                 $errorMessage = $e->getMessage();
-                // flash()->addError('There is a problem during upload ');
-                echo 'An error occurred: ' . $errorMessage;
+                flash()->addError('There is a problem during upload ' . $errorMessage);
+                return redirect()->back();
             }
         }
     }

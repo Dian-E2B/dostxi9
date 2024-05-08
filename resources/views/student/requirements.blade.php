@@ -51,7 +51,7 @@
                                             title: 'Hello Scholar!',
                                             text: 'Please submit your requirements to continue to your portal',
                                             icon: 'info',
-                                            width: '500px'
+                                            width: '500px',
                                             confirmButtonText: 'Okay',
                                         })
                                     </script>
@@ -69,7 +69,7 @@
                                     Please Upload your requirements and wait for confirmation to access your dashboard.
 
                                     <form method="POST" id="submit-form" action="{{ route('savefirstrequirements') }}" enctype="multipart/form-data">
-                                        <div class="row row-cols-3 mt-3">
+                                        <div class="row row-cols-md-2 row-cols-xs-1 mt-3">
                                             @csrf
                                             <input hidden name="scholarid" value="{{ auth()->user()->scholar_id }}">
                                             <div class="col mt-2">
@@ -87,34 +87,23 @@
                                                 <br>
                                                 <span class=""><input class="form-control form-control-lg" accept="application/pdf" type="file" id="formFile" name="scholaroath" required></span>
                                             </div>
-                                            <div class="col mt-2">
-                                                <span class="">Prospectus</span>
-                                                <br>
-                                                <span class=""><input class="form-control form-control-lg" accept="application/pdf" type="file" id="formFile" name="prospectus" required></span>
+                                            <div class="col  mt-2">
+                                                <div class="">Prospectus</div>
+                                                <div class=""><input class="form-control form-control-lg" accept="application/pdf" type="file" id="formFile" name="prospectus" required></div>
                                             </div>
-                                            <div class="col mt-2">
-                                                <span class="">COR</span>
-                                                <br>
-                                                <span class=""><input class="form-control form-control-lg" accept="application/pdf" type="file" id="formFile" name="corfirst" required></span>
+                                            <div class="col col-12 mt-2 d-block">
+                                                <div class="">COR</div>
+                                                <div class=""><input class="form-control form-control-lg" accept="application/pdf" type="file" id="formFile" name="corfirst" required></div>
                                             </div>
                                             <div class="col mt-2">
                                                 <span class="">Account Number</span>
                                                 <br>
                                                 <span class=""><input class="form-control form-control-lg" accept="application/pdf" type="file" id="formFile" name="accnumber" required></span>
                                             </div>
-                                            <div class="col mt-2">
-                                                <button id="submitBtn" type="submit" class="btn btn-primary btn-sm"><span style="">Submit </span></button>
+                                            <div class="col-md-12 mt-3">
+                                                <button id="submitBtn" type="submit" class="btn btn-primary d-flex"><span style="">Submit </span></button>
                                             </div>
-
                                         </div>
-                                    </form>
-
-
-
-
-
-                                    <form id="logout-form" action="{{ route('student.logout') }}" method="POST" class="d-none">
-                                        @csrf
                                     </form>
                                 @elseif($replyStatusId == 7)
                                     <div class="mt-3">
@@ -123,10 +112,12 @@
                                     <br>
                                     <div class="d-flex">
                                         <div class=" ms-auto ">
-                                            <a class="btn btn-light d-flex align-items-center" href="{{ route('student.logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                                <i class="bi bi-box-arrow-left"></i>
-                                                <span style="margin-left: 8px;">Log out</span>
-                                            </a>
+                                            <form id="logout-form" action="{{ route('student.logout') }}" method="POST">
+                                                @csrf
+                                                <button class="btn btn-light d-flex align-items-center" type="submit">
+                                                    <i style="margin-right: 5px;" class="bi bi-box-arrow-left"></i>Logout
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                 @else
