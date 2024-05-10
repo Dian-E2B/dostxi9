@@ -10,7 +10,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
+        @livewireStyles
         {{-- Datatables css --}}
         <link href="https://cdn.datatables.net/v/bs5/dt-1.13.8/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/date-1.5.1/fc-4.3.0/fh-3.4.0/r-2.5.0/sc-2.3.0/sp-2.2.0/sl-1.7.0/datatables.min.css" rel="stylesheet">
 
@@ -18,11 +18,13 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
         {{--  <link href="{{ asset('css/fontaws.min.css') }}" rel="stylesheet"> --}}
-        @livewireStyles
+        <x-livewire-alert::scripts />
+        <x-livewire-alert::flash />
         @yield('styles')
     </head>
 
-    <body>
+    <body style="font-family: 'Inter', sans-serif !important;">
+
         <div id="app">
             @if (Auth::check())
                 @include('layouts.headernew') {{-- HEADER START --}}

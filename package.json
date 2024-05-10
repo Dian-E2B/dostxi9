@@ -20,6 +20,7 @@
     },
     "dependencies": {
         "@popperjs/core": "^2.11.8",
+        "alpinejs": "^3.13.10",
         "animate.css": "^4.1.1",
         "bootstrap": "^5.3.3",
         "bootstrap-icons": "^1.11.3",

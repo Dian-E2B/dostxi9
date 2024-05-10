@@ -83,13 +83,15 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class=" mt-2">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="card">
+                    <div class="card-body">
 
-        <div class="card-body mt-2">
-            <div class="row">
-                <div class="table-responsive">
-                    <div class="col-lg-2">
-
-                        @include('partials.scholar_information.scholar_requirements')
+                        @livewire('scholar-requirements', ['scholarId' => $seisourcerecord->id])
+                        {{--  @include('partials.scholar_information.scholar_requirements') --}}
 
                         @if (session('success'))
                             <script>
@@ -102,23 +104,25 @@
                             </script>
                         @endif
 
+
                     </div>
                 </div>
+
             </div>
         </div>
-
-        @if (count($cogpassed) > 0)
-            @include('partials.scholar_information.scholar_cor_cog')
-        @endif
-
-        @if (count($thesispassed) > 0)
-            @include('partials.scholar_information.scholar_thesis')
-        @endif
-
-
     </div>
-@endsection
 
+    @if (count($cogpassed) > 0)
+        @include('partials.scholar_information.scholar_cor_cog')
+    @endif
+
+    @if (count($thesispassed) > 0)
+        @include('partials.scholar_information.scholar_thesis')
+    @endif
+
+
+
+@endsection
 
 @section('scripts')
     <script src="https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-1.13.8/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/date-1.5.1/fc-4.3.0/fh-3.4.0/r-2.5.0/sc-2.3.0/sp-2.2.0/sl-1.7.0/datatables.min.js"></script>
