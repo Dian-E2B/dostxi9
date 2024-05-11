@@ -41,12 +41,13 @@
     @endif
 
     {{-- MASYADO MAHABA PREFERABLY LIVEWIRE/VUE --}}
-    <div class="card">
-        <div class="row ">
-            <div class="col-lg-12">
+
+    <div class="row ">
+        <div class="col-lg-12">
+            <div class="card">
                 <div class="">
                     <div class="text-center">
-                        <h2 class="mt-5 mb-0">{{ $seisourcerecord->lname }}, {{ $seisourcerecord->fname }}</h2>
+                        <h2 class="mt-1 mb-1">{{ $seisourcerecord->lname }}, {{ $seisourcerecord->fname }}</h2>
 
                         @php
                             $scholarStatusId = \App\Models\Sei::where('id', $seisourcerecord->id)->value('scholar_status_id');
@@ -86,7 +87,7 @@
     </div>
     <div class=" mt-2">
         <div class="row">
-            <div class="col-lg-3">
+            <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
 

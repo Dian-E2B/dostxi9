@@ -6,7 +6,7 @@
     @endphp
 
     <div class="row justify-content-center mt-3" style="margin-auto; !important">
-        <div class="card col-lg-5 col-12">
+        <div class="card col-lg-8 col-12">
             @if ($scholar_endorsed_status_id == 0)
                 <div class="card-body">
                     @if ($replyStatusId == 1)
@@ -95,8 +95,8 @@
                         <div class="">
                             @livewire('scholar.thisscholarrequirement', ['scholar_id' => auth()->user()->scholar_id])
                         </div>
-                        <div class="mt-3">
-                            Please wait for confirmation to your dashboard.
+                        <div class="mt-3" style="font-size: 15pt; font-weight: 900">
+                            Upload any missing requirements and wait for confirmation on your dashboard.
                         </div>
                         <br>
                         <div class="d-flex">

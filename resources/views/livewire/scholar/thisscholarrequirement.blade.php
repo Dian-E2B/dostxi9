@@ -1,27 +1,34 @@
 <div class="">
-    @if (in_array(2, [$getaccnumber->ac_status, $getcor->cor_status, $getProspectus->p_status, $getSO->so_status, $getIS->inf_status, $getSA->sa_status]))
+
+
+    @if ($getaccnumber->ac_status == 2 || $getaccnumber->ac_status == 2 || $getcor->cor_status == 2 || $getProspectus->p_status == 2 || $getSO->so_status == 2 || $getIS->inf_status == 2 || $getIS->inf_status == 2 || $getSA->sa_status == 2)
         <div style="padding: 10px;" class="card mt-3">
             <div class="table-responsive">
                 <table class="table table-bordered" style="text-align: center; border: 1px solid rgb(223, 223, 223);">
-                    <form wire:subtmit.prevent="submitUploads">
-                        <thead class="">
-                            <tr class="">
-                                <th style="width: 12rem" class="">Requirement</th>
-                                <th style="width: 12rem" class="">Remarks</th>
-                                <th style="width: 6rem" class="">View</th>
-                                <th style="width: 6rem" class="">Reupload</th>
-                            </tr>
-                        </thead>
-                        <tbody class="">
+                    <thead class="">
+                        <tr class="">
+                            <th style="width: 12rem" class="">Requirement</th>
+                            <th style="width: 12rem" class="">Remarks</th>
+                            <th style="width: 5rem" class="">View</th>
+                            <th style="width: 12rem" class="">Reupload</th>
+                        </tr>
+                    </thead>
+                    <tbody class="">
+                        <div class="">
+
                             @if ($getaccnumber->ac_status == 2)
-                                <tr>
-                                    <td class="">Account Number</td>
-                                    <td class="">{{ $getaccnumber->ac_remarks }}</td>
-                                    <td class=""><a class="btn btn-primary btn-sm" target="_blank" href="{{ asset($getaccnumber->accnumber_name) }}"><i class="fas fa-eye"></i></a></td>
-                                    <td class=""><input type="file" wire.model="setaccnumber" required class="form-control"></td>
-                                </tr>
+                                <form wire:submit.prevent="submitReqUploads">
+                                    <tr>
+                                        <td class="">Account Number</td>
+                                        <td class="">{{ $getaccnumber->ac_remarks }}</td>
+                                        <td class=""><a class="btn btn-primary btn-sm" target="_blank" href="{{ asset($getaccnumber->accnumber_name) }}"><i class="fas fa-eye"></i></a></td>
+                                        <td class=""><input type="file" wire.model="sssss" accept=".pdf" required class="form-control">
+                                            <button type="submit" class="btn btn-outline-success rounded-pill btn-sm">Submit</button>
+                                        </td>
+                                    </tr>
+                                </form>
                             @endif
-                            @if ($getcor->cor_status == 2)
+                            {{--  @if ($getcor->cor_status == 2)
                                 <tr>
                                     <td class="">COR</td>
                                     <td class="">{{ $getcor->cor1_remarks }}</td>
@@ -60,12 +67,14 @@
                                     <td class=""><a class="btn btn-primary btn-sm" target="_blank" href="{{ asset($getSA->scholarshipagreement_name) }}"><i class="fas fa-eye"></i></a></td>
                                     <td class=""><input type="file" wire.model="setschol_sa" class="form-control" required></td>
                                 </tr>
-                            @endif
+                            @endif --}}
                             <tr class="">
-                                <td colspan="4" type="submit" class=""><button class="btn btn-success btn-sm">Submit</button></td>
+                                <td colspan="5" style="text-align: end" class=""></td>
                             </tr>
-                        </tbody>
-                    </form>
+
+                        </div>
+                    </tbody>
+
                 </table>
             </div>
         </div>

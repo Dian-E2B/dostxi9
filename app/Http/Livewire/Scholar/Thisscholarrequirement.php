@@ -4,18 +4,23 @@ namespace App\Http\Livewire\Scholar;
 
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
+use Livewire\WithFileUploads;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class Thisscholarrequirement extends Component
 {
+    use WithFileUploads;
+    use LivewireAlert;
+
     public $scholar_id;
-    private $getaccnumber;
-    private $getcor;
+    protected $getaccnumber;
+    /*  private $getcor;
     private $getProspectus;
     private $getSO;
     private $getIS;
-    private $getSA;
-    public $setaccnumber;
-    public $setcor;
+    private $getSA; */
+    protected $setaccnumber;
+
 
     public function mount($scholar_id)
     {
@@ -26,16 +31,14 @@ class Thisscholarrequirement extends Component
     {
         $this->getaccnumber = DB::table('scholar_requirement_view')
             ->where('scholar_id', $this->scholar_id)
-            ->where('ac_status', 2)
             ->select('accnumber_name', 'ac_remarks', 'ac_status')
             ->first();
     }
 
-    public function LoadCOR()
+    /* public function LoadCOR()
     {
         $this->getcor = DB::table('scholar_requirement_view')
             ->where('scholar_id', $this->scholar_id)
-            ->where('cor_status', 2)
             ->select('cor_name', 'cor1_remarks', 'cor_status')
             ->first();
     }
@@ -44,7 +47,6 @@ class Thisscholarrequirement extends Component
     {
         $this->getProspectus = DB::table('scholar_requirement_view')
             ->where('scholar_id', $this->scholar_id)
-            ->where('p_status', 2)
             ->select('prospectus_name', 'p_remarks', 'p_status')
             ->first();
     }
@@ -54,7 +56,6 @@ class Thisscholarrequirement extends Component
     {
         $this->getSO = DB::table('scholar_requirement_view')
             ->where('scholar_id', $this->scholar_id)
-            ->where('so_status', 2)
             ->select('scholaroath_name', 'so_remarks', 'so_status')
             ->first();
     }
@@ -63,7 +64,6 @@ class Thisscholarrequirement extends Component
     {
         $this->getIS = DB::table('scholar_requirement_view')
             ->where('scholar_id', $this->scholar_id)
-            ->where('inf_status', 2)
             ->select('infosheet_name', 'inf_remarks', 'inf_status')
             ->first();
     }
@@ -72,51 +72,66 @@ class Thisscholarrequirement extends Component
     {
         $this->getSA = DB::table('scholar_requirement_view')
             ->where('scholar_id', $this->scholar_id)
-            ->where('sa_status', 2)
             ->select('scholarshipagreement_name', 'sa_remarks', 'sa_status')
             ->first();
-    }
+    } */
+
 
     public function submitReqUploads()
     {
-        if (!null($this->setaccnumber)) {
+
+
+        $this->alert('info', 'KO', [
+            'position' => 'top  '
+        ]);
+        /*  sleep(2); // added this line */
+        /*  dd('Form submitted'); */
+        /*  session()->flash('success', 'Form submitted successfully!'); */
+        /*   $this->validate([
+            'setaccnumber' => 'file|max:1024',
+        ]);
+ */
+
+        /* if (!null($this->setaccnumber)) {
+            $accnumber = $this->scholar_id . 'accnumber' . time() . '.' . $this->setaccnumber->getClientOriginalExtension();
+            $storeaccnumber = $this->setaccnumber->file('scholarshipagreement')->storeAs('public/documents', $accnumber);
             DB::table('accnumber')
                 ->where('scholar_id', $this->scholarId)
                 ->update([
-                    'remarks' => $this->corremarks,
-                    'status' => 2
+                    'accnumber_name' => $this->setaccnumber,
+                    'status' => 0
                 ]);
-        }
+        } */
 
-        if (!null($this->setcor)) {
+        /*  if (!null($this->setcor)) {
             DB::table('cor_firstreq')
                 ->where('scholar_id', $this->scholarId)
                 ->update([
                     'remarks' => $this->corremarks,
                     'status' => 2
                 ]);
-        }
+        } */
     }
 
     public function render()
     {
-        $this->LoadSA();
+        $this->LoadAccnumber();
+        /* $this->LoadSA();
         $this->LoadIS();
         $this->LoadSO();
         $this->LoadProspectus();
-        $this->LoadAccnumber();
-        $this->LoadCOR();
 
+        $this->LoadCOR(); */
 
         return view(
             'livewire.scholar.thisscholarrequirement',
             [
                 'getaccnumber' => $this->getaccnumber,
-                'getcor' => $this->getcor,
+                /* 'getcor' => $this->getcor,
                 'getProspectus' => $this->getProspectus,
                 'getSO' => $this->getSO,
                 'getIS' => $this->getIS,
-                'getSA' => $this->getSA,
+                'getSA' => $this->getSA, */
             ]
         );
     }

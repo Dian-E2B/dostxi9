@@ -9,6 +9,10 @@
         <link rel="icon" href="\icons\DOSTLOGOsmall.png" type="image/x-icon" />
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+        @livewireStyles
+        <x-livewire-alert::scripts />
+        <x-livewire-alert::flash />
         @yield('styles')
     </head>
 
@@ -26,9 +30,10 @@
                 @yield('content')
             </main>
         </div>
-
+        @livewireScripts
         <script src="{{ asset('js/app.js') }}"></script>
         @yield('scripts')
     </body>
+
 
 </html>
