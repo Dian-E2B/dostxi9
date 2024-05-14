@@ -17,9 +17,14 @@
                 /* Remove padding when printing */
             }
 
-            html,
-            body {
+            html {
                 height: auto;
+            }
+
+            body {
+
+                background-color: whitesmoke;
+                opacity: 0;
             }
 
             .semester {
@@ -53,14 +58,16 @@
                 html,
                 {
                 height: 99%;
+                opacity: 100 !important;
             }
 
             body {
                 margin: 12.7mm !important;
                 font-size: 7pt;
                 padding: 0px !important;
-                /* margin: 1mm !important; */
-
+                opacity: 1 !important;
+                opacity: 100 !important;
+                background-color: white !important;
             }
 
             .removethis {
@@ -69,13 +76,14 @@
 
             @page {
 
-
+                opacity: 1 !important;
                 size: A4;
                 margin: 0px !important;
                 /* margin: 12.7mm !important; */
                 /* Adjust the margin value as needed */
                 padding: 0px !important;
             }
+
             }
 
             /* body {
