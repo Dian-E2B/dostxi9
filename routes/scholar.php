@@ -11,6 +11,9 @@ require __DIR__ . '/studentauth.php';
 Route::middleware(['auth:student', 'verified'])->group(function () {
     Route::post('editschoolcourse', [StudentProfileController::class, 'editschoolcourse'])->name('editschoolcourse');
     Route::get('student/profile', [StudentProfileController::class, 'index'])->name('student.profile');
+
+
+
     Route::get('student/requirements', [StudentProfileController::class, 'index'])->name('student.requirements');
     Route::get('studentnoaccess', [StudentViewController::class, 'endaccess'])->name('studentnoaccess');
     Route::get('student/dashboard', [StudentViewController::class, 'dashboard'])->name('student.dashboard');
@@ -43,4 +46,19 @@ Route::middleware(['auth:student', 'verified'])->group(function () {
 
     Route::POST('reuploadcogcor', [StudentViewController::class, 'reuploadcogcor'])->name('reuploadcogcor'); //REUPLOAD COR
     Route::POST('thesissubmitreupload', [StudentViewController::class, 'thesissubmitreupload'])->name('thesissubmitreupload'); //REUPLOAD COR
+
+    //REQUIREMENTS CHECKING JAVASCRIPT SECTION PREFERABLY LIVEWIRE HERE
+    Route::get('checkrequirementstatuses', [StudentProfileController::class, 'checkrequirementstatuses'])->name('checkrequirementstatuses');
+    Route::get('checkaccnumber', [StudentProfileController::class, 'checkaccnumber'])->name('checkaccnumber');
+    Route::post('setaccnumber', [StudentProfileController::class, 'setaccnumber'])->name('setaccnumber');
+    Route::get('checkcorfirst', [StudentProfileController::class, 'checkcorfirst'])->name('checkcorfirst');
+    Route::post('setcorfirst', [StudentProfileController::class, 'setcorfirst'])->name('setcorfirst');
+    Route::get('checkprospectus', [StudentProfileController::class, 'checkprospectus'])->name('checkprospectus');
+    Route::post('setprospectus', [StudentProfileController::class, 'setprospectus'])->name('setprospectus');
+    Route::get('checkscholaroath', [StudentProfileController::class, 'checkscholaroath'])->name('checkscholaroath');
+    Route::post('setscholaroath', [StudentProfileController::class, 'setscholaroath'])->name('setscholaroath');
+    Route::get('checkinfosheet', [StudentProfileController::class, 'checkinfosheet'])->name('checkinfosheet');
+    Route::post('setinfosheet', [StudentProfileController::class, 'setinfosheet'])->name('setinfosheet');
+    Route::get('checkscholaragreement', [StudentProfileController::class, 'checkscholaragreement'])->name('checkscholaragreement');
+    Route::post('setscholaragreement', [StudentProfileController::class, 'setscholaragreement'])->name('setscholaragreement');
 });

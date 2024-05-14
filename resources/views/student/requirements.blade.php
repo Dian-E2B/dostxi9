@@ -1,5 +1,4 @@
 @extends('student.layoutsst.app')
-
 @section('content')
     @php
         $replyStatusId = \App\Models\Replyslips::where('scholar_id', auth()->user()->scholar_id)->value('replyslip_status_id');
@@ -34,8 +33,8 @@
                     @elseif ($replyStatusId == 2)
                         <script>
                             Swal.fire({
-                                title: 'Hello Scholar!',
-                                text: 'Please submit your requirements to continue to your portal',
+                                title: 'Hi Scholar!',
+                                text: 'Please submit your requirements to continue to your dashboard',
                                 icon: 'info',
                                 width: '500px',
                                 confirmButtonText: 'Okay',
@@ -52,7 +51,7 @@
 
                         <hr>
 
-                        Please Upload your requirements and wait for confirmation to access your dashboard.
+                        <div class="h4 b">Please Upload your requirements and wait for confirmation to access your dashboard.</div>
 
                         <form method="POST" id="submit-form" action="{{ route('savefirstrequirements') }}" enctype="multipart/form-data">
                             <div class="row row-cols-md-2 row-cols-xs-1 mt-3">
@@ -93,7 +92,7 @@
                         </form>
                     @elseif($replyStatusId == 7)
                         <div class="">
-                            @livewire('scholar.thisscholarrequirement', ['scholar_id' => auth()->user()->scholar_id])
+                            @include('partials.scholar_information.scholar_requirements')
                         </div>
                         <div class="mt-3" style="font-size: 15pt; font-weight: 900">
                             Upload any missing requirements and wait for confirmation on your dashboard.
@@ -114,4 +113,349 @@
                 </div>
             @endif
         </div>
-    @endsection
+    </div>
+@endsection
+@section('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script class="">
+        document.addEventListener("DOMContentLoaded", function() {
+            callcheckrequirements();
+        });
+
+        function callcheckrequirements() {
+            checkrequirementstatuses();
+            checkaccnumber();
+            checkcorfirst();
+            checkprospectus();
+            checkscholaroath();
+            checkinfosheet();
+            checkscholaragreement();
+        };
+
+        function checkrequirementstatuses() {
+
+            axios.get('/checkrequirementstatuses')
+                .then(response => {
+                    const data = response.data;
+                    console.log(response.data);
+                    if (data.getallstatuses.ac_status == 2 ||
+                        data.getallstatuses.sa_status == 2 ||
+                        data.getallstatuses.p_status == 2 ||
+                        data.getallstatuses.inf_status == 2 ||
+                        data.getallstatuses.cor_status == 2 ||
+                        data.getallstatuses.so_status == 2) {
+                        document.getElementById('requirementdiv').style.display = 'block'; //NOT FINISH
+                    } else {
+                        document.getElementById('requirementdiv').style.display = 'none';
+                        document.getElementById('requirementdiv').remove();
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching data: ', error);
+                });
+        }
+
+        function checkaccnumber() { //DONE
+            axios.get('/checkaccnumber')
+                .then(response => {
+                    const data = response.data;
+                    if (data.getaccnumber.ac_status == 2) {
+                        document.getElementById('accnumbertr').style.display = 'table-row';
+                        document.getElementById('getaccremarks').innerText = data.getaccnumber.ac_remarks;
+                        document.getElementById('accnumberlink').href = '/' + data.getaccnumber.accnumber_name;
+                    } else {
+                        document.getElementById('accnumbertr').style.display = 'none';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching data: ', error);
+                });
+        }
+
+        function setaccnumber() {
+            var accform = document.getElementById('accform');
+            var accformData = new FormData(document.getElementById('accform'));
+            axios.post('/setaccnumber', accformData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                .then(function(response) {
+                    // console.log('Form submitted successfully:', response.data);
+                    checkrequirementstatuses();
+                    accform.reset();
+                    if (response.data.error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error!',
+                            text: response.data.error,
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            text: 'Account Number Uploaded!',
+                        });
+                        callcheckrequirements();
+                    }
+                })
+                .catch(function(error) {
+                    console.error('Error submitting form:', error);
+
+                });
+        }
+
+
+        function checkcorfirst() {
+            axios.get('/checkcorfirst')
+                .then(response => {
+                    const data = response.data;
+                    if (data.getcorfirst.cor_status == 2) {
+                        document.getElementById('corfirsttr').style.display = 'table-row';
+                        document.getElementById('getcorremarks').innerText = data.getcorfirst.cor1_remarks;
+                        document.getElementById('corffirstlink').href = '/' + data.getcorfirst.cor_name;
+                    } else {
+                        document.getElementById('corfirsttr').style.display = 'none';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching data: ', error);
+                });
+        }
+
+
+        function setcorfirst() {
+            var corfirstform = document.getElementById('corfirstform');
+            var corformData = new FormData(document.getElementById('corfirstform'));
+            axios.post('/setcorfirst', corformData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                .then(function(response) {
+                    // console.log('Form submitted successfully:', response.data);
+
+                    corfirstform.reset();
+                    if (response.data.error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error!',
+                            text: response.data.error,
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            text: 'COR Uploaded!',
+                        });
+                        callcheckrequirements();
+                    }
+                })
+                .catch(function(error) {
+                    console.error('Error submitting form:', error);
+
+                });
+        }
+
+
+        function checkprospectus() {
+            axios.get('/checkprospectus')
+                .then(response => {
+                    const data = response.data;
+                    if (data.getprospectus.p_status == 2) {
+                        document.getElementById('prospectustr').style.display = 'table-row';
+                        document.getElementById('getprospectusremarks').innerText = data.getprospectus.p_remarks;
+                        document.getElementById('prospectuslink').href = '/' + data.getprospectus.prospectus_name;
+                    } else {
+                        document.getElementById('prospectustr').style.display = 'none';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching data: ', error);
+                });
+        }
+
+        function setprospectus() {
+            var prospectusform = document.getElementById('prospectusform');
+            var prospectusformData = new FormData(document.getElementById('prospectusform'));
+            axios.post('/setprospectus', prospectusformData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                .then(function(response) {
+                    // console.log('Form submitted successfully:', response.data);
+
+                    prospectusform.reset();
+                    if (response.data.error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error!',
+                            text: response.data.error,
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            text: 'Prospectus Uploaded!',
+                        });
+                        callcheckrequirements();
+                    }
+                })
+                .catch(function(error) {
+                    console.error('Error submitting form:', error);
+
+                });
+        }
+
+        function checkscholaroath() {
+            axios.get('/checkscholaroath')
+                .then(response => {
+                    const data = response.data;
+                    if (data.getscholaroath.so_status == 2) {
+                        document.getElementById('scholaroathtr').style.display = 'table-row';
+                        document.getElementById('getscholaroathremarks').innerText = data.getscholaroath.so_remarks;
+                        document.getElementById('scholaroathlink').href = '/' + data.getscholaroath.scholaroath_name;
+                    } else {
+                        document.getElementById('scholaroathtr').style.display = 'none';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching data: ', error);
+                });
+        }
+
+
+        function setscholaroath() {
+            var scholaroathForm = document.getElementById('scholaroathForm');
+            var scholaroathFormData = new FormData(document.getElementById('scholaroathForm'));
+            axios.post('/setscholaroath', scholaroathFormData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                .then(function(response) {
+                    // console.log('Form submitted successfully:', response.data);
+                    scholaroathForm.reset();
+                    if (response.data.error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error!',
+                            text: response.data.error,
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            text: 'Scholar\'s Oath Uploaded!',
+                        });
+                        callcheckrequirements();
+                    }
+                })
+                .catch(function(error) {
+                    console.error('Error submitting form:', error);
+
+                });
+        }
+
+        function checkinfosheet() {
+            axios.get('/checkinfosheet')
+                .then(response => {
+                    const data = response.data;
+                    if (response.data.error) {
+                        document.getElementById('infotr').style.display = 'none';
+                        document.getElementById('infotr').remove();
+                    }
+                    if (data.getinfosheet.inf_status == 2) {
+                        document.getElementById('infotr').style.display = 'table-row';
+                        document.getElementById('inforemarks').innerText = data.getinfosheet.inf_remarks;
+                        document.getElementById('infolink').href = '/' + data.getinfosheet.infosheet_name;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching data: ', error);
+                });
+        }
+
+        function setinfosheet() {
+            var Form = document.getElementById('infosheetForm');
+            var thisFormData = new FormData(document.getElementById('infosheetForm'));
+            axios.post('/setinfosheet', thisFormData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                .then(function(response) {
+                    // console.log('Form submitted successfully:', response.data);
+                    Form.reset();
+                    if (response.data.error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error!',
+                            text: response.data.error,
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            text: 'Information Sheet Uploaded!',
+                        });
+                        callcheckrequirements();
+                    }
+                })
+                .catch(function(error) {
+                    console.error('Error submitting form:', error);
+
+                });
+        }
+
+        function checkscholaragreement() {
+            axios.get('/checkscholaragreement')
+                .then(response => {
+                    const data = response.data;
+                    if (data.getscholaragreement.sa_status == 2) {
+                        document.getElementById('scholaragreementtr').style.display = 'table-row';
+                        document.getElementById('scholaragreementremarks').innerText = data.getscholaragreement.sa_remarks;
+                        document.getElementById('scholaragreementLink').href = '/' + data.getscholaragreement.scholarshipagreement_name;
+                    } else {
+                        document.getElementById('scholaragreementtr').style.display = 'none';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching data: ', error);
+                });
+        }
+
+        function setscholaragreement() {
+            var Form = document.getElementById('scholaragreementForm');
+            var thisFormData = new FormData(document.getElementById('scholaragreementForm'));
+            axios.post('/setscholaragreement', thisFormData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                .then(function(response) {
+                    // console.log('Form submitted successfully:', response.data);
+                    Form.reset();
+                    if (response.data.error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error!',
+                            text: response.data.error,
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            text: 'Scholarship Agreement Uploaded!',
+                        });
+                        callcheckrequirements();
+                    }
+                })
+                .catch(function(error) {
+                    console.error('Error submitting form:', error);
+
+                });
+        }
+    </script>
+@endsection

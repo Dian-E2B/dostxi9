@@ -52,9 +52,6 @@
     </style>
 @endsection
 @section('content')
-   
-
-
     @if (session('error'))
         <script>
             let errorMessage = "{{ session('error') }}";
@@ -263,21 +260,24 @@
                                 <select name="GenderField" id="GenderField" class="form-control form-control-sm">
                                     <option value="1">F</option>
                                     <option value="2">M</option>
-
                                 </select>
 
                             </div>
                         </div>
-
                         <div class="row align-items-center mb-1">
-                            <div class="col-2 customlabel"> <label>Middlename: </label></div>
+                            <div class="col-2 customlabel"> <label>Middlename:</label></div>
                             <div class="col-4 "> <input class="  form-control  form-control-sm" id="MiddlenameField" name="MiddlenameField"></div>
-
+                            <div class="col-2 customlabel"> <label>School:</label></div>
+                            <div class="col-4 "> <input class="  form-control  form-control-sm" id="SchoolField" name="SchoolField"></div>
                         </div>
                         <div class="row align-items-center mb-1">
-                            <div class="col-2 customlabel"> <label>Remarks: </label></div>
-                            <div class="col-10">
+                            <div class="col-2 customlabel"><label>Remarks:</label></div>
+                            <div class="col-4">
                                 <textarea class="form-control  form-control-sm" id="RemarksField" name="RemarksField"></textarea>
+                            </div>
+                            <div class="col-2 customlabel"><label>Course:</label></div>
+                            <div class="col-4">
+                                <input class="form-control  form-control-sm" id="CourseField" name="CourseField" />
                             </div>
                         </div>
                     </div>

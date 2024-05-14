@@ -219,6 +219,8 @@ jQuery(document).ready(function ($) {
                 $('#editModal #FirstnameField').val(data.fname);
                 $('#editModal #MiddlenameField').val(data.mname);
                 $('#editModal #DistrictField').val(data.district);
+                $('#editModal #CourseField').val(data.course);
+                $('#editModal #SchoolField').val(data.school);
             },
             error: function (error) {
                 console.error('Error fetching data for editing:', error);
@@ -236,7 +238,7 @@ jQuery(document).ready(function ($) {
             var selectElementGender = document.querySelector('#GenderField');
             var selectedValueProgram = parseInt(selectElementProgram.value, 10);
             var selectedValueGender = parseInt(selectElementGender.value, 10);
-            // Gather the updated data from the modal fields
+            //
             var updatedData = {
                 app_id: $('#editModal #AppIDField').val(),
                 email: $('#editModal #EmailField').val(),
@@ -248,32 +250,33 @@ jQuery(document).ready(function ($) {
                 fname: $('#editModal #FirstnameField').val(),
                 mname: $('#editModal #MiddlenameField').val(),
                 gender_id: $('#editModal #GenderField').val(),
+                school: $('#editModal #SchoolField').val(),
+                course: $('#editModal #CourseField').val(),
 
             };
 
-            // Send the updated data to the server using AJAX
+
             $.ajax({
-                url: saveSeirecord + '/' + number, // Replace with your server endpoint
-                method: 'POST', // You can use POST or PUT based on your server-side implementation
+                url: saveSeirecord + '/' + number, //
+                method: 'POST', //
                 data: updatedData,
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function (response) {
-                    // Handle success, e.g., close the modal or show a success message
-                    Swal.fire({ 
+                    //
+                    Swal.fire({
                         icon: "success",
                         title: "",
                         text: 'Record has been edited',
                     });
-                    // Update specific cells in DataTable with new data
+                    //
                     var dataTable = $('#thisdatatable').DataTable();
-                    // Redraw the DataTable
                     table.ajax.reload(null, false);
                     $('#editModal input').val('');
                     $('#editModal').modal(
                         'hide'
-                    ); // Assuming you want to hide the modal on success
+                    ); //
 
                 },
                 error: function (error) {

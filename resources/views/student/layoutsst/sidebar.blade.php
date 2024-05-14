@@ -1,5 +1,5 @@
 <style>
-    li:hover .nav-link box-icon:not(.bi-chevron-down) {
+    li:hover .nav-link .bi:not(.bi-chevron-down) {
         animation: tada 1s;
         animation-iteration-count: infinite;
     }
@@ -75,29 +75,26 @@
         <br>
         <li class="nav-item text-center justify-content-center">
             <a class="nav-link {{ request()->is('student/profile') ? '' : 'collapsed' }}" href='{{ route('student.profile') }}'>
-                <span style="padding: 0em 1em 0em 0em;"><i style="font-size:20px;" class="fas animate fa-chart-bar"></i></span>
+                <span style=""><i class="bi bi-house-door-fill" style="color: black; font-size: 17px;"></i></span>
                 <div class="">Main</div>
             </a>
         </li><!-- End Dashboard Nav -->
 
         <li class="nav-item text-center justify-content-md-center">
             <a class="nav-link  {{ request()->is('student/gradeinput') || request()->is('student/thesis') ? '' : 'collapsed' }}" data-bs-target="#sei-nav" data-bs-toggle="collapse" href="#">
-                <span style="padding: 0em 1em 0em 0em;"><i style="font-size:20px;" class="fas animate fa-upload"></i></span>
+                <span style="padding: 0em 0em 0em 0em;"><i class="bi bi-book-fill" style="color: black; font-size: 17px;"></i></span>
                 <span style="">Submit Requirements</span>
                 <i class="fas fa-chevron-down"style="margin-left: auto; padding: 0px;"></i>
             </a>
             <ul id="sei-nav" class="nav-content collapse {{ request()->is('student/gradeinput') || request()->is('student/thesis') ? 'show' : '' }} align-text-center" data-bs-parent="#sidebar-nav">
                 <li>
                     <a href='{{ route('student/gradeinput') }}' class="{{ request()->is('student/gradeinput') ? 'active' : '' }}">
-                        <i style="font-size:15px;" class="fas fa-long-arrow-alt-right"></i>
-                        <span style="margin-left:.5em">Periodic</span>
-
+                        <i class="bi bi-forward-fill" style="font-size:15px;"></i>Periodic
                     </a>
                 </li>
                 <li>
                     <a href='{{ route('student/thesis') }}' class="{{ request()->is('student/thesis') ? 'active' : '' }}">
-                        <i style="font-size:15px;" class="fas fa-long-arrow-alt-right"></i>
-                        <span style="margin-left:.5em">Thesis</span>
+                        <i class="bi bi-forward-fill" style="font-size:15px;"></i>Thesis
                     </a>
                 </li>
             </ul>
@@ -105,7 +102,7 @@
 
         <li class="nav-item text-center justify-content-md-center">
             <a class="nav-link {{ request()->is('student/[]') ? '' : 'collapsed' }}" data-bs-target="#req-nav" data-bs-toggle="collapse" href="#">
-                <span style="padding: 0em 1em 0em 0em;"><i style="font-size:20px;" class="fas fa-folder-open"></i></span>
+                <span style=""><i class="bi bi-card-heading" style="color: black; font-size: 17px;"></i></span>
                 <span style="">Request</span>
                 <i class="fas fa-chevron-down"style="margin-left: auto; padding: 0px;"></i>
             </a>

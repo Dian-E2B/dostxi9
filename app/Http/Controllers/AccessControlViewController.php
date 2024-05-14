@@ -181,7 +181,7 @@ class AccessControlViewController extends Controller
                     ]
                 );
                 Notification_staffs::where('data_id', $data_id)->delete();
-                session()->flash('success');
+                flash()->success('Scholar Has Now Access to The SYSTEM');
                 return redirect()->back();
             } else {
                 return redirect()->back();

@@ -127,9 +127,9 @@
                                                 </tr>
                                                 <tr>
                                                     <th colspan="2">
-                                                        <button type="button" id="editscholarcourseButton" data-bs-toggle="tooltip" data-bs-title="Edit" class="btn btn-sm" style="background-color: #c0c0c0"><i class="fas fa-edit fa-lg" style="color: #2e2e2e;"></i></button>
-                                                        <button type="button" id="canceleditscholarcourseButton" data-bs-toggle="tooltip" data-bs-title="Cancel" class=" btn btn-sm d-none" style="background-color: #ec9107"><i class="fas fa-lg fa-window-close" style="color: #2e2e2e;"></i></button>
-                                                        <button type="submit" id="submitscholarcourseButton" data-bs-toggle="tooltip" data-bs-title="Submit" class="btn btn-sm d-none btn-success"><i class="fad fa-lg fa-save"></i></button>
+                                                        <button type="button" id="editscholarcourseButton" data-bs-toggle="tooltip" data-bs-title="Edit" class="btn btn-sm" style="background-color: #c0c0c0"><i class="bi bi-pencil-fill"></i></button>
+                                                        <button type="button" id="canceleditscholarcourseButton" data-bs-toggle="tooltip" data-bs-title="Cancel" class=" btn btn-sm d-none" style="background-color: #ec9107"><i class="bi bi-x-lg"></i></button>
+                                                        <button type="submit" id="submitscholarcourseButton" data-bs-toggle="tooltip" data-bs-title="Submit" class="btn btn-sm d-none btn-success"><i class="bi bi-floppy-fill"></i></button>
                                                     </th>
                                                 </tr>
                                             </form>

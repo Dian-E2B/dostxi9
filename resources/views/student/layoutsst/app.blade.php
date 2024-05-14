@@ -4,6 +4,7 @@
     <head>
         <title>DOST XI</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="csrf-token" content="{{ csrf_token() }}" />
         <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>{{-- SWEETALERT --}}
         <link rel="icon" href="\icons\DOSTLOGOsmall.png" type="image/x-icon" />
@@ -11,7 +12,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
         @livewireStyles
-        <x-livewire-alert::scripts />
         <x-livewire-alert::flash />
         @yield('styles')
     </head>
@@ -30,7 +30,7 @@
                 @yield('content')
             </main>
         </div>
-        @livewireScripts
+        {{--  @livewireScripts --}}
         <script src="{{ asset('js/app.js') }}"></script>
         @yield('scripts')
     </body>

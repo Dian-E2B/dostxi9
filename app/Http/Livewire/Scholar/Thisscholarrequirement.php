@@ -2,7 +2,10 @@
 
 namespace App\Http\Livewire\Scholar;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -19,14 +22,13 @@ class Thisscholarrequirement extends Component
     private $getSO;
     private $getIS;
     private $getSA; */
-    protected $setaccnumber;
+    public $account;
 
 
-    public function mount($scholar_id)
+    public function mount()
     {
-        $this->$scholar_id = $scholar_id;
+        $this->scholar_id = Auth::user()->scholar_id;
     }
-
     public function LoadAccnumber()
     {
         $this->getaccnumber = DB::table('scholar_requirement_view')
@@ -76,32 +78,50 @@ class Thisscholarrequirement extends Component
             ->first();
     } */
 
-
-    public function submitReqUploads()
+    public function rules()
     {
+        return [
+            'account' => 'mimes:pdf',
+        ];
+    }
 
-
-        $this->alert('info', 'KO', [
+    public function save()
+    {
+        $validatedData = $this->validate();
+        $this->account->store('account');
+        dd($validatedData);
+        /*  dd($this->account); */
+        /*  Log::info($this->account); */
+        /*   $this->validate([
+            'account' => 'mimes:pdf',
+        ]); */
+        /*  $this->alert('info', 'KO', [
             'position' => 'top  '
-        ]);
+        ]); */
         /*  sleep(2); // added this line */
         /*  dd('Form submitted'); */
         /*  session()->flash('success', 'Form submitted successfully!'); */
-        /*   $this->validate([
-            'setaccnumber' => 'file|max:1024',
-        ]);
- */
 
-        /* if (!null($this->setaccnumber)) {
-            $accnumber = $this->scholar_id . 'accnumber' . time() . '.' . $this->setaccnumber->getClientOriginalExtension();
-            $storeaccnumber = $this->setaccnumber->file('scholarshipagreement')->storeAs('public/documents', $accnumber);
-            DB::table('accnumber')
-                ->where('scholar_id', $this->scholarId)
-                ->update([
-                    'accnumber_name' => $this->setaccnumber,
-                    'status' => 0
-                ]);
-        } */
+        // if (isset($this->account)) {
+
+        /*   */
+        //     $accountname = $this->scholar_id . 'accnumber' . time() . '.' . $this->account->getClientOriginalExtension();
+        //     $storeaccountname =  $this->account->storeAs('public/documents', $accountname);
+        //     if ($storeaccountname) {
+        //         $updateaccname = DB::table('accnumber')
+        //             ->where('scholar_id', $this->scholar_id)
+        //             ->update([
+        //                 'accnumber_name' => 'storage/accnumber/' . $accountname,
+        //                 'status' => 0
+        //             ]);
+
+        //         if ($updateaccname) {
+        //             $this->alert('info', 'Account Number submitted', [
+        //                 'position' => 'top  '
+        //             ]);
+        //         }
+        //     }
+        // }
 
         /*  if (!null($this->setcor)) {
             DB::table('cor_firstreq')

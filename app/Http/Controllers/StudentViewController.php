@@ -192,7 +192,7 @@ class StudentViewController extends Controller
         $scholarid1 = $request->input('scholarid');
 
         $customstudentscholarshipagreement = $scholarid1 . 'scholarshipagreement' . time() . '.' . $request->file('scholarshipagreement')->getClientOriginalExtension();
-        $storescholarshipagreement = $request->file('scholarshipagreement')->storeAs('public/scholagreement', $customstudentscholarshipagreement);
+        $storescholarshipagreement = $request->file('scholarshipagreement')->storeAs('public/scholarshipagreement', $customstudentscholarshipagreement);
 
         $customstudentsinformationsheet = $scholarid1 . 'informationsheet' . time() . '.' . $request->file('informationsheet')->getClientOriginalExtension();
         $storeinformationsheet = $request->file('informationsheet')->storeAs('public/infosheet', $customstudentsinformationsheet);
@@ -203,7 +203,7 @@ class StudentViewController extends Controller
         $customstudentprospectusfilename = $scholarid1 . 'prospectus' . time() . '.' . $request->file('prospectus')->getClientOriginalExtension();
         $storeprospectus = $request->file('prospectus')->storeAs('public/prospectus', $customstudentprospectusfilename);
 
-        $customstudentcorfirstfilename = $scholarid1 . 'corfirst' . time() . '.' . $request->file('corfirst')->getClientOriginalExtension();
+        $customstudentcorfirstfilename = $scholarid1 . 'corfirst' . time() . '.' . $request->file('cor')->getClientOriginalExtension();
         $storecorfirst = $request->file('corfirst')->storeAs('public/cor', $customstudentcorfirstfilename);
 
         $customstudentaccnumberfilename = $scholarid1 . 'accnumber' . time() . '.' . $request->file('accnumber')->getClientOriginalExtension();
@@ -225,7 +225,7 @@ class StudentViewController extends Controller
 
             $insertSA = DB::table('scholarshipagreement')->insert([
                 'scholar_id' => $scholarid1,
-                'scholarshipagreement_name' => 'storage/scholagreement/' . $customstudentscholarshipagreement,
+                'scholarshipagreement_name' => 'storage/scholarshipgreement/' . $customstudentscholarshipagreement,
                 'created_at' => now(),
             ]);
 

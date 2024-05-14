@@ -11,22 +11,27 @@
                             <th style="width: 12rem" class="">Remarks</th>
                             <th style="width: 5rem" class="">View</th>
                             <th style="width: 12rem" class="">Reupload</th>
+                            <th style="width: 4rem" class="">Submit</th>
                         </tr>
                     </thead>
                     <tbody class="">
                         <div class="">
 
                             @if ($getaccnumber->ac_status == 2)
-                                <form wire:submit.prevent="submitReqUploads">
-                                    <tr>
-                                        <td class="">Account Number</td>
-                                        <td class="">{{ $getaccnumber->ac_remarks }}</td>
-                                        <td class=""><a class="btn btn-primary btn-sm" target="_blank" href="{{ asset($getaccnumber->accnumber_name) }}"><i class="fas fa-eye"></i></a></td>
-                                        <td class=""><input type="file" wire.model="sssss" accept=".pdf" required class="form-control">
-                                            <button type="submit" class="btn btn-outline-success rounded-pill btn-sm">Submit</button>
-                                        </td>
-                                    </tr>
-                                </form>
+                                <tr>
+                                    <td class="">Account Number</td>
+                                    <td class="">{{ $getaccnumber->ac_remarks }}</td>
+                                    <td class=""><a class="btn btn-primary btn-sm" target="_blank" href="{{ asset($getaccnumber->accnumber_name) }}"><i class="fas fa-eye"></i></a></td>
+                                    <td class="">
+                                        <input type="file" wire.model="account" required class="form-control">
+                                        @if ($errors->has('account'))
+                                            <div class="alert alert-danger">
+                                                {{ $errors->first('account') }}
+                                            </div>
+                                        @endif
+                                    </td>
+                                    <td class=""><button class="btn btn-outline-success" wire:click.prevent="save">Submit</button></td>
+                                </tr>
                             @endif
                             {{--  @if ($getcor->cor_status == 2)
                                 <tr>
@@ -68,16 +73,16 @@
                                     <td class=""><input type="file" wire.model="setschol_sa" class="form-control" required></td>
                                 </tr>
                             @endif --}}
-                            <tr class="">
-                                <td colspan="5" style="text-align: end" class=""></td>
-                            </tr>
+
 
                         </div>
+
                     </tbody>
 
                 </table>
             </div>
         </div>
+    @else
     @endif
     {{-- A good traveler has no fixed plans and is not intent upon arriving. --}}
 </div>
