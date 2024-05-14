@@ -12,40 +12,33 @@
 
     <nav class="header-nav ms-auto">
         <ul class="d-flex align-items-center">
-
-
-
+            <!-- Notification dropdown -->
             <li class="nav-item dropdown">
                 <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                     <i class="fas fa-bell"></i>
-                    <span id="notificationCount" class="mt-0 badge bg-primary badge-number"></span> {{-- COUNTER1 --}}
-                </a><!-- End Notification Icon -->
-
-
-                <ul style="user-select: none;" class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+                    <span id="notificationCount" class="mt-0 badge bg-primary badge-number"></span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications" style="max-height: 500px; overflow-y: auto;">
                     <li class="dropdown-header">
-                        <div class="" style="padding 1rem 0rem 1rem 0rem">---- You have <span id="notificationCount2" style="padding:"></span> new notifications ----</div> {{-- COUNTER2 --}}
+                        <div style="padding: 1rem 0;">---- You have <span id="notificationCount2"></span> new notifications ----</div>
                     </li>
-                    <div style="margin: 0 ; cursor:pointer;" id="notifications-list"></div>
-                </ul><!-- End Notification Dropdown Items -->
-            </li><!-- End BELL THING -->
-
-
-
+                    <div id="notifications-list"></div>
+                </ul>
+            </li>
+            <!-- Logout button -->
             <div class="d-flex align-items-center p-2 ms-auto" style="margin-right: 1.5rem">
                 <div>
                     <button class="btn btn-light d-flex align-items-center" href="{{ route('student.logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <box-icon name='log-out'></box-icon>
                         <span class="ms-1">Log out</span>
-                    </button><!-- End Logout Button -->
+                    </button>
                     <form id="logout-form" action="{{ route('student.logout') }}" method="POST" class="d-none">
                         @csrf
                     </form>
                 </div>
             </div>
-
         </ul>
-    </nav><!-- End Icons Navigation -->
+    </nav>
 
 
 

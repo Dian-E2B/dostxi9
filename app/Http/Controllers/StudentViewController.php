@@ -79,8 +79,14 @@ class StudentViewController extends Controller
         $cogid = $request->input('cogiddisapprove');
         $cog = Cog::find($cogid); //KUHAA NAME COG AND COR
 
-        $customstudentscorname = Auth::user()->scholar_id . 'cor' . time() . '.' . $request->file('reuploadedcor')->getClientOriginalExtension();
-        $request->file('reuploadedcor')->storeAs('public/cor', $customstudentscorname);
+        $cogrecordcount = DB::table('cogs')
+            ->where('scholar_id', Auth::user()->scholar_id)
+            ->count();
+
+
+
+
+
 
         $customstudentscogname = Auth::user()->scholar_id . 'cog' . time() . '.' . $request->file('reuploadedcog')->getClientOriginalExtension();
         $request->file('reuploadedcog')->storeAs('public/cog', $customstudentscogname);
@@ -94,10 +100,15 @@ class StudentViewController extends Controller
             $corFileName = str_replace($storageDirectoryCor, '', $corFilePath);
             if ($cogFilePath && Storage::disk('public')->exists('cog/' . $cogFileName)) {
                 $cogdelete = Storage::disk('public')->delete('cog/' . $cogFileName);
-                $cordelete =   Storage::disk('public')->delete('cor/' . $corFileName);
-
-                if ($cogdelete && $cordelete) {
-                    $cog->cor_name = 'storage/cor/' . $customstudentscorname;
+                if ($cogrecordcount > 1) {
+                    Storage::disk('public')->delete('cor/' . $corFileName);
+                }
+                if ($cogdelete) {
+                    if ($cogrecordcount > 1) {
+                        $customstudentscorname = Auth::user()->scholar_id . 'cor' . time() . '.' . $request->file('reuploadedcor')->getClientOriginalExtension();
+                        $request->file('reuploadedcor')->storeAs('public/cor', $customstudentscorname);
+                        $cog->cor_name = 'storage/cor/' . $customstudentscorname;
+                    }
                     $cog->cog_name = 'storage/cog/' . $customstudentscogname;
                     $cog->cogcor_status = null;
                     $cog->cogcor_remarks = null;
@@ -146,7 +157,20 @@ class StudentViewController extends Controller
             ->where('cogcor_status', "disapproved")
             ->get();
 
-        return view('student.gradeinput', compact('scholarId', 'cogsdraft', 'cogdisapproved'));
+
+        $cor = Cog::where('scholar_id', $scholarId)
+            ->where('cogcor_status', "disapproved")
+            ->get();
+
+        $checkcorfirst = DB::table('cor_firstreq')
+            ->where('scholar_id', $scholarId)
+            ->first();
+
+        $checkcorcount = DB::table('cogs')
+            ->where('scholar_id', $scholarId)
+            ->count();
+
+        return view('student.gradeinput', compact('scholarId', 'cogsdraft', 'cogdisapproved', 'checkcorfirst', 'checkcorcount'));
     }
 
     public function endaccess()
@@ -351,8 +375,6 @@ class StudentViewController extends Controller
             ->groupBy('cogs.startyear', 'cogs.semester')
             ->where('cogs.draft', '=', 0)
             ->get();
-
-
 
 
         return view('student.viewsubmittedgrade', compact('cogs'));

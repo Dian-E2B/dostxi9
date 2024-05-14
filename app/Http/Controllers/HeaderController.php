@@ -48,6 +48,7 @@ class HeaderController extends Controller
             Notification_schols::where('data_id', $data_id)->delete();
             return redirect()->route('student/gradeinput');
         } else {
+            Notification_schols::where('data_id', $data_id)->delete();
             return redirect()->route('student/gradeinput');
         }
     }

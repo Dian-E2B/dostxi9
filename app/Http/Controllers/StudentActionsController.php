@@ -13,6 +13,7 @@ use App\Models\Sei;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class StudentActionsController extends Controller
@@ -84,9 +85,13 @@ class StudentActionsController extends Controller
         $customstudentcogfilename = $scholarid . 'cog' . time() . '.' . $request->file('imagegrade')->getClientOriginalExtension();
         $request->file('imagegrade')->storeAs('public/cog', $customstudentcogfilename);
 
-        $customstudentcorfilename = $scholarid . 'cor' . time() . '.' . $request->file('corname')->getClientOriginalExtension();
-        $request->file('corname')->storeAs('public/cor', $customstudentcorfilename);
+        $checkcorfirst = DB::table('cor_firstreq')
+            ->where('scholar_id', $scholarid)
+            ->value('cor_name');
 
+        $checkcog = DB::table('cogs') //if naay sulod meaning verified na siya
+            ->where('scholar_id', $scholarid)
+            ->first();
 
         $data = $request->validate([
             'subjectnames.*.name' => 'required',
@@ -94,18 +99,35 @@ class StudentActionsController extends Controller
             'units.*.unit' => 'required',
         ]);
 
-        $cogData = [
-            'scholar_id' => $scholarid,
-            'semester' => $semesterinput,
-            'failnum' => 0,
-            'cog_status' => 0,
-            'startyear' => $startyearinput,
-            'endyear' => $startyearinput + 1,
-            'date_uploaded' => now(),
-            'cog_name' => 'storage/cog/' . $customstudentcogfilename,
-            'cor_name' => 'storage/cor/' . $customstudentcorfilename,
-        ];
-
+        if (!empty($checkcorfirst)) {
+            if (!empty($checkcog)) {
+                $customstudentcorfilename = $scholarid . 'cor' . time() . '.' . $request->file('corname')->getClientOriginalExtension();
+                $request->file('corname')->storeAs('public/cor', $customstudentcorfilename);
+                $cogData = [
+                    'scholar_id' => $scholarid,
+                    'semester' => $semesterinput,
+                    'failnum' => 0,
+                    'cog_status' => 0,
+                    'startyear' => $startyearinput,
+                    'endyear' => $startyearinput + 1,
+                    'date_uploaded' => now(),
+                    'cog_name' => 'storage/cog/' . $customstudentcogfilename,
+                    'cor_name' => 'storage/cor/' . $customstudentcorfilename,
+                ];
+            } else {
+                $cogData = [
+                    'scholar_id' => $scholarid,
+                    'semester' => $semesterinput,
+                    'failnum' => 0,
+                    'cog_status' => 0,
+                    'startyear' => $startyearinput,
+                    'endyear' => $startyearinput + 1,
+                    'date_uploaded' => now(),
+                    'cog_name' => 'storage/cog/' . $customstudentcogfilename,
+                    'cor_name' =>  $checkcorfirst,
+                ];
+            }
+        }
 
         $isDraft = $request->is_draft == 1;
 
@@ -133,7 +155,7 @@ class StudentActionsController extends Controller
                 ]
             );
             if ($notificationsave) {
-                return redirect()->back()->with('success', 'Grades submit successfully');
+                return redirect()->back()->with('success', 'Grades submitted successfully');
             }
         } else {
             foreach ($data['subjectnames'] as $index => $subject) {

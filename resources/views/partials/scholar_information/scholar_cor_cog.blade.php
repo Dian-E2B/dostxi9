@@ -1,6 +1,6 @@
-<div class="">
+<div class="card">
     <div class="card-body">
-        <div class="row">
+        <div class="row mt-4">
             <div class="col">
                 <div class="table-responsive">
                     <table class="table table-bordered table-sm">
@@ -25,8 +25,8 @@
                                     <td class="">{{ \Carbon\Carbon::parse($cogpassed1->date_uploaded)->format('F j, Y') }}</td>
                                     <td class="">{{ $cogpassed1->startyear }}</td>
                                     <td class="">{{ $cogpassed1->semester }}</td>
-                                    <td class="" style="text-align: center;"><a data-cogid="{{ $cogpassed1->id }}" class="d-block viewcog thisisbutton btn btn-light"><i class="fas fa-eye"></i>&nbsp;View</a></td>
-                                    <td class="" style="text-align: center;"><a data-corid="{{ $cogpassed1->id }}" class="d-block viewcor thisisbutton btn btn-light"><i class="fas fa-eye"></i>&nbsp;View</a></td>
+                                    <td class="" style="text-align: center;"><a class="d-block viewcog thisisbutton btn btn-sm btn-light" href=" {{ asset($cogpassed1->cog_name) }}" target="_blank"><i class="fas fa-eye"></i>&nbsp;View</a></td>
+                                    <td class="" style="text-align: center;"><a href="{{ asset($cogpassed1->cor_name) }}" class="d-block viewcor btn-sm thisisbutton btn btn-light" target="_blank"><i class="fas fa-eye"></i>&nbsp;View</a></td>
                                     <td class="">{{ $cogpassed1->cogcor_remarks }}</td>
                                     <td class=" " style="text-align: center;">
                                         <div class="row g-2" style="">

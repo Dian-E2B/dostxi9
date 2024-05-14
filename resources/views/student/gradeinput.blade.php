@@ -158,11 +158,13 @@
                                 @csrf
                                 <input type="text" hidden name="cogiddisapprove" value="{{ $cogdisapproved[0]->id }}">
                                 <div class="row">
-                                    <div class="col">
-                                        <div class="bold mb-1" style="font-weight: 700">Certificate of Registration</div>
-                                        <input required type="file" name="reuploadedcor" class="form-control" accept="application/pdf">
+                                    <div class="col-6">
+                                        @if (!$checkcorcount > 1)
+                                            <div class="bold mb-1" style="font-weight: 700">Certificate of Registration</div>
+                                            <input required type="file" name="reuploadedcor" class="form-control" accept="application/pdf">
+                                        @endif
                                     </div>
-                                    <div class="col">
+                                    <div class="col-6 col-md-12 col-lg-12">
                                         <div class="bold mb-1" style="font-weight: 700">Certificate of Grades</div>
                                         <input required type="file" name="reuploadedcog" class="form-control" accept="application/pdf">
                                     </div>
@@ -190,9 +192,11 @@
                             <div class="col-lg-12">
                                 {{-- SUBMIT PERIODIC REQUIREMENTS --}}
                                 <div class="">
-                                    <div style="font-size: 20px; font-weight: 900; text-align: center; margin-bottom: 5px;">SUBMIT PERIODIC REQUIREMENTS</div>
-                                    <div class=""><span style="font-size: 15px">Certificate Of Registration: </span><input required name="corname" class="form-control" type="file" accept="application/pdf"></div> {{-- COR --}}
 
+                                    @if (empty($checkcorfirst))
+                                        <div style="font-size: 20px; font-weight: 900; text-align: center; margin-bottom: 5px;">SUBMIT PERIODIC REQUIREMENTS</div>
+                                        <div class=""><span style="font-size: 15px">Certificate Of Registration: </span><input required name="corname" class="form-control" type="file" accept="application/pdf"></div> {{-- COR --}}
+                                    @endif
                                     <img class="py-md-3" id="image-preview" src="" alt="Image Preview" style="max-width: 500px; display: none; ">
                                     <div class="mt-2"><span style="font-size: 15px">Certificate Of Grades:</span> <input required type="file" name="imagegrade" id="imagegradeid" class="form-control" accept="image/*, application/pdf"></div>
 
@@ -257,7 +261,7 @@
                                                     <td><input name="subjectnames[0][name]" type="text" class="form-control" required></td>
                                                     <td style="width: 10em"> <input id="grade1" type="number" step="0.01" required pattern="[0-9]+" name="grades[0][grade]" class="form-control numeric-input"></td>
                                                     <td style="width: 10em"> <input id="unit1" name="units[0][unit]" required pattern="[0-9]+" type="number" class="form-control numeric-input"></td>
-                                                    <td style="text-align: center"> <a name="add" id="add" type="button" class="form-control btn btn-success"><i class="fas fa-plus"></i></a></td>
+                                                    <td style="text-align: center"> <a name="add" id="add" type="button" class="form-control btn btn-success"><i class="bi bi-plus-lg" style="font-weight: 900"></i></a></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -268,7 +272,6 @@
                                 <label>
                                     <input id="scholaridinput" name="scholarid" style="display: none;" value="{{ $scholarId }}">
                                 </label>
-
                                 <div class="mt-3">
                                     <button type="submit" class="btn rounded-pill btn-primary">Submit All</button>
                                     <button type="button" class="btn rounded-pill btn-secondary" onclick="submitAsDraft()">Submit as Draft</button>
@@ -311,7 +314,7 @@
                 '<td ><input name="subjectnames[' + i + '][name]" type="text" class="form-control" required></td>' +
                 '<td style="width: 10em"><input id="grade' + i + '" type="number" step="0.01" required pattern="[0-9]+" name="grades[' + i + '][grade]" class="form-control numeric-input"></td>' +
                 '<td style="width: 10em"><input id="unit' + i + '" name="units[' + i + '][unit]" required pattern="[0-9]+" type="number" class="form-control numeric-input"></td>' +
-                '<td style="text-align: center"><button type="button" name="remove' + i + '" class="btn btn-danger form-control remove-table-row"><i class="fas fa-minus"></i></button></td>' +
+                '<td style="text-align: center"><button type="button" name="remove' + i + '" class="btn btn-outline-danger form-control remove-table-row"><i class="bi bi-x-circle"></i></button></td>' +
                 '</tr>'
             );
         });

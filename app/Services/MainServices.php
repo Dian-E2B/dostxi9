@@ -64,7 +64,7 @@ class MainServices
                     ->leftJoin('cogdetails as cd', 'cd.cog_id', '=', 'c.id')
                     ->select(DB::raw('ROUND((SUM(cd.unit * cd.grade) / NULLIF(SUM(cd.unit), 0)), 2) as semestral_average'))
                     ->where('c.startyear', $startyear - 1) // Assuming 2023
-                    ->where('c.semester', $semester + 2) // Assuming you want to retrieve the average for the next semester
+                    ->where('c.semester', $semester + 2) // Average for the next semester
                     ->first();
             }
 
