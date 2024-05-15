@@ -103,9 +103,7 @@
                                     <table id="yourDataTable" cellspacing="0" class="table-striped compact datatable" style="width:100%;">
                                         <thead>
                                             <tr>
-                                                <th style="width: 10px;">Acadyear</th>
-                                                <th></th>
-                                                <th style="">-</th>
+                                                <th style="">Acadyear</th>
                                                 <th>Semester</th>
                                                 <th>Total Records</th>
                                                 <th>View</th>
@@ -115,10 +113,8 @@
 
                                             @foreach ($results as $result)
                                                 <tr>
-                                                    <td style="width: 10px;">{{ $result->startyear }} </td>
-                                                    <td style=" text-align: start">-</td>
-                                                    <td style="width: 20px; text-align: start">{{ $result->endyear }}</td>
-                                                    <td style="width: px;">
+                                                    <td style="">{{ $result->startyear }} - {{ $result->endyear }} </td>
+                                                    <td style="">
                                                         @switch($result->semester)
                                                             @case(1)
                                                                 1st Semester
@@ -161,11 +157,10 @@
 
                 var table = $('#yourDataTable').DataTable({
                     autoWidth: false,
-                    processing: true,
                     scrollX: true,
                     "order": [],
                     "columnDefs": [{
-                        "targets": [0, 1, 4],
+                        "targets": [1],
                         "orderable": false
                     }]
 
