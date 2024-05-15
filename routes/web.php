@@ -121,6 +121,7 @@ Route::middleware(['auth', 'role:staff'])->group(function () {
     Route::post('/savescholarshipstatus/{number}', [RsmsViewController::class, 'savescholarshipstatus'])->name('savescholarshipstatus');
     Route::get('/getdocumentsdata/{number}', [RsmsViewController::class, 'getdocumentsdata'])->name('getdocumentsdata');
     Route::get('/getprogramchartyearfilter/{year}', 'YourController@getProgramChartData');
+    Route::post('/endorseongoing', [RsmsViewController::class, 'endorseongoing'])->name('endorseongoing');
     //ANONUNCEMENT
     Route::get('/announcement', [\App\Http\Controllers\AnnouncementController::class, 'index'])->name('announcement');
     Route::get('/requests', [\App\Http\Controllers\RequestsController::class, 'index'])->name('requests');

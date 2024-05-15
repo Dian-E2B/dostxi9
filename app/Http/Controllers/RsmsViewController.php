@@ -23,6 +23,26 @@ use Termwind\Components\Dd;
 class RsmsViewController extends Controller //OR ONGOING
 {
     //
+
+    public function endorseongoing(Request $request)
+    {
+        $selectedRowIds = $request->input('selectedRowIds');
+        $startYear = $request->input('startYear');
+        $semester = $request->input('semester');
+        $datepicker = $request->input('datepicker');
+        foreach ($selectedRowIds as $rowId) {
+            DB::table('ongoing')
+                ->where('id', $rowId)
+                ->where('startyear', $startYear)
+                ->where('semester', $semester)
+                ->update([
+                    'STATUSENDORSEMENT' => $datepicker
+                ]);
+        }
+
+        return response()->json(['message' => 'Selected rows updated successfully']);
+    }
+
     public function rsmsview()
     {
 

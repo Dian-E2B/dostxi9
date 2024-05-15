@@ -142,31 +142,30 @@ jQuery(document).ready(function ($) {
                 $(row).find('td:first-child')
                     .css('color', 'green')
                     .css('font-weight', 'bold');
-                // console.log("Row with value '0' found.");
+
             }
-            // alert();
         },
         drawCallback: function (settings) {
             var api = this.api();
 
             api.columns([6, 7, 8, 15, 16]).every(function (d) {
                 var column = this;
-                // Get the column header name
+
                 var theadname = $(api.column(d).header()).text();
-                // Check if the select element already exists for this column
+                //
                 var select = column.header().querySelector('select');
 
-                // If the select element doesn't exist or is empty, create it
+
                 if (!select || select.options.length === 0) {
                     select = document.createElement('select');
-                    // Add styles to the select element
-                    select.style.padding = '1px'; // Example padding
-                    // Add the default option
+                    //
+                    select.style.padding = '1px';
+                    //
                     select.add(new Option(' ' + theadname, ''));
-                    // Replace the header with the select element
+
                     column.header().replaceChildren(select);
 
-                    // Apply listener for user change in value
+                    //
                     select.addEventListener('change', function () {
                         var val = DataTable.util.escapeRegex(select.value);
 
@@ -175,7 +174,7 @@ jQuery(document).ready(function ($) {
                             .draw();
                     });
 
-                    // Add list of options excluding theadname
+                    //
                     column
                         .data()
                         .unique()

@@ -32,7 +32,7 @@ class GenerateRandomValue extends Command
         $numberOfRecords = 1000;
 
         $this->info("Generating and inserting $numberOfRecords fake records...");
-        $batchSize = 32; // Adjust the batch size based on your needs
+        $batchSize = 100; // Adjust the batch size based on your needs
         $this->output->progressStart(ceil($numberOfRecords / $batchSize));
 
         $strand = ['STEM', 'NON-STEM'];
@@ -54,7 +54,7 @@ class GenerateRandomValue extends Command
         $Courses = ['BAT', 'BS ABE', 'BS AgEc', 'BS AGRI', 'BS Agriculture', 'BS AM', 'BS AMATH', 'BS Applied Math', 'BS ARCHITECTURE', 'BS Biology', 'BS CE', 'BS ChE', 'BS Chem', 'BS Chemistry', 'BS CoE', 'BS CS', 'BS EcE', 'BS EE', 'BS EM', 'BS Envi Sci', 'BS FT', 'BS GE', 'BS Geology', 'BS IS'];
 
 
-        $startId = 2360; //change when needed
+        $startId = 2424; //change when needed
         $spasno = 20360; //change when needed
         for ($i = 0; $i < ceil($numberOfRecords / $batchSize); $i++) {
 
@@ -114,7 +114,7 @@ class GenerateRandomValue extends Command
             DB::table('seis')->insert($data);
             DB::table('ongoing')->insert($dataOtherTable);
             $this->output->progressFinish();
-            $this->info('Fake data generated and inserted successfully.');
+            $this->info('Fake data generated and inserted successfully. ends at ' . $startId);
 
             $data = [];
             $dataOtherTable = [];
