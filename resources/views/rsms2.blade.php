@@ -9,13 +9,13 @@
             text-align: center !important;
 
             /*   border-left: none;
-                                                                                                                                                            border-right: none;
-                                                                                                                                                 */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                border-right: none;
+                                                                                                                                                                                                                                                                                                                                                                                                                                     */
         }
 
         /*    thead select {
-                                                                        width: 100%;
-                                                                    } */
+                                                                                                                                                                                                                                                                                                                                                            width: 100%;
+                                                                                                                                                                                                                                                                                                                                                        } */
 
         .ongoinglisttable td {
             padding-left: 8px;
@@ -27,12 +27,12 @@
 
 
         /*   .ongoinglisttable td {
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                border-width: thin;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                border-top: #000 solid 0.5px;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                border-bottom: #000 solid 0.5px;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                border-left: #000 solid 0.5px;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                border-right: #000 solid 0.5px;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            } */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    border-width: thin;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    border-top: #000 solid 0.5px;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    border-bottom: #000 solid 0.5px;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    border-left: #000 solid 0.5px;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    border-right: #000 solid 0.5px;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                } */
 
         .action-column {}
 
@@ -95,8 +95,32 @@
         .view-btn {
             padding-left: 6px;
         }
+
+
+        .endorsedcardbody {
+            width: 35px;
+            max-width: 200px;
+            overflow: hidden;
+            /* Hide overflowing content */
+            transition: width 0.3s;
+
+        }
+
+        .endorsedcardbody:hover {
+            width: 200px;
+        }
+
+.textendorsed {
+    white-space: nowrap; /* Prevent text from wrapping */
+    transition: transform 0.3s; /* Smooth transition */
+}
+
+.nav-tabs .nav-link{
+    background-color: #dddddd;
+}
     </style>
 @endsection
+
 
 
 
@@ -105,147 +129,179 @@
     <input hidden id="startyear" value="{{ $startyear }}">
     <input hidden id="endyear" value="{{ $endyear }}">
 
-    <div class="card">
+    {{-- ENDORSED OVERLAY --}}
+  {{--   <div class="z-1 endorsedcardbody" style="position: absolute; top: 70px; right: 0; ">
+        <div class="card" style="background-color: rgb(232, 230, 230);">
+            <div class="card-body " style="text-align: center; padding: 10px; cursor: pointer;">
+            <a href="#"><di v class="textendorsed" style="font-size: 20px"><i class="bi bi-file-earmark-text-fill" style="margin-right:10px"></i><span class="thistext">Endorsed</span></div></a>
+            </div>
+        </div>
+    </div> --}}
 
-        <div class="card-body">
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <button class="nav-link active" id="nav-Ongoing-tab" data-bs-toggle="tab" data-bs-target="#nav-Ongoing" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Ongoing</button>
+          <button class="nav-link" id="nav-Endorsed-tab" data-bs-toggle="tab" data-bs-target="#nav-Endorsed" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Endorsed</button>
+        </div>
+      </nav>
+      <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-Ongoing" role="tabpanel" aria-labelledby="nav-Ongoing-tab" tabindex="0" style="background-color: rgb(255, 255, 255)">
             <div class="row">
-                <div class="col-lg-3 col-md-3 col-6">
-                    <h3 class="mt-3">
-                        @if ($semester == 1)
-                            @php
-                                echo $semester . 'ST SEM ' . $startyear . '-' . $startyear + 1;
-                            @endphp
-                        @elseif ($semester == 2)
-                            @php
-                                echo $semester . 'ND SEM ' . $startyear . '-' . $startyear + 1;
-                            @endphp
-                        @else
-                            @php
-                                echo 'SUMMER ' . $startyear . '-' . $startyear + 1;
-                            @endphp
-                        @endif
-                    </h3>
-                </div>
+                <div class="col-lg-12">
+                    <div class="">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 col-6">
+                                    <h3 class="mt-3">
+                                        @if ($semester == 1)
+                                            @php
+                                                echo $semester . 'ST SEM ' . $startyear . '-' . $startyear + 1;
+                                            @endphp
+                                        @elseif ($semester == 2)
+                                            @php
+                                                echo $semester . 'ND SEM ' . $startyear . '-' . $startyear + 1;
+                                            @endphp
+                                        @else
+                                            @php
+                                                echo 'SUMMER ' . $startyear . '-' . $startyear + 1;
+                                            @endphp
+                                        @endif
+                                    </h3>
+                                </div>
 
-                <div class="col mt-3">
-                    <button id="getSelectedRows" class="btn rounded-pill btn-outline-primary" data-bs-toggle="modal" data-bs-target="#endorsemodal">Endorse</button>
-                    <!-- Modal -->
-                    <div class="modal fade" id="endorsemodal" tabindex="-1" aria-labelledby="endorsemodal" aria-hidden="true">
-                        <div class="modal-dialog modal-sm">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="endorsemodal">Input Date</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <input type="text" id="datepicker" class="form-control">
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
-                                    <button type="button" id="getSelectedRows2" data-bs-dismiss="modal" class="btn btn-outline-primary btn-sm">Save changes</button>
+                                <div class="col mt-3">
+                                    <button id="getSelectedRows" class="btn rounded-pill btn-outline-primary" data-bs-toggle="modal" data-bs-target="#endorsemodal">Endorse</button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="endorsemodal" tabindex="-1" aria-labelledby="endorsemodal" aria-hidden="true">
+                                        <div class="modal-dialog modal-sm">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="endorsemodal">Input Date</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <input type="text" id="datepicker" class="form-control">
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+                                                    <button type="button" id="getSelectedRows2" data-bs-dismiss="modal" class="btn btn-outline-primary btn-sm">Save changes</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+
+                            <div class="">
+                                <img id="logo" src="{{ asset('icons/DOSTlogoONGOING.jpg') }}" style="display: none;">
+                                <div class="">
+
+                                    <table id="yourDataTable" class="ongoinglisttable  display nowrap compact table-striped" style="user-select: none; table-layout: auto">
+                                        <thead>
+                                            <tr>
+                                                <th style="vertical-align: bottom;">Action <i style=" cursor: pointer;" id="selectAllRows" class="bi bi-check2-square"></i></th>
+                                                <th>Batch</th>
+                                                <th style="width:5% !important">No</th>
+                                                <th>Name</th>
+                                                <th style="width:2% !important">MF</th>
+                                                <th>Program</th>
+                                                <th>School</th>
+                                                <th>Course</th>
+                                                <th style="vertical-align: bottom;">
+                                                    @if ($semester == 1)
+                                                        {{-- 1ST SEM --}}
+                                                        @php
+                                                            $semester2 = $semester + 1; //2ND
+                                                            $startyear2 = $startyear - 1;
+                                                            $endyear2 = $endyear - 1;
+                                                        @endphp
+                                                        {{ 'GRADES' }} <br> {{ $semester2 . 'ND-SEM' }} <br> {{ $startyear2 . '-' . $endyear2 }}
+                                                    @elseif ($semester == 2)
+                                                        {{-- 2ND SEM --}}
+                                                        @php
+                                                            $semester2 = $semester - 1; //1ST
+                                                            $startyear2 = $startyear;
+                                                            $endyear2 = $endyear;
+                                                        @endphp
+                                                        {{ 'GRADES' }} <br> {{ $semester2 . 'ST-SEM' }} <br> {{ $startyear2 . '-' . $endyear2 }}
+                                                    @elseif ($semester == 0)
+                                                        {{-- SUMMER --}}
+                                                        @php
+                                                            $semester2 = $semester + 2; //2ND SEM
+                                                            $startyear2 = $startyear - 1; //CURRENT
+                                                            $endyear2 = $startyear; //
+                                                        @endphp
+                                                        {{ 'GRADES' }} <br> {{ $semester2 . 'ND-SEM' . $startyear2 . '-' . $endyear2 }}
+                                                    @endif
+                                                </th>
+                                                <th>SummerREG</th>
+                                                <th>
+                                                    @if ($semester == 1)
+                                                        {{-- 1ST SEM --}}
+                                                        @php
+                                                            $semester2 = $semester;
+                                                            $startyear2 = $startyear;
+                                                            $endyear2 = $endyear;
+                                                        @endphp
+                                                        {{ 'REG FORMS' }} <br> {{ $semester2 . 'ST-SEM' }} <br> {{ $startyear2 . '-' . $endyear2 }}
+                                                    @elseif ($semester == 2)
+                                                        {{-- 2ND SEM --}}
+                                                        @php
+                                                            $semester2 = $semester;
+                                                            $startyear2 = $startyear;
+                                                            $endyear2 = $endyear;
+                                                        @endphp
+                                                        {{ 'REG FORMS' }} <br> {{ $semester2 . 'ND-SEM' }} <br> {{ $startyear2 . '-' . $endyear2 }}
+                                                    @elseif ($semester == 0)
+                                                        {{-- SUMMER --}}
+                                                        @php
+                                                            $semester2 = $semester - 2; //1ST SEM
+                                                            $startyear2 = $startyear; //(SAME STARTYEAR,+1 ENDYEAR)
+                                                            $endyear2 = $endyear; //
+                                                        @endphp
+                                                        {{ 'REG FORMS' }} <br>{{ $semester2 . 'ST-SEM' }} <br> {{ $startyear2 . '-' . $endyear2 }}
+                                                    @endif
+                                                </th>
+                                                <th>REMARKS</th>
+                                                <th>STATUS<br>ENDORSEMENT</th>
+                                                <th>STATUS<br>ENDORSEMENT2</th>
+                                                <th>STATUS</th>
+                                                <th>NOTATIONS</th>
+                                                <th>SUMMER</th>
+                                                <th>FARELEASED<br>TUITION</th>
+                                                <th>FARELEASED<br>BOOK<br>STIPEND</th>
+                                                <th>LVDCAccount</th>
+                                                <th>HVCNotes</th>
+                                                <th>startyear</th>
+                                                <th>endyear</th>
+                                                {{-- <th>semester</th> --}}
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- DataTable content will be dynamically added here -->
+                                        </tbody>
+                                    </table>
+
+                                </div>
+
+                            </div>
+
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="">
-                <img id="logo" src="{{ asset('icons/DOSTlogoONGOING.jpg') }}" style="display: none;">
-                <div class="">
-
-                    <table id="yourDataTable" class="ongoinglisttable  display nowrap compact table-striped" style="user-select: none; table-layout: auto">
-                        <thead>
-                            <tr>
-                                <th style="vertical-align: bottom;">Action <i style=" cursor: pointer;" id="selectAllRows" class="bi bi-check2-square"></i></th>
-                                <th>Batch</th>
-                                <th style="width:5% !important">No</th>
-                                <th>Name</th>
-                                <th style="width:2% !important">MF</th>
-                                <th>Program</th>
-                                <th>School</th>
-                                <th>Course</th>
-                                <th style="vertical-align: bottom;">
-                                    @if ($semester == 1)
-                                        {{-- 1ST SEM --}}
-                                        @php
-                                            $semester2 = $semester + 1; //2ND
-                                            $startyear2 = $startyear - 1;
-                                            $endyear2 = $endyear - 1;
-                                        @endphp
-                                        {{ 'GRADES' }} <br> {{ $semester2 . 'ND-SEM' }} <br> {{ $startyear2 . '-' . $endyear2 }}
-                                    @elseif ($semester == 2)
-                                        {{-- 2ND SEM --}}
-                                        @php
-                                            $semester2 = $semester - 1; //1ST
-                                            $startyear2 = $startyear;
-                                            $endyear2 = $endyear;
-                                        @endphp
-                                        {{ 'GRADES' }} <br> {{ $semester2 . 'ST-SEM' }} <br> {{ $startyear2 . '-' . $endyear2 }}
-                                    @elseif ($semester == 0)
-                                        {{-- SUMMER --}}
-                                        @php
-                                            $semester2 = $semester + 2; //2ND SEM
-                                            $startyear2 = $startyear - 1; //CURRENT
-                                            $endyear2 = $startyear; //
-                                        @endphp
-                                        {{ 'GRADES' }} <br> {{ $semester2 . 'ND-SEM' . $startyear2 . '-' . $endyear2 }}
-                                    @endif
-                                </th>
-                                <th>SummerREG</th>
-                                <th>
-                                    @if ($semester == 1)
-                                        {{-- 1ST SEM --}}
-                                        @php
-                                            $semester2 = $semester;
-                                            $startyear2 = $startyear;
-                                            $endyear2 = $endyear;
-                                        @endphp
-                                        {{ 'REG FORMS' }} <br> {{ $semester2 . 'ST-SEM' }} <br> {{ $startyear2 . '-' . $endyear2 }}
-                                    @elseif ($semester == 2)
-                                        {{-- 2ND SEM --}}
-                                        @php
-                                            $semester2 = $semester;
-                                            $startyear2 = $startyear;
-                                            $endyear2 = $endyear;
-                                        @endphp
-                                        {{ 'REG FORMS' }} <br> {{ $semester2 . 'ND-SEM' }} <br> {{ $startyear2 . '-' . $endyear2 }}
-                                    @elseif ($semester == 0)
-                                        {{-- SUMMER --}}
-                                        @php
-                                            $semester2 = $semester - 2; //1ST SEM
-                                            $startyear2 = $startyear; //(SAME STARTYEAR,+1 ENDYEAR)
-                                            $endyear2 = $endyear; //
-                                        @endphp
-                                        {{ 'REG FORMS' }} <br>{{ $semester2 . 'ST-SEM' }} <br> {{ $startyear2 . '-' . $endyear2 }}
-                                    @endif
-                                </th>
-                                <th>REMARKS</th>
-                                <th>STATUS<br>ENDORSEMENT</th>
-                                <th>STATUS<br>ENDORSEMENT2</th>
-                                <th>STATUS</th>
-                                <th>NOTATIONS</th>
-                                <th>SUMMER</th>
-                                <th>FARELEASED<br>TUITION</th>
-                                <th>FARELEASED<br>BOOK<br>STIPEND</th>
-                                <th>LVDCAccount</th>
-                                <th>HVCNotes</th>
-                                <th>startyear</th>
-                                <th>endyear</th>
-                                {{-- <th>semester</th> --}}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- DataTable content will be dynamically added here -->
-                        </tbody>
-                    </table>
-
-                </div>
 
             </div>
-
         </div>
-    </div>
+        <div class="tab-pane fade" id="nav-Endorsed" role="tabpanel" aria-labelledby="nav-Endorsed-tab" tabindex="0" style="background-color: rgb(255, 255, 255)">
+            @livewire('staff.endorsed-ongoing', ['semester' => $semester, 'startyear' => $startyear])
+        </div>
+      </div>
+
+
+
+
+
 
     <div class="offcanvas offcanvas-end " id="editModal" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
         <div class="offcanvas-header">
