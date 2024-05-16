@@ -25,7 +25,7 @@ class Endorsements extends Controller
         if (empty($year) && empty($semester)) {
             $endorsements = DB::table('ongoing_endorsed_view_reportings')
                 ->select('*')
-                ->where('startyear', 2024)
+                ->where('startyear', now())
                 ->take(50) // Limit to 50 records
                 ->get();
         } elseif (isset($year) && isset($semester)) {

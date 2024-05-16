@@ -78,7 +78,7 @@
                                 </div>
                                 <div class="col col-12 mt-2 d-block">
                                     <div class="">COR</div>
-                                    <div class=""><input class="form-control form-control-lg" accept="application/pdf" type="file" id="formFile" name="corfirst" required></div>
+                                    <div class=""><input class="form-control form-control-lg" accept="application/pdf" type="file" id="formFile" name="cor" required></div>
                                 </div>
                                 <div class="col mt-2">
                                     <span class="">Account Number</span>

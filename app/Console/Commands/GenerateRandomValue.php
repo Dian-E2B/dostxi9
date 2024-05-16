@@ -54,7 +54,7 @@ class GenerateRandomValue extends Command
         $Courses = ['BAT', 'BS ABE', 'BS AgEc', 'BS AGRI', 'BS Agriculture', 'BS AM', 'BS AMATH', 'BS Applied Math', 'BS ARCHITECTURE', 'BS Biology', 'BS CE', 'BS ChE', 'BS Chem', 'BS Chemistry', 'BS CoE', 'BS CS', 'BS EcE', 'BS EE', 'BS EM', 'BS Envi Sci', 'BS FT', 'BS GE', 'BS Geology', 'BS IS'];
 
 
-        $startId = 2424; //change when needed
+        $startId = 400; //change when needed
         $spasno = 20360; //change when needed
         for ($i = 0; $i < ceil($numberOfRecords / $batchSize); $i++) {
 

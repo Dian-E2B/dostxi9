@@ -92,12 +92,7 @@
                 </div>
             </div>
         @endif
-
-
-
-
-
-
+        
         @if (count($cogdisapproved) > 0)
             <script class="">
                 Swal.fire({
@@ -153,7 +148,6 @@
                                     @endforeach
                                 </tbody>
                             </table>
-
                             <form action="{{ route('reuploadcogcor') }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <input type="text" hidden name="cogiddisapprove" value="{{ $cogdisapproved[0]->id }}">
@@ -173,7 +167,6 @@
                                     </div>
                                 </div>
                             </form>
-
                         </div>
 
 

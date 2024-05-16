@@ -154,7 +154,6 @@
 
         <script>
             jQuery(document).ready(function($) {
-
                 var table = $('#yourDataTable').DataTable({
                     autoWidth: false,
                     scrollX: true,
@@ -163,11 +162,7 @@
                         "targets": [1],
                         "orderable": false
                     }]
-
-
                 });
-
-
             });
 
             $(document).on('click', '.view-btn', function() {

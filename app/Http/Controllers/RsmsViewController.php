@@ -22,24 +22,38 @@ use Termwind\Components\Dd;
 
 class RsmsViewController extends Controller //OR ONGOING
 {
-    //
 
     public function endorseongoing(Request $request)
     {
         $selectedRowIds = $request->input('selectedRowIds');
+
         $startYear = $request->input('startYear');
         $semester = $request->input('semester');
         $datepicker = $request->input('datepicker');
         foreach ($selectedRowIds as $rowId) {
             DB::table('ongoing')
-                ->where('id', $rowId)
+                ->where('NUMBER', $rowId)
                 ->where('startyear', $startYear)
                 ->where('semester', $semester)
                 ->update([
                     'STATUSENDORSEMENT' => $datepicker
                 ]);
-        }
 
+            $retrieveAllinfo =  DB::table('ongoing')
+                ->where('NUMBER', $rowId)
+                ->first();
+
+            if ($retrieveAllinfo) {
+                $inserttongoing = DB::table('ongoinglist_endorseds')->insert([
+                    'scholar_id' => $rowId,
+                    'name' => $retrieveAllinfo->NAME,
+                    'school' => $retrieveAllinfo->SCHOOL,
+                    'course' => $retrieveAllinfo->COURSE,
+                    'semester' => $retrieveAllinfo->semester,
+                    'year' => $retrieveAllinfo->startyear,
+                ]);
+            }
+        }
         return response()->json(['message' => 'Selected rows updated successfully']);
     }
 
@@ -133,7 +147,6 @@ class RsmsViewController extends Controller //OR ONGOING
         }
     }
 
-
     public function getOngoingById($number, $semester, $startyear)
     {
         $results = DB::select(
@@ -149,8 +162,6 @@ class RsmsViewController extends Controller //OR ONGOING
         }
         return response()->json($results[0]);
     }
-
-
 
     public function viewscholarrecordsview($number)
     {
