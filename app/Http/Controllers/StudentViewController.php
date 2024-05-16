@@ -228,7 +228,7 @@ class StudentViewController extends Controller
         $storeprospectus = $request->file('prospectus')->storeAs('public/prospectus', $customstudentprospectusfilename);
 
         $customstudentcorfirstfilename = $scholarid1 . 'corfirst' . time() . '.' . $request->file('cor')->getClientOriginalExtension();
-        $storecorfirst = $request->file('corfirst')->storeAs('public/cor', $customstudentcorfirstfilename);
+        $storecorfirst = $request->file('cor')->storeAs('public/cor', $customstudentcorfirstfilename);
 
         $customstudentaccnumberfilename = $scholarid1 . 'accnumber' . time() . '.' . $request->file('accnumber')->getClientOriginalExtension();
         $storeaccnumber = $request->file('accnumber')->storeAs('public/accnumber', $customstudentaccnumberfilename);
@@ -249,7 +249,7 @@ class StudentViewController extends Controller
 
             $insertSA = DB::table('scholarshipagreement')->insert([
                 'scholar_id' => $scholarid1,
-                'scholarshipagreement_name' => 'storage/scholarshipgreement/' . $customstudentscholarshipagreement,
+                'scholarshipagreement_name' => 'storage/scholarshipagreement/' . $customstudentscholarshipagreement,
                 'created_at' => now(),
             ]);
 
