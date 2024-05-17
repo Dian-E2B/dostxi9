@@ -69,7 +69,7 @@ class GenerateEndorsedOngoing extends Command
 
                 $startId++;
             }
-            DB::table('ongoinglist_endorseds')->insert($data);
+            DB::table('ongoinglistendorseds')->insert($data);
             $this->output->progressFinish();
             $this->info('Fake data generated and inserted successfully. ends at ' . $startId);
             $data = [];

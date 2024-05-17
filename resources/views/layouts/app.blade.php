@@ -20,6 +20,9 @@
         {{--  <link href="{{ asset('css/fontaws.min.css') }}" rel="stylesheet"> --}}
         <x-livewire-alert::scripts />
         <x-livewire-alert::flash />
+        <style class="">
+             [x-cloak] { display: none !important; }
+        </style>
         @yield('styles')
     </head>
 

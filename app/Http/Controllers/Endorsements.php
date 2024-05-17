@@ -47,7 +47,7 @@ class Endorsements extends Controller
 
     public function endorsedongoingprint(Request $request, $year = null, $semester = null)
     {
-        $endorsements = DB::table('ongoinglist_endorseds')
+        $endorsements = DB::table('ongoinglistendorseds')
             ->select('name', 'school', 'semester', 'year')
             ->where('year', $year)
             ->where('semester', $semester)

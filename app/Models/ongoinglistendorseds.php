@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Ongoinglist_endorsed extends Model
+class ongoinglistendorseds extends Model
 {
     use HasFactory;
 

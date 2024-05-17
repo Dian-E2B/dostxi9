@@ -44,7 +44,7 @@ class RsmsViewController extends Controller //OR ONGOING
                 ->first();
 
             if ($retrieveAllinfo) {
-                $inserttongoing = DB::table('ongoinglist_endorseds')->insert([
+                $inserttongoing = DB::table('ongoinglistendorseds')->insert([
                     'scholar_id' => $rowId,
                     'name' => $retrieveAllinfo->NAME,
                     'school' => $retrieveAllinfo->SCHOOL,

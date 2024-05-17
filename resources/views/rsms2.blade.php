@@ -9,13 +9,13 @@
             text-align: center !important;
 
             /*   border-left: none;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                border-right: none;
-                                                                                                                                                                                                                                                                                                                                                                                                                                     */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    border-right: none;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                         */
         }
 
         /*    thead select {
-                                                                                                                                                                                                                                                                                                                                                            width: 100%;
-                                                                                                                                                                                                                                                                                                                                                        } */
+                                                                                                                                                                                                                                                                                                                                                                                                width: 100%;
+                                                                                                                                                                                                                                                                                                                                                                                            } */
 
         .ongoinglisttable td {
             padding-left: 8px;
@@ -27,12 +27,12 @@
 
 
         /*   .ongoinglisttable td {
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    border-width: thin;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    border-top: #000 solid 0.5px;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    border-bottom: #000 solid 0.5px;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    border-left: #000 solid 0.5px;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    border-right: #000 solid 0.5px;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                } */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        border-width: thin;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        border-top: #000 solid 0.5px;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        border-bottom: #000 solid 0.5px;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        border-left: #000 solid 0.5px;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        border-right: #000 solid 0.5px;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    } */
 
         .action-column {}
 
@@ -110,14 +110,16 @@
             width: 200px;
         }
 
-.textendorsed {
-    white-space: nowrap; /* Prevent text from wrapping */
-    transition: transform 0.3s; /* Smooth transition */
-}
+        .textendorsed {
+            white-space: nowrap;
+            /* Prevent text from wrapping */
+            transition: transform 0.3s;
+            /* Smooth transition */
+        }
 
-.nav-tabs .nav-link{
-    background-color: #dddddd;
-}
+        .nav-tabs .nav-link {
+            background-color: #dddddd;
+        }
     </style>
 @endsection
 
@@ -130,7 +132,7 @@
     <input hidden id="endyear" value="{{ $endyear }}">
 
     {{-- ENDORSED OVERLAY --}}
-  {{--   <div class="z-1 endorsedcardbody" style="position: absolute; top: 70px; right: 0; ">
+    {{--   <div class="z-1 endorsedcardbody" style="position: absolute; top: 70px; right: 0; ">
         <div class="card" style="background-color: rgb(232, 230, 230);">
             <div class="card-body " style="text-align: center; padding: 10px; cursor: pointer;">
             <a href="#"><di v class="textendorsed" style="font-size: 20px"><i class="bi bi-file-earmark-text-fill" style="margin-right:10px"></i><span class="thistext">Endorsed</span></div></a>
@@ -140,11 +142,11 @@
 
     <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-          <button class="nav-link active" id="nav-Ongoing-tab" data-bs-toggle="tab" data-bs-target="#nav-Ongoing" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Ongoing</button>
-          <button class="nav-link" id="nav-Endorsed-tab" data-bs-toggle="tab" data-bs-target="#nav-Endorsed" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Endorsed</button>
+            <button class="nav-link active" id="nav-Ongoing-tab" data-bs-toggle="tab" data-bs-target="#nav-Ongoing" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Ongoing</button>
+            <button class="nav-link" id="nav-Endorsed-tab" data-bs-toggle="tab" data-bs-target="#nav-Endorsed" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Endorsed</button>
         </div>
-      </nav>
-      <div class="tab-content" id="nav-tabContent">
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active" id="nav-Ongoing" role="tabpanel" aria-labelledby="nav-Ongoing-tab" tabindex="0" style="background-color: rgb(255, 255, 255)">
             <div class="row">
                 <div class="col-lg-12">
@@ -294,9 +296,11 @@
             </div>
         </div>
         <div class="tab-pane fade" id="nav-Endorsed" role="tabpanel" aria-labelledby="nav-Endorsed-tab" tabindex="0" style="background-color: rgb(255, 255, 255)">
-            @livewire('staff.endorsed-ongoing', ['semester' => $semester, 'startyear' => $startyear])
+            <div class="card-body " style="padding-top: 1rem;">
+                <div class="" style="padding:2px"> @livewire('endorsed-ongoing')</div>
+            </div>
         </div>
-      </div>
+    </div>
 
 
 
@@ -517,7 +521,6 @@
             } else {
                 semesterValue2 = "SUMMER";
             }
-
 
 
             var url = '{{ route('getongoinglistgroupsajaxviewclicked') }}';
@@ -774,6 +777,12 @@
                  $(this).DataTable().columns.adjust();
                  //  table.columns.adjust().draw();
              }); */
+
+
+
+            $('#nav-Ongoing-tab').click(function() {
+                table.columns.adjust().draw();
+            });
 
             var selectAllClicked = false;
             $('#selectAllRows').on('click', function() {
