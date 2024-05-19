@@ -21,7 +21,7 @@
         "php-flasher/flasher-laravel": "^1.15",
         "php-flasher/flasher-sweetalert-laravel": "^1.15",
         "phpmailer/phpmailer": "^6.9",
-        "phpoffice/phpword": "*",
+        "phpoffice/phpword": "^1.2",
         "rappasoft/laravel-livewire-tables": "^2.15",
         "yajra/laravel-datatables-oracle": "^10.11"
     },
