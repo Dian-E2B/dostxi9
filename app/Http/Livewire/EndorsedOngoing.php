@@ -18,11 +18,20 @@ use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\Shared\Converter;
 use PhpOffice\PhpWord\Style\Paper;
 use PhpOffice\PhpWord\Style\Cell;
+use Livewire\Component;
 
 class EndorsedOngoing extends DataTableComponent
 {
     use LivewireAlert;
     protected $model = Ongoinglistendorseds::class;
+    public $startyear;
+    public $semester;
+
+    public function mount($startyear, $semester)
+    {
+        $this->startyear = $startyear;
+        $this->semester = $semester;
+    }
 
     public function configure(): void
     {
@@ -87,7 +96,7 @@ class EndorsedOngoing extends DataTableComponent
             'marginRight' => 1440,
 
         ]);
-        $section->addText('Text before the table.');
+        $section->addText('Please be informed that the following students are scholars of the Department of Science and Technology under the Science and Technology Scholarship Program:');
         $phpWord->setDefaultFontSize(11);
         $phpWord->setDefaultFontName('Arial');
 
@@ -133,30 +142,46 @@ class EndorsedOngoing extends DataTableComponent
         $table = $section->addTable('TableGrid');
         $fancyTableFontStyle = ['bold' => true];
 
-
-
-
         $table->addRow();
-        $table->addCell(1000)->addText('No', $fancyTableFontStyle, $firstRowStyle);
-        $table->addCell(1000)->addText('BATCH', $fancyTableFontStyle, $firstRowStyle);
+        $table->addCell(800)->addText('No', $fancyTableFontStyle, $firstRowStyle);
+        $table->addCell(2000)->addText('BATCH', $fancyTableFontStyle, $firstRowStyle);
         $table->addCell(5000)->addText('NAME', $fancyTableFontStyle, $firstRowStyle);
         $table->addCell(2500)->addText('COURSE', $fancyTableFontStyle, $firstRowStyle);
 
-
         $counter = 1;
-
 
         foreach ($selectedIds as $id) {
             $record = Ongoinglistendorseds::find($id);
             $table->addRow();
-            $table->addCell(1000)->addText($counter, $fancyTableFontStyle, $firstRowStyle,);
-            $table->addCell(1000)->addText($record->year, null, $fancyTableRowStyle);
+            $table->addCell(800)->addText($counter, $fancyTableFontStyle, $firstRowStyle,);
+            $table->addCell(2000)->addText($record->year, null, $fancyTableRowStyle);
             $table->addCell(5000)->addText($record->name, null, $fancyTableRowStyle);
             $table->addCell(2500)->addText($record->course, null, $fancyTableRowStyle);
             $counter++;
         }
+        $setsemester = 0;
+        if ($this->semester == 1) {
+            $setsemester = "1st semester";
+        } elseif ($this->semester == 2) {
+            $setsemester = "2nd semester";
+        } else {
+            $setsemester = "Summer";
+        }
 
-        // Save the document
+        $section->addText('');
+        $section->addText('Their tuition and other school fees not to exceed Twenty Thousand Pesos Only (P???) per scholar will be paid by the Department of Science and Technology Regional Office No. XI/DOST- SEI upon receipt of the corresponding bill from your office.');
+
+        $textRun = $section->addTextRun();
+        $section->addText('');
+        $textRun->addText('This STATEMENT OF ADMISSION is valid for ');
+        $textRun->addText('the ' . $setsemester . ' of AY ' . $this->startyear . '-' . $this->startyear + 1, ['bold' => true]);
+        $textRun->addText(' only.');
+
+        $section->addText('Very truly yours,');
+        $section->addText('');
+        $section->addText('DR. ANTHONY C. SALES, PFT, CESO III', $fancyTableFontStyle, $fancyTableRowStyle);
+        $section->addText('Regional Director', $fancyTableRowStyle);
+
         $fileName = 'EndorsedOngoing.docx';
         $tempFile = tempnam(sys_get_temp_dir(), $fileName);
         $phpWord->save($tempFile, 'Word2007');
