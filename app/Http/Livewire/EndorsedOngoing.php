@@ -5,6 +5,8 @@ namespace App\Http\Livewire;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\Ongoinglistendorseds;
+use Barryvdh\Debugbar\Facades\Debugbar;
+use DateTime;
 use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\Views\Columns\BooleanColumn;
 
@@ -26,6 +28,7 @@ class EndorsedOngoing extends DataTableComponent
     protected $model = Ongoinglistendorseds::class;
     public $startyear;
     public $semester;
+    public $date;
 
     public function mount($startyear, $semester)
     {
@@ -74,47 +77,45 @@ class EndorsedOngoing extends DataTableComponent
 
         $selectedIds = $this->getSelected();
 
-        // foreach ($selectedIds as $id) {
-
-        //     $record = Ongoinglistendorseds::find($id);
-        /*  if ($record) {
-                // Perform your endorsement logic here, for example:
-                $record->status_endorsement = 'endorsed'; // or whatever field and value you need
-                $record->save();
-            } */
-
-
-        //     $this->alert('success',  $record->name);
-        // }
         $phpWord = new PhpWord();
-
+        $recorddate = Ongoinglistendorseds::find($selectedIds)->first();
+        $dateString = $recorddate->created_at;
+        $date = new DateTime($dateString);
+        $formattedDate = $date->format("F j,Y");
 
         $section = $phpWord->addSection([
             'paperSize' => 'A4',
             'orientation' => 'portrait',
-            'marginLeft' => 1440,
-            'marginRight' => 1440,
-
+            'marginLeft' => 1440, // Align to the left margin
+            'marginRight' => 1440, // Align to the right margin
+            'marginTop' => 1500,
+            'headerHeight' => 50,
         ]);
+
+        $imagePath = public_path('icons/DOSTlogoONGOING.jpg');
+        $header = $section->addHeader();
+        $header->addImage(
+            $imagePath,
+            array(
+                'width' => '550', // Your image width
+                'height' => '70',
+                'marginLeft' => \PhpOffice\PhpWord\Shared\Drawing::centimetersToPixels(-1.3),
+                'marginRight' => \PhpOffice\PhpWord\Shared\Drawing::centimetersToPixels(-1.3),
+                'positioning' => \PhpOffice\PhpWord\Style\Image::POSITION_ABSOLUTE,
+                'posHorizontal' => \PhpOffice\PhpWord\Style\Image::POSITION_ABSOLUTE,
+            )
+        );
+
+
+        $section->addText($formattedDate);
+        $section->addText('Dear [????]:');
+        $section->addText('Dear [????]:');
+        $section->addText('Dear [????]:');
         $section->addText('Please be informed that the following students are scholars of the Department of Science and Technology under the Science and Technology Scholarship Program:');
         $phpWord->setDefaultFontSize(11);
         $phpWord->setDefaultFontName('Arial');
 
-        /*  // Add a table to the section
-        $table = $section->addTable(); */
 
-        // Add table headers
-
-        /*    $tableStyle = array(
-            'borderSize' => 6,
-            'borderColor' => '000000',
-            'marginTop' => 0,
-            'marginRight' => 0,
-            'marginBottom' => 0,
-            'marginLeft' => 0,
-            'exactHeight' => true,
-            'cellMargin' => 0,
-        ); */
         $fancyTableStyle = [
             'borderSize' => 1,
             'borderColor' => 'black',
@@ -150,6 +151,8 @@ class EndorsedOngoing extends DataTableComponent
 
         $counter = 1;
 
+
+
         foreach ($selectedIds as $id) {
             $record = Ongoinglistendorseds::find($id);
             $table->addRow();
@@ -159,6 +162,11 @@ class EndorsedOngoing extends DataTableComponent
             $table->addCell(2500)->addText($record->course, null, $fancyTableRowStyle);
             $counter++;
         }
+
+
+
+
+
         $setsemester = 0;
         if ($this->semester == 1) {
             $setsemester = "1st semester";

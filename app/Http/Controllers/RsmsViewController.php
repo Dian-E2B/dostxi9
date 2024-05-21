@@ -51,6 +51,7 @@ class RsmsViewController extends Controller //OR ONGOING
                     'course' => $retrieveAllinfo->COURSE,
                     'semester' => $retrieveAllinfo->semester,
                     'year' => $retrieveAllinfo->startyear,
+                    'created_at' => now(),
                 ]);
             }
         }

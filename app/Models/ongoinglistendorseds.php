@@ -16,5 +16,6 @@ class ongoinglistendorseds extends Model
         'course',
         'semester',
         'year',
+        'created_at',
     ];
 }
