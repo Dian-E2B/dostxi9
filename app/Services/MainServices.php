@@ -103,14 +103,6 @@ class MainServices
                 $destinationRecord->semester = $semester;
                 $destinationRecord->created_at = now();
                 $destinationRecord->save();
-
-
-                /*  $endorsedRecord = new Ongoinglist_endorsed();
-                $endorsedRecord->scholar_id =  $seisourcerecord->id;
-                $endorsedRecord->name =  $seisourcerecord->lname . ", " . $seisourcerecord->fname . " " . $seisourcerecord->mname;
-                $endorsedRecord->school = $seisourcerecord->school;
-                $endorsedRecord->course = $seisourcerecord->course;
-                $endorsedRecord->save(); */
             } else {
                 $destinationRecord = new Ongoing();
                 $destinationRecord->BATCH = $yearValue;
@@ -137,20 +129,13 @@ class MainServices
                 $destinationRecord->semester = $semester;
                 $destinationRecord->created_at = now();
                 $destinationRecord->save();
-
-                /*  $endorsedRecord = new Ongoinglist_endorsed();
-                $endorsedRecord->scholar_id =  $seisourcerecord->id;
-                $endorsedRecord->name =  $seisourcerecord->lname . ", " . $seisourcerecord->fname . " " . $seisourcerecord->mname;
-                $endorsedRecord->school = $seisourcerecord->school;
-                $endorsedRecord->course = $seisourcerecord->course;
-                $endorsedRecord->save(); */
             }
 
             try {
                 if ($destinationRecord) {
                     Replyslips::where('scholar_id', $id)->update(['replyslip_status_id' => 5]);
                     Sei::where('id', $id)->update(['scholar_status_id' => 3]);
-                    Log::info('Session data before redirect:', session()->all());
+                    /*           Log::info('Session data before redirect:', session()->all()); */
                     return back()->with('approved', 'COG and COR has been approved scholar is now appended to ongoing!');
                 }
             } catch (\Exception $e) {

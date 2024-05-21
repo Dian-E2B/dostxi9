@@ -218,8 +218,10 @@ class AccessControlViewController extends Controller
 
             $scholarCogdeletenotif = Notification_staffs::where('data_id', $id)->first(); //find the notif id
 
-            $scholarCogdeletenotif->delete(); //clean notif
-
+            if ($scholarCogdeletenotif) {
+                $scholarCogdeletenotif->delete(); //clean notif
+            } else {
+            }
             Notification_schols::create( //add notif to scholar
                 [
                     'type' => 'COG & COR',
@@ -228,6 +230,7 @@ class AccessControlViewController extends Controller
                     'scholar_id' =>  $scholarCog->scholar_id,
                 ]
             );
+
             return back()->with('disapproved', 'COG and COR has been disapproved.');
         } else { //if approved
             $scholarCog = Cog::where('id', $id)->first();
@@ -240,10 +243,10 @@ class AccessControlViewController extends Controller
             $scholarCogdeletenotif = Notification_staffs::where('data_id', $id)->first();
             if ($scholarCogdeletenotif) {
                 $scholarCogdeletenotif->delete();
-                $result = $this->MainServices->enrollscholartoongoing($scholarCog->scholar_id, $semester, $startyear);
-                if ($result) {
-                    return back()->with('approved', 'COG and COR has been approved scholar is now appended to ongoing!');
-                }
+            }
+            $result = $this->MainServices->enrollscholartoongoing($scholarCog->scholar_id, $semester, $startyear);
+            if ($result) {
+                return back()->with('approved', 'COG and COR has been approved scholar is now appended to ongoing!');
             }
         }
     }

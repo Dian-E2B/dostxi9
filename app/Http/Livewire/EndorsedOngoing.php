@@ -152,7 +152,6 @@ class EndorsedOngoing extends DataTableComponent
         $counter = 1;
 
 
-
         foreach ($selectedIds as $id) {
             $record = Ongoinglistendorseds::find($id);
             $table->addRow();
@@ -162,9 +161,6 @@ class EndorsedOngoing extends DataTableComponent
             $table->addCell(2500)->addText($record->course, null, $fancyTableRowStyle);
             $counter++;
         }
-
-
-
 
 
         $setsemester = 0;
