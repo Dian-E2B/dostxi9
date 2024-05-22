@@ -78,7 +78,7 @@
                         <thead class="">
                             <tr>
                                 <th colspan="3" style="text-align: center !important; padding:0px !important; margin:0px !important;" class="TEXT-CENTER">
-                                    <img style=" width: 97% !important; height: 2.8cm;" src="{{ asset('icons/DOST_endorsedscholar.png') }}" alt="" class="">
+                                    <img style=" width: 97% !important; height: 2.8cm;" src="{{ asset('storage/thisicons/DOST_endorsedscholar.png') }}" alt="" class="">
                                 </th>
                             </tr>
                             <tr>
@@ -165,23 +165,23 @@
     <script src="{{ asset('js/fontaws.js') }}"></script>
     <script>
         /*   $(document).ready(function() {
-                                function afterPrint() {
-                                    console.log('Printing completed...');
-                                    window.open('', '_self', '');
-                                }
-                                window.print();
+                                                    function afterPrint() {
+                                                        console.log('Printing completed...');
+                                                        window.open('', '_self', '');
+                                                    }
+                                                    window.print();
 
-                                setTimeout(function() {
-                                    if (!document.hidden) {
+                                                    setTimeout(function() {
+                                                        if (!document.hidden) {
 
-                                        console.log('Printing canceled...');
-                                        window.close(2000);
-                                    } else {
+                                                            console.log('Printing canceled...');
+                                                            window.close(2000);
+                                                        } else {
 
-                                        afterPrint();
-                                    }
-                                }, 2000);
-                            }); */
+                                                            afterPrint();
+                                                        }
+                                                    }, 2000);
+                                                }); */
     </script>
 
 </html>

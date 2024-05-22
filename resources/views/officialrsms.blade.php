@@ -108,7 +108,7 @@
                     $seiresult1->spasno); --}}
 
                 <div class="row ">
-                    <img src="{{ asset('icons/DOSTlogoONGOING.jpg') }}" style="width: 100% !important; max-width: 100%; max-height: 1.2in; object-fit: fill !important; padding:0px; margin: 0px;  ">
+                    <img src="{{ asset('storage/thisicons/DOSTlogoONGOING.jpg') }}" style="width: 100% !important; max-width: 100%; max-height: 1.2in; object-fit: fill !important; padding:0px; margin: 0px;  ">
 
 
                     <div style="text-align: center !important; font-size: 14pt">REGIONAL SCHOLARS' MONITORING SHEET</div>

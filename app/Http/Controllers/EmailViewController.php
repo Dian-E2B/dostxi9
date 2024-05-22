@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\EmailContent;
 use App\Models\Replyslips;
+use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -36,8 +37,14 @@ class EmailViewController extends Controller
 
         $replyslipsandscholarjoinaccepted = Replyslips::join('seis', 'replyslips.scholar_id', '=', 'seis.id')
             ->select('replyslips.*', 'seis.*')
-            ->where('replyslips.replyslip_status_id', 6)
+            ->where(function ($query) {
+                $query->where('replyslips.replyslip_status_id', 6)
+                    ->orWhere('replyslips.replyslip_status_id', 2)
+                    ->orWhere('replyslips.replyslip_status_id', 5);
+            })
             ->get();
+
+        Debugbar::info($replyslipsandscholarjoinaccepted);
 
         // dd($replyslipsandscholarjoinaccepted);
 

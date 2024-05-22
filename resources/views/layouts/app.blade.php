@@ -3,7 +3,7 @@
 
     <head>
         <title>DOST XI - SIMS</title>
-        <link rel="icon" href="\icons\DOSTLOGOsmall.png" type="image/x-icon" />
+        <link rel="icon" href="\storage\thisicons\DOSTLOGOsmall.png" type="image/x-icon" />
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta name="csrf-token" content="{{ csrf_token() }}" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">
@@ -21,7 +21,9 @@
         <x-livewire-alert::scripts />
         <x-livewire-alert::flash />
         <style class="">
-             [x-cloak] { display: none !important; }
+            [x-cloak] {
+                display: none !important;
+            }
         </style>
         @yield('styles')
     </head>

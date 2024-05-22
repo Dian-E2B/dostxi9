@@ -5,7 +5,7 @@
         <link href="{{ asset('css/all.css') }}">
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <title>DOST XI</title>
-        <link rel="icon" href="\icons\DOSTLOGOsmall.png" type="image/x-icon" />
+        <link rel="icon" href="storage\thisicons\DOSTLOGOsmall.png" type="image/x-icon" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 

@@ -5,7 +5,7 @@
         <title>DOST XI</title>
         <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
         <meta content="width=device-width, initial-scale=1" name="viewport">
-        <link rel="icon" href="\icons\DOSTLOGOsmall.png" type="image/x-icon" />
+        <link rel="icon" href="\storage\thisicons\DOSTLOGOsmall.png" type="image/x-icon" />
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -68,7 +68,7 @@
                                                             <div>
                                                                 Qualifier's Signature:
                                                             </div>
-                                                            <img style="max-height: 300px; max-width: 300px" src="{{ asset('public/' . $replyslipsignature) }}" alt="none">
+                                                            <img style="max-height: 300px; max-width: 300px" src="{{ asset($replyslipsignature) }}" alt="none">
 
                                                         </div>
                                                         <div style="margin-top: 10px">

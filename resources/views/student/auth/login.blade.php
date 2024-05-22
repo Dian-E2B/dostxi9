@@ -36,7 +36,7 @@
                                 <div class="d-table-cell align-middle">
 
                                     <div class="card">
-                                        <img style="z-index:0;   max-width: 150px; max-height: 150px;" src="{{ asset('icons/DOST_scholar_logo.svg') }}">
+                                        <img style="z-index:0;   max-width: 150px; max-height: 150px;" src="{{ asset('storage/thisicons/DOST_scholar_logo.svg') }}">
                                         <div class="card-body">
 
                                             <div class="">

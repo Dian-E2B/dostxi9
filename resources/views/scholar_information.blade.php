@@ -15,7 +15,7 @@
         <script>
             let successmessage = "{{ session('approved') }}";
             Swal.fire({
-                iconHtml: '<img src="/extraicons/approval.gif" style="width: 150px; height: 150px;">',
+                iconHtml: '<img src="storage/extraicons/approval.gif" style="width: 150px; height: 150px;">',
                 title: successmessage,
                 text: "",
             });
@@ -24,7 +24,7 @@
         <script>
             let successmessage = "{{ session('disapproved') }}";
             Swal.fire({
-                iconHtml: '<img src="/extraicons/warning.gif" style="width: 150px; height: 150px;">',
+                iconHtml: '<img src="storage/extraicons/warning.gif" style="width: 150px; height: 150px;">',
                 title: successmessage,
                 text: "",
             });
@@ -33,7 +33,7 @@
         <script>
             let successmessage = "{{ session('disapproved') }}";
             Swal.fire({
-                iconHtml: '<img src="/extraicons/warning.gif" style="width: 150px; height: 150px;">',
+                iconHtml: '<img src="storage/extraicons/warning.gif" style="width: 150px; height: 150px;">',
                 title: successmessage,
                 text: "",
             });

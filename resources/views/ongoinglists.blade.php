@@ -95,7 +95,7 @@
             <div class="main">
 
                 <div class="container-fluid">
-                    <img id="logo" src="{{ asset('icons/DOSTlogoONGOING.jpg') }}" style="display: none;">
+                    <img id="logo" src="{{ asset('storage/thisicons/DOSTlogoONGOING.jpg') }}" style="display: none;">
                     <div class="card">
                         <div class="card-body">
                             <div class="row mt-3">
