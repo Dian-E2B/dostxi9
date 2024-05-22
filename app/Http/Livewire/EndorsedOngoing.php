@@ -24,6 +24,7 @@ use Livewire\Component;
 
 class EndorsedOngoing extends DataTableComponent
 {
+    public $showModal = false;
     use LivewireAlert;
     protected $model = Ongoinglistendorseds::class;
     public $startyear;
@@ -40,7 +41,7 @@ class EndorsedOngoing extends DataTableComponent
     {
         $this->setPrimaryKey('id');
         $this->setFiltersStatus(true);
-        /*  $this->setFilterLayoutSlideDown(); */
+        $this->setRefreshVisible();
         $this->setFiltersVisibilityStatus(true);
         $this->setFilterLayoutPopover();
         $this->setColumnSelectEnabled();
@@ -69,8 +70,16 @@ class EndorsedOngoing extends DataTableComponent
     {
         return [
             'endorseSelected' => 'Export to Word',
+            'Append' => 'Stipend',
         ];
     }
+
+    public function Append()
+    {
+        $this->showModal = true;
+    }
+
+
 
     public function endorseSelected()
     {
@@ -193,6 +202,11 @@ class EndorsedOngoing extends DataTableComponent
         return response()->download($tempFile, $fileName)->deleteFileAfterSend(true);
     }
 
+    /* public function customView(): string
+    {
+        return 'includes.custom';
+    }
+ */
     public function columns(): array
     {
         return [

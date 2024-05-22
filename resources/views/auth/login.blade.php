@@ -23,7 +23,7 @@
                                     <div class="card ">
                                         <div class="container mt-4">
                                             <div style="" class="row justify-content-center">
-                                                <img class="img-fluid" src="{{ asset('icons/SIMS_transparent.png') }}" alt="" style="max-width:25.5rem; height:8.5rem;">
+                                                <img class="img-fluid" src="{{ asset('storage/thisicons/SIMS_transparent.png') }}" alt="" style="max-width:25.5rem; height:8.5rem;">
                                             </div>
                                         </div>
 
