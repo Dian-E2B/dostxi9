@@ -103,6 +103,10 @@
         .nav-tabs .nav-link {
             background-color: #dddddd;
         }
+
+        .table> :not(caption)>*>* {
+            padding: 0.2rem 0.2rem !important;
+        }
     </style>
 @endsection
 
@@ -249,14 +253,14 @@
                                                     </th>
                                                     <th>REMARKS</th>
                                                     <th>STATUS<br>ENDORSEMENT</th>
-                                                    <th>STATUS<br>ENDORSEMENT2</th>
+                                                    {{--    <th>STATUS<br>ENDORSEMENT2</th> --}}
                                                     <th>STATUS</th>
                                                     <th>NOTATIONS</th>
-                                                    <th>SUMMER</th>
-                                                    <th>FARELEASED<br>TUITION</th>
-                                                    <th>FARELEASED<br>BOOK<br>STIPEND</th>
+                                                    {{--   <th>SUMMER</th> --}}
+                                                    {{--     <th>FARELEASED<br>TUITION</th>
+                                                    <th>FARELEASED<br>BOOK<br>STIPEND</th> --}}
                                                     <th>LVDCAccount</th>
-                                                    <th>HVCNotes</th>
+                                                    {{--  <th>HVCNotes</th> --}}
                                                     <th>startyear</th>
                                                     <th>endyear</th>
                                                     {{-- <th>semester</th> --}}
@@ -379,25 +383,25 @@
                         <input class="form-control form-control-sm" id="statusEndorsementField" name="statusEndorsementField">
 
                     </td>
-                    <th class="canvasth">Status Endorsement(2):</th>
+                    {{--  <th class="canvasth">Status Endorsement(2):</th>
                     <td style="" class="canvastable">
                         <input class="form-control form-control-sm" id="statusEndorsement2Field" name="statusEndorsement2Field">
                         <button class="btn btn-light btn-sm mt-1" onclick="showStatusEndorsementSuggestionsAlert()"><i class="fas fa-question-square"></i></button>
-                    </td>
+                    </td> --}}
                 </tr>
 
                 <tr>
 
                 </tr>
                 <tr>
-                    <th class="canvasth">Summer Stipend:</th>
+                    {{--  <th class="canvasth">Summer Stipend:</th>
                     <td class="canvastable">
                         <input class="form-control form-control-sm" id="summerField" name="summerField">
                     </td>
                     <th class="canvasth">HVCNotes:</th>
                     <td class="canvastable">
                         <input class="form-control form-control-sm" id="hvcNotesField" name="hvcNotesField">
-                    </td>
+                    </td> --}}
                 </tr>
                 <tr>
                     <th class="canvasth">FA Released Tuition:</th>
@@ -625,13 +629,14 @@
 
                     },
                     {
+                        className: 'action-column',
                         data: 'STATUSENDORSEMENT',
 
                     },
-                    {
-                        data: 'STATUSENDORSEMENT2',
+                    /*    {
+                           data: 'STATUSENDORSEMENT2',
 
-                    },
+                       }, */
                     {
                         data: 'STATUS',
                         render: function(data, type, row) {
@@ -648,26 +653,26 @@
                         data: 'NOTATIONS',
 
                     },
-                    {
-                        data: 'SUMMER',
+                    /*  {
+                         data: 'SUMMER',
 
-                    },
-                    {
-                        data: 'FARELEASEDTUITION',
+                     }, */
+                    /*  {
+                         data: 'FARELEASEDTUITION',
 
-                    },
-                    {
-                        data: 'FARELEASEDTUITIONBOOKSTIPEND',
+                     },
+                     {
+                         data: 'FARELEASEDTUITIONBOOKSTIPEND',
 
-                    },
+                     }, */
                     {
                         data: 'LVDCAccount',
 
                     },
-                    {
-                        data: 'HVCNotes',
+                    /*   {
+                          data: 'HVCNotes',
 
-                    },
+                      }, */
                     {
                         data: 'startyear',
 
@@ -694,7 +699,7 @@
                         searchable: false,
                     },
                     {
-                        targets: [1, 2, 3, 5, 6, 7, 8, 9, 19, 4, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20], // Adjusted to correctly target the intended columns
+                        targets: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
                         orderable: false,
                     },
                 ],
@@ -929,7 +934,7 @@
 
             });
 
-            var columnsToHide = [1, 2, 21, 22, 22];
+            var columnsToHide = [16, 17];
             columnsToHide.forEach(function(columnIndex) {
                 table.column(columnIndex).visible(false);
             });
@@ -1010,7 +1015,7 @@
                                 '<img id="logo" src="{{ asset('icons/DOSTlogoONGOING.jpg') }}">');
                         }
                         $(win.document.body)
-                            .css('font-size', '36pt')
+                            /*    .css('font-size', '36pt') */
                             .find('td')
                             .css('font-size', '36pt')
                             .css('background-color', 'white')

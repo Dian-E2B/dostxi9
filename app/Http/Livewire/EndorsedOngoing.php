@@ -63,6 +63,7 @@ class EndorsedOngoing extends DataTableComponent
                         $builder->where('Ongoinglistendorseds.school', 'like', '%' . $value . '%');
                     }
                 }),
+
         ];
     }
 
