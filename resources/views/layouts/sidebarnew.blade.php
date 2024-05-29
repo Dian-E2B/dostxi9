@@ -56,7 +56,7 @@
             <ul id="acad-nav" class="nav-content collapse {{ request()->is('ongoinglist*') || request()->is('rsms2*') ? 'show' : '' }} align-text-center" data-bs-parent="#sidebar-nav">
                 <li>
                     <a href='{{ route('ongoinglist') }}' class="{{ request()->is('ongoinglist') ? 'active' : '' }}">
-                        <span style="padding: 0em 0em 0em 0em;"><i style="font-size:15px;" class="fas fa-long-arrow-alt-right"></i><span style="margin-left:.5em">Ongoing</span></span>
+                        <i class="bi bi-forward-fill" style="font-size:15px;"></i>Ongoing
                     </a>
                 </li>
             </ul>
@@ -78,26 +78,25 @@
             <ul id="access-nav" class="nav-content collapse {{ request()->is('accesscontrol*') ? 'show' : '' }} align-text-center" data-bs-parent="#sidebar-nav">
                 <li>
                     <a href='{{ route('accesscontrol') }}' class="{{ request()->is('accesscontrol') ? 'active' : '' }}">
-                        <i style="font-size:15px;" class="fas  fa-long-arrow-alt-right"></i>
-                        <div style="margin-left:.5em">All</div>
+                        <i class="bi bi-forward-fill" style="font-size:15px;"></i>All
                     </a>
                 </li>
                 <li>
                     <a href='{{ route('accesscontrolpending') }}' class="{{ request()->is('accesscontrolpending') ? 'active' : '' }}">
-                        <i style="font-size:15px;" class="fas  fa-long-arrow-alt-right"></i>
-                        <span style="margin-left:.5em">Pending</span>
+                        <i class="bi bi-forward-fill" style="font-size:15px;"></i>
+                        Pending
                     </a>
                 </li>
                 <li class="align-text-center align-items-center">
                     <a href='{{ route('accesscontrolongoing') }}' class="{{ request()->is('accesscontrolongoing') ? 'active' : '' }}">
-                        <i style="font-size:15px;" class="fas  fa-long-arrow-alt-right"></i>
-                        <span style="margin-left:.5em">Ongoing</span>
+                        <i class="bi bi-forward-fill" style="font-size:15px;"></i>
+                        >Ongoing
                     </a>
                 </li>
                 <li class="align-text-center align-items-center">
                     <a href='{{ route('accesscontrolenrolled') }}' class="{{ request()->is('accesscontrolenrolled') ? 'active' : '' }}">
-                        <i style="font-size:15px;" class="fas  fa-long-arrow-alt-right"></i>
-                        <span style="margin-left:.5em">Enrolled</span>
+                        <i class="bi bi-forward-fill" style="font-size:15px;"></i>
+                        Enrolled
                     </a>
                 </li>
             </ul>
