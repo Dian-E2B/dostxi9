@@ -74,25 +74,10 @@
                             </ul>
                             <div class="tab-content pt-2" id="borderedTabContent">
                                 <div class="tab-pane fade show active" id="bordered-home" role="tabpanel" aria-labelledby="home-tab">
-
                                     @livewire('stafftable')
-
                                 </div>
                                 <div class="tab-pane fade" id="bordered-profile" role="tabpanel" aria-labelledby="profile-tab">
-                                    <table id="admintable" style="width: 100%; table-layout:fixed; " class="table-compact">
-                                        <thead class="">
-                                            <tr class="">
-                                                <th class="">Username</th>
-                                                <th class="">Email</th>
-                                                <th class="">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {{--    @foreach ($staffs as $staff)
-                                                <td>{{ $staff->name }}</td>
-                                            @endforeach --}}
-                                        </tbody>
-                                    </table>
+                                    @livewire('admintable')
                                 </div>
                                 <div class="tab-pane fade" id="bordered-contact" role="tabpanel" aria-labelledby="contact-tab">
                                     Saepe animi et soluta ad odit soluta sunt. Nihil quos omnis animi debitis cumque. Accusantium quibusdam perspiciatis qui qui omnis magnam. Officiis accusamus impedit molestias nostrum veniam. Qui amet ipsum iure. Dignissimos fuga tempore dolor.
@@ -124,31 +109,31 @@
 
     <script>
         /*  jQuery(document).ready(function($) {
-                                                                                                                                                        var table = $('#usertable').DataTable({
-                                                                                                                                                            processing: true,
-                                                                                                                                                            serverSide: true,
-                                                                                                                                                            pageLength: 20,
-                                                                                                                                                            ajax: {
-                                                                                                                                                                url: 'viewstaffs',
-                                                                                                                                                                type: 'get'
-                                                                                                                                                            },
-                                                                                                                                                            columns: [{
-                                                                                                                                                                    data: 'username',
+                                                                                                                                                                    var table = $('#usertable').DataTable({
+                                                                                                                                                                        processing: true,
+                                                                                                                                                                        serverSide: true,
+                                                                                                                                                                        pageLength: 20,
+                                                                                                                                                                        ajax: {
+                                                                                                                                                                            url: 'viewstaffs',
+                                                                                                                                                                            type: 'get'
+                                                                                                                                                                        },
+                                                                                                                                                                        columns: [{
+                                                                                                                                                                                data: 'username',
 
-                                                                                                                                                                },
-                                                                                                                                                                {
-                                                                                                                                                                    data: 'email',
+                                                                                                                                                                            },
+                                                                                                                                                                            {
+                                                                                                                                                                                data: 'email',
 
-                                                                                                                                                                    orderable: false,
-                                                                                                                                                                },
-                                                                                                                                                                {
-                                                                                                                                                                    data: 'action',
+                                                                                                                                                                                orderable: false,
+                                                                                                                                                                            },
+                                                                                                                                                                            {
+                                                                                                                                                                                data: 'action',
 
-                                                                                                                                                                    orderable: false,
-                                                                                                                                                                },
-                                                                                                                                                            ],
-                                                                                                                                                        });
-                                                                                                                                                    }); */
+                                                                                                                                                                                orderable: false,
+                                                                                                                                                                            },
+                                                                                                                                                                        ],
+                                                                                                                                                                    });
+                                                                                                                                                                }); */
     </script>
 
 </html>

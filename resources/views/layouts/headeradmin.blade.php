@@ -75,7 +75,7 @@
                     <li class="align-items-center">
                         <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             <i style="font-size: 20px" class="fas fa-sign-out-alt"></i>
-                            <div class="d-flex " style="font-size: 15px; font-weight: 600; margin-left: 5px; margin-bottom: 1px; display: inline-block;">Log Out</div>
+                            <i class="bi bi-box-arrow-right"></i> <span style="font-weight: 700">Log Out</span>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
                             </form>
