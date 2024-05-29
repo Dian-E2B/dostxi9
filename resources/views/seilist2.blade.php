@@ -1,15 +1,10 @@
+@extends('layouts.app')
+
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <title>DOST XI</title>
-        <link rel="icon" href="\icons\DOSTLOGOsmall.png" type="image/x-icon" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-        <meta name="csrf-token" content="{{ csrf_token() }}" />
-        <link href="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-1.13.6/b-2.4.2/b-html5-2.4.2/b-print-2.4.2/date-1.5.1/fc-4.3.0/fh-3.4.0/r-2.5.0/sc-2.2.0/sp-2.2.0/sl-1.7.0/datatables.min.css" rel="stylesheet">
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/fontaws.css') }}" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @section('styles')
         <style>
             .form-control {
                 color: #000000 !important;
@@ -55,199 +50,189 @@
 
             }
         </style>
-    </head>
+    @endsection
 
-    <body>
-        @include('layouts.headernew') {{-- HEADER START --}}
-        @include('layouts.sidebarnew') {{-- SIDEBAR START --}}
 
-        <main id="main" class="main" style="padding: 1.5rem 0.5rem 0.5rem; !important;">
-            <div class="main">
-
-                @if (session('error'))
-                    <script>
-                        let errorMessage = "{{ session('error') }}";
-                        Swal.fire({
-                            icon: "error",
-                            title: "ERROR!",
-                            text: errorMessage,
-                        });
-                    </script>
-                @elseif (session('success'))
-                    <script>
-                        let successmessage = "{{ session('success') }}";
-                        Swal.fire({
-                            icon: "success",
-                            title: "",
-                            text: successmessage,
-                        });
-                    </script>
-                @endif
+    @section('content')
+        @if (session('error'))
+            <script>
+                let errorMessage = "{{ session('error') }}";
+                Swal.fire({
+                    icon: "error",
+                    title: "ERROR!",
+                    text: errorMessage,
+                });
+            </script>
+        @elseif (session('success'))
+            <script>
+                let successmessage = "{{ session('success') }}";
+                Swal.fire({
+                    icon: "success",
+                    title: "",
+                    text: successmessage,
+                });
+            </script>
+        @endif
 
 
 
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-body mt-2">
-                                    <div class="card  col-lg-6 p-2" style="text-align: center; vertical-align: center">
-                                        <div class="" style="font-size:1.5em; font-weight: 700">Potential Qualifiers</div>
-                                    </div>
-
-                                    <table id="thisdatatable" class="hover table-striped table-hover compact nowrap" style="width:100%; table-layout:auto">
-
-                                        <thead>
-                                            <tr>
-                                                <th>Action</th>
-                                                <th>Surname</th>
-                                                <th>Firstname</th>
-                                                <th>Middlename</th>
-                                                <th>SPAS NO.</th>
-                                                <th>Email</th>
-
-                                                <th style="">
-                                                    <span></span>App ID
-                                                </th>
-                                                <th style="">
-                                                    <span style="display: none">Strand </span>
-                                                </th>
-                                                <th style="">
-                                                    <span>Program </span>
-                                                </th>
-                                                <th>Sex</th>
-                                                <th>Bithdate</th>
-                                                <th>Contact</th>
-                                                <th>House number</th>
-                                                <th>Street</th>
-                                                <th>Village</th>
-                                                <th>Barangay</th>
-                                                <th style="  padding-left: 5px !important; padding-right: 5px !important;">
-                                                    <span> Municipality </span>
-                                                </th>
-                                                <th>Province</th>
-                                                <th>Zipcode</th>
-                                                <th>District</th>
-                                                <th>Region</th>
-                                                <th>HSname</th>
-                                                <th>Lacking</th>
-                                                <th>Remarks</th>
-                                                <th>ID</th>
-
-
-                                            </tr>
-                                        </thead>
-
-                                        <tbody>
-                                            <tr>
-                                            </tr>
-                                        </tbody>
-
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-
-            </div>
-
-            {{-- MODAL --}}
-            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="editModalLabel" style="font-weight: bold">Scholar Details
-                            </h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-
-                            <div class="row align-items-center mb-1">
-                                <div class="col-2 customlabel"> <label>ID: </label></div>
-                                <div class="col-4 "> <input class="  form-control  form-control-sm" id="IdField" name="IdField" disabled></div>
-                                <div class="col-2 customlabel"> <label>App ID: </label></div>
-                                <div class="col-4"><input class=" form-control  form-control-sm" id="AppIDField" name="AppIDField"></div>
-                            </div>
-                            <div class="row align-items-center mb-1">
-                                <div class="col-2 customlabel"> <label>Email: </label></div>
-                                <div class="col-4"> <input class=" form-control   form-control-sm" id="EmailField" name="EmailField"></div>
-                                <div class="col-2 customlabel"> <label>Program: </label></div>
-                                <div class="col-4">
-                                    <select name="ProgramField" id="ProgramField" class="form-control form-control-sm">
-                                        <option value="101">RA 7687</option>
-                                        <option value="201">MERIT</option>
-                                        <option value="301">RA 10612</option>
-                                    </select>
-
-                                </div>
-                            </div>
-                            <div class="row align-items-center mb-1">
-                                <div class="col-2 customlabel"> <label>Surname: </label></div>
-                                <div class="col-4 "> <input class="  form-control  form-control-sm" id="SurnameField" name="SurnameField"></div>
-                                <div class="col-2 customlabel"> <label>Strand: </label></div>
-                                <div class="col-4">
-                                    <select name="StrandField" id="StrandField" class="form-control form-control-sm">
-                                        <option value="STEM">STEM</option>
-                                        <option value="NON-STEM">NON-STEM</option>
-                                    </select>
-                                </div>
-
-
-                            </div>
-                            <div class="row align-items-center mb-1">
-                                <div class="col-2 customlabel"> <label>Firstname: </label></div>
-                                <div class="col-4"><input class=" form-control  form-control-sm" id="FirstnameField" name="FirstnameField"></div>
-
-                                <div class="col-2 customlabel"> <label>Contact: </label></div>
-                                <div class="col-4">
-                                    <input class=" form-control   form-control-sm" id="ContactField" name="ContactField">
-                                </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body mt-2">
+                            <div class="card  col-lg-6 p-2" style="text-align: center; vertical-align: center">
+                                <div class="" style="font-size:1.5em; font-weight: 700">Potential Qualifiers</div>
                             </div>
 
-                            <div class="row align-items-center mb-1">
-                                <div class="col-2 customlabel"> <label>Middlename: </label></div>
-                                <div class="col-4 "> <input class="  form-control  form-control-sm" id="MiddlenameField" name="MiddlenameField"></div>
-                                <div class="col-2 customlabel"> <label>Gender: </label></div>
-                                <div class="col-4">
-                                    <select name="GenderField" id="GenderField" class="form-control form-control-sm">
-                                        <option value="1">F</option>
-                                        <option value="2">M</option>
+                            <table id="thisdatatable" class="hover table-striped table-hover compact nowrap" style="width:100%; table-layout:auto">
 
-                                    </select>
+                                <thead>
+                                    <tr>
+                                        <th>Action</th>
+                                        <th>Surname</th>
+                                        <th>Firstname</th>
+                                        <th>Middlename</th>
+                                        <th>SPAS NO.</th>
+                                        <th>Email</th>
 
-                                </div>
-                            </div>
-                            <div class="row align-items-center mb-1">
-                                <div class="col-2 customlabel"> <label>Remarks: </label></div>
-                                <div class="col-10">
-                                    <textarea class="form-control  form-control-sm" id="RemarksField" name="RemarksField"></textarea>
-                                </div>
-                            </div>
-                            <div class="row align-items-center mb-1">
-                                <div class="col-2 customlabel"> <label>Lacking: </label></div>
-                                <div class="col-10">
-                                    <textarea class="form-control  form-control-sm" id="LackingField" name="LackingField"></textarea>
-                                </div>
-                            </div>
+                                        <th style="">
+                                            <span></span>App ID
+                                        </th>
+                                        <th style="">
+                                            <span style="display: none">Strand </span>
+                                        </th>
+                                        <th style="">
+                                            <span>Program </span>
+                                        </th>
+                                        <th>Sex</th>
+                                        <th>Bithdate</th>
+                                        <th>Contact</th>
+                                        <th>House number</th>
+                                        <th>Street</th>
+                                        <th>Village</th>
+                                        <th>Barangay</th>
+                                        <th style="  padding-left: 5px !important; padding-right: 5px !important;">
+                                            <span> Municipality </span>
+                                        </th>
+                                        <th>Province</th>
+                                        <th>Zipcode</th>
+                                        <th>District</th>
+                                        <th>Region</th>
+                                        <th>HSname</th>
+                                        <th>Lacking</th>
+                                        <th>Remarks</th>
+                                        <th>ID</th>
 
-                            {{-- FOOTER --}}
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" id="saveChangesBtn" class="btn btn-primary">Save
-                                    changes</button>
-                            </div>
+
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                    </tr>
+                                </tbody>
+
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
-        </main>
+        </div>
 
-        <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-        <script src="{{ asset('js/app.js') }}"></script>
-        <script src="{{ asset('js/fontaws.js') }}"></script>
+
+        {{-- MODAL --}}
+        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="editModalLabel" style="font-weight: bold">Scholar Details
+                        </h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="row align-items-center mb-1">
+                            <div class="col-2 customlabel"> <label>ID: </label></div>
+                            <div class="col-4 "> <input class="  form-control  form-control-sm" id="IdField" name="IdField" disabled></div>
+                            <div class="col-2 customlabel"> <label>App ID: </label></div>
+                            <div class="col-4"><input class=" form-control  form-control-sm" id="AppIDField" name="AppIDField"></div>
+                        </div>
+                        <div class="row align-items-center mb-1">
+                            <div class="col-2 customlabel"> <label>Email: </label></div>
+                            <div class="col-4"> <input class=" form-control   form-control-sm" id="EmailField" name="EmailField"></div>
+                            <div class="col-2 customlabel"> <label>Program: </label></div>
+                            <div class="col-4">
+                                <select name="ProgramField" id="ProgramField" class="form-control form-control-sm">
+                                    <option value="101">RA 7687</option>
+                                    <option value="201">MERIT</option>
+                                    <option value="301">RA 10612</option>
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="row align-items-center mb-1">
+                            <div class="col-2 customlabel"> <label>Surname: </label></div>
+                            <div class="col-4 "> <input class="  form-control  form-control-sm" id="SurnameField" name="SurnameField"></div>
+                            <div class="col-2 customlabel"> <label>Strand: </label></div>
+                            <div class="col-4">
+                                <select name="StrandField" id="StrandField" class="form-control form-control-sm">
+                                    <option value="STEM">STEM</option>
+                                    <option value="NON-STEM">NON-STEM</option>
+                                </select>
+                            </div>
+
+
+                        </div>
+                        <div class="row align-items-center mb-1">
+                            <div class="col-2 customlabel"> <label>Firstname: </label></div>
+                            <div class="col-4"><input class=" form-control  form-control-sm" id="FirstnameField" name="FirstnameField"></div>
+
+                            <div class="col-2 customlabel"> <label>Contact: </label></div>
+                            <div class="col-4">
+                                <input class=" form-control   form-control-sm" id="ContactField" name="ContactField">
+                            </div>
+                        </div>
+
+                        <div class="row align-items-center mb-1">
+                            <div class="col-2 customlabel"> <label>Middlename: </label></div>
+                            <div class="col-4 "> <input class="  form-control  form-control-sm" id="MiddlenameField" name="MiddlenameField"></div>
+                            <div class="col-2 customlabel"> <label>Gender: </label></div>
+                            <div class="col-4">
+                                <select name="GenderField" id="GenderField" class="form-control form-control-sm">
+                                    <option value="1">F</option>
+                                    <option value="2">M</option>
+
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="row align-items-center mb-1">
+                            <div class="col-2 customlabel"> <label>Remarks: </label></div>
+                            <div class="col-10">
+                                <textarea class="form-control  form-control-sm" id="RemarksField" name="RemarksField"></textarea>
+                            </div>
+                        </div>
+                        <div class="row align-items-center mb-1">
+                            <div class="col-2 customlabel"> <label>Lacking: </label></div>
+                            <div class="col-10">
+                                <textarea class="form-control  form-control-sm" id="LackingField" name="LackingField"></textarea>
+                            </div>
+                        </div>
+
+                        {{-- FOOTER --}}
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" id="saveChangesBtn" class="btn btn-primary">Save
+                                changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endsection
+
+    @section('scripts')
         <script src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-1.13.6/b-2.4.2/b-html5-2.4.2/b-print-2.4.2/date-1.5.1/fc-4.3.0/fh-3.4.0/r-2.5.0/sc-2.2.0/sp-2.2.0/sl-1.7.0/datatables.min.js"></script>
 
         <script>
@@ -268,7 +253,7 @@
                             render: function(data, type, row) {
                                 var number = row.id;
                                 return '' + '<a class="table-edit" data-id="' + number +
-                                    '" ><i class="fas fa-edit"></i></a>' + ''
+                                    '" ><i class="bi bi-pencil-fill" style="cursor: pointer; "></i></a>' + ''
                             }
                         },
                         {
@@ -552,7 +537,4 @@
 
             });
         </script>
-
-    </body>
-
-</html>
+    @endsection

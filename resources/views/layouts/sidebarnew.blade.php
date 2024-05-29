@@ -24,17 +24,17 @@
             <ul id="sei-nav" class="nav-content collapse {{ request()->is('seilist*') ? 'show' : '' }} align-text-center" data-bs-parent="#sidebar-nav">
                 <li>
                     <a href='{{ route('seilist') }}' class="{{ request()->is('seilist') ? 'active' : '' }}">
-                        <span style="padding: 0em 0em 0em 0em;"><i style="font-size:15px;" class="fas fa-long-arrow-alt-right"></i><span style="margin-left:.5em">Qualifiers</span></span>
+                        <i class="bi bi-forward-fill" style="font-size:15px;"></i>Qualifiers
                     </a>
                 </li>
                 <li class="">
                     <a href='{{ route('seilist2') }}' class="{{ request()->is('seilist2') ? 'active' : '' }}">
-                        <span style="padding: 0em 0em 0em 0em;"><i style="font-size:15px;" class="fas  fa-long-arrow-alt-right"></i><span style="margin-left:.5em">Potential Qualifiers</span></span>
+                        <i class="bi bi-forward-fill" style="font-size:15px;"></i>Potential Qualifiers
                     </a>
                 </li>
                 <li class="">
                     <a href='{{ route('endorsedongoing') }}' class="{{ request()->is('endorsedongoing ') ? 'active' : '' }}">
-                        <span style="padding: 0em 0em 0em 0em;"><i style="font-size:15px;" class="fas  fa-long-arrow-alt-right"></i><span style="margin-left:.5em">Endorsed</span></span>
+                        <i class="bi bi-forward-fill" style="font-size:15px;"></i>Endorsed
                     </a>
                 </li>
             </ul>

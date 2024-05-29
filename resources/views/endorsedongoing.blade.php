@@ -8,9 +8,9 @@
         }
 
         /*
-                                    .btn {
-                                        padding: 0.2rem 0.2rem !important;
-                                    } */
+                                                .btn {
+                                                    padding: 0.2rem 0.2rem !important;
+                                                } */
 
         input {
             padding: 0.2rem 0.2rem !important;
@@ -108,7 +108,10 @@
 
                 <div class="row ">
                     <div class="col" style="user-select: none;">
-                        @livewire('all-endorsed-view')
+                        {{--    @livewire('all-endorsed-view') --}}
+                        @livewire('all-endorsed-ongoing')
+
+
                     </div>
                 </div>
 

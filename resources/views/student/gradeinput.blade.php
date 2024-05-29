@@ -92,7 +92,7 @@
                 </div>
             </div>
         @endif
-        
+
         @if (count($cogdisapproved) > 0)
             <script class="">
                 Swal.fire({
@@ -153,7 +153,7 @@
                                 <input type="text" hidden name="cogiddisapprove" value="{{ $cogdisapproved[0]->id }}">
                                 <div class="row">
                                     <div class="col-6">
-                                        @if (!$checkcorcount > 1)
+                                        @if ($checkcorcount = 1)
                                             <div class="bold mb-1" style="font-weight: 700">Certificate of Registration</div>
                                             <input required type="file" name="reuploadedcor" class="form-control" accept="application/pdf">
                                         @endif
@@ -186,7 +186,7 @@
                                 {{-- SUBMIT PERIODIC REQUIREMENTS --}}
                                 <div class="">
 
-                                    @if (empty($checkcorfirst))
+                                    @if ($checkcorcount >= 1)
                                         <div style="font-size: 20px; font-weight: 900; text-align: center; margin-bottom: 5px;">SUBMIT PERIODIC REQUIREMENTS</div>
                                         <div class=""><span style="font-size: 15px">Certificate Of Registration: </span><input required name="corname" class="form-control" type="file" accept="application/pdf"></div> {{-- COR --}}
                                     @endif
@@ -208,17 +208,20 @@
                                                 <option value="0">Summer</option>
                                             </select>
                                         </div>
-                                        <div class="col-6"> <span>Academic Year: (Startyear)</span>
-                                            <select required class="form-control" id="year" name="startyear">
-                                                <?php
-                                                $startYear = 2020;
-                                                $endYear = 2100;
-                                                for ($year = $startYear; $year <= $endYear; $year++) {
-                                                    echo "<option value=\"$year\">$year</option>";
-                                                }
-                                                ?>
-                                            </select>
+                                        <div class="col-6"><span>Academic Year:</span>
+                                            <input type="text" class="form-control yearpicker" name="startyear">
                                         </div>
+                                        {{-- <div class="col-6"> <span>Academic Year: (Startyear)</span>
+                                            <select required class="form-control" id="year" name="startyear">
+                                                @php
+                                                    $startYear = 2020;
+                                                    $endYear = 2100;
+                                                    for ($year = $startYear; $year <= $endYear; $year++) {
+                                                        echo "<option value=\"$year\">$year</option>";
+                                                    }
+                                                @endphp
+                                            </select>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>
@@ -281,8 +284,11 @@
 
 
 @section('scripts')
+    <script src="{{ url('js/yearpicker.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
+        $(".yearpicker").yearpicker();
+
         function submitAsDraft() {
             // Set the hidden input value to indicate it's a draft
             document.getElementById('is_draft').value = '1';

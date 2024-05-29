@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\Ongoinglistendorseds;
+use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
@@ -15,8 +16,19 @@ class AllEndorsedOngoing extends DataTableComponent
     protected $model = Ongoinglistendorseds::class;
 
 
-    public $selectedFilters;
+    public $years;
+    public $selectedYear;
+    protected $listeners = ['updateYears' => 'updateSelectedYear'];
 
+    public function updateSelectedYear($year)
+    {
+        $this->selectedYear = $year;
+    }
+
+    public function mount($years = null)
+    {
+        $this->years = $years ?? Ongoinglistendorseds::max('year');
+    }
 
     public function configure(): void
     {
@@ -29,6 +41,7 @@ class AllEndorsedOngoing extends DataTableComponent
         $this->setPaginationEnabled();
         $this->setPerPageAccepted([10, 25, 50, 100]);
         $this->setPerPage(100);
+
 
 
         $this->setSortingStatus(false);
@@ -58,36 +71,31 @@ class AllEndorsedOngoing extends DataTableComponent
                 ->options(['' => 'All'] + $years)
                 ->filter(function (Builder $builder, string $value) {
                     if ($value !== '') {
+                        $this->selectedYear = $value;
                         $builder->where('year', '=', $value);
                     }
                 }),
+
 
         ];
     }
 
     public function builder(?string $year = null): EloquentBuilder
     {
-
-        return Ongoinglistendorseds::query()->where('year', 2024);
-    }
-
-    private function refreshData()
-    {
-        // Construct the query based on the current filter settings
+        Debugbar::info($this->selectedYear);
         $query = Ongoinglistendorseds::query();
 
-        foreach ($this->selectedFilters as $filterType => $value) {
-            switch ($filterType) {
-                case 'year':
-                    $query->where('year', $value);
-                    break;
-                    // Handle other filters...
-            }
+        if ($this->selectedYear) {
+            $query->where('year',  $this->selectedYear);
+        } else {
+            $maxYear = Ongoinglistendorseds::max('year');
+            $query->where('year', $maxYear);
         }
 
-        // Execute the query and update the table data
-        $this->data = $query->get();
+        return $query;
     }
+
+
 
     public function onFilterChange(string $filterType, $value)
     {

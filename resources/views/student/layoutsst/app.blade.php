@@ -8,9 +8,9 @@
         <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>{{-- SWEETALERT --}}
         <link rel="icon" href="\icons\DOSTLOGOsmall.png" type="image/x-icon" />
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ url('css/app.css') }}" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
+        <link href="{{ url('css/yearpicker.css') }}" rel="stylesheet">
         @livewireStyles
         <x-livewire-alert::flash />
         @yield('styles')

@@ -133,7 +133,6 @@ class StudentViewController extends Controller
         $userId = auth()->id();
         $studentuser = Student::where('id', $userId)->first();
         $scholarId = $studentuser->scholar_id;
-
         $cogsdraft = DB::table('cogs')
             ->join('cogdetails', 'cogs.id', '=', 'cogdetails.cog_id')
             ->where('cogs.scholar_id', $scholarId)
