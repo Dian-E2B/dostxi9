@@ -55,14 +55,14 @@
 
                                         <!-- Password -->
                                         <div class="mt-4">
-                                            <label for="password" :value="__('Password')">Password: </label>
-                                            <input id="password" class="block mt-1 w-full form-control form-control-sm" type="password" name="password" required autocomplete="new-password" />
+                                            <label hidden for="password" :value="__('Password')">Password: </label>
+                                            <input hidden id="password" class="block mt-1 w-full form-control form-control-sm" type="password" name="password" value="12345678" required autocomplete="new-password" />
                                         </div>
 
                                         <!-- Confirm Password -->
                                         <div class="mt-4">
-                                            <label for="password_confirmation" :value="__('Confirm Password')">Confirm Password: </label>
-                                            <input id="password_confirmation" class="block mt-1 w-full form-control form-control-sm" type="password" name="password_confirmation" required autocomplete="new-password" />
+                                            <label hidden for="password_confirmation" :value="__('Confirm Password')">Confirm Password: </label>
+                                            <input hidden id="password_confirmation" class="block mt-1 w-full form-control form-control-sm" type="password" value="12345678" name="password_confirmation" required autocomplete="new-password" />
 
                                         </div>
 
@@ -71,7 +71,7 @@
                                                 {{ __('Already registered?') }}
                                             </a> --}}
 
-                                            <button type="submit" class="btn btn-primary ml-4">
+                                            <button type="submit" class="btn btn-sm btn-primary ml-4">
                                                 {{ __('Register') }}
                                             </button>
                                         </div>
