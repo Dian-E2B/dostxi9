@@ -105,4 +105,13 @@
                 event.preventDefault();
             }
         });
+
+        document.addEventListener('livewire:load', function() {
+            Livewire.on('closeModal', function() {
+                var modal = new bootstrap.Modal(document.getElementById('endorsedmodal'));
+                modal.hide();
+                $('.modal-backdrop').remove();
+                $('body').removeClass('modal-open');
+            });
+        });
     </script>

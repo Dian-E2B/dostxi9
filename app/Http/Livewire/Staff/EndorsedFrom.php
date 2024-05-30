@@ -97,10 +97,15 @@ class EndorsedFrom extends Component
             $this->alert('success', 'Data saved successfully!');
         }
 
-        $this->emit('closeModal');
-        $this->reset();
+        $this->dispatchBrowserEvent('closeModal');
+        $this->listenForCloseModalEvent();
     }
-
+    private function listenForCloseModalEvent()
+    {
+        $this->dispatchBrowserEvent('closeModal', function () {
+            $this->reset(); // Reset the component state after the modal is closed
+        });
+    }
 
     public function render()
     {
