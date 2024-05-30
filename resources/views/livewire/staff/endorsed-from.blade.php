@@ -4,7 +4,7 @@
     </button>
     {{--  @dd($getprogram); --}}
     {{-- ENDORSED MODAL --}}
-    <div class="modal fade" id="endorsedmodal" tabindex="-1" aria-labelledby="endorsedmodalLabel" aria-hidden="true">
+    <div class="modal fade" data-bs-keyboard="false" data-bs-backdrop="static" id="endorsedmodal" tabindex="-1" aria-labelledby="endorsedmodalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content ">
                 <div class="modal-header">
@@ -21,19 +21,19 @@
                                 </div>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1">Firstname:</span>
-                                    <input type="text" class="form-control" wire:model.defer="Firstname" name="Firstname" aria-label="Firstname" aria-describedby="basic-addon1">
+                                    <input required type="text" class="form-control" wire:model.defer="Firstname" name="Firstname" aria-label="Firstname" aria-describedby="basic-addon1">
                                 </div>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1">Middlename:</span>
-                                    <input type="text" class="form-control" wire:model.defer="Middlename" name="Middlename" aria-label="Middlename" aria-describedby="basic-addon1">
+                                    <input required type="text" class="form-control" wire:model.defer="Middlename" name="Middlename" aria-label="Middlename" aria-describedby="basic-addon1">
                                 </div>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1">Surname:</span>
-                                    <input type="text" class="form-control" wire:model.defer="Surname" aria-describedby="basic-addon1">
+                                    <input required type="text" class="form-control" wire:model.defer="Surname" aria-describedby="basic-addon1">
                                 </div>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1">Birthdate:</span>
-                                    <input type="text" class="form-control" wire:model.defer="Birthdate" name="Birthdate" aria-label="Birthdate" aria-describedby="basic-addon1">
+                                    <input required type="text" class="form-control" wire:model.defer="Birthdate" name="Birthdate" aria-label="Birthdate" aria-describedby="basic-addon1">
                                 </div>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1">Program:</span>
@@ -57,16 +57,16 @@
                             <div class="col">
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1">Email:</span>
-                                    <input type="text" class="form-control" placeholder="" wire:model.defer="Email" aria-describedby="basic-addon1">
+                                    <input required type="text" class="form-control" placeholder="" wire:model.defer="Email" aria-describedby="basic-addon1">
                                 </div>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1">LVDCaccount:</span>
-                                    <input type="text" class="form-control" placeholder="" wire:model.defer="LVDCaccount" aria-label="Surname" aria-describedby="basic-addon1">
+                                    <input required type="text" class="form-control" placeholder="" wire:model.defer="LVDCaccount" aria-label="Surname" aria-describedby="basic-addon1">
                                 </div>
 
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1">AppID:</span>
-                                    <input type="text" class="form-control" placeholder="" wire:model.defer="appid" aria-describedby="basic-addon1">
+                                    <input required type="text" class="form-control" placeholder="" wire:model.defer="appid" aria-describedby="basic-addon1">
                                 </div>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1">Gender:</span>
@@ -79,7 +79,7 @@
                                 </div>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1">Mobile:</span>
-                                    <input type="text" class="form-control" placeholder="" wire:model.defer="mobile" aria-describedby="basic-addon1" id="mobile">
+                                    <input required type="text" class="form-control" placeholder="" wire:model.defer="mobile" aria-describedby="basic-addon1" id="mobile">
 
                                 </div>
                                 <div class="input-group mb-3">
@@ -91,7 +91,7 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button id="closemodal" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Save changes</button>
                     </div>
                 </form>
@@ -106,12 +106,10 @@
             }
         });
 
-        document.addEventListener('livewire:load', function() {
-            Livewire.on('closeModal', function() {
-                var modal = new bootstrap.Modal(document.getElementById('endorsedmodal'));
-                modal.hide();
-                $('.modal-backdrop').remove();
-                $('body').removeClass('modal-open');
+        document.addEventListener('DOMContentLoaded', function() {
+            var myModal = new bootstrap.Modal(document.getElementById('endorsedmodal'), {
+                keyboard: false, // Disables closing with ESC key
+                backdrop: false // Keeps the backdrop static
             });
         });
     </script>

@@ -32,15 +32,16 @@ class EndorsedFrom extends Component
         'Middlename' => 'nullable|string|max:255',
         'Surname' => 'required|string|max:255',
         'Birthdate' => 'required|date',
-        'Email' => 'required|email',
+        'Email' => 'required',
         'LVDCaccount' => 'nullable|string|max:255',
         'appid' => 'nullable|string|max:255',
         'program' => 'required', // Add the appropriate validation rule for program selection
         'gender' => 'required', // Add the appropriate validation rule for gender selection
-        'spasno' => 'required|string|max:255',
-        'mobile' => 'required|numeric', // Numeric validation rule for mobile
-        'year' => 'required|string|max:255',
-        'strand' => 'required|string|max:255',
+        'Birthdate' => 'required',
+        'spasno' => 'required',
+        'mobile' => 'required', // Numeric validation rule for mobile
+        'year' => 'required',
+        'strand' => 'required',
     ];
 
 
@@ -80,7 +81,7 @@ class EndorsedFrom extends Component
             'mobile' => $this->mobile,
             'year' => $this->year,
             'strand' => $this->strand,
-            'scholar_status_id' => 2, //ongoing?
+            'scholar_status_id' => 1, //ongoing?
             'endorsed_status' => 1,
         ]);
 
@@ -95,16 +96,15 @@ class EndorsedFrom extends Component
         ]);
         if ($insertdata && $insertdata2 &&  $createacc) {
             $this->alert('success', 'Data saved successfully!');
+        } else {
+            $this->alert('error', 'Not Saved!');
         }
 
-        $this->dispatchBrowserEvent('closeModal');
-        $this->listenForCloseModalEvent();
-    }
-    private function listenForCloseModalEvent()
-    {
-        $this->dispatchBrowserEvent('closeModal', function () {
-            $this->reset(); // Reset the component state after the modal is closed
-        });
+        /*  $this->emit('closeModal'); */
+        /*  $this->dispatchBrowserEvent('log', [
+            'msg' => 'Your log message',
+            'level' => 'info' // or 'error', 'warn', etc.
+        ]); */
     }
 
     public function render()
