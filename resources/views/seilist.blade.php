@@ -135,9 +135,7 @@
                             </div>
                             <div class=" col">
                                 <div class="d-flex justify-content-end">
-                                    <button type="button" class="btn rounded-pill" data-bs-toggle="modal" style="background-color: #0D47A1; color: snow;" data-bs-target="#endorsedmodal">
-                                        Endorsed
-                                    </button>
+                                    @livewire('staff.endorsed-from')
                                 </div>
                             </div>
 
@@ -290,79 +288,19 @@
             </div>
         </div>
     </div>
-
-
-    {{-- ENDORSED MODAL --}}
-    <div class="modal fade" id="endorsedmodal" tabindex="-1" aria-labelledby="endorsedmodalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="endorsedmodalLabel">Endorsed from other region</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col">
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon1">Firstname:</span>
-                                <input type="text" class="form-control" placeholder="Firstname" name="Firstname" aria-label="Firstname" aria-describedby="basic-addon1">
-                            </div>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon1">Middlename:</span>
-                                <input type="text" class="form-control" placeholder="Middlename" name="Middlename" aria-label="Middlename" aria-describedby="basic-addon1">
-                            </div>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon1">Surname:</span>
-                                <input type="text" class="form-control" placeholder="Surname" name="Surname" aria-label="Surname" aria-describedby="basic-addon1">
-                            </div>
-
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon1">Birthdate:</span>
-                                <input type="text" class="form-control" placeholder="Birthdate" name="Birthdate" aria-label="Birthdate" aria-describedby="basic-addon1">
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon1">Email:</span>
-                                <input type="text" class="form-control" placeholder="" name="Firstname" aria-label="Firstname" aria-describedby="basic-addon1">
-                            </div>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon1">Birthdate:</span>
-                                <input type="text" class="form-control" placeholder="" name="Middlename" aria-label="Middlename" aria-describedby="basic-addon1">
-                            </div>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon1">LDVaccount:</span>
-                                <input type="text" class="form-control" placeholder="" name="Surname" aria-label="Surname" aria-describedby="basic-addon1">
-                            </div>
-
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon1">AppID:</span>
-                                <input type="text" class="form-control" placeholder="" name="Birthdate" aria-label="Birthdate" aria-describedby="basic-addon1">
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    @endsection
+@endsection
 
 
 
 
 
 
-    @section('scripts')
-        <script src="https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-1.13.8/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/date-1.5.1/fc-4.3.0/fh-3.4.0/r-2.5.0/sc-2.3.0/sp-2.2.0/sl-1.7.0/datatables.min.js"></script>
-        <script>
-            var dataTableUrl = "{{ route('seilistviewajax') }}";
-            var getSeirecord = "{{ url('/get-seilistrecord/') }}";
-            var saveSeirecord = "{{ url('/savechangesseilist/') }}";
-        </script>
-        <script type="text/javascript" src="{{ asset('js/seilist.js') }}"></script>
-    @endsection
+@section('scripts')
+    <script src="https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-1.13.8/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/date-1.5.1/fc-4.3.0/fh-3.4.0/r-2.5.0/sc-2.3.0/sp-2.2.0/sl-1.7.0/datatables.min.js"></script>
+    <script>
+        var dataTableUrl = "{{ route('seilistviewajax') }}";
+        var getSeirecord = "{{ url('/get-seilistrecord/') }}";
+        var saveSeirecord = "{{ url('/savechangesseilist/') }}";
+    </script>
+    <script type="text/javascript" src="{{ url('js/seilist.js') }}"></script>
+@endsection
